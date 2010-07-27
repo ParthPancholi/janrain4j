@@ -7,4 +7,7 @@
     <name>janrain4j</name>
     <description>A Java library for the Janrain API</description>
     <url>http://code.google.com/p/janrain4j/</url>
+    <modules>
+    	<module>janrain4j-core</module>
+    </modules>
 </project>
