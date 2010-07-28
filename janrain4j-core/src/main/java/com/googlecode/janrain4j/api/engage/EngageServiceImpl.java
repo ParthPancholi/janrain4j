@@ -14,6 +14,8 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +23,14 @@ import java.util.List;
 
 public class EngageServiceImpl implements EngageService {
 
+    EngageServiceConfig config = null;
+    
     EngageServiceImpl() {
-        // TODO
+        this.config = withDefaults();
     }
     
     EngageServiceImpl(EngageServiceConfig config) {
-        // TODO
+        this.config = config;
     }
     
     public Profile authInfo(String token) {
