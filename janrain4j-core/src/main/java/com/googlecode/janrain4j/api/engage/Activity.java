@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+/**
+ * @author Marcel Overdijk
+ */
 public class Activity {
 
 }

@@ -14,13 +14,22 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
+
+/**
+ * @author Marcel Overdijk
+ */
 public class EngageServiceFactory {
 
     public static EngageService getEngageService() {
-        return new EngageServiceImpl();
+        return new EngageServiceImpl(withDefaults());
     }
     
     public static EngageService getEngageService(EngageServiceConfig config) {
         return new EngageServiceImpl(config);
     }
+    
+    // public static EngageService getEngageService(String apiKey) {
+    //    return new EngageServiceImpl(withApiKey(apiKey));
+    // }
 }
