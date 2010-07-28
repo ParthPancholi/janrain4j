@@ -14,20 +14,17 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Marcel Overdijk
+ */
 public class EngageServiceImpl implements EngageService {
 
     EngageServiceConfig config = null;
-    
-    EngageServiceImpl() {
-        this.config = withDefaults();
-    }
     
     EngageServiceImpl(EngageServiceConfig config) {
         this.config = config;

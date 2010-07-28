@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Marcel Overdijk
+ */
 public interface EngageService {
 
     public Profile authInfo(String token);

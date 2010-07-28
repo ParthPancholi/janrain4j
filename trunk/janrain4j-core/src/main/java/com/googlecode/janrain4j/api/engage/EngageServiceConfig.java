@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+/**
+ * @author Marcel Overdijk
+ */
 public class EngageServiceConfig {
 
     private String apiKey;
@@ -30,6 +33,7 @@ public class EngageServiceConfig {
     public static class Builder {
         
         public static EngageServiceConfig withDefaults() {
+            // TODO try to retrieve apiKey from system property/properties file
             return new EngageServiceConfig();
         }
         
