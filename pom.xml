@@ -9,5 +9,6 @@
     <url>http://code.google.com/p/janrain4j/</url>
     <modules>
     	<module>janrain4j-core</module>
+    	<module>janrain4j-spring</module>
     </modules>
 </project>
