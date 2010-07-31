@@ -14,15 +14,33 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * @author Marcel Overdijk
+ * @since 1.0
  */
-public class EngageServiceImpl implements EngageService {
+class EngageServiceImpl implements EngageService {
 
     EngageServiceConfig config = null;
     
@@ -30,13 +48,13 @@ public class EngageServiceImpl implements EngageService {
         this.config = config;
     }
     
-    public Profile authInfo(String token) {
+    public UserData authInfo(String token) {
         return authInfo(token, false);
     }
     
-    public Profile authInfo(String token, boolean extended) {
+    public UserData authInfo(String token, boolean extended) {
         // TODO
-        Profile profile = new Profile();
+        UserData profile = new UserData();
         return profile;
     }
     
@@ -45,9 +63,22 @@ public class EngageServiceImpl implements EngageService {
         List<Contact> contacts = new ArrayList<Contact>();
         return contacts;
     }
+
+    public UserData getUserData(String identifier) {
+        return getUserData(identifier, false);
+    }
+
+    public UserData getUserData(String identifier, boolean extended) {
+        // TODO
+        UserData profile = new UserData();
+        return profile;
+    }
     
     public void setStatus(String identifier, String status) {
-        // TODO
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("identifier", identifier);
+        params.put("status", status);
+        apiCall("set_status", params);
     }
     
     public void map(String identifier, String primaryKey) {
@@ -55,7 +86,11 @@ public class EngageServiceImpl implements EngageService {
     }
     
     public void map(String identifier, String primaryKey, boolean overwrite) {
-        // TODO
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("identifier", identifier);
+        params.put("primaryKey", primaryKey);
+        params.put("overwrite", Boolean.toString(overwrite));
+        apiCall("map", params);
     }
 
     public void unmap(String primaryKey) {
@@ -75,7 +110,12 @@ public class EngageServiceImpl implements EngageService {
     }
     
     protected void unmap(String identifier, boolean allIdentifiers, String primaryKey, boolean unlink) {
-        // TODO
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("identifier", identifier);
+        params.put("all_identifiers", Boolean.toString(allIdentifiers));
+        params.put("primaryKey", primaryKey);
+        params.put("unlink", Boolean.toString(unlink));
+        apiCall("unmap", params);
     }
     
     public List<String> mappings(String primaryKey) {
@@ -101,5 +141,70 @@ public class EngageServiceImpl implements EngageService {
     
     public void setAuthProviders(List<String> providers) {
         // TODO
+    }
+    
+    private Element apiCall(String method, Map<String, String> partialQuery) {
+        
+        Map<String, String> query = new HashMap<String, String>();
+        
+        if (partialQuery != null) {
+            query.putAll(partialQuery);
+        }
+
+        query.put("format", "xml");
+        query.put("apiKey", config.getApiKey());
+        
+        try {
+            StringBuffer sb = new StringBuffer();
+            for (Iterator<Map.Entry<String, String>> it = query.entrySet().iterator(); it.hasNext();) {
+                if (sb.length() > 0)
+                    sb.append("&");
+
+                Map.Entry<String, String> e = (Map.Entry<String, String>)it.next();
+                sb.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"));
+                sb.append("=");
+                sb.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
+            }
+            String data = sb.toString();
+            
+            URL url = new URL(config.getApiUrl() + "/" + method);
+            
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.connect();
+            
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            out.write(data);
+            out.close();
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setIgnoringElementContentWhitespace(true);
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(conn.getInputStream());
+            
+            Element rsp = (Element) doc.getFirstChild();
+            if (!rsp.getAttribute("stat").equals("ok")) {
+                throw new RuntimeException("Unexpected API error");
+            }
+            return rsp;
+        }
+        catch (UnsupportedEncodingException e) {
+            // TODO
+        }
+        catch (MalformedURLException e) {
+            // TODO
+        }
+        catch (IOException e) {
+            // TODO
+        }
+        catch (ParserConfigurationException e) {
+            // TODO
+        }
+        catch (SAXException e) {
+            // TODO
+        }
+        
+        return null;
     }
 }
