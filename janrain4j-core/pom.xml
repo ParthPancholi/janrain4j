@@ -12,4 +12,17 @@
     <name>janrain4j-core</name>
     <description>A Java library for the Janrain API</description>
     <url>http://code.google.com/p/janrain4j/</url>
+    <build>
+    	<plugins>
+    		<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                </configuration>
+    		</plugin>
+    	</plugins>
+    </build>
 </project>

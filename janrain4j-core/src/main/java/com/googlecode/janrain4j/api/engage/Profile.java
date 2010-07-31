@@ -15,7 +15,10 @@
 package com.googlecode.janrain4j.api.engage;
 
 /**
+ * TODO
+ * 
  * @author Marcel Overdijk
+ * @since 1.0
  */
 public class Profile {
 
