@@ -12,6 +12,19 @@
     <name>janrain4j-spring</name>
     <description>A Java library for the Janrain API</description>
     <url>http://code.google.com/p/janrain4j/</url>
+    <build>
+    	<plugins>
+    		<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-compiler-plugin</artifactId>
+    			<version>2.3.1</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+    		</plugin>
+    	</plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>com.googlecode.janrain4j</groupId>
