@@ -56,15 +56,7 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     }
 
     public void afterPropertiesSet() throws Exception {
-        
-        EngageServiceConfig config = withDefaults();
-        
-        // set api key
-        if (this.apiKey != null && this.apiKey.length() > 0) {
-            config.apiKey(this.apiKey);
-        }
-        
-        // create engage service
+        EngageServiceConfig config = withApiKey(this.apiKey);
         this.engageService = EngageServiceFactory.getEngageService(config);
     }
     
