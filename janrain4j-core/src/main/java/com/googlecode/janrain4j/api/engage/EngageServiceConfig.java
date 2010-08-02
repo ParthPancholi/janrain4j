@@ -55,42 +55,42 @@ public class EngageServiceConfig {
     }
     
     /**
-     * @return The Janrain Engage API key.
+     * Returns the Janrain Engage API key.
      */
     public String getApiKey() {
         return apiKey;
     }
     
     /**
-     * @return The Janrain Engage API url.
+     * Returns the Janrain Engage API url.
      */
     public String getApiUrl() {
         return apiUrl;
     }
     
     /**
-     * @return The connect timeout.
+     * Returns the connect timeout.
      */
     public int getConnectTimeout() {
         return connectTimeout;
     }
     
     /**
-     * @return The read timeout.
+     * Returns the read timeout.
      */
     public int getReadTimeout() {
         return readTimeout;
     }
     
     /**
-     * @return The proxy.
+     * Returns the proxy.
      */
     public Proxy getProxy() {
         return proxy;
     }
     
     /**
-     * @return The authenticator.
+     * Returns the authenticator.
      */
     public Authenticator getAuthenticator() {
         return authenticator;
