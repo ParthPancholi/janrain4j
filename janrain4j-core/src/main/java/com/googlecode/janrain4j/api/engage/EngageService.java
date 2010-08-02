@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * TODO
+ * The <code>EngageService</code> provides access to the Janrain Engage API.
  * 
  * @author Marcel Overdijk
  * @see <a href="http://rpxnow.com/docs">Janrain Engage Documentation</a>
@@ -32,10 +32,12 @@ public interface EngageService {
      * 
      * @param token The token parameter received at your "token_url".
      * @return The user data Janrain Engage knows about the user logging into your website.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public UserData authInfo(String token);
+    public UserData authInfo(String token) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get information about the user currently signing in to your web application.
@@ -43,19 +45,23 @@ public interface EngageService {
      * @param token The token parameter received at your "token_url".
      * @param extended 'true' or 'false'(default). Return the extended Simple Registration and HCard data in addition to the normalized Portable Contacts format.
      * @return The user data with Janrain Engage knows about the user logging into your website.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public UserData authInfo(String token, boolean extended);
+    public UserData authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Retrieve a list of contacts for an identifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
      * 
      * @return The <a href="http://portablecontacts.net/">Portable Contacts</a> data representing the address book contents.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_get_contacts">Janrain Engage API Documentation: get_contacts</a>
      * @since 1.0
      */
-    public List<Contact> getContacts();
+    public List<Contact> getContacts() throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -63,10 +69,12 @@ public interface EngageService {
      * 
      * @param identifier The identifier returned from a previous {@link #authInfo(String)} API call.
      * @return The user data Janrain Engage knows about the user.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public UserData getUserData(String identifier);
+    public UserData getUserData(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -75,20 +83,24 @@ public interface EngageService {
      * @param @param identifier The identifier returned from a previous {@link #authInfo(String)} API call.
      * @param extended 'true' or 'false'(default). Return the extended Simple Registration and HCard data in addition to the normalized Portable Contacts format.
      * @return The user data Janrain Engage knows about the user.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public UserData getUserData(String identifier, boolean extended);
+    public UserData getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Set the status message for the account corresponding to an identifier.
      * 
      * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
      * @param status The status message to set. No length restriction on the status is imposed by Janrain Engage, but some providers may truncate it implicitly (e.g., Twitter).
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_set_status">Janrain Engage API Documentation: set_status</a>
      * @since 1.0
      */
-    public void setStatus(String identifier, String status);
+    public void setStatus(String identifier, String status) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Map an OpenID identifier to a primary key. Future logins by this owner 
@@ -102,10 +114,12 @@ public interface EngageService {
      * 
      * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
      * @param primaryKey The primary key from your users table, as a string.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_map">Janrain Engage API Documentation: map</a>
      * @since 1.0
      */
-    public void map(String identifier, String primaryKey);
+    public void map(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Map an OpenID identifier to a primary key. Future logins by this owner 
@@ -120,19 +134,23 @@ public interface EngageService {
      * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
      * @param primaryKey The primary key from your users table, as a string.
      * @param overwrite 'true'(default) or 'false'. If 'false', only create the mapping if one does not already exist for the specified identifier.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_map">Janrain Engage API Documentation: map</a>
      * @since 1.0
      */
-    public void map(String identifier, String primaryKey, boolean overwrite);
+    public void map(String identifier, String primaryKey, boolean overwrite) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Remove (unmap) all OpenID identifiers from a primary key.
      * 
      * @param primaryKey The primary key from your users table, as a string.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_unmap">Janrain Engage API Documentation: unmap</a>
      * @since 1.0
      */
-    public void unmap(String primaryKey);
+    public void unmap(String primaryKey) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Remove (unmap) all OpenID identifiers from a primary key, and optionally 
@@ -140,20 +158,24 @@ public interface EngageService {
      * 
      * @param primaryKey The primary key from your users table, as a string.
      * @param unlink 'true' or 'false'(default). If 'true', unlink your application from the user's account with the provider.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_unmap">Janrain Engage API Documentation: unmap</a>
      * @since 1.0
      */
-    public void unmap(String primaryKey, boolean unlink);
+    public void unmap(String primaryKey, boolean unlink) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Remove (unmap) an OpenID identifier from a primary key.
      * 
      * @param identifier The identifier returned from the auth_info API call.
      * @param primaryKey The primary key from your users table, as a string.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_unmap">Janrain Engage API Documentation: unmap</a>
      * @since 1.0
      */
-    public void unmap(String identifier, String primaryKey);
+    public void unmap(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Remove (unmap) an OpenID identifier from a primary key, and optionally 
@@ -162,39 +184,47 @@ public interface EngageService {
      * @param identifier The identifier returned from the auth_info API call.
      * @param primaryKey The primary key from your users table, as a string.
      * @param unlink 'true' or 'false'(default). If 'true', unlink your application from the user's account with the provider.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_unmap">Janrain Engage API Documentation: unmap</a>
      * @since 1.0
      */
-    public void unmap(String identifier, String primaryKey, boolean unlink);
+    public void unmap(String identifier, String primaryKey, boolean unlink) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get all stored mappings for a particular primary key.
      * 
      * @param primaryKey The primary key from your users table, as a string.
      * @return All stored mappings for a particular primary key.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_mappings">Janrain Engage API Documentation: mappings</a>
      * @since 1.0
      */
-    public List<String> mappings(String primaryKey);
+    public List<String> mappings(String primaryKey) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get all stored mappings for the application.
      * 
      * @return All stored mappings for the application.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_all_mappings">Janrain Engage API Documentation: all_mappings</a>
      * @since 1.0
      */
-    public List<Mapping> allMappings();
+    public List<Mapping> allMappings() throws EngageFailureException, ErrorResponeException;
     
     /**
      * Post an activity update to the user's activity stream.
      * 
      * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
      * @param activity The activity structure.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_activity">Janrain Engage API Documentation: activity</a>
      * @since 1.0
      */
-    public void activity(String identifier, Activity activity);
+    public void activity(String identifier, Activity activity) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get statistics for your application in a zip file.
@@ -202,17 +232,21 @@ public interface EngageService {
      * @param start The start date.
      * @param end The end date.
      * @return A URL to access the analytics file.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_analytics">Janrain Engage API Documentation: analytics</a>
      * @since 1.0
      */
-    public URL analytics(Date start, Date end);
+    public URL analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Set the providers that will be displayed in the <a href="http://rpxnow.com/docs#sign-in_interface">Sign-in</a> Interface.
      * 
      * @param providers A list of provider names.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_set_auth_providers">Janrain Engage API Documentation: set_auth_providers</a>
      * @since 1.0
      */
-    public void setAuthProviders(List<String> providers);
+    public void setAuthProviders(List<String> providers) throws EngageFailureException, ErrorResponeException;
 }

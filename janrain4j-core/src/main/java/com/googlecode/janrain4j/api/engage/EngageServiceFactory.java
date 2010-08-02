@@ -17,17 +17,29 @@ package com.googlecode.janrain4j.api.engage;
 import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
 
 /**
- * TODO
+ * Creates {@link EngageService} implementations.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 public class EngageServiceFactory {
 
+    /**
+     * Creates an <code>EngageService</code> using the provided config.
+     * 
+     * @param config The <code>EngageServiceConfig</code>.
+     * @return An <code>EngageService</code> instance.
+     */
     public static EngageService getEngageService(EngageServiceConfig config) {
         return new EngageServiceImpl(config);
     }
     
+    /**
+     * Creates an <code>EngageService</code> using the provided API key.
+     * 
+     * @param apiKey Your Janrain Engage API key.
+     * @return An <code>EngageService</code> instance.
+     */
     public static EngageService getEngageService(String apiKey) {
         return new EngageServiceImpl(withApiKey(apiKey));
     }
