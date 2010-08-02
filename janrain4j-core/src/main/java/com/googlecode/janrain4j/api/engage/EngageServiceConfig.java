@@ -42,9 +42,6 @@ import java.net.Proxy;
  */
 public class EngageServiceConfig {
 
-    /**
-     * The default Janrain Engage API url: <code>https://rpxnow.com/api/v2</code>
-     */
     public static final String DEFAULT_API_URL = "https://rpxnow.com/api/v2";
     
     private String apiKey;
