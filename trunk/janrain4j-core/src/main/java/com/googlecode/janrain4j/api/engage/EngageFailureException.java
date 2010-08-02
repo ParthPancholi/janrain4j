@@ -14,16 +14,22 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.util.List;
-
 /**
- * TODO
+ * <code>EngageFailureException</code> is thrown when any unknown error occurs 
+ * while communicating with the Janrain Engage API.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class Mapping {
+public class EngageFailureException extends RuntimeException {
 
-    private String primaryKey;
-    private List<String> identifiers;
+    private static final long serialVersionUID = 1448290185758961585L;
+    
+    public EngageFailureException(String message) {
+        super(message);
+    }
+    
+    public EngageFailureException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

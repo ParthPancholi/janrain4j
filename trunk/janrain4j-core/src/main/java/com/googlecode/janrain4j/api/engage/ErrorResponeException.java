@@ -14,16 +14,25 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.util.List;
-
 /**
- * TODO
+ * <code>ErrorResponeException</code> is thrown when the Janrain Engage API 
+ * returns an error response.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class Mapping {
+public class ErrorResponeException extends RuntimeException {
 
-    private String primaryKey;
-    private List<String> identifiers;
+    private static final long serialVersionUID = 8537265678248536892L;
+    
+    private String code;
+    
+    public ErrorResponeException(String code, String message) {
+        super(message);
+        this.code = code;
+    }
+    
+    public String getCode() {
+        return code;
+    }
 }

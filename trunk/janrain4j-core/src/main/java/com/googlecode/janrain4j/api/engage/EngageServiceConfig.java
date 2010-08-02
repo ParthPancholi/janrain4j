@@ -29,15 +29,11 @@ import java.net.Proxy;
  * ...
  * 
  * // specify API key
- * String key = ...
- * EngageServiceConfig config = withApiKey(key);
+ * EngageServiceConfig config = withApiKey(apiKey);
  * 
  * // specify API key and proxy
- * String key = ...
- * String host = ...
- * int port = ...
  * Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(host, port));
- * EngageServiceConfig config = withApiKey(key).proxy(proxy);
+ * EngageServiceConfig config = withApiKey(apiKey).proxy(proxy);
  * </pre>
  * </blockquote>
  * 
