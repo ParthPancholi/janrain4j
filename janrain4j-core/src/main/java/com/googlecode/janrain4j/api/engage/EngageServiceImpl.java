@@ -149,6 +149,12 @@ class EngageServiceImpl implements EngageService {
     
     private Element apiCall(String method, Map<String, String> partialParams) {
         
+        // TODO
+        // build params
+        // get connection
+        // post request
+        // get response
+        
         Map<String, String> params = new HashMap<String, String>();
         
         if (partialParams != null) {
