@@ -17,6 +17,7 @@ package com.googlecode.janrain4j.api.engage;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,6 +32,9 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -143,24 +147,24 @@ class EngageServiceImpl implements EngageService {
         // TODO
     }
     
-    private Element apiCall(String method, Map<String, String> partialQuery) {
+    private Element apiCall(String method, Map<String, String> partialParams) {
         
-        Map<String, String> query = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<String, String>();
         
-        if (partialQuery != null) {
-            query.putAll(partialQuery);
+        if (partialParams != null) {
+            params.putAll(partialParams);
         }
 
-        query.put("format", "xml");
-        query.put("apiKey", config.getApiKey());
+        params.put("format", "xml");
+        params.put("apiKey", config.getApiKey());
         
         try {
             StringBuffer sb = new StringBuffer();
-            for (Iterator<Map.Entry<String, String>> it = query.entrySet().iterator(); it.hasNext();) {
+            for (Iterator<Map.Entry<String, String>> it = params.entrySet().iterator(); it.hasNext();) {
                 if (sb.length() > 0)
                     sb.append("&");
 
-                Map.Entry<String, String> e = (Map.Entry<String, String>)it.next();
+                Map.Entry<String, String> e = (Map.Entry<String, String>) it.next();
                 sb.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"));
                 sb.append("=");
                 sb.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
@@ -168,43 +172,71 @@ class EngageServiceImpl implements EngageService {
             String data = sb.toString();
             
             URL url = new URL(config.getApiUrl() + "/" + method);
+            HttpURLConnection connection = getConnection(url);
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.connect();
             
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.connect();
-            
-            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             out.write(data);
             out.close();
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setIgnoringElementContentWhitespace(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(conn.getInputStream());
+            Document doc = db.parse(connection.getInputStream());
             
             Element rsp = (Element) doc.getFirstChild();
             if (!rsp.getAttribute("stat").equals("ok")) {
-                throw new RuntimeException("Unexpected API error");
+                
+                XPathFactory factory = XPathFactory.newInstance();
+                XPath xpath = factory.newXPath();
+                
+                String code = xpath.evaluate("err/@code", rsp);
+                String msg = xpath.evaluate("err/@msg", rsp);
+                throw new ErrorResponeException(code, msg); // TODO
             }
             return rsp;
         }
         catch (UnsupportedEncodingException e) {
-            // TODO
+            throw new EngageFailureException("Unexpected encoding error", e);
         }
         catch (MalformedURLException e) {
-            // TODO
+            throw new EngageFailureException("Unexpected URL error", e);
         }
         catch (IOException e) {
-            // TODO
+            throw new EngageFailureException("Unexpected IO error", e);
         }
         catch (ParserConfigurationException e) {
-            // TODO
+            throw new EngageFailureException("Unexpected XML error", e);
         }
         catch (SAXException e) {
-            // TODO
+            throw new EngageFailureException("Unexpected XML error", e);
+        }
+        catch (XPathExpressionException e) {
+            throw new EngageFailureException("Unexpected XPath error", e);
+        }
+    }
+    
+    private HttpURLConnection getConnection(URL url) throws IOException {
+        
+        HttpURLConnection connection = null;
+        
+        if (config.getProxy() == null) {
+            connection = (HttpURLConnection) url.openConnection();
+        }
+        else {
+            connection = (HttpURLConnection) url.openConnection(config.getProxy());
+            if (config.getAuthenticator() != null)
+                Authenticator.setDefault(config.getAuthenticator());
         }
         
-        return null;
+        if (config.getConnectTimeout() > 0)
+            connection.setConnectTimeout(config.getConnectTimeout());
+        
+        if (config.getReadTimeout() > 0)
+            connection.setReadTimeout(config.getReadTimeout());
+        
+        return connection;
     }
 }
