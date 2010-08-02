@@ -6,7 +6,26 @@
     <packaging>pom</packaging>
     <name>janrain4j</name>
     <description>A Java library for the Janrain API</description>
-    <url>http://code.google.com/p/janrain4j/</url>
+    <url>http://janrain4j.googlecode.com</url>
+    <issueManagement>
+    	<system>Google Code</system>
+    	<url>http://code.google.com/p/janrain4j/issues/list</url>
+    </issueManagement>
+    <mailingLists>
+        <mailingList>
+            <name>janrain4j</name>
+            <subscribe>janrain4j-subscribe@googlegroups.com</subscribe>
+            <unsubscribe>janrain4j+unsubscribe@googlegroups.com</unsubscribe>
+            <post>janrain4j@googlegroups.com</post>
+            <archive>http://groups.google.com/group/janrain4j</archive>
+        </mailingList>
+    </mailingLists>
+    <scm>
+    	<connection>scm:svn:http://janrain4j.googlecode.com/svn/trunk/</connection>
+    	<developerConnection>scm:svn:https://janrain4j.googlecode.com/svn/trunk/</developerConnection>
+    	<tag>HEAD</tag>
+    	<url>http://janrain4j.googlecode.com/svn/trunk/</url>
+    </scm>
     <modules>
     	<module>janrain4j-core</module>
     	<module>janrain4j-spring</module>
