@@ -17,7 +17,7 @@ package com.googlecode.janrain4j.api.engage;
 import java.util.List;
 
 /**
- * TODO
+ * Represents a stored mapping.
  * 
  * @author Marcel Overdijk
  * @since 1.0
@@ -26,4 +26,34 @@ public class Mapping {
 
     private String primaryKey;
     private List<String> identifiers;
+    
+    Mapping() {
+    }
+    
+    Mapping(String primaryKey, List<String> identifiers) {
+        this.primaryKey = primaryKey;
+        this.identifiers = identifiers;
+    }
+    
+    /**
+     * Returns the primary key.
+     */
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+    
+    void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    /**
+     * Returns the list of identifiers assigned to the primary key.
+     */
+    public List<String> getIdentifiers() {
+        return identifiers;
+    }
+    
+    void setIdentifiers(List<String> identifiers) {
+        this.identifiers = identifiers;
+    }
 }
