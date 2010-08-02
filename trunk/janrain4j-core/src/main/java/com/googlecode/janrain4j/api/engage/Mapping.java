@@ -30,11 +30,6 @@ public class Mapping {
     Mapping() {
     }
     
-    Mapping(String primaryKey, List<String> identifiers) {
-        this.primaryKey = primaryKey;
-        this.identifiers = identifiers;
-    }
-    
     /**
      * Returns the primary key.
      */

@@ -23,12 +23,15 @@ package com.googlecode.janrain4j.api.engage;
 public class UserData {
 
     private Profile profile;
-
+    
+    UserData() {
+    }
+    
     public Profile getProfile() {
         return profile;
     }
-
-    public void setProfile(Profile profile) {
+    
+    void setProfile(Profile profile) {
         this.profile = profile;
     }
 }
