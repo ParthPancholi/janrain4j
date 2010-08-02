@@ -58,6 +58,7 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     public void afterPropertiesSet() throws Exception {
         EngageServiceConfig config = withApiKey(this.apiKey);
         this.engageService = EngageServiceFactory.getEngageService(config);
+        // TODO set proxy + authenticator
     }
     
     /**
