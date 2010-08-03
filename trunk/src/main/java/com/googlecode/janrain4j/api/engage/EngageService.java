@@ -80,7 +80,7 @@ public interface EngageService {
      * Obtain an up-to-date copy of a user's profile as previously returned by 
      * an {@link #authInfo(String)} API call.
      * 
-     * @param @param identifier The identifier returned from a previous {@link #authInfo(String)} API call.
+     * @param identifier The identifier returned from a previous {@link #authInfo(String)} API call.
      * @param extended 'true' or 'false'(default). Return the extended Simple Registration and HCard data in addition to the normalized Portable Contacts format.
      * @return The user data Janrain Engage knows about the user.
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.

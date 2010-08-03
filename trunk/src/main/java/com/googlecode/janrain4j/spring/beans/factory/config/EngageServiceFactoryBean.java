@@ -24,8 +24,8 @@ import com.googlecode.janrain4j.api.engage.EngageServiceConfig;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 
 /**
- * {@link org.springframework.beans.factory.FactoryBean} that creates an 
- * {@link com.googlecode.janrain4j.api.engage.EngageService}.
+ * Spring {@link org.springframework.beans.factory.FactoryBean} that creates 
+ * an {@link com.googlecode.janrain4j.api.engage.EngageService}.
  *
  * Example configuration:
  * 
@@ -33,8 +33,7 @@ import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
  *   p:apiKey="your-engage-api-key" /&gt;</pre>
  * 
  * @author Marcel Overdijk
- * @see {@link EngageService}
- * @see org.springframework.beans.factory.FactoryBean
+ * @see com.googlecode.janrain4j.api.engage.EngageService
  * @since 1.0
  */
 public class EngageServiceFactoryBean implements FactoryBean<EngageService>, InitializingBean {
@@ -62,9 +61,9 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     }
     
     /**
-     * Set your Janrain Engage API key.
+     * Sets the Janrain Engage API key.
      * 
-     * @param apiKey The Janrain Engage API key.
+     * @param apiKey Your Janrain Engage API key.
      */
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
