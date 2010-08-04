@@ -41,6 +41,7 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     private EngageService engageService;
     
     private String apiKey;
+    private String apiUrl;
     
     public EngageService getObject() throws Exception {
         return this.engageService;
@@ -56,6 +57,10 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
 
     public void afterPropertiesSet() throws Exception {
         EngageServiceConfig config = withApiKey(this.apiKey);
+        
+        if (this.apiUrl != null && this.apiUrl.length() > 0)
+            config.apiUrl(apiUrl);
+        
         this.engageService = EngageServiceFactory.getEngageService(config);
         // TODO set proxy + authenticator
     }
@@ -67,5 +72,14 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
      */
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+    
+    /**
+     * Sets the Janrain Engage API url.
+     * 
+     * @param apiUrl The base API url.
+     */
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 }

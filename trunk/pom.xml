@@ -45,6 +45,7 @@
                 <configuration>
                     <charset>UTF-8</charset>
                     <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                    <excludePackageNames>com.googlecode.janrain4j.internal.*</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>
