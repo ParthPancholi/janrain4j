@@ -12,61 +12,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.internal.http;
 
 /**
- * TODO example code out of date
- * User-configurable properties of the {@link EngageService}. The recommended 
- * way to instantiate a <code>EngageServiceConfig</code> object is to 
- * statically import {@link EngageServiceConfig.Builder}.* and invoke a static 
- * creation method followed by an instance mutator (if needed):
- * <blockquote>
- * <pre>
- * import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
- * 
- * ...
- * 
- * // specify API key
- * EngageServiceConfig config = withApiKey(apiKey);
- * 
- * // specify API key and proxy
- * Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(host, port));
- * EngageServiceConfig config = withApiKey(apiKey).proxy(proxy);
- * </pre>
- * </blockquote>
+ * User-configurable properties of the {@link HttpClientImpl}.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EngageServiceConfig {
+public class HttpClientConfig {
 
-    public static final String DEFAULT_API_URL = "https://rpxnow.com/api/v2";
-    
-    private String apiKey;
-    private String apiUrl;
     private String proxyHost;
     private int proxyPort;
     private String proxyUsername;
     private String proxyPassword;
     private int connectTimeout;
     private int readTimeout;
-    private Class httpClientClass; // TODO continue work
     
-    private EngageServiceConfig() {
+    private HttpClientConfig() {
     }
     
     /**
-     * Returns the Janrain Engage API key.
+     * Indicates if the connection needs to use a proxy. 
+     * 
+     * @return A boolean indicating if the connection needs to use a proxy.
      */
-    public String getApiKey() {
-        return apiKey;
+    public boolean useProxy() {
+        return (proxyHost != null && proxyHost.length() > 0);
     }
     
     /**
-     * Returns the Janrain Engage API url.
+     * Indicates if the connection needs to use proxy authentication. 
+     * 
+     * @return A boolean indicating if the connection needs to use proxy authentication.
      */
-    public String getApiUrl() {
-        return apiUrl;
+    public boolean useProxyAuthentication() {
+        return (proxyUsername != null && proxyUsername.length() > 0);
     }
     
     /**
@@ -112,34 +93,12 @@ public class EngageServiceConfig {
     }
     
     /**
-     * Sets the Janrain Engage API key.
-     * 
-     * @param apiKey Your Janrain Engage API key.
-     * @return <code>this</code> (for chaining)
-     */
-    public EngageServiceConfig apiKey(String apiKey) {
-        this.apiKey = apiKey;
-        return this;
-    }
-    
-    /**
-     * Sets the Janrain Engage API url.
-     * 
-     * @param apiUrl The base API url.
-     * @return <code>this</code> (for chaining)
-     */
-    public EngageServiceConfig apiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
-        return this;
-    }
-    
-    /**
      * Sets the proxy host.
      * 
      * @param host The proxy host.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyHost(String host) {
+    public HttpClientConfig proxyHost(String host) {
         this.proxyHost = host;
         return this;
     }
@@ -150,7 +109,7 @@ public class EngageServiceConfig {
      * @param port The proxy port.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyPort(int port) {
+    public HttpClientConfig proxyPort(int port) {
         this.proxyPort = port;
         return this;
     }
@@ -161,7 +120,7 @@ public class EngageServiceConfig {
      * @param username The proxy username.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyUsername(String username) {
+    public HttpClientConfig proxyUsername(String username) {
         this.proxyUsername = username;
         return this;
     }
@@ -172,7 +131,7 @@ public class EngageServiceConfig {
      * @param password The proxy password.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyPassword(String password) {
+    public HttpClientConfig proxyPassword(String password) {
         this.proxyPassword = password;
         return this;
     }
@@ -187,7 +146,7 @@ public class EngageServiceConfig {
      * @param timeout The connect timeout value in milliseconds.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig connectTimeout(int timeout) {
+    public HttpClientConfig connectTimeout(int timeout) {
         this.connectTimeout = timeout;
         return this;
     }
@@ -202,13 +161,13 @@ public class EngageServiceConfig {
      * @param timeout The read timeout value in milliseconds.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig readTimeout(int timeout) {
+    public HttpClientConfig readTimeout(int timeout) {
         this.readTimeout = timeout;
         return this;
     }
     
     /**
-     * Contains static creation methods for {@link EngageServiceConfig}.
+     * Contains static creation methods for {@link HttpClientConfig}.
      *  
      * @author Marcel Overdijk
      * @since 1.0
@@ -218,20 +177,8 @@ public class EngageServiceConfig {
         private Builder() {
         }
         
-        private static EngageServiceConfig withDefaults() {
-            EngageServiceConfig config = new EngageServiceConfig();
-            config.apiUrl = DEFAULT_API_URL;
-            return config;
-        }
-        
-        /**
-         * Create an {@link EngageServiceConfig} with the given API key.
-         * 
-         * @param apiKey Your Janrain Engage API key.
-         * @return The newly created <code>EngageServiceConfig</code> instance.
-         */
-        public static EngageServiceConfig withApiKey(String apiKey) {
-            return withDefaults().apiKey(apiKey);
+        public static HttpClientConfig withDefaults() {
+            return new HttpClientConfig();
         }
     }
 }

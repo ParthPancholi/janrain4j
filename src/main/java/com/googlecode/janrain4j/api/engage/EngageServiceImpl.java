@@ -14,23 +14,15 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import static com.googlecode.janrain4j.internal.http.HttpClientConfig.Builder.*;
+
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
@@ -40,16 +32,33 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import com.googlecode.janrain4j.internal.http.HttpClient;
+import com.googlecode.janrain4j.internal.http.HttpClientImpl;
+import com.googlecode.janrain4j.internal.http.HttpFailureException;
+import com.googlecode.janrain4j.internal.http.HttpResponse;
+
 /**
  * @author Marcel Overdijk
  * @since 1.0
  */
 class EngageServiceImpl implements EngageService {
 
-    EngageServiceConfig config = null;
+    private EngageServiceConfig config;
+    private HttpClient httpClient;
     
     EngageServiceImpl(EngageServiceConfig config) {
         this.config = config;
+        
+        // TODO make configurable in EngageServiceConfig
+        // TODO refactor HttpClientConfig to HttpClientOptions?
+        this.httpClient = new HttpClientImpl(withDefaults()
+                .proxyHost(config.getProxyHost())
+                .proxyPort(config.getProxyPort())
+                .proxyUsername(config.getProxyUsername())
+                .proxyPassword(config.getProxyPassword())
+                .readTimeout(config.getReadTimeout())
+                .connectTimeout(config.getConnectTimeout())
+        );
     }
     
     public UserData authInfo(String token) {
@@ -149,12 +158,6 @@ class EngageServiceImpl implements EngageService {
     
     private Element apiCall(String method, Map<String, String> partialParams) {
         
-        // TODO
-        // build params
-        // get connection
-        // post request
-        // get response
-        
         Map<String, String> params = new HashMap<String, String>();
         
         if (partialParams != null) {
@@ -165,34 +168,12 @@ class EngageServiceImpl implements EngageService {
         params.put("apiKey", config.getApiKey());
         
         try {
-            StringBuffer sb = new StringBuffer();
-            for (Iterator<Map.Entry<String, String>> it = params.entrySet().iterator(); it.hasNext();) {
-                if (sb.length() > 0)
-                    sb.append("&");
-
-                Map.Entry<String, String> e = (Map.Entry<String, String>) it.next();
-                sb.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"));
-                sb.append("=");
-                sb.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
-            }
-            String data = sb.toString();
+            String url = config.getApiUrl() + "/" + method;
+            HttpResponse httpResponse = httpClient.post(url, params);
             
-            URL url = new URL(config.getApiUrl() + "/" + method);
-            HttpURLConnection connection = getConnection(url);
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            connection.connect();
+            Document document = httpResponse.getBodyAsDocument();
             
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
-            out.write(data);
-            out.close();
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            dbf.setIgnoringElementContentWhitespace(true);
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(connection.getInputStream());
-            
-            Element rsp = (Element) doc.getFirstChild();
+            Element rsp = (Element) document.getFirstChild();
             if (!rsp.getAttribute("stat").equals("ok")) {
                 
                 XPathFactory factory = XPathFactory.newInstance();
@@ -200,49 +181,15 @@ class EngageServiceImpl implements EngageService {
                 
                 String code = xpath.evaluate("err/@code", rsp);
                 String msg = xpath.evaluate("err/@msg", rsp);
-                throw new ErrorResponeException(code, msg); // TODO
+                throw new ErrorResponeException(code, msg);
             }
             return rsp;
         }
-        catch (UnsupportedEncodingException e) {
-            throw new EngageFailureException("Unexpected encoding error", e);
-        }
-        catch (MalformedURLException e) {
-            throw new EngageFailureException("Unexpected URL error", e);
-        }
-        catch (IOException e) {
-            throw new EngageFailureException("Unexpected IO error", e);
-        }
-        catch (ParserConfigurationException e) {
-            throw new EngageFailureException("Unexpected XML error", e);
-        }
-        catch (SAXException e) {
-            throw new EngageFailureException("Unexpected XML error", e);
+        catch (HttpFailureException e) {
+            throw new EngageFailureException("Unexpected HTTP response error", e);
         }
         catch (XPathExpressionException e) {
             throw new EngageFailureException("Unexpected XPath error", e);
         }
-    }
-    
-    private HttpURLConnection getConnection(URL url) throws IOException {
-        
-        HttpURLConnection connection = null;
-        
-        if (config.getProxy() == null) {
-            connection = (HttpURLConnection) url.openConnection();
-        }
-        else {
-            connection = (HttpURLConnection) url.openConnection(config.getProxy());
-            if (config.getAuthenticator() != null)
-                Authenticator.setDefault(config.getAuthenticator());
-        }
-        
-        if (config.getConnectTimeout() > 0)
-            connection.setConnectTimeout(config.getConnectTimeout());
-        
-        if (config.getReadTimeout() > 0)
-            connection.setReadTimeout(config.getReadTimeout());
-        
-        return connection;
     }
 }
