@@ -14,20 +14,23 @@
  */
 package com.googlecode.janrain4j.internal.http;
 
+import java.util.Map;
+
 /**
- * User-configurable properties of the {@link HttpClientImpl}.
+ * User-configurable properties of the {@link HttpClient}.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 public class HttpClientConfig {
 
-    private String proxyHost;
-    private int proxyPort;
-    private String proxyUsername;
-    private String proxyPassword;
-    private int connectTimeout;
-    private int readTimeout;
+    private String proxyHost = null;
+    private int proxyPort = -1;
+    private String proxyUsername = null;
+    private String proxyPassword = null;
+    private int connectTimeout = -1;
+    private int readTimeout = -1;
+    private Map<?, ?> additionalProperties; 
     
     private HttpClientConfig() {
     }
@@ -92,46 +95,32 @@ public class HttpClientConfig {
         return readTimeout;
     }
     
-    /**
-     * Sets the proxy host.
-     * 
-     * @param host The proxy host.
-     * @return <code>this</code> (for chaining)
-     */
-    public HttpClientConfig proxyHost(String host) {
-        this.proxyHost = host;
-        return this;
+    public Map<?, ?> getAdditionalProperties() {
+        return additionalProperties;
     }
     
     /**
-     * Sets the proxy port.
+     * Sets the proxy.
      * 
+     * @param host The proxy host.
      * @param port The proxy port.
      * @return <code>this</code> (for chaining)
      */
-    public HttpClientConfig proxyPort(int port) {
+    public HttpClientConfig proxy(String host, int port) {
+        this.proxyHost = host;
         this.proxyPort = port;
         return this;
     }
     
     /**
-     * Sets the proxy username.
+     * Sets the proxy authentication.
      * 
      * @param username The proxy username.
-     * @return <code>this</code> (for chaining)
-     */
-    public HttpClientConfig proxyUsername(String username) {
-        this.proxyUsername = username;
-        return this;
-    }
-    
-    /**
-     * Sets the proxy password.
-     * 
      * @param password The proxy password.
      * @return <code>this</code> (for chaining)
      */
-    public HttpClientConfig proxyPassword(String password) {
+    public HttpClientConfig proxyAuthentication(String username, String password) {
+        this.proxyUsername = username;
         this.proxyPassword = password;
         return this;
     }
@@ -167,6 +156,17 @@ public class HttpClientConfig {
     }
     
     /**
+     * Sets the additional properties.
+     * 
+     * @param properties The additional properties.
+     * @return <code>this</code> (for chaining)
+     */
+    public HttpClientConfig additionalProperties(Map<?, ?> properties) {
+        this.additionalProperties = properties;
+        return this;
+    }
+    
+    /**
      * Contains static creation methods for {@link HttpClientConfig}.
      *  
      * @author Marcel Overdijk
@@ -177,8 +177,62 @@ public class HttpClientConfig {
         private Builder() {
         }
         
-        public static HttpClientConfig withDefaults() {
-            return new HttpClientConfig();
+        /**
+         * Create an {@link HttpClientConfig} with the given proxy.
+         * 
+         * @param host The proxy host.
+         * @param port The proxy port.
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */
+        public static HttpClientConfig proxy(String host, int port) {
+            return new HttpClientConfig().proxy(host, port);
+        }
+        
+        /**
+         * Create an {@link HttpClientConfig} with the given proxy authentication.
+         * 
+         * @param username The proxy username.
+         * @param password The proxy password.
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */        
+        public static HttpClientConfig proxyAuthentication(String username, String password) {
+            return new HttpClientConfig().proxyAuthentication(username, password);
+        }
+        
+        /**
+         * Create an {@link HttpClientConfig} with the given connect timeout.
+         * <p>
+         * 0 implies that the option is disabled (i.e., timeout of infinity).
+         * </p>
+         * 
+         * @param timeout The connect timeout value in milliseconds.
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */  
+        public static HttpClientConfig connectTimeout(int timeout) {
+            return new HttpClientConfig().connectTimeout(timeout);
+        }
+        
+        /**
+         * Create an {@link HttpClientConfig} with the given read timeout.
+         * <p>
+         * 0 implies that the option is disabled (i.e., timeout of infinity).
+         * </p>
+         * 
+         * @param timeout The connect timeout value in milliseconds.
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */  
+        public static HttpClientConfig readTimeout(int timeout) {
+            return new HttpClientConfig().readTimeout(timeout);
+        }
+        
+        /**
+         * Create an {@link HttpClientConfig} with the given additional properties.
+         * 
+         * @param properties The additional properties.
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */  
+        public static HttpClientConfig additionalProperties(Map<?, ?> properties) {
+            return new HttpClientConfig().additionalProperties(properties);
         }
     }
 }

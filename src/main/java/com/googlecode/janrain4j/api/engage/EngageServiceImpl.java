@@ -16,6 +16,8 @@ package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.internal.http.HttpClientConfig.Builder.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,17 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import com.googlecode.janrain4j.internal.http.HttpClient;
-import com.googlecode.janrain4j.internal.http.HttpClientImpl;
+import com.googlecode.janrain4j.internal.http.HttpClientConfig;
 import com.googlecode.janrain4j.internal.http.HttpFailureException;
 import com.googlecode.janrain4j.internal.http.HttpResponse;
 
@@ -49,16 +49,30 @@ class EngageServiceImpl implements EngageService {
     EngageServiceImpl(EngageServiceConfig config) {
         this.config = config;
         
-        // TODO make configurable in EngageServiceConfig
-        // TODO refactor HttpClientConfig to HttpClientOptions?
-        this.httpClient = new HttpClientImpl(withDefaults()
-                .proxyHost(config.getProxyHost())
-                .proxyPort(config.getProxyPort())
-                .proxyUsername(config.getProxyUsername())
-                .proxyPassword(config.getProxyPassword())
-                .readTimeout(config.getReadTimeout())
-                .connectTimeout(config.getConnectTimeout())
-        );
+        try {
+            Constructor<? extends HttpClient> constructor = config.getHttpClientImpl().getConstructor(HttpClientConfig.class);
+            this.httpClient = (HttpClient) constructor.newInstance(proxy(config.getProxyHost(), config.getProxyPort())
+                    .proxyAuthentication(config.getProxyUsername(), config.getProxyPassword())
+                    .connectTimeout(config.getConnectTimeout())
+                    .readTimeout(config.getReadTimeout())
+                    .additionalProperties(config.getHttpClientImplAdditionalProperties())
+            );
+        }
+        catch (SecurityException e) {
+            // TODO
+        }
+        catch (NoSuchMethodException e) {
+            // TODO
+        }
+        catch (InstantiationException e) {
+            // TODO
+        }
+        catch (IllegalAccessException e) {
+            // TODO
+        }
+        catch (InvocationTargetException e) {
+            // TODO
+        }
     }
     
     public UserData authInfo(String token) {
@@ -171,7 +185,7 @@ class EngageServiceImpl implements EngageService {
             String url = config.getApiUrl() + "/" + method;
             HttpResponse httpResponse = httpClient.post(url, params);
             
-            Document document = httpResponse.getBodyAsDocument();
+            Document document = httpResponse.getContentAsDocument();
             
             Element rsp = (Element) document.getFirstChild();
             if (!rsp.getAttribute("stat").equals("ok")) {
@@ -181,8 +195,10 @@ class EngageServiceImpl implements EngageService {
                 
                 String code = xpath.evaluate("err/@code", rsp);
                 String msg = xpath.evaluate("err/@msg", rsp);
+                
                 throw new ErrorResponeException(code, msg);
             }
+            
             return rsp;
         }
         catch (HttpFailureException e) {

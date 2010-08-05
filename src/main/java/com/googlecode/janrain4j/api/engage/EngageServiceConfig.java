@@ -14,8 +14,12 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.util.Map;
+
+import com.googlecode.janrain4j.internal.http.HttpClient;
+import com.googlecode.janrain4j.internal.http.HttpClientImpl;
+
 /**
- * TODO example code out of date
  * User-configurable properties of the {@link EngageService}. The recommended 
  * way to instantiate a <code>EngageServiceConfig</code> object is to 
  * statically import {@link EngageServiceConfig.Builder}.* and invoke a static 
@@ -30,8 +34,15 @@ package com.googlecode.janrain4j.api.engage;
  * EngageServiceConfig config = withApiKey(apiKey);
  * 
  * // specify API key and proxy
- * Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(host, port));
- * EngageServiceConfig config = withApiKey(apiKey).proxy(proxy);
+ * EngageServiceConfig config = withApiKey(apiKey).proxy(proxyHost, proxyPort);
+ * 
+ * // overview of all configurable properties
+ * EngageServiceConfig config = withApiKey(apiKey)
+ *         .apiUrl(apiUrl)
+ *         .proxy(proxyHost, proxyPort)
+ *         .proxyAuthentication(proxyUsername, proxyPassword)
+ *         .connectTimeout(connectTimeout)
+ *         .readTimeout(readTimeout)
  * </pre>
  * </blockquote>
  * 
@@ -40,19 +51,25 @@ package com.googlecode.janrain4j.api.engage;
  */
 public class EngageServiceConfig {
 
+    /**
+     * The default Janrain Engage API url.
+     */
     public static final String DEFAULT_API_URL = "https://rpxnow.com/api/v2";
     
-    private String apiKey;
-    private String apiUrl;
-    private String proxyHost;
-    private int proxyPort;
-    private String proxyUsername;
-    private String proxyPassword;
-    private int connectTimeout;
-    private int readTimeout;
-    private Class httpClientClass; // TODO continue work
+    private String apiKey = null;
+    private String apiUrl = null;
+    private String proxyHost = null;
+    private int proxyPort = -1;
+    private String proxyUsername = null;
+    private String proxyPassword = null;
+    private int connectTimeout = -1;
+    private int readTimeout = -1;
+    private Class<? extends HttpClient> httpClientImpl;
+    private Map<?, ?> httpClientImplAdditionalProperties;
     
     private EngageServiceConfig() {
+        apiUrl = DEFAULT_API_URL;
+        httpClientImpl = HttpClientImpl.class;
     }
     
     /**
@@ -112,6 +129,21 @@ public class EngageServiceConfig {
     }
     
     /**
+     * Returns the <code>HttpClient</code> implementation class.
+     */
+    public Class<? extends HttpClient> getHttpClientImpl() {
+        return httpClientImpl;
+    }
+    
+    /**
+     * Returns the additional properties to be passed on to the 
+     * <code>HttpClient</code> implementation class.
+     */
+    public Map<?, ?> getHttpClientImplAdditionalProperties() {
+        return httpClientImplAdditionalProperties;
+    }
+    
+    /**
      * Sets the Janrain Engage API key.
      * 
      * @param apiKey Your Janrain Engage API key.
@@ -134,45 +166,26 @@ public class EngageServiceConfig {
     }
     
     /**
-     * Sets the proxy host.
+     * Sets the proxy.
      * 
      * @param host The proxy host.
-     * @return <code>this</code> (for chaining)
-     */
-    public EngageServiceConfig proxyHost(String host) {
-        this.proxyHost = host;
-        return this;
-    }
-    
-    /**
-     * Sets the proxy port.
-     * 
      * @param port The proxy port.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyPort(int port) {
+    public EngageServiceConfig proxy(String host, int port) {
+        this.proxyHost = host;
         this.proxyPort = port;
         return this;
     }
     
     /**
-     * Sets the proxy username.
+     * Sets the proxy authentication.
      * 
      * @param username The proxy username.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxyUsername(String username) {
+    public EngageServiceConfig proxyAuthentication(String username, String password) {
         this.proxyUsername = username;
-        return this;
-    }
-    
-    /**
-     * Sets the proxy password.
-     * 
-     * @param password The proxy password.
-     * @return <code>this</code> (for chaining)
-     */
-    public EngageServiceConfig proxyPassword(String password) {
         this.proxyPassword = password;
         return this;
     }
@@ -208,6 +221,30 @@ public class EngageServiceConfig {
     }
     
     /**
+     * Sets the <code>HttpClient</code> implementation class to use for making 
+     * HTTP requests.
+     * 
+     * @param clazz The <code>HttpClient</code> implementation class.
+     * @return <code>this</code> (for chaining)
+     */
+    public EngageServiceConfig httpClientImpl(Class<? extends HttpClient> clazz) {
+        this.httpClientImpl = clazz;
+        return this;
+    }
+    
+    /**
+     * Sets the additional properties to be passed on to the 
+     * <code>HttpClient</code> implementation class.
+     * 
+     * @param properties The additional properties.
+     * @return <code>this</code> (for chaining)
+     */
+    public EngageServiceConfig httpClientImplAdditionalProperties(Map<?, ?> properties) {
+        this.httpClientImplAdditionalProperties = properties;
+        return this;
+    }
+    
+    /**
      * Contains static creation methods for {@link EngageServiceConfig}.
      *  
      * @author Marcel Overdijk
@@ -219,9 +256,7 @@ public class EngageServiceConfig {
         }
         
         private static EngageServiceConfig withDefaults() {
-            EngageServiceConfig config = new EngageServiceConfig();
-            config.apiUrl = DEFAULT_API_URL;
-            return config;
+            return new EngageServiceConfig();
         }
         
         /**

@@ -14,9 +14,7 @@
  */
 package com.googlecode.janrain4j.internal.http;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
@@ -24,57 +22,36 @@ import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
- * TODO
+ * {@link HttpClient} implementation that uses the Java standard 
+ * {@link HttpURLConnection}.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 public class HttpClientImpl extends AbstractHttpClient {
 
-    /**
-     * The default buffer size to use for {@link #toByteArray(InputStream)}.
-     */
-    private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
-    
-    public HttpClientImpl() {
-    }
-    
     public HttpClientImpl(HttpClientConfig config) {
         super(config);
     }
     
     public HttpResponse post(String url, Map<String, String> parameters) throws HttpFailureException {
         try {
-            StringBuffer sb = new StringBuffer();
-            for (Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator(); it.hasNext();) {
-                if (sb.length() > 0)
-                    sb.append("&");
-    
-                Map.Entry<String, String> e = (Map.Entry<String, String>) it.next();
-                sb.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"));
-                sb.append("=");
-                sb.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
-            }
-            String data = sb.toString();
-            
             HttpURLConnection connection = getConnection(url);
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.connect();
             
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-            writer.write(data);
+            writer.write(encodeParamters(parameters));
             writer.close();
             
-            byte[] body = toByteArray(connection.getInputStream());
+            int repsonseCode = connection.getResponseCode();
+            byte[] content = toByteArray(connection.getInputStream());
             
-            // TODO refactor to use HttpResponse interface?
-            return new HttpResponseImpl(connection.getResponseCode(), body);
+            return new HttpResponseImpl(repsonseCode, content);
         }
         catch (IOException e) {
             throw new HttpFailureException("Unexpected IO error", e);
@@ -89,11 +66,8 @@ public class HttpClientImpl extends AbstractHttpClient {
         
         HttpURLConnection connection = null;
         
-        if (useProxy()) {
-            connection = (HttpURLConnection) url.openConnection();
-        }
-        else {
-            if (useProxyAuthentication()) {
+        if (config.getProxyHost() != null && config.getProxyHost().length() > 0) {
+            if (config.getProxyUsername() != null && config.getProxyUsername().length() > 0) {
                 Authenticator.setDefault(new Authenticator() {
                     @Override
                     protected PasswordAuthentication
@@ -110,36 +84,18 @@ public class HttpClientImpl extends AbstractHttpClient {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(config.getProxyHost(), config.getProxyPort()));
             connection = (HttpURLConnection) url.openConnection(proxy);
         }
+        else {
+            connection = (HttpURLConnection) url.openConnection();
+        }
         
-        if (config.getConnectTimeout() > 0) {
+        if (config.getConnectTimeout() > -1) {
             connection.setConnectTimeout(config.getConnectTimeout());
         }
         
-        if (config.getReadTimeout() > 0) {
+        if (config.getReadTimeout() > -1) {
             connection.setReadTimeout(config.getReadTimeout());
         }
         
         return connection;
-    }
-    
-    /**
-     * Get the contents of an <code>InputStream</code> as a <code>byte[]</code>.
-     * <p>
-     * This method buffers the input internally, so there is no need to use a
-     * <code>BufferedInputStream</code>.
-     * 
-     * @param input The <code>InputStream</code> to read from.
-     * @return The requested byte array
-     * @throws IOException If an I/O error occurs.
-     * @see <a href="http://commons.apache.org/io/api-release/org/apache/commons/io/IOUtils.html#toByteArray(java.io.InputStream)">Apache Commons IO</a>
-     */
-    protected byte[] toByteArray(InputStream input) throws IOException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-        int n = 0;
-        while (-1 != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-        }
-        return output.toByteArray();
     }
 }

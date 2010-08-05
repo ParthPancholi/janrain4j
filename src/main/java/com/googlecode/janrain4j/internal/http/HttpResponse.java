@@ -17,16 +17,31 @@ package com.googlecode.janrain4j.internal.http;
 import org.w3c.dom.Document;
 
 /**
- * TODO
+ * Encapsulates the results of a HTTP request made via the {@link HttpClient}.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 public interface HttpResponse {
 
-    public int getStatusCode() throws HttpFailureException;
+    /**
+     * Returns the HTTP response code from the request (e.g. 200, 500, etc.).
+     * 
+     * @throws HttpFailureException If any error occurs while interacting with the response.
+     */
+    public int getResponseCode() throws HttpFailureException;
     
-    public byte[] getBody() throws HttpFailureException;
+    /**
+     * Returns the content of the request as <code>byte[]</code>.
+     * 
+     * @throws HttpFailureException If any error occurs while interacting with the response.
+     */
+    public byte[] getContent() throws HttpFailureException;
     
-    public Document getBodyAsDocument() throws HttpFailureException;
+    /**
+     * Returns the content of the request as XML <code>Document</code>.
+     * 
+     * @throws HttpFailureException If any error occurs while interacting with the response.
+     */
+    public Document getContentAsDocument() throws HttpFailureException;
 }

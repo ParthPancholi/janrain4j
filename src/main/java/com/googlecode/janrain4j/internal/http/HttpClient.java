@@ -17,12 +17,20 @@ package com.googlecode.janrain4j.internal.http;
 import java.util.Map;
 
 /**
- * TODO
+ * Provides a way to execute HTTP requests.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 public interface HttpClient {
 
+    /**
+     * Executes the specified request and returns its response.
+     * 
+     * @param url The URL for the request.
+     * @param parameters The HTTP parameters for the request.
+     * @return The HTTP response.
+     * @throws HttpFailureException If any error occurs while executing the request.
+     */
     public HttpResponse post(String url, Map<String, String> parameters) throws HttpFailureException;
 }
