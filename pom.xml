@@ -49,15 +49,16 @@
                 </configuration>
             </plugin>
             <plugin>
-            	<groupId>org.codehaus.groovy.maven</groupId>
+            	<groupId>org.codehaus.gmaven</groupId>
             	<artifactId>gmaven-plugin</artifactId>
-            	<version>1.0</version>
+            	<version>1.2</version>
             	<executions>
             		<execution>
             			<goals>
             				<goal>testCompile</goal>
             			</goals>
                         <configuration>
+                            <providerSelection>1.7</providerSelection>
                             <sources>
                                 <fileset>
                                     <directory>${project.basedir}/src/test/java</directory>
@@ -87,14 +88,8 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
+            <artifactId>groovy-all</artifactId>
             <version>1.7.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy.maven</groupId>
-            <artifactId>gmaven-mojo</artifactId>
-            <version>1.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
