@@ -48,6 +48,28 @@
                     <excludePackageNames>com.googlecode.janrain4j.internal.*</excludePackageNames>
                 </configuration>
             </plugin>
+            <plugin>
+            	<groupId>org.codehaus.groovy.maven</groupId>
+            	<artifactId>gmaven-plugin</artifactId>
+            	<version>1.0</version>
+            	<executions>
+            		<execution>
+            			<goals>
+            				<goal>testCompile</goal>
+            			</goals>
+                        <configuration>
+                            <sources>
+                                <fileset>
+                                    <directory>${project.basedir}/src/test/java</directory>
+                                    <includes>
+                                        <include>**/*.groovy</include>
+                                    </includes>
+                                </fileset>
+                            </sources>
+                        </configuration>
+            		</execution>
+            	</executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -67,6 +89,12 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
             <version>1.7.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy.maven</groupId>
+            <artifactId>gmaven-mojo</artifactId>
+            <version>1.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
