@@ -50,6 +50,7 @@ class EngageServiceImpl implements EngageService {
         this.config = config;
         
         try {
+            // create the http client implementation
             Constructor<? extends HttpClient> constructor = config.getHttpClientImpl().getConstructor(HttpClientConfig.class);
             this.httpClient = (HttpClient) constructor.newInstance(proxy(config.getProxyHost(), config.getProxyPort())
                     .proxyAuthentication(config.getProxyUsername(), config.getProxyPassword())
