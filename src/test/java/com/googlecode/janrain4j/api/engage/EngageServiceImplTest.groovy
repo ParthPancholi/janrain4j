@@ -8,7 +8,6 @@ class EngageServiceImplTest {
 
     @Test
     public void testMappings() {
-        // fail "Not yet implemented"
-        assertEquals(9, 3 * 3)
+        fail "Not yet implemented"
     }
 }
