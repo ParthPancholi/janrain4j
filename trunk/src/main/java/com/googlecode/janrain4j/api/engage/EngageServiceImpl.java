@@ -46,7 +46,7 @@ class EngageServiceImpl implements EngageService {
     private EngageServiceConfig config;
     private HttpClient httpClient;
     
-    EngageServiceImpl(EngageServiceConfig config) {
+    EngageServiceImpl(EngageServiceConfig config) throws EngageFailureException {
         this.config = config;
         
         try {
@@ -59,19 +59,19 @@ class EngageServiceImpl implements EngageService {
             );
         }
         catch (SecurityException e) {
-            // TODO
+            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
         }
         catch (NoSuchMethodException e) {
-            // TODO
+            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
         }
         catch (InstantiationException e) {
-            // TODO
+            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
         }
         catch (IllegalAccessException e) {
-            // TODO
+            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
         }
         catch (InvocationTargetException e) {
-            // TODO
+            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
         }
     }
     

@@ -14,8 +14,6 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
-
 /**
  * Creates {@link EngageService} implementations.
  * 
@@ -29,18 +27,9 @@ public class EngageServiceFactory {
      * 
      * @param config The <code>EngageServiceConfig</code>.
      * @return An <code>EngageService</code> instance.
+     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
-    public static EngageService getEngageService(EngageServiceConfig config) {
+    public static EngageService getEngageService(EngageServiceConfig config) throws EngageFailureException {
         return new EngageServiceImpl(config);
-    }
-    
-    /**
-     * Creates an <code>EngageService</code> using the provided API key.
-     * 
-     * @param apiKey Your Janrain Engage API key.
-     * @return An <code>EngageService</code> instance.
-     */
-    public static EngageService getEngageService(String apiKey) {
-        return new EngageServiceImpl(withApiKey(apiKey));
     }
 }
