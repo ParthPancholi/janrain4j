@@ -24,13 +24,21 @@ import java.util.Map;
  */
 public class HttpClientConfig {
 
-    private String proxyHost = null;
-    private int proxyPort = -1;
-    private String proxyUsername = null;
-    private String proxyPassword = null;
-    private int connectTimeout = -1;
-    private int readTimeout = -1;
-    private Map<?, ?> additionalProperties; 
+    public static final String DEFAULT_PROXY_HOST = null;
+    public static final int DEFAULT_PROXY_PORT = -1;
+    public static final String DEFAULT_PROXY_USERNAME = null;
+    public static final String DEFAULT_PROXY_PASSWORD = null;
+    public static final int DEFAULT_CONNECT_TIMEOUT = -1;
+    public static final int DEFAULT_READ_TIMEOUT = -1;
+    public static final Map<?, ?> DEFAULT_ADDITIONAL_PROPERTIES = null;
+    
+    private String proxyHost = DEFAULT_PROXY_HOST;
+    private int proxyPort = DEFAULT_PROXY_PORT;
+    private String proxyUsername = DEFAULT_PROXY_USERNAME;
+    private String proxyPassword = DEFAULT_PROXY_PASSWORD;
+    private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+    private int readTimeout = DEFAULT_READ_TIMEOUT;
+    private Map<?, ?> additionalProperties = DEFAULT_ADDITIONAL_PROPERTIES; 
     
     private HttpClientConfig() {
     }
@@ -178,14 +186,23 @@ public class HttpClientConfig {
         }
         
         /**
+         * Create an {@link HttpClientConfig} with default values.
+         * 
+         * @return The newly created <code>HttpClientConfig</code> instance.
+         */
+        public static HttpClientConfig withDefaults() {
+            return new HttpClientConfig();
+        }
+        
+        /**
          * Create an {@link HttpClientConfig} with the given proxy.
          * 
          * @param host The proxy host.
          * @param port The proxy port.
          * @return The newly created <code>HttpClientConfig</code> instance.
          */
-        public static HttpClientConfig proxy(String host, int port) {
-            return new HttpClientConfig().proxy(host, port);
+        public static HttpClientConfig withProxy(String host, int port) {
+            return withDefaults().proxy(host, port);
         }
         
         /**
@@ -195,8 +212,8 @@ public class HttpClientConfig {
          * @param password The proxy password.
          * @return The newly created <code>HttpClientConfig</code> instance.
          */        
-        public static HttpClientConfig proxyAuthentication(String username, String password) {
-            return new HttpClientConfig().proxyAuthentication(username, password);
+        public static HttpClientConfig withProxyAuthentication(String username, String password) {
+            return withDefaults().proxyAuthentication(username, password);
         }
         
         /**
@@ -208,8 +225,8 @@ public class HttpClientConfig {
          * @param timeout The connect timeout value in milliseconds.
          * @return The newly created <code>HttpClientConfig</code> instance.
          */  
-        public static HttpClientConfig connectTimeout(int timeout) {
-            return new HttpClientConfig().connectTimeout(timeout);
+        public static HttpClientConfig withConnectTimeout(int timeout) {
+            return withDefaults().connectTimeout(timeout);
         }
         
         /**
@@ -221,8 +238,8 @@ public class HttpClientConfig {
          * @param timeout The connect timeout value in milliseconds.
          * @return The newly created <code>HttpClientConfig</code> instance.
          */  
-        public static HttpClientConfig readTimeout(int timeout) {
-            return new HttpClientConfig().readTimeout(timeout);
+        public static HttpClientConfig withReadTimeout(int timeout) {
+            return withDefaults().readTimeout(timeout);
         }
         
         /**
@@ -231,8 +248,8 @@ public class HttpClientConfig {
          * @param properties The additional properties.
          * @return The newly created <code>HttpClientConfig</code> instance.
          */  
-        public static HttpClientConfig additionalProperties(Map<?, ?> properties) {
-            return new HttpClientConfig().additionalProperties(properties);
+        public static HttpClientConfig withAdditionalProperties(Map<?, ?> properties) {
+            return withDefaults().additionalProperties(properties);
         }
     }
 }

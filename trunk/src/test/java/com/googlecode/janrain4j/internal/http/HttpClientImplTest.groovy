@@ -12,16 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage
+package com.googlecode.janrain4j.internal.http
 
 import static org.junit.Assert.*
 
 import org.junit.Test
 
-class EngageServiceImplTest {
+class HttpClientImplTest {
 
     @Test
-    void testSomething() {
+    public void testSomething() {
         // TODO
         fail "Not yet implemented"
     }

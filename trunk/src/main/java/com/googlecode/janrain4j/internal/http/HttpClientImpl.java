@@ -70,8 +70,7 @@ public class HttpClientImpl extends AbstractHttpClient {
             if (config.getProxyUsername() != null && config.getProxyUsername().length() > 0) {
                 Authenticator.setDefault(new Authenticator() {
                     @Override
-                    protected PasswordAuthentication
-                    getPasswordAuthentication() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
                         if (getRequestorType().equals(RequestorType.PROXY)) {
                             return new PasswordAuthentication(config.getProxyUsername(), config.getProxyPassword().toCharArray());
                         }
