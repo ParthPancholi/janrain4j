@@ -21,6 +21,8 @@ import org.junit.Test
 
 class HttpClientConfigTest {
 
+    HttpClientConfig config = null
+    
     String proxyHost = "mydomain.com" 
     int proxyPort = 80
     String proxyUsername = "victoria"
@@ -31,7 +33,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithDefaults() {
-        HttpClientConfig config = withDefaults()
+        config = withDefaults()
         assertEquals HttpClientConfig.DEFAULT_PROXY_HOST, config.getProxyHost()
         assertEquals HttpClientConfig.DEFAULT_PROXY_PORT, config.getProxyPort()
         assertEquals HttpClientConfig.DEFAULT_PROXY_USERNAME, config.getProxyUsername()
@@ -43,7 +45,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithProxy() {
-        HttpClientConfig config = withProxy(proxyHost, proxyPort)
+        config = withProxy(proxyHost, proxyPort)
         assertEquals proxyHost, config.getProxyHost()
         assertEquals proxyPort, config.getProxyPort()
         assertEquals HttpClientConfig.DEFAULT_PROXY_USERNAME, config.getProxyUsername()
@@ -55,7 +57,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithPRoxyAuthentication() {
-        HttpClientConfig config = withProxyAuthentication(proxyUsername, proxyPassword);
+        config = withProxyAuthentication(proxyUsername, proxyPassword);
         assertEquals HttpClientConfig.DEFAULT_PROXY_HOST, config.getProxyHost()
         assertEquals HttpClientConfig.DEFAULT_PROXY_PORT, config.getProxyPort()
         assertEquals proxyUsername, config.getProxyUsername()
@@ -67,7 +69,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithConnectTimeout() {
-        HttpClientConfig config = withConnectTimeout(connectTimeout)
+        config = withConnectTimeout(connectTimeout)
         assertEquals HttpClientConfig.DEFAULT_PROXY_HOST, config.getProxyHost()
         assertEquals HttpClientConfig.DEFAULT_PROXY_PORT, config.getProxyPort()
         assertEquals HttpClientConfig.DEFAULT_PROXY_USERNAME, config.getProxyUsername()
@@ -79,7 +81,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithReadTimeout() {
-        HttpClientConfig config = withReadTimeout(readTimeout)
+        config = withReadTimeout(readTimeout)
         assertEquals HttpClientConfig.DEFAULT_PROXY_HOST, config.getProxyHost()
         assertEquals HttpClientConfig.DEFAULT_PROXY_PORT, config.getProxyPort()
         assertEquals HttpClientConfig.DEFAULT_PROXY_USERNAME, config.getProxyUsername()
@@ -91,7 +93,7 @@ class HttpClientConfigTest {
     
     @Test
     void testWithAdditionalProperties() {
-        HttpClientConfig config = withAdditionalProperties(additionalProperties)
+        config = withAdditionalProperties(additionalProperties)
         assertEquals HttpClientConfig.DEFAULT_PROXY_HOST, config.getProxyHost()
         assertEquals HttpClientConfig.DEFAULT_PROXY_PORT, config.getProxyPort()
         assertEquals HttpClientConfig.DEFAULT_PROXY_USERNAME, config.getProxyUsername()
@@ -102,8 +104,8 @@ class HttpClientConfigTest {
     }
     
     @Test
-    void testSetAllConfigs() {
-        HttpClientConfig config = withDefaults()
+    void testWithAllConfigOptions() {
+        config = withDefaults()
                 .proxy(proxyHost, proxyPort)
                 .proxyAuthentication(proxyUsername, proxyPassword)
                 .connectTimeout(connectTimeout)

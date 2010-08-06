@@ -33,6 +33,8 @@ import java.util.Map;
  */
 public class HttpClientImpl extends AbstractHttpClient {
 
+    private Authenticator authenticator = null;
+    
     public HttpClientImpl(HttpClientConfig config) {
         super(config);
     }
@@ -68,17 +70,19 @@ public class HttpClientImpl extends AbstractHttpClient {
         
         if (config.getProxyHost() != null && config.getProxyHost().length() > 0) {
             if (config.getProxyUsername() != null && config.getProxyUsername().length() > 0) {
-                Authenticator.setDefault(new Authenticator() {
+                authenticator = new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        if (getRequestorType().equals(RequestorType.PROXY)) {
+                        // TODO getRequestorType() returns null
+                        //if (getRequestorType().equals(RequestorType.PROXY)) {
                             return new PasswordAuthentication(config.getProxyUsername(), config.getProxyPassword().toCharArray());
-                        }
-                        else {
-                            return null;
-                        }
+                        //}
+                        //else {
+                        //    return null;
+                        //}
                     }
-                });
+                };
+                Authenticator.setDefault(authenticator);
             }
             Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(config.getProxyHost(), config.getProxyPort()));
             connection = (HttpURLConnection) url.openConnection(proxy);
