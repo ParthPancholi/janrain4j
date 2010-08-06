@@ -18,7 +18,7 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-class EngageServiceImplTest {
+class EngageServiceFactoryTest {
 
     @Test
     void testSomething() {
