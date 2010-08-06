@@ -23,31 +23,33 @@ import org.junit.Test
 
 class HttpResponseImplTest {
 
+    HttpResponse response = null
+    
     int responseCode = 200
     String plainCcontent = "Some plain content"
     String xmlContent = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok' />"
     
     @Test
     void testGetResponseCode() {
-        HttpResponse response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
+        response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
         assertEquals responseCode, response.getResponseCode()
     }
     
     @Test
     void testGetContent() {
-        HttpResponse response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
+        response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
         assertArrayEquals plainCcontent.bytes, response.getContent()
     }
     
     @Test
     void testGetContentAsDocumentWithXmlContent() {
-        HttpResponse response = new HttpResponseImpl(responseCode, xmlContent.bytes)
+        response = new HttpResponseImpl(responseCode, xmlContent.bytes)
         assertXMLEqual buildTestDocument(xmlContent), response.getContentAsDocument()
     }
     
     @Test(expected = HttpFailureException.class)
     void testGetContentAsDocumentWithPlainContent() {
-        HttpResponse response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
+        response = new HttpResponseImpl(responseCode, plainCcontent.bytes)
         def document = response.getContentAsDocument() // should fail as content is not a xml document
     }
 }

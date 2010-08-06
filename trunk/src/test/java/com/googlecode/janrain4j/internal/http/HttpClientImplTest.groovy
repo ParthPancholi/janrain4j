@@ -1,4 +1,10 @@
 /* Copyright 2010 Marcel Overdijk
+
+import java.net.HttpURLConnection;
+
+import java.net.HttpURLConnection;
+
+import java.sql.Connection;
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +20,110 @@
  */
 package com.googlecode.janrain4j.internal.http
 
+import static com.googlecode.janrain4j.internal.http.HttpClientConfig.Builder.*
 import static org.junit.Assert.*
 
+import org.junit.Before 
 import org.junit.Test
 
 class HttpClientImplTest {
 
-    @Test
-    public void testSomething() {
-        // TODO
-        fail "Not yet implemented"
+    HttpClientImpl client = null
+    
+    HttpClientConfig config = null
+    HttpURLConnection connection = null
+    
+    String url = "http://www.mydomain.com"
+    String proxyHost = "http://www.myproxy.com"
+    int proxyPort = 80
+    String proxyUsername = "victoria"
+    String proxyPassword = "secret"
+    int connectTimeout = 30000
+    int readTimeout = 60000
+    
+    @Before
+    void setUp() {
+        config = withDefaults()
     }
+    
+    @Test
+    public void testGetConnectionWithDefaults() {
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        assertFalse connection.usingProxy()
+        assertNull client.authenticator
+        assertEquals 0, connection.getConnectTimeout()
+        assertEquals 0, connection.getReadTimeout()
+    }
+    
+    @Test
+    public void testGetConnectionWithProxy() {
+        config.proxy proxyHost, proxyPort
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        assertTrue connection.usingProxy()
+        assertNull client.authenticator
+        assertEquals 0, connection.getConnectTimeout()
+        assertEquals 0, connection.getReadTimeout()
+    }
+    
+    @Test
+    public void testGetConnectionWithProxyAuthentication() {
+        config.proxy proxyHost, proxyPort
+        config.proxyAuthentication proxyUsername, proxyPassword
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        // TODO assertTrue connection.usingProxy()
+        assertNotNull client.authenticator
+        assertEquals proxyUsername, client.authenticator.getPasswordAuthentication().getUserName()
+        assertArrayEquals proxyPassword.toCharArray(), client.authenticator.getPasswordAuthentication().getPassword()
+        assertEquals 0, connection.getConnectTimeout()
+        assertEquals 0, connection.getReadTimeout()
+    }
+    
+    @Test
+    public void testGetConnectionWithConnectTimeout() {
+        config.connectTimeout connectTimeout
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        assertFalse connection.usingProxy()
+        assertNull client.authenticator
+        assertEquals connectTimeout, connection.getConnectTimeout()
+        assertEquals 0, connection.getReadTimeout()
+    }
+    
+    @Test
+    public void testGetConnectionWithReadTimeout() {
+        config.readTimeout readTimeout
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        assertFalse connection.usingProxy()
+        assertNull client.authenticator
+        assertEquals 0, connection.getConnectTimeout()
+        assertEquals readTimeout, connection.getReadTimeout()
+    }
+    
+    @Test
+    void testGetConnectionWithAllConfigOptions() {
+        config.proxy proxyHost, proxyPort
+        config.proxyAuthentication proxyUsername, proxyPassword
+        config.connectTimeout connectTimeout
+        config.readTimeout readTimeout
+        client = new HttpClientImpl(config)
+        connection = client.getConnection(url)
+        // TODO assertTrue connection.usingProxy()
+        assertNotNull client.authenticator
+        assertEquals proxyUsername, client.authenticator.getPasswordAuthentication().getUserName()
+        assertArrayEquals proxyPassword.toCharArray(), client.authenticator.getPasswordAuthentication().getPassword()
+        assertEquals connectTimeout, connection.getConnectTimeout()
+        assertEquals readTimeout, connection.getReadTimeout()
+    }
+    
+    @Test(expected = IOException.class)
+    public void testGetConnectionWithMalformedURL() {
+        client = new HttpClientImpl(null)
+        connection = client.getConnection("malformed url")
+    }
+    
+    // TODO post
 }
