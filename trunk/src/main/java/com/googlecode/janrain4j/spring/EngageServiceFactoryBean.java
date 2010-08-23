@@ -16,8 +16,6 @@ package com.googlecode.janrain4j.spring;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -43,16 +41,15 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
 
     private EngageService engageService;
     
-    private String apiKey = null;
-    private String apiUrl = null;
-    private String proxyHost = null;
-    private int proxyPort = -1;
-    private String proxyUsername = null;
-    private String proxyPassword = null;
-    private int connectTimeout = -1;
-    private int readTimeout = 1;
-    private Class<? extends HttpClient> httpClientImpl = null;
-    private Map<?, ?> httpClientImplAdditionalProperties = null;
+    private String apiKey = EngageServiceConfig.DEFAULT_API_KEY;
+    private String apiUrl = EngageServiceConfig.DEFAULT_API_URL;
+    private String proxyHost = EngageServiceConfig.DEFAULT_PROXY_HOST;
+    private int proxyPort = EngageServiceConfig.DEFAULT_PROXY_PORT;
+    private String proxyUsername = EngageServiceConfig.DEFAULT_PROXY_USERNAME;
+    private String proxyPassword = EngageServiceConfig.DEFAULT_PROXY_PASSWORD;
+    private int connectTimeout = EngageServiceConfig.DEFAULT_CONNECT_TIMEOUT;
+    private int readTimeout = EngageServiceConfig.DEFAULT_READ_TIMEOUT;
+    private Class<? extends HttpClient> httpClientClass = EngageServiceConfig.DEFAULT_HTTP_CLIENT_CLASS;
     
     public EngageService getObject() throws Exception {
         return this.engageService;
@@ -69,43 +66,14 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     public void afterPropertiesSet() throws Exception {
         
         // create engage service config
-        EngageServiceConfig config = withApiKey(this.apiKey);
+        EngageServiceConfig config = withApiKey(apiKey)
+                .apiUrl(apiUrl)
+                .proxy(proxyHost, proxyPort)
+                .proxyAuthentication(proxyUsername, proxyPassword)
+                .connectTimeout(connectTimeout)
+                .readTimeout(readTimeout)
+                .httpClientClass(httpClientClass);
 
-        // set api url
-        if (apiUrl != null && apiUrl.length() > 0) {
-            config.apiUrl(apiUrl);
-        }
-        
-        // set proxy
-        if (proxyHost != null && proxyHost.length() > 0) {
-            config.proxy(proxyHost, proxyPort);
-        }
-        
-        // set proxy authentication
-        if (proxyUsername != null && proxyUsername.length() > 0) {
-            config.proxyAuthentication(proxyUsername, proxyPassword);
-        }
-        
-        // set connect timeout
-        if (connectTimeout > -1) {
-            config.connectTimeout(connectTimeout);
-        }
-        
-        // set read timeout
-        if (readTimeout > -1) {
-            config.readTimeout(readTimeout);
-        }
-        
-        // set http client implementation class
-        if (httpClientImpl != null) {
-            config.httpClientImpl(httpClientImpl);
-        }
-        
-        // set http client implementation additional properties
-        if (httpClientImplAdditionalProperties != null) {
-            config.httpClientImplAdditionalProperties(httpClientImplAdditionalProperties);
-        }
-        
         // create engage service
         this.engageService = EngageServiceFactory.getEngageService(config);
     }
@@ -196,17 +164,7 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
      * 
      * @param clazz The <code>HttpClient</code> implementation class.
      */
-    public void setHttpClientImpl(Class<? extends HttpClient> clazz) {
-        this.httpClientImpl = clazz;
-    }
-    
-    /**
-     * Sets the additional properties to be passed on to the 
-     * <code>HttpClient</code> implementation class.
-     * 
-     * @param properties The additional properties.
-     */
-    public void setHttpClientImplAdditionalProperties(Map<?, ?> properties) {
-        this.httpClientImplAdditionalProperties = properties;
+    public void setHttpClientClass(Class<? extends HttpClient> clazz) {
+        this.httpClientClass = clazz;
     }
 }

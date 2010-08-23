@@ -14,10 +14,13 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.util.Map;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import com.googlecode.janrain4j.internal.http.HttpClient;
+import com.googlecode.janrain4j.internal.http.HttpClientConfig;
 import com.googlecode.janrain4j.internal.http.HttpClientImpl;
+import com.googlecode.janrain4j.internal.http.HttpFailureException;
 
 /**
  * User-configurable properties of the {@link EngageService}. The recommended 
@@ -51,25 +54,27 @@ import com.googlecode.janrain4j.internal.http.HttpClientImpl;
  */
 public class EngageServiceConfig {
 
-    /**
-     * The default Janrain Engage API url.
-     */
+    public static final String DEFAULT_API_KEY = null;
     public static final String DEFAULT_API_URL = "https://rpxnow.com/api/v2";
+    public static final String DEFAULT_PROXY_HOST = HttpClientConfig.DEFAULT_PROXY_HOST;
+    public static final int DEFAULT_PROXY_PORT = HttpClientConfig.DEFAULT_PROXY_PORT;
+    public static final String DEFAULT_PROXY_USERNAME = HttpClientConfig.DEFAULT_PROXY_USERNAME;
+    public static final String DEFAULT_PROXY_PASSWORD = HttpClientConfig.DEFAULT_PROXY_PASSWORD;
+    public static final int DEFAULT_CONNECT_TIMEOUT = HttpClientConfig.DEFAULT_CONNECT_TIMEOUT;
+    public static final int DEFAULT_READ_TIMEOUT = HttpClientConfig.DEFAULT_READ_TIMEOUT;
+    public static final Class<? extends HttpClient> DEFAULT_HTTP_CLIENT_CLASS = HttpClientImpl.class;
     
-    private String apiKey = null;
-    private String apiUrl = null;
-    private String proxyHost = null;
-    private int proxyPort = -1;
-    private String proxyUsername = null;
-    private String proxyPassword = null;
-    private int connectTimeout = -1;
-    private int readTimeout = -1;
-    private Class<? extends HttpClient> httpClientImpl;
-    private Map<?, ?> httpClientImplAdditionalProperties;
+    private String apiKey = DEFAULT_API_KEY;
+    private String apiUrl = DEFAULT_API_URL;
+    private String proxyHost = DEFAULT_PROXY_HOST;
+    private int proxyPort = DEFAULT_PROXY_PORT;
+    private String proxyUsername = DEFAULT_PROXY_USERNAME;
+    private String proxyPassword = DEFAULT_PROXY_PASSWORD;
+    private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+    private int readTimeout = DEFAULT_READ_TIMEOUT;
+    private Class<? extends HttpClient> httpClientClass = DEFAULT_HTTP_CLIENT_CLASS;
     
     private EngageServiceConfig() {
-        apiUrl = DEFAULT_API_URL;
-        httpClientImpl = HttpClientImpl.class;
     }
     
     /**
@@ -129,18 +134,10 @@ public class EngageServiceConfig {
     }
     
     /**
-     * Returns the <code>HttpClient</code> implementation class.
+     * Returns the http client implementation class.
      */
-    public Class<? extends HttpClient> getHttpClientImpl() {
-        return httpClientImpl;
-    }
-    
-    /**
-     * Returns the additional properties to be passed on to the 
-     * <code>HttpClient</code> implementation class.
-     */
-    public Map<?, ?> getHttpClientImplAdditionalProperties() {
-        return httpClientImplAdditionalProperties;
+    public Class<? extends HttpClient> getHttpClientClass() {
+        return httpClientClass;
     }
     
     /**
@@ -224,23 +221,11 @@ public class EngageServiceConfig {
      * Sets the <code>HttpClient</code> implementation class to use for making 
      * HTTP requests.
      * 
-     * @param clazz The <code>HttpClient</code> implementation class.
+     * @param client The <code>HttpClient</code> implementation class.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig httpClientImpl(Class<? extends HttpClient> clazz) {
-        this.httpClientImpl = clazz;
-        return this;
-    }
-    
-    /**
-     * Sets the additional properties to be passed on to the 
-     * <code>HttpClient</code> implementation class.
-     * 
-     * @param properties The additional properties.
-     * @return <code>this</code> (for chaining)
-     */
-    public EngageServiceConfig httpClientImplAdditionalProperties(Map<?, ?> properties) {
-        this.httpClientImplAdditionalProperties = properties;
+    public EngageServiceConfig httpClientClass(Class<? extends HttpClient> clazz) {
+        this.httpClientClass = clazz;
         return this;
     }
     
