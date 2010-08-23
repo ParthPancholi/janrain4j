@@ -14,10 +14,7 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import static com.googlecode.janrain4j.internal.http.HttpClientConfig.Builder.*;
-
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,36 +41,10 @@ import com.googlecode.janrain4j.internal.http.HttpResponse;
 class EngageServiceImpl implements EngageService {
 
     private EngageServiceConfig config;
-    private HttpClient httpClient;
+    private HttpClient httpClient = null;
     
-    EngageServiceImpl(EngageServiceConfig config) throws EngageFailureException {
+    EngageServiceImpl(EngageServiceConfig config) {
         this.config = config;
-        
-        try {
-            // create the http client implementation
-            Constructor<? extends HttpClient> constructor = config.getHttpClientImpl().getConstructor(HttpClientConfig.class);
-            this.httpClient = (HttpClient) constructor.newInstance(withProxy(config.getProxyHost(), config.getProxyPort())
-                    .proxyAuthentication(config.getProxyUsername(), config.getProxyPassword())
-                    .connectTimeout(config.getConnectTimeout())
-                    .readTimeout(config.getReadTimeout())
-                    .additionalProperties(config.getHttpClientImplAdditionalProperties())
-            );
-        }
-        catch (SecurityException e) {
-            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
-        }
-        catch (NoSuchMethodException e) {
-            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
-        }
-        catch (InstantiationException e) {
-            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
-        }
-        catch (IllegalAccessException e) {
-            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
-        }
-        catch (InvocationTargetException e) {
-            throw new EngageFailureException("Unable to create EngageServiceImpl", e);
-        }
     }
     
     public UserData authInfo(String token) {
@@ -184,7 +155,7 @@ class EngageServiceImpl implements EngageService {
         
         try {
             String url = config.getApiUrl() + "/" + method;
-            HttpResponse httpResponse = httpClient.post(url, params);
+            HttpResponse httpResponse = getHttpClient().post(url, params);
             
             Document document = httpResponse.getContentAsDocument();
             
@@ -208,5 +179,33 @@ class EngageServiceImpl implements EngageService {
         catch (XPathExpressionException e) {
             throw new EngageFailureException("Unexpected XPath error", e);
         }
+    }
+    
+    /**
+     * Returns the <code>HttpClient</code> implementation.
+     * 
+     * @throws EngageFailureException If any error occurs while interacting with the response.
+     */
+    public HttpClient getHttpClient() throws EngageFailureException {
+        if (httpClient == null) {
+            
+            HttpClientConfig httpClientConfig = new HttpClientConfig();
+            httpClientConfig.setProxyHost(config.getProxyHost());
+            httpClientConfig.setProxyPort(config.getProxyPort());
+            httpClientConfig.setProxyUsername(config.getProxyUsername());
+            httpClientConfig.setProxyPassword(config.getProxyPassword());
+            httpClientConfig.setConnectTimeout(config.getConnectTimeout());
+            httpClientConfig.setReadTimeout(config.getReadTimeout());
+            
+            try {
+                Constructor<? extends HttpClient> constructor = config.getHttpClientClass().getConstructor(HttpClientConfig.class);
+                httpClient = (HttpClient) constructor.newInstance(httpClientConfig);
+            }
+            catch (Exception e) {
+                throw new EngageFailureException("Unable to construct http client implementation for class '" + config.getHttpClientClass().getName() + "'", e);
+            }
+        }
+        
+        return httpClient;
     }
 }
