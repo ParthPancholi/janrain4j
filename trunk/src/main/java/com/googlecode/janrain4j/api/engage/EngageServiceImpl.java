@@ -16,18 +16,15 @@ package com.googlecode.janrain4j.api.engage;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +38,8 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
  * @author Marcel Overdijk
@@ -169,7 +168,7 @@ class EngageServiceImpl implements EngageService {
             connection.connect();
             
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-            writer.write(encodeParamters(params));
+            writer.write(URLEncoderUtils.encodeParamters(params));
             writer.close();
             
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -239,63 +238,5 @@ class EngageServiceImpl implements EngageService {
         }
         
         return connection;
-    }
-    
-    /**
-     * Encodes the given value to UTF-8.
-     * 
-     * @param value The value to encode.
-     * @return The encoded value.
-     * @throws UnsupportedEncodingException If any error occurs while encoding the value.
-     * @see #encodeParameter(String, String)
-     * @see #encodeParamters(Map)
-     */
-    private String encode(String value) throws UnsupportedEncodingException {
-        return URLEncoder.encode(value, "UTF-8");
-    }
-    
-    /**
-     * Encodes to given key to:
-     * <p>
-     * <code><encoded key>=<encoded value></code>
-     * </p>
-     * 
-     * @param key The key to encode.
-     * @param value The value to encode
-     * @return The encoded parameter.
-     * @throws UnsupportedEncodingException If any error occurs while encoding the parameter.
-     * @see #encode(String)
-     * @see #encodeParamters(Map)
-     */
-    private String encodeParameter(String key, String value) throws UnsupportedEncodingException {
-        StringBuffer sb = new StringBuffer();
-        sb.append(encode(key));
-        sb.append("=");
-        sb.append(encode(value));
-        return sb.toString();
-    }
-    
-    /**
-     * Encodes to given parameters to:
-     * <p>
-     * <code><encoded key1>=<encoded value1>&<encoded key2>=<encoded value2>&...</code>
-     * </p>
-     * 
-     * @param parameters The parameters to encode.
-     * @return The encoded parameters.
-     * @throws UnsupportedEncodingException If any error occurs while encoding the parameters.
-     * @see #encode(String)
-     * @see #encodeParameter(String, String)
-     */
-    private String encodeParamters(Map<String, String> parameters) throws UnsupportedEncodingException {
-        StringBuffer sb = new StringBuffer();
-        for (Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator(); it.hasNext();) {
-            if (sb.length() > 0) {
-                sb.append("&");
-            }
-            Map.Entry<String, String> e = (Map.Entry<String, String>) it.next();
-            sb.append(encodeParameter(e.getKey(), e.getValue()));
-        }
-        return sb.toString();
     }
 }
