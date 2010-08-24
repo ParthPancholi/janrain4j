@@ -20,31 +20,20 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
-import static org.custommonkey.xmlunit.XMLUnit.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
-
-import com.googlecode.janrain4j.internal.http.HttpClient;
-import com.googlecode.janrain4j.internal.http.HttpFailureException;
-import com.googlecode.janrain4j.internal.http.HttpResponse;
 
 public class EngageServiceImplTest {
 
     private EngageServiceImpl service = null;
     private EngageServiceConfig config = null;
-    private HttpClient httpClient = null;
-    private HttpResponse httpResponse = null;
     private String url = null;
     private Map<String, String> parameters = null;
-    
     
     private String apiKey = "my-api-key";
     private String identier = "my-identifier";
@@ -54,20 +43,16 @@ public class EngageServiceImplTest {
     @Before
     public void setUp() {
         config = mock(EngageServiceConfig.class);
-        httpClient = mock(HttpClient.class);
-        httpResponse = mock(HttpResponse.class);
-//        service = new EngageServiceImpl();
-//        service.setConfig(config);
-//        service.setHttpClient(httpClient);
-//        parameters = new HashMap<String, String>();
+        service = new EngageServiceImpl(config);
+        parameters = new HashMap<String, String>();
     }
     
     @Test
-    public void testSetStatus() throws HttpFailureException, SAXException, IOException {
+    public void testSetStatus() {
         url = null; // TODO use real url + parameters instead of any*
         // TODO parameters. create static keys like API_KEY_PARAMETER = "" 
-        when(httpResponse.getContentAsDocument()).thenReturn(buildTestDocument(successResponse));
-        when(httpClient.post(anyString(), anyMap())).thenReturn(httpResponse);
+        // when(httpResponse.getContentAsDocument()).thenReturn(buildTestDocument(successResponse));
+        // when(httpClient.post(anyString(), anyMap())).thenReturn(httpResponse);
         service.setStatus(identier, status);
     }
 }
