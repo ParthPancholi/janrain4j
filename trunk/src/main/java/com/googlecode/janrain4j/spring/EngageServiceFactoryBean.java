@@ -22,7 +22,6 @@ import org.springframework.beans.factory.InitializingBean;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceConfig;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
-import com.googlecode.janrain4j.internal.http.HttpClient;
 
 /**
  * Spring {@link org.springframework.beans.factory.FactoryBean} that creates 
@@ -41,15 +40,14 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
 
     private EngageService engageService;
     
-    private String apiKey = EngageServiceConfig.DEFAULT_API_KEY;
-    private String apiUrl = EngageServiceConfig.DEFAULT_API_URL;
-    private String proxyHost = EngageServiceConfig.DEFAULT_PROXY_HOST;
-    private int proxyPort = EngageServiceConfig.DEFAULT_PROXY_PORT;
-    private String proxyUsername = EngageServiceConfig.DEFAULT_PROXY_USERNAME;
-    private String proxyPassword = EngageServiceConfig.DEFAULT_PROXY_PASSWORD;
-    private int connectTimeout = EngageServiceConfig.DEFAULT_CONNECT_TIMEOUT;
-    private int readTimeout = EngageServiceConfig.DEFAULT_READ_TIMEOUT;
-    private Class<? extends HttpClient> httpClientClass = EngageServiceConfig.DEFAULT_HTTP_CLIENT_CLASS;
+    private String apiKey = null;
+    private String apiUrl = null;
+    private String proxyHost = null;
+    private int proxyPort = -1;
+    private String proxyUsername = null;
+    private String proxyPassword = null;
+    private int connectTimeout = -1;
+    private int readTimeout = -1;
     
     public EngageService getObject() throws Exception {
         return this.engageService;
@@ -66,14 +64,29 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
     public void afterPropertiesSet() throws Exception {
         
         // create engage service config
-        EngageServiceConfig config = withApiKey(apiKey)
-                .apiUrl(apiUrl)
-                .proxy(proxyHost, proxyPort)
-                .proxyAuthentication(proxyUsername, proxyPassword)
-                .connectTimeout(connectTimeout)
-                .readTimeout(readTimeout)
-                .httpClientClass(httpClientClass);
-
+        EngageServiceConfig config = withApiKey(apiKey);
+        
+        if (apiUrl != null && apiUrl.length() > 0) {
+            config.apiUrl(apiUrl);
+        }
+        
+        if (proxyHost != null && proxyHost.length() > 0) {
+            if (proxyUsername != null && proxyUsername.length() > 0) {
+                config.proxy(proxyHost, proxyPort, proxyUsername, proxyPassword);
+            }
+            else {
+                config.proxy(proxyHost, proxyPort);
+            }
+        }
+        
+        if (connectTimeout > -1) {
+            config.connectTimeout(connectTimeout);
+        }
+        
+        if (readTimeout > -1) {
+            config.readTimeout(readTimeout);
+        }
+        
         // create engage service
         this.engageService = EngageServiceFactory.getEngageService(config);
     }
@@ -156,15 +169,5 @@ public class EngageServiceFactoryBean implements FactoryBean<EngageService>, Ini
      */
     public void setReadTimeout(int timeout) {
         this.readTimeout = timeout;
-    }
-    
-    /**
-     * Sets the <code>HttpClient</code> implementation class to use for making 
-     * HTTP requests.
-     * 
-     * @param clazz The <code>HttpClient</code> implementation class.
-     */
-    public void setHttpClientClass(Class<? extends HttpClient> clazz) {
-        this.httpClientClass = clazz;
     }
 }
