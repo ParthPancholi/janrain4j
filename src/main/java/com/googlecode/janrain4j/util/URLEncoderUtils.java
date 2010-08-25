@@ -73,7 +73,7 @@ public class URLEncoderUtils {
      * @see #encode(String)
      * @see #encodeParameter(String, String)
      */
-    public static String encodeParamters(Map<String, String> parameters) throws UnsupportedEncodingException {
+    public static String encodeParameters(Map<String, String> parameters) throws UnsupportedEncodingException {
         StringBuffer sb = new StringBuffer();
         for (Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator(); it.hasNext();) {
             if (sb.length() > 0) {

@@ -59,12 +59,12 @@ public class EngageServiceFactoryBeanTest {
     
     @Before
     public void setUp() {
-        factoryBean = new EngageServiceFactoryBean();
-        factoryBean.setApiKey(apiKey);
-        
         mockStatic(EngageServiceConfig.Builder.class);
         config = mock(EngageServiceConfig.class);
         when(EngageServiceConfig.Builder.withApiKey(apiKey)).thenReturn(config);
+        
+        factoryBean = new EngageServiceFactoryBean();
+        factoryBean.setApiKey(apiKey);
     }
     
     @Test
