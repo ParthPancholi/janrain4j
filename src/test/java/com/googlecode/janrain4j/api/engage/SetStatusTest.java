@@ -20,54 +20,71 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.LOCATION_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.SET_STATUS_METHOD;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.STATUS_PARAM;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 public class SetStatusTest extends EngageServiceImplTestCase {
 
     private String status = "Hello World!";
+    private String location = "37.4220 -122.0843";
     
     @Test
-    public void testSetStatus() throws ParserConfigurationException, SAXException, IOException {
-        params.put("identifier", identifier);
-        params.put("status", status);
+    public void testSetStatus() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(STATUS_PARAM, status);
         
-        doReturn(buildElement(successResponse)).when(service).apiCall("set_status", params);
+        doReturn(buildElement(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
         
         service.setStatus(identifier, status);
         
-        verify(service).apiCall("set_status", params);
+        verify(service).apiCall(SET_STATUS_METHOD, params);
+    }
+    
+    @Test
+    public void testSetStatusWithLocation() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(STATUS_PARAM, status);
+        params.put(LOCATION_PARAM, location);
+        
+        doReturn(buildElement(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
+        
+        service.setStatus(identifier, status, location);
+        
+        verify(service).apiCall(SET_STATUS_METHOD, params);
     }
     
     @Test(expected = EngageFailureException.class)
     public void testSetStatusThrowsEngageFailureException() {
-        params.put("identifier", identifier);
-        params.put("status", status);
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(STATUS_PARAM, status);
         
-        doThrow(engageFailureException()).when(service).apiCall("set_status", params);
+        doThrow(engageFailureException()).when(service).apiCall(SET_STATUS_METHOD, params);
         
         service.setStatus(identifier, status);
         
-        verify(service).apiCall("set_status", params);
+        verify(service).apiCall(SET_STATUS_METHOD, params);
     }
     
     @Test(expected = ErrorResponeException.class)
     public void testSetStatusThrowsErrorResponeException() {
-        params.put("identifier", identifier);
-        params.put("status", status);
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(STATUS_PARAM, status);
         
-        doThrow(errorResponeException()).when(service).apiCall("set_status", params);
+        doThrow(errorResponeException()).when(service).apiCall(SET_STATUS_METHOD, params);
         
         service.setStatus(identifier, status);
         
-        verify(service).apiCall("set_status", params);
+        verify(service).apiCall(SET_STATUS_METHOD, params);
     }
 }

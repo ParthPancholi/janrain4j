@@ -47,6 +47,34 @@ import com.googlecode.janrain4j.util.URLEncoderUtils;
  */
 class EngageServiceImpl implements EngageService {
 
+    public static final String ACTIVITY_METHOD = "activity";
+    public static final String ALL_MAPPINGS_METHOD = "all_mappings";
+    public static final String ANALYTICS_METHOD = "analytics_access";
+    public static final String AUTH_INFO_METHOD = "auth_info";
+    public static final String GET_CONTACTS_METHOD = "get_contacts";
+    public static final String GET_USER_DATA_METHOD = "get_user_data";
+    public static final String MAP_METHOD = "map";
+    public static final String MAPPINGS_METHOD = "mappings";
+    public static final String SET_AUTH_PROVIDERS_METHOD = "set_auth_providers";
+    public static final String SET_STATUS_METHOD = "set_status";
+    public static final String UNMAP_METHOD = "unmap";
+    
+    public static final String ACTIVITY_PARAM = "activity";
+    public static final String ALL_IDENTIFIERS_PARAM = "all_identifiers";
+    public static final String API_KEY_PARAM = "apiKey";
+    public static final String END_PARAM = "end";
+    public static final String EXTENDED_PARAM = "extended";
+    public static final String FORMAT_PARAM = "format";
+    public static final String IDENTIFIER_PARAM = "identifier";
+    public static final String LOCATION_PARAM = "location";
+    public static final String OVERWRITE_PARAM = "overwrite";
+    public static final String PRIMARY_KEY_PARAM = "primaryKey";
+    public static final String PROVIDERS_PARAM = "providers";
+    public static final String START_PARAM = "start";
+    public static final String STATUS_PARAM = "status";
+    public static final String TOKEN_PARAM = "token";
+    public static final String UNLINK_PARAM = "unlink";
+    
     private EngageServiceConfig config;
     
     EngageServiceImpl(EngageServiceConfig config) {
@@ -80,10 +108,17 @@ class EngageServiceImpl implements EngageService {
     }
     
     public void setStatus(String identifier, String status) {
+        setStatus(identifier, status, null);
+    }
+    
+    public void setStatus(String identifier, String status, String location) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("identifier", identifier);
-        params.put("status", status);
-        apiCall("set_status", params);
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(STATUS_PARAM, status);
+        if (location != null && location.length() > 0) {
+            params.put(LOCATION_PARAM, location);
+        }
+        apiCall(SET_STATUS_METHOD, params);
     }
     
     public void map(String identifier, String primaryKey) {
@@ -92,10 +127,10 @@ class EngageServiceImpl implements EngageService {
     
     public void map(String identifier, String primaryKey, boolean overwrite) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("identifier", identifier);
-        params.put("primaryKey", primaryKey);
-        params.put("overwrite", Boolean.toString(overwrite));
-        apiCall("map", params);
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(PRIMARY_KEY_PARAM, primaryKey);
+        params.put(OVERWRITE_PARAM, Boolean.toString(overwrite));
+        apiCall(MAP_METHOD, params);
     }
 
     public void unmap(String primaryKey) {
@@ -116,8 +151,12 @@ class EngageServiceImpl implements EngageService {
     
     protected void unmap(String identifier, boolean allIdentifiers, String primaryKey, boolean unlink) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("identifier", identifier);
-        params.put("all_identifiers", Boolean.toString(allIdentifiers));
+        if (!allIdentifiers) {
+            params.put("identifier", identifier);
+        }
+        else {
+            params.put("all_identifiers", Boolean.toString(allIdentifiers));
+        }
         params.put("primaryKey", primaryKey);
         params.put("unlink", Boolean.toString(unlink));
         apiCall("unmap", params);
