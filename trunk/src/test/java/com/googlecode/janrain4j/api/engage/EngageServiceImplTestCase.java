@@ -26,13 +26,11 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -40,7 +38,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EngageServiceConfig.Builder.class)
@@ -54,6 +51,7 @@ public class EngageServiceImplTestCase {
     
     protected String apiKey = "my-api-key";
     protected String identifier = "my-identifier";
+    protected String primaryKey = "my-primary-key";
     
     protected String successResponse = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'/>";
     
@@ -71,7 +69,7 @@ public class EngageServiceImplTestCase {
         params = new HashMap<String, String>();
     }
     
-    protected Element buildElement(String fromXML) throws ParserConfigurationException, SAXException, IOException {
+    protected Element buildElement(String fromXML) throws Exception {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = builderFactory.newDocumentBuilder();

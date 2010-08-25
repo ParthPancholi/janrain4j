@@ -26,7 +26,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface EngageService {
-
+    
     /**
      * Get information about the user currently signing in to your web application.
      * 
@@ -101,6 +101,19 @@ public interface EngageService {
      * @since 1.0
      */
     public void setStatus(String identifier, String status) throws EngageFailureException, ErrorResponeException;
+    
+    /**
+     * Set the status message for the account corresponding to an identifier.
+     * 
+     * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
+     * @param status The status message to set. No length restriction on the status is imposed by Janrain Engage, but some providers may truncate it implicitly (e.g., Twitter).
+     * @param location This is a string containing location data associated with the content being published. The string is latitude, followed by longitude, for example "37.4220 -122.0843". Valid values for latitude are -90.0 to +90.0, with North being positive. Valid values for longitude are -180.0 to +180.0 with East being positive.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
+     * @see <a href="http://rpxnow.com/docs#api_set_status">Janrain Engage API Documentation: set_status</a>
+     * @since 1.0
+     */
+    public void setStatus(String identifier, String status, String location) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Map an OpenID identifier to a primary key. Future logins by this owner 
