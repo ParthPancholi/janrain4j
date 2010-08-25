@@ -148,7 +148,7 @@ class EngageServiceImpl implements EngageService {
         // TODO
     }
     
-    private Element apiCall(String method, Map<String, String> partialParams) {
+    Element apiCall(String method, Map<String, String> partialParams) {
         
         Map<String, String> params = new HashMap<String, String>();
         
@@ -168,7 +168,7 @@ class EngageServiceImpl implements EngageService {
             connection.connect();
             
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-            writer.write(URLEncoderUtils.encodeParamters(params));
+            writer.write(URLEncoderUtils.encodeParameters(params));
             writer.close();
             
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

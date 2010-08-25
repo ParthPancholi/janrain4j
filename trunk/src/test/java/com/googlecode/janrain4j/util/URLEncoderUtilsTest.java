@@ -47,7 +47,7 @@ public class URLEncoderUtilsTest {
     public void testEncodeParamtersWithSingleParameter() throws UnsupportedEncodingException {
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("the message", "Hello World!");
-        assertEquals("the+message=Hello+World%21", URLEncoderUtils.encodeParamters(parameters));
+        assertEquals("the+message=Hello+World%21", URLEncoderUtils.encodeParameters(parameters));
     }
     
     @Test
@@ -56,6 +56,6 @@ public class URLEncoderUtilsTest {
         parameters.put("p1", "v1");
         parameters.put("p2", "v2");
         parameters.put("p3", "v3");
-        assertEquals("p1=v1&p2=v2&p3=v3", URLEncoderUtils.encodeParamters(parameters));
+        assertEquals("p1=v1&p2=v2&p3=v3", URLEncoderUtils.encodeParameters(parameters));
     }
 }
