@@ -32,36 +32,31 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.googlecode.janrain4j.json.JSONObject;
+
 public class MappingsTest extends EngageServiceImplTestCase {
 
-    private String identifier1 = "http://brian.myopenid.com/";
-    private String identifier2 = "http://brianellin.com/";
-    
     @Test
     public void testMultiplMappings() throws Exception {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         
-        String repsonse = 
-            "<?xml version='1.0' encoding='UTF-8'?>" +
-            "<rsp stat='ok'>" +
-            "  <identifiers>" +
-            "    <identifier>" +
-            "      " + identifier1 +
-            "    </identifier>" +
-            "    <identifier>" +
-            "      " + identifier2 +
-            "    </identifier>" +
-            "  </identifiers>" +
-            "</rsp>";
+        String response =
+            "{\n" +
+            "  \"stat\": \"ok\",\n" +
+            "  \"identifiers\": [\n" +
+            "    \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+            "    \"http:\\/\\/brianellin.com\\/\"\n" +
+            "  ]\n" +
+            "}";
         
-        doReturn(buildElement(repsonse)).when(service).apiCall(MAPPINGS_METHOD, params);
+        doReturn(new JSONObject(response)).when(service).apiCall(MAPPINGS_METHOD, params);
         
         List<String> mappings = service.mappings(primaryKey);
         
         assertEquals(2, mappings.size());
-        assertTrue(mappings.contains(identifier1));
-        assertTrue(mappings.contains(identifier2));
+        assertTrue(mappings.contains("http://brian.myopenid.com/"));
+        assertTrue(mappings.contains("http://brianellin.com/"));
         
         verify(service).apiCall(MAPPINGS_METHOD, params);
     }
@@ -71,22 +66,20 @@ public class MappingsTest extends EngageServiceImplTestCase {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         
-        String repsonse = 
-            "<?xml version='1.0' encoding='UTF-8'?>" +
-            "<rsp stat='ok'>" +
-            "  <identifiers>" +
-            "    <identifier>" +
-            "      " + identifier1 +
-            "    </identifier>" +
-            "  </identifiers>" +
-            "</rsp>";
+        String response =
+            "{\n" +
+            "  \"stat\": \"ok\",\n" +
+            "  \"identifiers\": [\n" +
+            "    \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  ]\n" +
+            "}";
         
-        doReturn(buildElement(repsonse)).when(service).apiCall(MAPPINGS_METHOD, params);
+        doReturn(new JSONObject(response)).when(service).apiCall(MAPPINGS_METHOD, params);
         
         List<String> mappings = service.mappings(primaryKey);
         
         assertEquals(1, mappings.size());
-        assertTrue(mappings.contains(identifier1));
+        assertTrue(mappings.contains("http://brian.myopenid.com/"));
         
         verify(service).apiCall(MAPPINGS_METHOD, params);
     }
@@ -96,14 +89,14 @@ public class MappingsTest extends EngageServiceImplTestCase {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         
-        String repsonse = 
-            "<?xml version='1.0' encoding='UTF-8'?>" +
-            "<rsp stat='ok'>" +
-            "  <identifiers>" +
-            "  </identifiers>" +
-            "</rsp>";
+        String response =
+            "{\n" +
+            "  \"stat\": \"ok\",\n" +
+            "  \"identifiers\": [\n" +
+            "  ]\n" +
+            "}";
         
-        doReturn(buildElement(repsonse)).when(service).apiCall(MAPPINGS_METHOD, params);
+        doReturn(new JSONObject(response)).when(service).apiCall(MAPPINGS_METHOD, params);
         
         List<String> mappings = service.mappings(primaryKey);
         

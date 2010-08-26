@@ -25,23 +25,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
+import com.googlecode.janrain4j.json.JSONArray;
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
+import com.googlecode.janrain4j.util.IOUtils;
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
@@ -168,22 +165,13 @@ class EngageServiceImpl implements EngageService {
     public List<String> mappings(String primaryKey) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("primaryKey", primaryKey);
-        Element rsp = apiCall(MAPPINGS_METHOD, params);
-        
-        XPathFactory factory = XPathFactory.newInstance();
-        XPath xpath = factory.newXPath();
-
-        try {
-            NodeList nodes = (NodeList) xpath.evaluate("identifiers/identifier/text()", rsp, XPathConstants.NODESET);
-            List<String> mappings = new ArrayList<String>();
-            for (int i = 0; i < nodes.getLength(); i++) {
-                mappings.add(nodes.item(i).getNodeValue());
-            }
-            return mappings;
+        JSONObject rsp = apiCall(MAPPINGS_METHOD, params);
+        JSONArray identifiers = rsp.optJSONArray("identifiers");
+        List<String> mappings = new ArrayList<String>();
+        for (int i = 0; i < identifiers.length(); i++) {
+            mappings.add(identifiers.optString(i));
         }
-        catch (XPathExpressionException e) {
-            throw new EngageFailureException("Unexpected XPath error", e);
-        }
+        return mappings;
     }
     
     public List<Mapping> allMappings() {
@@ -205,7 +193,7 @@ class EngageServiceImpl implements EngageService {
         // TODO
     }
     
-    Element apiCall(String method, Map<String, String> partialParams) {
+    JSONObject apiCall(String method, Map<String, String> partialParams) {
         
         Map<String, String> params = new HashMap<String, String>();
         
@@ -213,7 +201,7 @@ class EngageServiceImpl implements EngageService {
             params.putAll(partialParams);
         }
 
-        params.put("format", "xml");
+        params.put("format", "json");
         params.put("apiKey", config.getApiKey());
         
         String url = config.getApiUrl() + "/" + method;
@@ -228,36 +216,29 @@ class EngageServiceImpl implements EngageService {
             writer.write(URLEncoderUtils.encodeParameters(params));
             writer.close();
             
-            DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-            builderFactory.setIgnoringElementContentWhitespace(true);
-            DocumentBuilder builder = builderFactory.newDocumentBuilder();
-            Document document = builder.parse(connection.getInputStream());
+            String contents = IOUtils.toString(connection.getInputStream());
+            JSONObject rsp = new JSONObject(contents);
             
-            Element rsp = (Element) document.getFirstChild();
-            if (!rsp.getAttribute("stat").equals("ok")) {
-  
-                XPathFactory factory = XPathFactory.newInstance();
-                XPath xpath = factory.newXPath();
-  
-                String code = xpath.evaluate("err/@code", rsp);
-                String msg = xpath.evaluate("err/@msg", rsp);
-      
-                throw new ErrorResponeException(code, msg);
+            String stat = rsp.getString("stat");
+            if (!stat.equals("ok")) {
+                if (stat.equals("fail")) {
+                    JSONObject err = rsp.getJSONObject("err");
+                    int code = err.getInt("code");
+                    String msg = err.getString("msg");
+                    throw new ErrorResponeException(code, msg);
+                }
+                else {
+                    throw new EngageFailureException("Unexpected status in response: " + stat);
+                }
             }
-  
+            
             return rsp;
         }
         catch (IOException e) {
             throw new EngageFailureException("Unexpected IO error", e);
         }
-        catch (ParserConfigurationException e) {
-            throw new EngageFailureException("Unexpected XML error", e);
-        }
-        catch (SAXException e) {
-            throw new EngageFailureException("Unexpected XML error", e);
-        }
-        catch (XPathExpressionException e) {
-            throw new EngageFailureException("Unexpected XPath error", e);
+        catch (JSONException e) {
+            throw new EngageFailureException("Unexpected JSON error", e);
         }
     }
     

@@ -30,6 +30,8 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 
+import com.googlecode.janrain4j.json.JSONObject;
+
 public class SetStatusTest extends EngageServiceImplTestCase {
 
     private String status = "Hello World!";
@@ -41,7 +43,7 @@ public class SetStatusTest extends EngageServiceImplTestCase {
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(STATUS_PARAM, status);
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
         
         service.setStatus(identifier, status);
         
@@ -55,7 +57,7 @@ public class SetStatusTest extends EngageServiceImplTestCase {
         params.put(STATUS_PARAM, status);
         params.put(LOCATION_PARAM, location);
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
         
         service.setStatus(identifier, status, location);
         

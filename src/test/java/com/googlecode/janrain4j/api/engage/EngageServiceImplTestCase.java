@@ -25,19 +25,13 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EngageServiceConfig.Builder.class)
@@ -53,11 +47,9 @@ public class EngageServiceImplTestCase {
     protected String identifier = "my-identifier";
     protected String primaryKey = "my-primary-key";
     
-    protected String successResponse = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'/>";
+    protected String successResponse = "{ \"stat\": \"ok\" }";
     
-    protected String successResponseJson = "{ \"stat\": \"ok\" }";
-    
-    protected String errorCode = "99";
+    protected int errorCode = 99;
     protected String errorMessage = "Some error message";
     
     @Before
@@ -69,14 +61,6 @@ public class EngageServiceImplTestCase {
         service = spy(new EngageServiceImpl(config));
         
         params = new HashMap<String, String>();
-    }
-    
-    protected Element buildElement(String fromXML) throws Exception {
-        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-        builderFactory.setIgnoringElementContentWhitespace(true);
-        DocumentBuilder builder = builderFactory.newDocumentBuilder();
-        Document document = builder.parse(new ByteArrayInputStream(fromXML.getBytes()));
-        return (Element) document.getFirstChild();
     }
     
     protected EngageFailureException engageFailureException() {
@@ -91,7 +75,7 @@ public class EngageServiceImplTestCase {
         return errorResponeException(errorCode, errorMessage);
     }
     
-    protected ErrorResponeException errorResponeException(String code, String message) {
+    protected ErrorResponeException errorResponeException(int code, String message) {
         return new ErrorResponeException(code, message);
     }
 }
