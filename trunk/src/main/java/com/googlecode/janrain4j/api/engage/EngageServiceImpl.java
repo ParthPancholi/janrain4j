@@ -145,19 +145,19 @@ class EngageServiceImpl implements EngageService {
     protected void unmap(String identifier, boolean allIdentifiers, String primaryKey, boolean unlink) {
         Map<String, String> params = new HashMap<String, String>();
         if (!allIdentifiers) {
-            params.put("identifier", identifier);
+            params.put(IDENTIFIER_PARAM, identifier);
         }
         else {
-            params.put("all_identifiers", Boolean.toString(allIdentifiers));
+            params.put(ALL_IDENTIFIERS_PARAM, Boolean.toString(allIdentifiers));
         }
-        params.put("primaryKey", primaryKey);
-        params.put("unlink", Boolean.toString(unlink));
-        apiCall("unmap", params);
+        params.put(PRIMARY_KEY_PARAM, primaryKey);
+        params.put(UNLINK_PARAM, Boolean.toString(unlink));
+        apiCall(UNMAP_METHOD, params);
     }
     
     public List<String> mappings(String primaryKey) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("primaryKey", primaryKey);
+        params.put(PRIMARY_KEY_PARAM, primaryKey);
         JSONObject rsp = apiCall(MAPPINGS_METHOD, params);
         JSONArray identifiers = rsp.optJSONArray("identifiers");
         List<String> mappings = new ArrayList<String>();
@@ -194,8 +194,8 @@ class EngageServiceImpl implements EngageService {
             params.putAll(partialParams);
         }
 
-        params.put("format", "json");
-        params.put("apiKey", config.getApiKey());
+        params.put(FORMAT_PARAM, "json");
+        params.put(API_KEY_PARAM, config.getApiKey());
         
         String url = config.getApiUrl() + "/" + method;
         
