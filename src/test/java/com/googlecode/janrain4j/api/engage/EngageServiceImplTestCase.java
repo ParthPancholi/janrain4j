@@ -55,6 +55,8 @@ public class EngageServiceImplTestCase {
     
     protected String successResponse = "<?xml version='1.0' encoding='UTF-8'?><rsp stat='ok'/>";
     
+    protected String successResponseJson = "{ \"stat\": \"ok\" }";
+    
     protected String errorCode = "99";
     protected String errorMessage = "Some error message";
     
