@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,11 +33,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.googlecode.janrain4j.util.URLEncoderUtils;
@@ -163,9 +166,24 @@ class EngageServiceImpl implements EngageService {
     }
     
     public List<String> mappings(String primaryKey) {
-        // TODO
-        List<String> mappings = new ArrayList<String>();
-        return mappings;
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("primaryKey", primaryKey);
+        Element rsp = apiCall(MAPPINGS_METHOD, params);
+        
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xpath = factory.newXPath();
+
+        try {
+            NodeList nodes = (NodeList) xpath.evaluate("identifiers/identifier/text()", rsp, XPathConstants.NODESET);
+            List<String> mappings = new ArrayList<String>();
+            for (int i = 0; i < nodes.getLength(); i++) {
+                mappings.add(nodes.item(i).getNodeValue());
+            }
+            return mappings;
+        }
+        catch (XPathExpressionException e) {
+            throw new EngageFailureException("Unexpected XPath error", e);
+        }
     }
     
     public List<Mapping> allMappings() {
