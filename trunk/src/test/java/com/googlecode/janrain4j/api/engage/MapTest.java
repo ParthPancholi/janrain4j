@@ -30,6 +30,8 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 
+import com.googlecode.janrain4j.json.JSONObject;
+
 public class MapTest extends EngageServiceImplTestCase {
 
     @Test
@@ -39,7 +41,7 @@ public class MapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(true));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
         
         service.map(identifier, primaryKey);
         
@@ -53,7 +55,7 @@ public class MapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(true));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
         
         service.map(identifier, primaryKey, true);
         
@@ -67,7 +69,7 @@ public class MapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(false));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
         
         service.map(identifier, primaryKey, false);
         

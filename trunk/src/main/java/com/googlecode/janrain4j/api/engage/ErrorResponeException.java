@@ -45,14 +45,14 @@ public class ErrorResponeException extends RuntimeException {
     public static final String MY_SPACE_ERROR = "16";
     public static final String YAHOO_ERROR = "17";
     
-    private String code;
+    private int code;
     
-    public ErrorResponeException(String code, String message) {
+    public ErrorResponeException(int code, String message) {
         super(message);
         this.code = code;
     }
     
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 }

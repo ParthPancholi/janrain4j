@@ -22,14 +22,16 @@ package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_IDENTIFIERS_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNMAP_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PRIMARY_KEY_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNLINK_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNMAP_METHOD;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
+
+import com.googlecode.janrain4j.json.JSONObject;
 
 public class UnmapTest extends EngageServiceImplTestCase {
 
@@ -40,7 +42,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(false));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(identifier, primaryKey);
         
@@ -54,7 +56,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(true));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(identifier, primaryKey, true);
         
@@ -68,7 +70,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(false));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(identifier, primaryKey, false);
         
@@ -82,7 +84,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(false));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(primaryKey);
         
@@ -96,7 +98,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(true));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(primaryKey, true);
         
@@ -110,7 +112,7 @@ public class UnmapTest extends EngageServiceImplTestCase {
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(UNLINK_PARAM, Boolean.toString(false));
         
-        doReturn(buildElement(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
+        doReturn(new JSONObject(successResponse)).when(service).apiCall(UNMAP_METHOD, params);
         
         service.unmap(primaryKey, false);
         
