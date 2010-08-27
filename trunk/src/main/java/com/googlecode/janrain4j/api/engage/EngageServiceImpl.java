@@ -14,14 +14,18 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PROVIDERS_PARAM;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -204,12 +208,36 @@ class EngageServiceImpl implements EngageService {
     }
     
     public URL analytics(Date start, Date end) {
-        // TODO
-        return null;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(START_PARAM, dateFormatter.format(start));
+        params.put(END_PARAM, dateFormatter.format(end));
+        JSONObject rsp = apiCall(ANALYTICS_METHOD, params);
+        try {
+            String rspUrl = rsp.getString("url");
+            try {
+                return new URL(rspUrl);
+            }
+            catch (MalformedURLException e) {
+                throw new EngageFailureException("Malformed url in response: " + rspUrl, e);
+            }
+        }
+        catch (JSONException e) {
+            throw new EngageFailureException("Unexpected JSON error", e);
+        }
     }
     
     public void setAuthProviders(List<String> providers) {
-        // TODO
+        StringBuffer sb = new StringBuffer();
+        for (String provider : providers) {
+            if (sb.length() > 0) {
+                sb.append(",");
+            }
+            sb.append(provider);
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(PROVIDERS_PARAM, sb.toString());
+        apiCall(SET_AUTH_PROVIDERS_METHOD, params);
     }
     
     JSONObject apiCall(String method, Map<String, String> partialParams) {

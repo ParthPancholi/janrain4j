@@ -114,7 +114,7 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
     }
     
     @Test(expected = EngageFailureException.class)
-    public void testSetStatusThrowsEngageFailureException() {
+    public void testAllMappingsThrowsEngageFailureException() {
         doThrow(engageFailureException()).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
         
         service.allMappings();
@@ -123,7 +123,7 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
     }
     
     @Test(expected = ErrorResponeException.class)
-    public void testSetStatusThrowsErrorResponeException() {
+    public void testAllMappingsThrowsErrorResponeException() {
         doThrow(errorResponeException()).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
         
         service.allMappings();
