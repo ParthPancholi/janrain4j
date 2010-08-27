@@ -106,7 +106,7 @@ public class MappingsTest extends EngageServiceImplTestCase {
     }
     
     @Test(expected = EngageFailureException.class)
-    public void testSetStatusThrowsEngageFailureException() {
+    public void testMappingsThrowsEngageFailureException() {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         
@@ -118,7 +118,7 @@ public class MappingsTest extends EngageServiceImplTestCase {
     }
     
     @Test(expected = ErrorResponeException.class)
-    public void testSetStatusThrowsErrorResponeException() {
+    public void testMappingsThrowsErrorResponeException() {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         

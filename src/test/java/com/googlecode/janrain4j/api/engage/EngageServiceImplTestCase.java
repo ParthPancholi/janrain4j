@@ -53,7 +53,7 @@ public class EngageServiceImplTestCase {
     protected String errorMessage = "Some error message";
     
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         mockStatic(EngageServiceConfig.Builder.class);
         config = mock(EngageServiceConfig.class);
         when(EngageServiceConfig.Builder.withApiKey(apiKey)).thenReturn(config);
