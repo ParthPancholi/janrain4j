@@ -44,6 +44,9 @@ public class Profile {
     private Address address = null;
     private boolean limitedData = false;
     
+    Profile() {
+    }
+    
     /**
      * Returns the user's OpenID URL. Use this value to sign the user in to 
      * your website. This field is always present.
@@ -52,12 +55,7 @@ public class Profile {
         return identifier;
     }
     
-    /**
-     * Sets the user's OpenID URL.
-     * 
-     * @param identifier The user's OpenID URL.
-     */
-    public void setIdentifier(String identifier) {
+    void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
     
@@ -71,13 +69,7 @@ public class Profile {
         return providerName;
     }
     
-    /**
-     * Sets the human-readable name of the authentication provider that was 
-     * used for this authentication.
-     * 
-     * @param providerName The name of the provider.
-     */
-    public void setProviderName(String providerName) {
+    void setProviderName(String providerName) {
         this.providerName = providerName;
     }
     
@@ -91,12 +83,7 @@ public class Profile {
         return primaryKey;
     }
     
-    /**
-     * Sets the primary key of the user in your database.
-     * 
-     * @param primaryKey The primary key.
-     */
-    public void setPrimaryKey(String primaryKey) {
+    void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey;
     }
     
@@ -107,12 +94,7 @@ public class Profile {
         return displayName;
     }
     
-    /**
-     * Sets the name of the user, suitable for display to end-users.
-     * 
-     * @param displayName The name.
-     */
-    public void setDisplayName(String displayName) {
+    void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
     
@@ -124,12 +106,7 @@ public class Profile {
         return preferredUsername;
     }
     
-    /**
-     * Sets the preferred username of the user on sites that ask for a username.
-     * 
-     * @param preferredUsername The preferred username.
-     */
-    public void setPreferredUsername(String preferredUsername) {
+    void setPreferredUsername(String preferredUsername) {
         this.preferredUsername = preferredUsername;
     }
     
@@ -142,12 +119,7 @@ public class Profile {
         return name;
     }
     
-    /**
-     * Sets the name of the user.
-     * 
-     * @param name The name.
-     */
-    public void setName(Name name) {
+    void setName(Name name) {
         this.name = name;
     }
     
@@ -159,13 +131,7 @@ public class Profile {
         return gender;
     }
     
-    /**
-     * Sets the gender of the user. Canonical values are 'male', and 
-     * 'female', but may be any value.
-     * 
-     * @param gender The gender.
-     */
-    public void setGender(String gender) {
+    void setGender(String gender) {
         this.gender = gender;
     }
     
@@ -177,12 +143,7 @@ public class Profile {
         return birthday;
     }
     
-    /**
-     * Sets the date of birth of the user.
-     * 
-     * @param birthday The date of birth.
-     */
-    public void setBirthday(Date birthday) {
+    void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
     
@@ -197,14 +158,7 @@ public class Profile {
         return utcOffset;
     }
     
-    /**
-     * Sets the offset from UTC of user's current time zone, as of the time 
-     * this response was returned. The value MUST conform to the offset portion 
-     * of xs:dateTime, e.g. -08:00.
-     * 
-     * @param utcOffset The offset.
-     */
-    public void setUtcOffset(String utcOffset) {
+    void setUtcOffset(String utcOffset) {
         this.utcOffset = utcOffset;
     }
     
@@ -215,12 +169,7 @@ public class Profile {
         return email;
     }
     
-    /**
-     * Sets the email address at which the user may be reached.
-     * 
-     * @param email The email address.
-     */
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
     
@@ -231,12 +180,7 @@ public class Profile {
         return verifiedEmail;
     }
     
-    /**
-     * Sets the email address at which the person may be reached.
-     * 
-     * @param verifiedEmail The email address.
-     */
-    public void setVerifiedEmail(String verifiedEmail) {
+    void setVerifiedEmail(String verifiedEmail) {
         this.verifiedEmail = verifiedEmail;
     }
     
@@ -247,12 +191,7 @@ public class Profile {
         return url;
     }
     
-    /**
-     * Sets the URL of a webpage relating to this person.
-     * 
-     * @param url The URL of a webpage.
-     */
-    public void setUrl(String url) {
+    void setUrl(String url) {
         this.url = url;
     }
     
@@ -263,12 +202,7 @@ public class Profile {
         return phoneNumber;
     }
     
-    /**
-     * Sets the phone number at which the user may be reached.
-     * 
-     * @param phoneNumber The phone number.
-     */
-    public void setPhoneNumber(String phoneNumber) {
+    void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     
@@ -279,12 +213,7 @@ public class Profile {
         return photo;
     }
     
-    /**
-     * Sets the URL to a photo (GIF/JPG/PNG) of the user.
-     * 
-     * @param photo The URL to a photo.
-     */
-    public void setPhoto(String photo) {
+    void setPhoto(String photo) {
         this.photo = photo;
     }
     
@@ -297,12 +226,7 @@ public class Profile {
         return address;
     }
     
-    /**
-     * Sets the address of the user.
-     * 
-     * @param address The address.
-     */
-    public void setAddress(Address address) {
+    void setAddress(Address address) {
         this.address = address;
     }
     
@@ -317,14 +241,7 @@ public class Profile {
         return limitedData;
     }
     
-    /**
-     * Sets if Janrain Engage was able to retrieve only limited public data 
-     * from the user's profile (e.g., because the login session has expired or 
-     * the user logged out from their account).
-     * 
-     * @param limitedData 'true' or 'false'. If 'true', Janrain Engage was able to retrieve only limited public data from the user's profile.
-     */
-    public void setLimitedData(boolean limitedData) {
+    void setLimitedData(boolean limitedData) {
         this.limitedData = limitedData;
     }
 }

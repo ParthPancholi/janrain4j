@@ -30,6 +30,9 @@ public class Name {
     private String honorificPrefix = null;
     private String honorificSuffix = null;
     
+    Name() {
+    }
+    
     /**
      * Returns the full name, including all middle names, titles, and suffixes 
      * as appropriate, formatted for display (e.g. Mr. Joseph Robert Smarr, Esq.).
@@ -38,13 +41,7 @@ public class Name {
         return formatted;
     }
     
-    /**
-     * Sets the the full name, including all middle names, titles, and suffixes 
-     * as appropriate, formatted for display (e.g. Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param formatted The full name.
-     */
-    public void setFormatted(String formatted) {
+    void setFormatted(String formatted) {
         this.formatted = formatted;
     }
     
@@ -56,13 +53,7 @@ public class Name {
         return familyName;
     }
     
-    /**
-     * Sets the family name of this Contact, or "Last Name" in most Western 
-     * languages (e.g. Smarr given the full name Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param familyName The family name.
-     */
-    public void setFamilyName(String familyName) {
+    void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
     
@@ -74,13 +65,7 @@ public class Name {
         return givenName;
     }
     
-    /**
-     * Sets the given name of this Contact, or "First Name" in most Western 
-     * languages (e.g. Joseph given the full name Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param givenName The given name.
-     */
-    public void setGivenName(String givenName) {
+    void setGivenName(String givenName) {
         this.givenName = givenName;
     }
     
@@ -92,13 +77,7 @@ public class Name {
         return middleName;
     }
     
-    /**
-     * Sets the middle name(s) of this Contact (e.g. Robert given the full name 
-     * Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param middleName The middle name(s).
-     */
-    public void setMiddleName(String middleName) {
+    void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
     
@@ -110,13 +89,7 @@ public class Name {
         return honorificPrefix;
     }
     
-    /**
-     * Sets the honorific prefix(es) of this Contact, or "Title" in most 
-     * Western languages (e.g. Mr. given the full name Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param honorificPrefix The honorific prefix(es).
-     */
-    public void setHonorificPrefix(String honorificPrefix) {
+    void setHonorificPrefix(String honorificPrefix) {
         this.honorificPrefix = honorificPrefix;
     }
     
@@ -128,13 +101,7 @@ public class Name {
         return honorificSuffix;
     }
     
-    /**
-     * Sets the honorific suffix(es) of this Contact, or "Suffix" in most Western 
-     * languages (e.g. Esq. given the full name Mr. Joseph Robert Smarr, Esq.).
-     * 
-     * @param honorificSuffix The honorific suffix(es).
-     */
-    public void setHonorificSuffix(String honorificSuffix) {
+    void setHonorificSuffix(String honorificSuffix) {
         this.honorificSuffix = honorificSuffix;
     }
 }
