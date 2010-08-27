@@ -14,8 +14,6 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PROVIDERS_PARAM;
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Authenticator;
@@ -84,9 +82,13 @@ class EngageServiceImpl implements EngageService {
     }
     
     public UserData authInfo(String token, boolean extended) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(TOKEN_PARAM, token);
+        params.put(EXTENDED_PARAM, Boolean.toString(extended));
+        JSONObject rsp = apiCall(AUTH_INFO_METHOD, params);
         // TODO
-        UserData profile = new UserData();
-        return profile;
+        UserData userData = new UserData();
+        return userData;
     }
     
     public List<Contact> getContacts() {
