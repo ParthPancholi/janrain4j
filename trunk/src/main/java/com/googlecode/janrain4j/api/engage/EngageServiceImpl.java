@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,9 +87,64 @@ class EngageServiceImpl implements EngageService {
         params.put(TOKEN_PARAM, token);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
         JSONObject rsp = apiCall(AUTH_INFO_METHOD, params);
-        // TODO
-        UserData userData = new UserData();
-        return userData;
+        try {
+            JSONObject rspProfile = rsp.getJSONObject("profile");
+            Profile profile = new Profile();
+            profile.setIdentifier(rspProfile.getString("identifier"));
+            profile.setProviderName(rspProfile.getString("providerName"));
+            profile.setPrimaryKey(rspProfile.optString("primaryKey", null));
+            profile.setDisplayName(rspProfile.optString("displayName", null));
+            profile.setPreferredUsername(rspProfile.optString("preferredUsername", null));
+            Name name = new Name();
+            JSONObject rspName = rspProfile.optJSONObject("name");
+            if (rspName != null) {
+                name.setFormatted(rspName.optString("formatted", null));
+                name.setFamilyName(rspName.optString("familyName", null));
+                name.setGivenName(rspName.optString("givenName", null));
+                name.setMiddleName(rspName.optString("middleName", null));
+                name.setHonorificPrefix(rspName.optString("honorificPrefix", null));
+                name.setHonorificSuffix(rspName.optString("honorificSuffix", null));
+            }
+            profile.setName(name);
+            profile.setGender(rspProfile.optString("gender", null));
+            String birthday = rspProfile.optString("birthday", null);
+            if (birthday != null && birthday.length() > 0) {
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    profile.setBirthday(dateFormatter.parse(birthday));
+                }
+                catch (ParseException e) {
+                    // swallow
+                }
+            }
+            profile.setUtcOffset(rspProfile.optString("utcOffset", null));
+            profile.setEmail(rspProfile.optString("email", null));
+            profile.setEmail(rspProfile.optString("email", null));
+            profile.setVerifiedEmail(rspProfile.optString("verifiedEmail", null));
+            profile.setUrl(rspProfile.optString("url", null));
+            profile.setPhoneNumber(rspProfile.optString("phoneNumber", null));
+            profile.setPhoto(rspProfile.optString("photo", null));
+            Address address = new Address();
+            JSONObject rspAddress = rspProfile.optJSONObject("address");
+            if (rspAddress != null) {
+                address.setFormatted(rspAddress.optString("formatted", null));
+                address.setStreetAddress(rspAddress.optString("streetAddress", null));
+                address.setLocality(rspAddress.optString("locality", null));
+                address.setRegion(rspAddress.optString("region", null));
+                address.setPostalCode(rspAddress.optString("postalCode", null));
+                address.setCountry(rspAddress.optString("country", null));
+            }
+            profile.setAddress(address);
+            profile.setLimitedData(rspProfile.optBoolean("limitedData", false));
+            
+            UserData userData = new UserData();
+            userData.setProfile(profile);
+            
+            return userData;
+        }
+        catch (JSONException e) {
+            throw new EngageFailureException("Unexpected JSON error", e);
+        }
     }
     
     public List<Contact> getContacts() {
