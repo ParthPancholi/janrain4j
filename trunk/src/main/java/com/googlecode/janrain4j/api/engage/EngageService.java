@@ -17,6 +17,7 @@ package com.googlecode.janrain4j.api.engage;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The <code>EngageService</code> provides access to the Janrain Engage API.
@@ -225,7 +226,8 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_all_mappings">Janrain Engage API Documentation: all_mappings</a>
      * @since 1.0
      */
-    public List<Mapping> allMappings() throws EngageFailureException, ErrorResponeException;
+    public Map<String, List<String>> allMappings() throws EngageFailureException, ErrorResponeException;
+    // TODO public List<Mapping> allMappings() throws EngageFailureException, ErrorResponeException;
     
     /**
      * Post an activity update to the user's activity stream.
