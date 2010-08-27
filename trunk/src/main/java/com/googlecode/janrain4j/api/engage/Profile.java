@@ -44,8 +44,9 @@ public class Profile {
     private Address address = null;
     private boolean limitedData = false;
     
-    public Profile(String identifier) {
+    public Profile(String identifier, String providerName) {
         this.identifier = identifier;
+        this.providerName = providerName;
     }
     
     /**
