@@ -87,7 +87,7 @@ class EngageServiceImpl implements EngageService {
         params.put(TOKEN_PARAM, token);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
         JSONObject rsp = apiCall(AUTH_INFO_METHOD, params);
-        return buildUserData(rsp);
+        return buildUserData(rsp, extended);
     }
     
     public List<Contact> getContacts() {
@@ -105,7 +105,7 @@ class EngageServiceImpl implements EngageService {
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
         JSONObject rsp = apiCall(GET_USER_DATA_METHOD, params);
-        return buildUserData(rsp);
+        return buildUserData(rsp, extended);
     }
     
     public void setStatus(String identifier, String status) {
@@ -328,7 +328,7 @@ class EngageServiceImpl implements EngageService {
         return connection;
     }
     
-    UserData buildUserData(JSONObject rsp) {
+    UserData buildUserData(JSONObject rsp, boolean extended) {
         try {
             JSONObject rspProfile = rsp.getJSONObject("profile");
             Profile profile = new Profile();

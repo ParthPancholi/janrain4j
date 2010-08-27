@@ -45,7 +45,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response));
+        UserData userData = service.buildUserData(new JSONObject(response), false);
         
         assertNotNull(userData);
         Profile profile = userData.getProfile();
@@ -121,7 +121,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response));
+        UserData userData = service.buildUserData(new JSONObject(response), false);
         
         assertNotNull(userData);
         Profile profile = userData.getProfile();
@@ -171,8 +171,26 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response));
+        UserData userData = service.buildUserData(new JSONObject(response), false);
         
         assertTrue(userData.getProfile().hasLimitedData());
+    }
+    
+    @Test
+    public void testBuildUserDataExtended() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+            "    \"limitedData\": true\n" +
+            // TODO
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), true);
+        
+        // TODO
     }
 }
