@@ -44,11 +44,6 @@ public class Profile {
     private Address address = null;
     private boolean limitedData = false;
     
-    public Profile(String identifier, String providerName) {
-        this.identifier = identifier;
-        this.providerName = providerName;
-    }
-    
     /**
      * Returns the user's OpenID URL. Use this value to sign the user in to 
      * your website. This field is always present.
