@@ -30,6 +30,9 @@ public class Address {
     private String postalCode = null;
     private String country = null;
     
+    Address() {
+    }
+    
     /**
      * Returns the full mailing address, formatted for display or use with a 
      * mailing label.
@@ -38,13 +41,7 @@ public class Address {
         return formatted;
     }
     
-    /**
-     * Sets the full mailing address, formatted for display or use with a 
-     * mailing label.
-     * 
-     * @param formatted The full mailing address.
-     */
-    public void setFormatted(String formatted) {
+    void setFormatted(String formatted) {
         this.formatted = formatted;
     }
     
@@ -57,13 +54,7 @@ public class Address {
         return streetAddress;
     }
     
-    /**
-     * Sets the full street address component, which may include house number, 
-     * street name, PO BOX, and multi-line extended street address information.
-     * 
-     * @param streetAddress The full street address.
-     */
-    public void setStreetAddress(String streetAddress) {
+    void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
     
@@ -74,12 +65,7 @@ public class Address {
         return locality;
     }
     
-    /**
-     * Sets the city or locality component.
-     * 
-     * @param locality The city or locality.
-     */
-    public void setLocality(String locality) {
+    void setLocality(String locality) {
         this.locality = locality;
     }
     
@@ -90,12 +76,7 @@ public class Address {
         return region;
     }
     
-    /**
-     * Sets the state or region component.
-     * 
-     * @param region The state or region.
-     */
-    public void setRegion(String region) {
+    void setRegion(String region) {
         this.region = region;
     }
     
@@ -106,12 +87,7 @@ public class Address {
         return postalCode;
     }
     
-    /**
-     * Sets the postal code or zipcode.
-     * 
-     * @param postalCode The postal code or zipcode.
-     */
-    public void setPostalCode(String postalCode) {
+    void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
     
@@ -122,12 +98,7 @@ public class Address {
         return country;
     }
     
-    /**
-     * Sets the country name component.
-     * 
-     * @param country The country.
-     */
-    public void setCountry(String country) {
+    void setCountry(String country) {
         this.country = country;
     }
 }

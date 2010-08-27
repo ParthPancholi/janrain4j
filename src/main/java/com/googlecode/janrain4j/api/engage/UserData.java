@@ -22,7 +22,9 @@ package com.googlecode.janrain4j.api.engage;
  */
 public class UserData {
 
-    private Profile profile;
+    private Profile profile = null;
+    private AccessCredentials accessCredentials = null;
+    private MergedPoco mergedPoco = null;
     
     UserData() {
     }
@@ -33,5 +35,21 @@ public class UserData {
     
     void setProfile(Profile profile) {
         this.profile = profile;
+    }
+    
+    public AccessCredentials getAccessCredentials() {
+        return accessCredentials;
+    }
+    
+    void setAccessCredentials(AccessCredentials accessCredentials) {
+        this.accessCredentials = accessCredentials;
+    }
+    
+    public MergedPoco getMergedPoco() {
+        return mergedPoco;
+    }
+    
+    void setMergedPoco(MergedPoco mergedPoco) {
+        this.mergedPoco = mergedPoco;
     }
 }
