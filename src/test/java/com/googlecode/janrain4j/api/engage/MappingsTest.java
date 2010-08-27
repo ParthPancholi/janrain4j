@@ -37,7 +37,7 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class MappingsTest extends EngageServiceImplTestCase {
 
     @Test
-    public void testMultiplMappings() throws Exception {
+    public void testMultipleMappings() throws Exception {
         // expected params in api call
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -159,18 +160,43 @@ class EngageServiceImpl implements EngageService {
         Map<String, String> params = new HashMap<String, String>();
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         JSONObject rsp = apiCall(MAPPINGS_METHOD, params);
-        JSONArray identifiers = rsp.optJSONArray("identifiers");
+        JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
         List<String> mappings = new ArrayList<String>();
-        for (int i = 0; i < identifiers.length(); i++) {
-            mappings.add(identifiers.optString(i));
+        if (rspIdentifiers != null) {
+            for (int i = 0; i < rspIdentifiers.length(); i++) {
+                try {
+                    mappings.add(rspIdentifiers.getString(i));
+                }
+                catch (JSONException e) {
+                    throw new EngageFailureException("Unexpected JSON error", e);
+                }
+            }
         }
         return mappings;
     }
     
-    public List<Mapping> allMappings() {
-        // TODO
-        List<Mapping> mappings = new ArrayList<Mapping>();
-        return mappings;
+    public Map<String, List<String>> allMappings() {
+        Map<String, String> params = new HashMap<String, String>();
+        JSONObject rsp = apiCall(ALL_MAPPINGS_METHOD, params);
+        JSONObject rspMappings = rsp.optJSONObject("mappings");
+        Map<String, List<String>> allMappings = new HashMap<String, List<String>>();
+        if (rspMappings != null) {
+            for (Iterator<String> iterator = rspMappings.keys(); iterator.hasNext();) {
+                String primaryKey = iterator.next();
+                try {
+                    JSONArray rspIdentifiers = rspMappings.getJSONArray(primaryKey);
+                    List<String> identifiers = new ArrayList<String>();
+                    for (int i = 0; i < rspIdentifiers.length(); i++) {
+                        identifiers.add(rspIdentifiers.getString(i));
+                    }
+                    allMappings.put(primaryKey, identifiers);
+                }
+                catch (JSONException e) {
+                    throw new EngageFailureException("Unexpected JSON error", e);
+                } 
+            }
+        }
+        return allMappings;
     }
     
     public void activity(String identifier, Activity activity) {
