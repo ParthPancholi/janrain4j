@@ -6,14 +6,24 @@
          version="2.5">
 
 	<servlet>
-		<servlet-name>Janrain4jDemo</servlet-name>
-		<servlet-class>com.googlecode.janrain4j.demo.Janrain4jDemoServlet</servlet-class>
+		<servlet-name>DemoServlet</servlet-name>
+		<servlet-class>com.googlecode.janrain4j.demo.DemoServlet</servlet-class>
 	</servlet>
     
+    <servlet>
+        <servlet-name>TokenServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.TokenServlet</servlet-class>
+    </servlet>
+    
 	<servlet-mapping>
-		<servlet-name>Janrain4jDemo</servlet-name>
-		<url-pattern>/janrain4j-demo</url-pattern>
+		<servlet-name>DemoServlet</servlet-name>
+		<url-pattern>/demo</url-pattern>
 	</servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>TokenServlet</servlet-name>
+        <url-pattern>/token</url-pattern>
+    </servlet-mapping>
     
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
