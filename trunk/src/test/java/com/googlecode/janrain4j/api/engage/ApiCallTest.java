@@ -21,97 +21,94 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.MAPPINGS_METHOD;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PRIMARY_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
-
 import org.junit.Test;
 
-public class MappingsTest extends EngageServiceImplTestCase {
+import com.googlecode.janrain4j.http.HttpFailureException;
+import com.googlecode.janrain4j.json.JSONObject;
 
-    private String url = apiUrl + "/" + MAPPINGS_METHOD;
+public class ApiCallTest extends EngageServiceImplTestCase {
+
+    private String method = "some_method";
+    private String url = apiUrl + "/" + method;
     
     @Test
-    public void testMultipleMappings() throws Exception {
+    public void testApiCallWithSuccessResponse() throws Exception {
         // expected params in api call
-        params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(FORMAT_PARAM, JSON);
         params.put(API_KEY_PARAM, apiKey);
         
-        String response =
-            "{\n" +
-            "  \"stat\": \"ok\",\n" +
-            "  \"identifiers\": [\n" +
-            "    \"http:\\/\\/brian.myopenid.com\\/\",\n" +
-            "    \"http:\\/\\/brianellin.com\\/\"\n" +
-            "  ]\n" +
-            "}";
-        
         when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(response);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
-        List<String> mappings = service.mappings(primaryKey);
-        
-        assertEquals(2, mappings.size());
-        assertTrue(mappings.contains("http://brian.myopenid.com/"));
-        assertTrue(mappings.contains("http://brianellin.com/"));
+        JSONObject rsp = service.apiCall(method, params);
+        assertNotNull(rsp);
+        assertEquals("ok", rsp.getString("stat"));
         
         verify(httpClient).post(url, params);
     }
     
-    @Test
-    public void testSingleMapping() throws Exception {
+    @Test(expected = ErrorResponeException.class)
+    public void testApiCallWithErrorResponse() throws Exception {
         // expected params in api call
-        params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(FORMAT_PARAM, JSON);
         params.put(API_KEY_PARAM, apiKey);
         
-        String response =
-            "{\n" +
-            "  \"stat\": \"ok\",\n" +
-            "  \"identifiers\": [\n" +
-            "    \"http:\\/\\/brian.myopenid.com\\/\"\n" +
-            "  ]\n" +
-            "}";
-        
         when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(response);
+        when(httpResponse.getContent()).thenReturn(errorResponse);
         
-        List<String> mappings = service.mappings(primaryKey);
-        
-        assertEquals(1, mappings.size());
-        assertTrue(mappings.contains("http://brian.myopenid.com/"));
+        service.apiCall(method, params);
         
         verify(httpClient).post(url, params);
     }
     
-    @Test
-    public void testNoMappings() throws Exception {
+    @Test(expected = EngageFailureException.class)
+    public void testApiCallWithUnexpectedResponseStatus() throws Exception {
         // expected params in api call
-        params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(FORMAT_PARAM, JSON);
         params.put(API_KEY_PARAM, apiKey);
         
-        String response =
-            "{\n" +
-            "  \"stat\": \"ok\",\n" +
-            "  \"identifiers\": [\n" +
-            "  ]\n" +
-            "}";
+        String response = "{ \"stat\": \"unexpected\" }";
         
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(response);
         
-        List<String> mappings = service.mappings(primaryKey);
+        service.apiCall(method, params);
         
-        assertEquals(0, mappings.size());
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test(expected = EngageFailureException.class)
+    public void testApiCallWithInvalidJson() throws Exception {
+        // expected params in api call
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        String response = "<xml></xml>";
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(response);
+        
+        service.apiCall(method, params);
+        
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test(expected = EngageFailureException.class)
+    public void testApiCallWithHttpFailure() throws Exception {
+        // expected params in api call
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        when(httpClient.post(url, params)).thenThrow(new HttpFailureException("Some error"));
+        
+        service.apiCall(method, params);
         
         verify(httpClient).post(url, params);
     }

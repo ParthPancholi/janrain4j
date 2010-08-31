@@ -35,6 +35,20 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class BuildUserDataTest extends EngageServiceImplTestCase {
 
     @Test
+    public void testBuildUserData() throws Exception {
+        UserData userData = service.buildUserData(new JSONObject(userDataResponse), false);
+        
+        assertNotNull(userData);
+        Profile profile = userData.getProfile();
+        assertNotNull(profile);
+        assertEquals("http://brian.myopenid.com/", profile.getIdentifier());
+        assertEquals("Other", profile.getProviderName());
+        assertEquals("brian", profile.getDisplayName());
+        assertEquals("brian", profile.getPreferredUsername());
+        assertEquals("http://brian.myopenid.com/", profile.getUrl());
+    }
+    
+    @Test
     public void testBuildUserDataWithMinimalSetOfData() throws Exception {
         String response =
             "{" +
@@ -191,6 +205,6 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         
         UserData userData = service.buildUserData(new JSONObject(response), true);
         
-        // TODO
+        assertNotNull(userData); // TODO replace with actual assertiations
     }
 }
