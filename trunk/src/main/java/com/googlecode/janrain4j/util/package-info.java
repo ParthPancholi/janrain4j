@@ -1,4 +1,4 @@
 /**
  * Provides utility classes.
  */
-package com.googlecode.janrain4j.util;
+package com.googlecode.janrain4j.utils;
