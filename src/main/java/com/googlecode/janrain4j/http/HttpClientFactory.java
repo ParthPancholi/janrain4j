@@ -12,23 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.http;
 
 /**
- * Returns {@link EngageService} implementations.
+ * Returns {@link HttpClient} implementations.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EngageServiceFactory {
+public class HttpClientFactory {
 
     /**
-     * Returns an <code>EngageService</code> instance.
+     * Returns a <code>HttpClient</code> instance.
      * 
-     * @return An <code>EngageService</code> instance.
-     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
+     * @return A <code>HttpClient</code> instance.
      */
-    public static EngageService getInstance() throws EngageFailureException {
-        return new EngageServiceImpl();
+    public static HttpClient getInstance() {
+        return new HttpClientImpl();
     }
 }

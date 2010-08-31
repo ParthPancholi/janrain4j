@@ -14,14 +14,7 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
-import java.net.Proxy;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,18 +25,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
+import com.googlecode.janrain4j.http.HttpClientFactory;
+import com.googlecode.janrain4j.http.HttpFailureException;
+import com.googlecode.janrain4j.http.HttpResponse;
 import com.googlecode.janrain4j.json.JSONArray;
 import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONObject;
-import com.googlecode.janrain4j.util.IOUtils;
-import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
  * @author Marcel Overdijk
  * @since 1.0
  */
 class EngageServiceImpl implements EngageService {
-
+    
     public static final String ACTIVITY_METHOD = "activity";
     public static final String ALL_MAPPINGS_METHOD = "all_mappings";
     public static final String ANALYTICS_METHOD = "analytics_access";
@@ -72,10 +68,9 @@ class EngageServiceImpl implements EngageService {
     public static final String TOKEN_PARAM = "token";
     public static final String UNLINK_PARAM = "unlink";
     
-    private EngageServiceConfig config;
+    public static final String JSON = "json";
     
-    EngageServiceImpl(EngageServiceConfig config) {
-        this.config = config;
+    EngageServiceImpl() {
     }
     
     public UserData authInfo(String token) {
@@ -251,23 +246,14 @@ class EngageServiceImpl implements EngageService {
             params.putAll(partialParams);
         }
 
-        params.put(FORMAT_PARAM, "json");
-        params.put(API_KEY_PARAM, config.getApiKey());
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, getConfig().getApiKey());
         
-        String url = config.getApiUrl() + "/" + method;
+        String url = getConfig().getApiUrl() + "/" + method;
         
         try {
-            HttpURLConnection connection = getConnection(url);
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.connect();
-            
-            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-            writer.write(URLEncoderUtils.encodeParameters(params));
-            writer.close();
-            
-            String contents = IOUtils.toString(connection.getInputStream());
-            JSONObject rsp = new JSONObject(contents);
+            HttpResponse response = HttpClientFactory.getInstance().post(url, params);
+            JSONObject rsp = new JSONObject(response.getContent());
             
             String stat = rsp.getString("stat");
             if (!stat.equals("ok")) {
@@ -284,48 +270,12 @@ class EngageServiceImpl implements EngageService {
             
             return rsp;
         }
-        catch (IOException e) {
-            throw new EngageFailureException("Unexpected IO error", e);
+        catch (HttpFailureException e) {
+            throw new EngageFailureException("Unexpected HTTP error", e);
         }
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", e);
         }
-    }
-    
-    private HttpURLConnection getConnection(String url) throws IOException {
-        
-        HttpURLConnection connection = null;
-        
-        if (config.getProxyHost() != null && config.getProxyHost().length() > 0) {
-            if (config.getProxyUsername() != null && config.getProxyUsername().length() > 0) {
-                Authenticator.setDefault(new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        if (getRequestorType().equals(RequestorType.PROXY)) {
-                            return new PasswordAuthentication(config.getProxyUsername(), config.getProxyPassword().toCharArray());
-                        }
-                        else {
-                            return null;
-                        }
-                    }
-                });
-            }
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(config.getProxyHost(), config.getProxyPort()));
-            connection = (HttpURLConnection) new URL(url).openConnection(proxy);
-        }
-        else {
-            connection = (HttpURLConnection) new URL(url).openConnection();
-        }
-        
-        if (config.getConnectTimeout() > -1) {
-            connection.setConnectTimeout(config.getConnectTimeout());
-        }
-        
-        if (config.getReadTimeout() > -1) {
-            connection.setReadTimeout(config.getReadTimeout());
-        }
-        
-        return connection;
     }
     
     UserData buildUserData(JSONObject rsp, boolean extended) {
@@ -387,5 +337,9 @@ class EngageServiceImpl implements EngageService {
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", e);
         }
+    }
+    
+    private static Config getConfig() {
+        return ConfigHolder.getConfig();
     }
 }
