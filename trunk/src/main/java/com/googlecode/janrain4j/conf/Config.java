@@ -15,9 +15,11 @@
 package com.googlecode.janrain4j.conf;
 
 /**
- * User-configurable properties. The recommended way to instantiate a 
- * <code>Config</code> object is to statically import {@link Config.Builder}.* 
- * and invoke a static creation method followed by an instance mutator (if needed):
+ * User-configurable properties. In most cases it is not needed to create a 
+ * <code>Config</code> manually. To create a <code>Config</code> 
+ * programatically, the recommended way is to statically import 
+ * {@link Config.Builder}.* and invoke the static build method followed by the 
+ * desired instance mutators:
  * <blockquote>
  * <pre>
  * import static com.googlecode.janrain4j.conf.Config.Builder.*;
@@ -38,7 +40,8 @@ package com.googlecode.janrain4j.conf;
  *         .proxy(proxyHost, proxyPort, proxyUsername, proxyPassword)
  *         .connectTimeout(connectTimeout)
  *         .readTimeout(readTimeout)
- *         .tokenUrl(tokenUrl);
+ *         .tokenUrl(tokenUrl)
+ *         .embedUrl(embedUrl);
  * </pre>
  * </blockquote>
  * 
@@ -55,6 +58,7 @@ public class Config {
     private String proxyPassword = null;
     private int connectTimeout = -1;
     private int readTimeout = -1;
+    private String embedUrl = null;
     private String tokenUrl = null;
     
     Config() {
@@ -114,6 +118,13 @@ public class Config {
      */
     public int getReadTimeout() {
         return readTimeout;
+    }
+
+    /**
+     * Returns the embed url.
+     */
+    public String getEmbedUrl() {
+        return embedUrl;
     }
     
     /**
@@ -202,6 +213,17 @@ public class Config {
      */
     public Config readTimeout(int timeout) {
         this.readTimeout = timeout;
+        return this;
+    }
+    
+    /**
+     * Sets the embed url.
+     * 
+     * @param embedUrl The embed url.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config embedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
         return this;
     }
     

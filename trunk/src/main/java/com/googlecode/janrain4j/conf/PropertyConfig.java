@@ -14,40 +14,38 @@
  */
 package com.googlecode.janrain4j.conf;
 
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
- * TODO
- * 
- * User-configurable properties of the {@link EngageService}. The recommended 
- * way to instantiate a <code>EngageServiceConfig</code> object is to 
- * statically import {@link EngageServiceConfig.Builder}.* and invoke a static 
- * creation method followed by an instance mutator (if needed):
- * <blockquote>
- * <pre>
- * import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
- * 
- * ...
- * 
- * // specify API key
- * EngageServiceConfig config = withApiKey(apiKey);
- * 
- * // specify API key and proxy
- * EngageServiceConfig config = withApiKey(apiKey).proxy(proxyHost, proxyPort);
- * 
- * // overview of all configurable properties
- * EngageServiceConfig config = withApiKey(apiKey)
- *         .apiUrl(apiUrl)
- *         .proxy(proxyHost, proxyPort)
- *         .proxy(proxyHost, proxyPort, proxyUsername, proxyPassword)
- *         .connectTimeout(connectTimeout)
- *         .readTimeout(readTimeout)
- * </pre>
- * </blockquote>
- * 
  * @author Marcel Overdijk
  * @since 1.0
  */
 class PropertyConfig extends Config {
 
+    public static final String JANRAIN4J_PROPERTIES = "janrain4j.properties";
+    
     public PropertyConfig() {
+        this(JANRAIN4J_PROPERTIES);
+    }
+    
+    public PropertyConfig(String file) {
+        Properties properties = null;
+        try {
+            properties = (Properties) System.getProperties().clone();
+        }
+        catch (SecurityException e) {
+            properties = new Properties();
+        }
+        loadProperties(properties, getClass().getResourceAsStream("/" + file));
+        loadProperties(properties, getClass().getResourceAsStream("/WEB-INF/" + file));
+    }
+    
+    private void loadProperties(Properties properties, InputStream is) {
+        try {
+            properties.load(is);
+        }
+        catch (Exception e) {
+        }
     }
 }
