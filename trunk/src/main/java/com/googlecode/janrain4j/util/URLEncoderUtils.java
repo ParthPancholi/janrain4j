@@ -37,7 +37,12 @@ public class URLEncoderUtils {
      * @see #encodeParamters(Map)
      */
     public static String encode(String value) throws UnsupportedEncodingException {
-        return URLEncoder.encode(value, "UTF-8");
+        if (value != null && value.length() > 0) {
+            return URLEncoder.encode(value, "UTF-8");
+        }
+        else {
+            return "";
+        }
     }
     
     /**
