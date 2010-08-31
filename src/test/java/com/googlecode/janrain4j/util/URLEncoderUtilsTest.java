@@ -39,6 +39,16 @@ public class URLEncoderUtilsTest {
     }
     
     @Test
+    public void testEncodeNull() throws UnsupportedEncodingException {
+        assertEquals("", URLEncoderUtils.encode(null));
+    }
+    
+    @Test
+    public void testEncodeEmpty() throws UnsupportedEncodingException {
+        assertEquals("", URLEncoderUtils.encode(""));
+    }
+    
+    @Test
     public void testEncodeParameter() throws UnsupportedEncodingException {
         assertEquals("the+message=Hello+World%21", URLEncoderUtils.encodeParameter("the message", "Hello World!"));
     }
