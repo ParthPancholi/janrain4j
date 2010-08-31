@@ -11,15 +11,10 @@
     
     <tag>
         <name>embed</name>
-        <tag-class>com.googlecode.janrain4j.tag.EmbedTag</tag-class>
+        <tag-class>com.googlecode.janrain4j.tags.EmbedTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>embedUrl</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>tokenUrl</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
