@@ -20,32 +20,37 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.MAP_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.OVERWRITE_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PRIMARY_KEY_PARAM;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class MapTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + MAP_METHOD;
+    
     @Test
     public void testMap() throws Exception {
         // expected params in api call
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(true));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.map(identifier, primaryKey);
         
-        verify(service).apiCall(MAP_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
@@ -54,12 +59,15 @@ public class MapTest extends EngageServiceImplTestCase {
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(true));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.map(identifier, primaryKey, true);
         
-        verify(service).apiCall(MAP_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
@@ -68,39 +76,14 @@ public class MapTest extends EngageServiceImplTestCase {
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         params.put(OVERWRITE_PARAM, Boolean.toString(false));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(MAP_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.map(identifier, primaryKey, false);
         
-        verify(service).apiCall(MAP_METHOD, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testMapThrowsEngageFailureException() {
-        // expected params in api call
-        params.put(IDENTIFIER_PARAM, identifier);
-        params.put(PRIMARY_KEY_PARAM, primaryKey);
-        params.put(OVERWRITE_PARAM, Boolean.toString(true));
-        
-        doThrow(engageFailureException()).when(service).apiCall(MAP_METHOD, params);
-        
-        service.map(identifier, primaryKey);
-        
-        verify(service).apiCall(MAP_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testMapThrowsErrorResponeException() {
-        // expected params in api call
-        params.put(IDENTIFIER_PARAM, identifier);
-        params.put(PRIMARY_KEY_PARAM, primaryKey);
-        params.put(OVERWRITE_PARAM, Boolean.toString(true));
-        
-        doThrow(errorResponeException()).when(service).apiCall(MAP_METHOD, params);
-        
-        service.map(identifier, primaryKey);
-        
-        verify(service).apiCall(MAP_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }

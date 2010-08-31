@@ -21,23 +21,29 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_MAPPINGS_METHOD;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class AllMappingsTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + ALL_MAPPINGS_METHOD;
+    
     @Test
     public void testMultipleMappings() throws Exception {
+        // expected params in api call
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
         String response =
             "{\n" +
             "  \"mappings\": {\n" +
@@ -52,7 +58,8 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        doReturn(new JSONObject(response)).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(response);
         
         Map<String, List<String>> allMappings = service.allMappings();
         
@@ -67,11 +74,15 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
         assertTrue(allMappings.get("2").contains("http://brianellin.com/"));
         assertTrue(allMappings.get("2").contains("http://brian.myopenid.com/"));
         
-        verify(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
     public void testSingleMappings() throws Exception {
+        // expected params in api call
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
         String response =
             "{\n" +
             "  \"mappings\": {\n" +
@@ -82,7 +93,8 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        doReturn(new JSONObject(response)).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(response);
         
         Map<String, List<String>> allMappings = service.allMappings();
         
@@ -92,11 +104,15 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
         assertEquals(1, allMappings.get("1").size());
         assertTrue(allMappings.get("1").contains("http://cygnus.myopenid.com/"));
         
-        verify(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
     public void testNoMappings() throws Exception {
+        // expected params in api call
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
         String response =
             "{\n" +
             "  \"mappings\": {\n" +
@@ -104,30 +120,13 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        doReturn(new JSONObject(response)).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(response);
         
         Map<String, List<String>> allMappings = service.allMappings();
         
         assertEquals(0, allMappings.size());
         
-        verify(service).apiCall(ALL_MAPPINGS_METHOD, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testAllMappingsThrowsEngageFailureException() {
-        doThrow(engageFailureException()).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
-        
-        service.allMappings();
-        
-        verify(service).apiCall(ALL_MAPPINGS_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testAllMappingsThrowsErrorResponeException() {
-        doThrow(errorResponeException()).when(service).apiCall(ALL_MAPPINGS_METHOD, params);
-        
-        service.allMappings();
-        
-        verify(service).apiCall(ALL_MAPPINGS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }

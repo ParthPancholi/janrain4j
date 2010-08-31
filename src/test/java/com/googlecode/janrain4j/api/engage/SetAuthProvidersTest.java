@@ -20,21 +20,23 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PROVIDERS_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.SET_AUTH_PROVIDERS_METHOD;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class SetAuthProvidersTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + SET_AUTH_PROVIDERS_METHOD;
+    
     private List<String> providers = new ArrayList<String>();
     
     @Test
@@ -43,12 +45,15 @@ public class SetAuthProvidersTest extends EngageServiceImplTestCase {
         providers.add("google");
         providers.add("twitter");
         params.put(PROVIDERS_PARAM, "google,twitter");
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.setAuthProviders(providers);
         
-        verify(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
@@ -56,49 +61,29 @@ public class SetAuthProvidersTest extends EngageServiceImplTestCase {
         // expected params in api call
         providers.add("google");
         params.put(PROVIDERS_PARAM, "google");
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.setAuthProviders(providers);
         
-        verify(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
     public void testSetNoAuthProvider() throws Exception {
         // expected params in api call
         params.put(PROVIDERS_PARAM, "");
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
-        
-        service.setAuthProviders(providers);
-        
-        verify(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testSetAuthProvidersThrowsEngageFailureException() {
-        // expected params in api call
-        providers.add("google");
-        params.put(PROVIDERS_PARAM, "google");
-        
-        doThrow(engageFailureException()).when(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.setAuthProviders(providers);
         
-        verify(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testSetAuthProvidersThrowsErrorResponeException() {
-        // expected params in api call
-        providers.add("google");
-        params.put(PROVIDERS_PARAM, "google");
-        
-        doThrow(errorResponeException()).when(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
-        
-        service.setAuthProviders(providers);
-        
-        verify(service).apiCall(SET_AUTH_PROVIDERS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }

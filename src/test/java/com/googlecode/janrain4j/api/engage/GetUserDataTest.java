@@ -20,78 +20,70 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.EXTENDED_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.GET_USER_DATA_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
-import static org.junit.Assert.assertEquals;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class GetUserDataTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + GET_USER_DATA_METHOD;
+    
     @Test
     public void testGetUserData() throws Exception {
         // expected params in api call
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(false));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        String response =
-            "{" +
-            "  \"profile\": {\n" +
-            "    \"displayName\": \"brian\",\n" +
-            "    \"preferredUsername\": \"brian\",\n" +
-            "    \"url\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
-            "    \"providerName\": \"Other\",\n" +
-            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
-            "  },\n" +
-            "  \"stat\": \"ok\"\n" +
-            "}";
-        
-        doReturn(new JSONObject(response)).when(service).apiCall(GET_USER_DATA_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(userDataResponse);
         
         UserData userData = service.getUserData(identifier);
-        
         assertNotNull(userData);
-        Profile profile = userData.getProfile();
-        assertNotNull(profile);
-        assertEquals("http://brian.myopenid.com/", profile.getIdentifier());
-        assertEquals("Other", profile.getProviderName());
-        assertEquals("brian", profile.getDisplayName());
-        assertEquals("brian", profile.getPreferredUsername());
-        assertEquals("http://brian.myopenid.com/", profile.getUrl());
         
-        verify(service).apiCall(GET_USER_DATA_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
-    @Test(expected = EngageFailureException.class)
-    public void testAuthInfoThrowsEngageFailureException() {
+    @Test
+    public void testGetUserDataWithExtendedIsTrue() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(EXTENDED_PARAM, Boolean.toString(true));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(userDataResponse);
+        
+        UserData userData = service.getUserData(identifier, true);
+        assertNotNull(userData);
+        
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testGetUserDataWithExtendedIsFalse() throws Exception {
         // expected params in api call
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(false));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doThrow(engageFailureException()).when(service).apiCall(GET_USER_DATA_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(userDataResponse);
         
-        service.getUserData(identifier);
+        UserData userData = service.getUserData(identifier, false);
+        assertNotNull(userData);
         
-        verify(service).apiCall(GET_USER_DATA_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testAuthInfoThrowsErrorResponeException() {
-        // expected params in api call
-        params.put(IDENTIFIER_PARAM, identifier);
-        params.put(EXTENDED_PARAM, Boolean.toString(false));
-        
-        doThrow(errorResponeException()).when(service).apiCall(GET_USER_DATA_METHOD, params);
-        
-        service.getUserData(identifier);
-        
-        verify(service).apiCall(GET_USER_DATA_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }

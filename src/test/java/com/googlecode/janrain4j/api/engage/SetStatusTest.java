@@ -20,20 +20,22 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.LOCATION_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.SET_STATUS_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.STATUS_PARAM;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class SetStatusTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + SET_STATUS_METHOD;
+    
     private String status = "Hello World!";
     private String location = "37.4220 -122.0843";
     
@@ -42,12 +44,15 @@ public class SetStatusTest extends EngageServiceImplTestCase {
         // expected params in api call
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(STATUS_PARAM, status);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.setStatus(identifier, status);
         
-        verify(service).apiCall(SET_STATUS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
     
     @Test
@@ -56,37 +61,14 @@ public class SetStatusTest extends EngageServiceImplTestCase {
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(STATUS_PARAM, status);
         params.put(LOCATION_PARAM, location);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
-        doReturn(new JSONObject(successResponse)).when(service).apiCall(SET_STATUS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
         
         service.setStatus(identifier, status, location);
         
-        verify(service).apiCall(SET_STATUS_METHOD, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testSetStatusThrowsEngageFailureException() {
-        // expected params in api call
-        params.put(IDENTIFIER_PARAM, identifier);
-        params.put(STATUS_PARAM, status);
-        
-        doThrow(engageFailureException()).when(service).apiCall(SET_STATUS_METHOD, params);
-        
-        service.setStatus(identifier, status);
-        
-        verify(service).apiCall(SET_STATUS_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testSetStatusThrowsErrorResponeException() {
-        // expected params in api call
-        params.put(IDENTIFIER_PARAM, identifier);
-        params.put(STATUS_PARAM, status);
-        
-        doThrow(errorResponeException()).when(service).apiCall(SET_STATUS_METHOD, params);
-        
-        service.setStatus(identifier, status);
-        
-        verify(service).apiCall(SET_STATUS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }

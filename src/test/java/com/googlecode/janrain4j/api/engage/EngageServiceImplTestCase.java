@@ -21,7 +21,6 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -33,17 +32,28 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
+import com.googlecode.janrain4j.http.HttpClient;
+import com.googlecode.janrain4j.http.HttpClientFactory;
+import com.googlecode.janrain4j.http.HttpResponse;
+
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(EngageServiceConfig.Builder.class)
+@PrepareForTest(HttpClientFactory.class)
 public class EngageServiceImplTestCase {
 
     protected EngageServiceImpl service = null;
     
-    protected EngageServiceConfig config = null;
+    protected Config config = null;
+    
+    protected HttpClient httpClient = null;
+    
+    protected HttpResponse httpResponse = null;
     
     protected Map<String, String> params = null;
     
     protected String apiKey = "my-api-key";
+    protected String apiUrl = "http://my-api-url.com";
     protected String identifier = "my-identifier";
     protected String primaryKey = "my-primary-key";
     
@@ -51,14 +61,34 @@ public class EngageServiceImplTestCase {
     
     protected int errorCode = 99;
     protected String errorMessage = "Some error message";
+    protected String errorResponse = "{ \"err\": { \"msg\": \"" + errorMessage + "\", \"code\": " + errorCode + " }, \"stat\": \"fail\" }";
+    
+    protected String userDataResponse =
+        "{" +
+        "  \"profile\": {\n" +
+        "    \"displayName\": \"brian\",\n" +
+        "    \"preferredUsername\": \"brian\",\n" +
+        "    \"url\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+        "    \"providerName\": \"Other\",\n" +
+        "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+        "  },\n" +
+        "  \"stat\": \"ok\"\n" +
+        "}";
     
     @Before
     public void setUp() throws Exception {
-        mockStatic(EngageServiceConfig.Builder.class);
-        config = mock(EngageServiceConfig.class);
-        when(EngageServiceConfig.Builder.withApiKey(apiKey)).thenReturn(config);
+        config = mock(Config.class);
+        when(config.getApiKey()).thenReturn(apiKey);
+        when(config.getApiUrl()).thenReturn(apiUrl);
+        ConfigHolder.setConfig(config);
         
-        service = spy(new EngageServiceImpl(config));
+        httpClient = mock(HttpClient.class);
+        mockStatic(HttpClientFactory.class);
+        when(HttpClientFactory.getInstance()).thenReturn(httpClient);
+        
+        httpResponse = mock(HttpResponse.class);
+        
+        service = new EngageServiceImpl();
         
         params = new HashMap<String, String>();
     }

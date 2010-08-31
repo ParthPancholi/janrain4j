@@ -21,12 +21,14 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ANALYTICS_METHOD;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.END_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.START_PARAM;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -35,10 +37,10 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.googlecode.janrain4j.json.JSONObject;
-
 public class AnalyticsTest extends EngageServiceImplTestCase {
 
+    private String url = apiUrl + "/" + ANALYTICS_METHOD;
+    
     private SimpleDateFormat dateFormatter = null;
     
     private Date start = null; 
@@ -57,6 +59,8 @@ public class AnalyticsTest extends EngageServiceImplTestCase {
         // expected params in api call
         params.put(START_PARAM, dateFormatter.format(start));
         params.put(END_PARAM, dateFormatter.format(end));
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
         
         String response =
             "{\n" +
@@ -64,38 +68,13 @@ public class AnalyticsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        doReturn(new JSONObject(response)).when(service).apiCall(ANALYTICS_METHOD, params);
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(response);
         
-        URL url = service.analytics(start, end);
+        URL theUrl = service.analytics(start, end);
         
-        assertEquals("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true", url.toString());
+        assertEquals("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true", theUrl.toString());
         
-        verify(service).apiCall(ANALYTICS_METHOD, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testAnalyticsThrowsEngageFailureException() {
-        // expected params in api call
-        params.put(START_PARAM, dateFormatter.format(start));
-        params.put(END_PARAM, dateFormatter.format(end));
-        
-        doThrow(engageFailureException()).when(service).apiCall(ANALYTICS_METHOD, params);
-        
-        service.analytics(start, end);
-        
-        verify(service).apiCall(ANALYTICS_METHOD, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testAnalyticsThrowsErrorResponeException() {
-        // expected params in api call
-        params.put(START_PARAM, dateFormatter.format(start));
-        params.put(END_PARAM, dateFormatter.format(end));
-        
-        doThrow(errorResponeException()).when(service).apiCall(ANALYTICS_METHOD, params);
-        
-        service.analytics(start, end);
-        
-        verify(service).apiCall(ANALYTICS_METHOD, params);
+        verify(httpClient).post(url, params);
     }
 }
