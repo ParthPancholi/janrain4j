@@ -12,53 +12,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
-
+package com.googlecode.janrain4j.conf;
 
 /**
- * User-configurable properties of the {@link EngageService}. The recommended 
- * way to instantiate a <code>EngageServiceConfig</code> object is to 
- * statically import {@link EngageServiceConfig.Builder}.* and invoke a static 
- * creation method followed by an instance mutator (if needed):
+ * User-configurable properties. The recommended way to instantiate a 
+ * <code>Config</code> object is to statically import {@link Config.Builder}.* 
+ * and invoke a static creation method followed by an instance mutator (if needed):
  * <blockquote>
  * <pre>
- * import static com.googlecode.janrain4j.api.engage.EngageServiceConfig.Builder.*;
+ * import static com.googlecode.janrain4j.conf.Config.Builder.*;
  * 
  * ...
  * 
  * // specify API key
- * EngageServiceConfig config = withApiKey(apiKey);
+ * Config config = build().apiKey(apiKey);
  * 
  * // specify API key and proxy
- * EngageServiceConfig config = withApiKey(apiKey).proxy(proxyHost, proxyPort);
+ * Config config = build().apiKey(apiKey).proxy(proxyHost, proxyPort);
  * 
  * // overview of all configurable properties
- * EngageServiceConfig config = withApiKey(apiKey)
+ * Config config = build()
+ *         .apiKey(apiKey)
  *         .apiUrl(apiUrl)
  *         .proxy(proxyHost, proxyPort)
  *         .proxy(proxyHost, proxyPort, proxyUsername, proxyPassword)
  *         .connectTimeout(connectTimeout)
  *         .readTimeout(readTimeout)
+ *         .tokenUrl(tokenUrl);
  * </pre>
  * </blockquote>
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EngageServiceConfig {
+public class Config {
 
-    public static final String DEFAULT_API_URL = "https://rpxnow.com/api/v2";
-    
     private String apiKey = null;
-    private String apiUrl = DEFAULT_API_URL;
+    private String apiUrl = "https://rpxnow.com/api/v2";
     private String proxyHost = null;
     private int proxyPort = -1;
     private String proxyUsername = null;
     private String proxyPassword = null;
     private int connectTimeout = -1;
     private int readTimeout = -1;
+    private String tokenUrl = null;
     
-    private EngageServiceConfig() {
+    Config() {
     }
     
     /**
@@ -118,12 +117,19 @@ public class EngageServiceConfig {
     }
     
     /**
+     * Returns the token url.
+     */
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+    
+    /**
      * Sets the Janrain Engage API key.
      * 
      * @param apiKey Your Janrain Engage API key.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig apiKey(String apiKey) {
+    public Config apiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
@@ -134,7 +140,7 @@ public class EngageServiceConfig {
      * @param apiUrl The base API url.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig apiUrl(String apiUrl) {
+    public Config apiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
         return this;
     }
@@ -146,7 +152,7 @@ public class EngageServiceConfig {
      * @param port The proxy port.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxy(String host, int port) {
+    public Config proxy(String host, int port) {
         this.proxyHost = host;
         this.proxyPort = port;
         return this;
@@ -161,7 +167,7 @@ public class EngageServiceConfig {
      * @param password The proxy password.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig proxy(String host, int port, String username, String password) {
+    public Config proxy(String host, int port, String username, String password) {
         this.proxyHost = host;
         this.proxyPort = port;
         this.proxyUsername = username;
@@ -179,7 +185,7 @@ public class EngageServiceConfig {
      * @param timeout The connect timeout value in milliseconds.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig connectTimeout(int timeout) {
+    public Config connectTimeout(int timeout) {
         this.connectTimeout = timeout;
         return this;
     }
@@ -194,34 +200,37 @@ public class EngageServiceConfig {
      * @param timeout The read timeout value in milliseconds.
      * @return <code>this</code> (for chaining)
      */
-    public EngageServiceConfig readTimeout(int timeout) {
+    public Config readTimeout(int timeout) {
         this.readTimeout = timeout;
         return this;
     }
     
     /**
-     * Contains static creation methods for {@link EngageServiceConfig}.
-     *  
-     * @author Marcel Overdijk
-     * @since 1.0
+     * Sets the token url.
+     * 
+     * @param tokenUrl The token url.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config tokenUrl(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
+        return this;
+    }
+    
+    /**
+     * Contains static creation methods for <code>Config</code>. 
      */
     public static class Builder {
-        
+
         private Builder() {
         }
         
-        private static EngageServiceConfig withDefaults() {
-            return new EngageServiceConfig();
-        }
-        
         /**
-         * Create an {@link EngageServiceConfig} with the given API key.
+         * Create a <code>Config</code> with default values.
          * 
-         * @param apiKey Your Janrain Engage API key.
-         * @return The newly created <code>EngageServiceConfig</code> instance.
+         * @return The newly created <code>Config</code> instance.
          */
-        public static EngageServiceConfig withApiKey(String apiKey) {
-            return withDefaults().apiKey(apiKey);
+        public static Config build() {
+            return new Config();
         }
     }
 }

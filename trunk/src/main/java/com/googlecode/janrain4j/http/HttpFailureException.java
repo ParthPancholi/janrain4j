@@ -12,23 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.http;
 
 /**
- * Returns {@link EngageService} implementations.
+ * <code>HttpFailureException</code> is thrown when any unknown error occurs 
+ * while executing the http requests.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EngageServiceFactory {
+public class HttpFailureException extends RuntimeException {
 
-    /**
-     * Returns an <code>EngageService</code> instance.
-     * 
-     * @return An <code>EngageService</code> instance.
-     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
-     */
-    public static EngageService getInstance() throws EngageFailureException {
-        return new EngageServiceImpl();
+    private static final long serialVersionUID = -8820908846453455029L;
+    
+    public HttpFailureException(String message) {
+        super(message);
+    }
+    
+    public HttpFailureException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

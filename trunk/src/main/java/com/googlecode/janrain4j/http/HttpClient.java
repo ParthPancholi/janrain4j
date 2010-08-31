@@ -12,23 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.http;
+
+import java.util.Map;
 
 /**
- * Returns {@link EngageService} implementations.
+ * The <code>HttpClient</code> executes http requests.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EngageServiceFactory {
+public interface HttpClient {
 
     /**
-     * Returns an <code>EngageService</code> instance.
+     * Executes a http post request.
      * 
-     * @return An <code>EngageService</code> instance.
-     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
+     * @param url The url.
+     * @param parameters The http parameters.
+     * @return The http response.
+     * @throws HttpFailureException If any unknown error occurs while executing the http request.
      */
-    public static EngageService getInstance() throws EngageFailureException {
-        return new EngageServiceImpl();
-    }
+    public HttpResponse post(String url, Map<String, String> parameters) throws HttpFailureException;
 }
