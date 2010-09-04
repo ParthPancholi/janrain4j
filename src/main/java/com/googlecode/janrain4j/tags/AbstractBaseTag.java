@@ -12,25 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.http;
+package com.googlecode.janrain4j.tags;
+
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
 
 /**
- * Returns {@link HttpClient} implementations.
+ * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class HttpClientFactory {
+public abstract class AbstractBaseTag extends SimpleTagSupport {
 
-    /**
-     * Returns a <code>HttpClient</code> instance.
-     * 
-     * @param config The config.
-     * @return A <code>HttpClient</code> instance.
-     */
-    public static HttpClient getInstance(Config config) {
-        return new HttpClientImpl(config);
+    protected Config getConfig() {
+        return ConfigHolder.getConfig();
     }
 }

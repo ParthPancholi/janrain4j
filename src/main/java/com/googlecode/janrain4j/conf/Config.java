@@ -35,13 +35,16 @@ package com.googlecode.janrain4j.conf;
  * // overview of all configurable properties
  * Config config = build()
  *         .apiKey(apiKey)
- *         .apiUrl(apiUrl)
- *         .proxy(proxyHost, proxyPort)
- *         .proxy(proxyHost, proxyPort, proxyUsername, proxyPassword)
- *         .connectTimeout(connectTimeout)
- *         .readTimeout(readTimeout)
+ *         .applicationID(applicationID)
+ *         .applicationDomain(applicationDomain)
  *         .tokenUrl(tokenUrl)
- *         .embedUrl(embedUrl);
+ *         .languagePreference(languagePreference)
+ *         .proxyHost(proxyHost)
+ *         .proxyPort(proxyHost)
+ *         .proxyUsername(proxyUsername)
+ *         .proxyPassword(proxyPassword)
+ *         .connectTimeout(connectTimeout)
+ *         .readTimeout(readTimeout);
  * </pre>
  * </blockquote>
  * 
@@ -51,31 +54,53 @@ package com.googlecode.janrain4j.conf;
 public class Config {
 
     private String apiKey = null;
-    private String apiUrl = "https://rpxnow.com/api/v2";
+    private String applicationID = null;
+    private String applicationDomain = null;
+    private String tokenUrl = null;
+    private String languagePreference = null;
     private String proxyHost = null;
     private int proxyPort = -1;
     private String proxyUsername = null;
     private String proxyPassword = null;
     private int connectTimeout = -1;
     private int readTimeout = -1;
-    private String embedUrl = null;
-    private String tokenUrl = null;
     
     Config() {
     }
     
     /**
-     * Returns the Janrain Engage API key.
+     * Returns the Janrain API key.
      */
     public String getApiKey() {
         return apiKey;
     }
     
     /**
-     * Returns the Janrain Engage API url.
+     * Returns the Janrain application ID.
      */
-    public String getApiUrl() {
-        return apiUrl;
+    public String getApplicationID() {
+        return applicationID;
+    }
+    
+    /**
+     * Returns the Janrain application domain.
+     */
+    public String getApplicationDomain() {
+        return applicationDomain;
+    }
+    
+    /**
+     * Returns the token url.
+     */
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+    
+    /**
+     * Returns the language preference.
+     */
+    public String getLanguagePreference() {
+        return languagePreference;
     }
     
     /**
@@ -119,25 +144,11 @@ public class Config {
     public int getReadTimeout() {
         return readTimeout;
     }
-
-    /**
-     * Returns the embed url.
-     */
-    public String getEmbedUrl() {
-        return embedUrl;
-    }
     
     /**
-     * Returns the token url.
-     */
-    public String getTokenUrl() {
-        return tokenUrl;
-    }
-    
-    /**
-     * Sets the Janrain Engage API key.
+     * Sets the Janrain API key.
      * 
-     * @param apiKey Your Janrain Engage API key.
+     * @param apiKey Your Janrain API key.
      * @return <code>this</code> (for chaining)
      */
     public Config apiKey(String apiKey) {
@@ -146,42 +157,89 @@ public class Config {
     }
     
     /**
-     * Sets the Janrain Engage API url.
+     * Sets the Janrain application ID.
      * 
-     * @param apiUrl The base API url.
+     * @param applicationID The application ID.
      * @return <code>this</code> (for chaining)
      */
-    public Config apiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
+    public Config applicationID(String applicationID) {
+        this.applicationID = applicationID;
         return this;
     }
     
     /**
-     * Sets the proxy.
+     * Sets the Janrain application domain.
+     * 
+     * @param applicationDomain The application domain.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config applicationDomain(String applicationDomain) {
+        this.applicationDomain = applicationDomain;
+        return this;
+    }
+    
+    /**
+     * Sets the token url.
+     * 
+     * @param tokenUrl The token url.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config tokenUrl(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
+        return this;
+    }
+    
+    /**
+     * Sets the language preference.
+     * 
+     * @param languagePreference The language preference.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config languagePreference(String languagePreference) {
+        this.languagePreference = languagePreference;
+        return this;
+    }
+    
+    /**
+     * Sets the proxy host.
      * 
      * @param host The proxy host.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config proxyHost(String host) {
+        this.proxyHost = host;
+        return this;
+    }
+    
+    /**
+     * Sets the proxy port.
+     * 
      * @param port The proxy port.
      * @return <code>this</code> (for chaining)
      */
-    public Config proxy(String host, int port) {
-        this.proxyHost = host;
+    public Config proxyPort(int port) {
         this.proxyPort = port;
         return this;
     }
     
     /**
-     * Sets the proxy using authentication.
+     * Sets the proxy username.
      * 
-     * @param host The proxy host.
-     * @param port The proxy port.
      * @param username The proxy username.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config proxyUsername(String username) {
+        this.proxyUsername = username;
+        return this;
+    }
+    
+    /**
+     * Sets the proxy password.
+     * 
      * @param password The proxy password.
      * @return <code>this</code> (for chaining)
      */
-    public Config proxy(String host, int port, String username, String password) {
-        this.proxyHost = host;
-        this.proxyPort = port;
-        this.proxyUsername = username;
+    public Config proxyPassword(String password) {
         this.proxyPassword = password;
         return this;
     }
@@ -213,28 +271,6 @@ public class Config {
      */
     public Config readTimeout(int timeout) {
         this.readTimeout = timeout;
-        return this;
-    }
-    
-    /**
-     * Sets the embed url.
-     * 
-     * @param embedUrl The embed url.
-     * @return <code>this</code> (for chaining)
-     */
-    public Config embedUrl(String embedUrl) {
-        this.embedUrl = embedUrl;
-        return this;
-    }
-    
-    /**
-     * Sets the token url.
-     * 
-     * @param tokenUrl The token url.
-     * @return <code>this</code> (for chaining)
-     */
-    public Config tokenUrl(String tokenUrl) {
-        this.tokenUrl = tokenUrl;
         return this;
     }
     

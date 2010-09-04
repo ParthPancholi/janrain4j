@@ -31,11 +31,7 @@ public class ConfigHolder {
      */
     public static Config getConfig() {
         if (config == null) {
-            synchronized(ConfigHolder.class) {
-                if (config == null) {
-                    config = new PropertyConfig();
-                }
-            }
+            setConfig(new PropertyConfig());
         }
         return config;
     }

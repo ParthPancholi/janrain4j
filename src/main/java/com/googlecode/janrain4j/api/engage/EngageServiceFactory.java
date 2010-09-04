@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
+
 /**
  * Returns {@link EngageService} implementations.
  * 
@@ -23,12 +26,24 @@ package com.googlecode.janrain4j.api.engage;
 public class EngageServiceFactory {
 
     /**
-     * Returns an <code>EngageService</code> instance.
+     * Returns an <code>EngageService</code> using the <code>Config<code> set 
+     * in {@link ConfigHolder}.
      * 
      * @return An <code>EngageService</code> instance.
      * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
     public static EngageService getInstance() throws EngageFailureException {
-        return new EngageServiceImpl();
+        return new EngageServiceImpl(ConfigHolder.getConfig());
     }
+    
+    /**
+     * Returns an <code>EngageService</code> using the provided config.
+     * 
+     * @param config The config.
+     * @return An <code>EngageService</code> instance.
+     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
+     */
+    public static EngageService getInstance(Config config) throws EngageFailureException {
+        return new EngageServiceImpl(config);
+    }    
 }

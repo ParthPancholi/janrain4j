@@ -12,25 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.http;
+package com.googlecode.janrain4j.tags;
 
-import com.googlecode.janrain4j.conf.Config;
+import java.io.IOException;
+
+import javax.servlet.jsp.JspException;
 
 /**
- * Returns {@link HttpClient} implementations.
+ * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class HttpClientFactory {
+public class SignInOverlayTag extends AbstractBaseTag {
 
-    /**
-     * Returns a <code>HttpClient</code> instance.
-     * 
-     * @param config The config.
-     * @return A <code>HttpClient</code> instance.
-     */
-    public static HttpClient getInstance(Config config) {
-        return new HttpClientImpl(config);
+    @Override
+    public void doTag() throws JspException, IOException {
     }
 }
