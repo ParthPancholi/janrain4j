@@ -20,10 +20,7 @@ import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
@@ -32,9 +29,10 @@ import com.googlecode.janrain4j.util.URLEncoderUtils;
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class EmbedTag extends SimpleTagSupport {
+public class SignInEmbeddedTag extends AbstractBaseTag {
 
-    private String embedUrl = null;
+    private String applicationDomain = null;
+    private String tokenUrl = null;
     private String defaultProvider = null;
     private String flags = null;
     private String languagePreference = null;
@@ -44,37 +42,45 @@ public class EmbedTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("token_url", getConfig().getTokenUrl());
-        if (defaultProvider != null && defaultProvider.length() > 0) {
-            params.put("default_provider", defaultProvider);
+        params.put("token_url", getTokenUrl());
+        if (getDefaultProvider() != null && getDefaultProvider().length() > 0) {
+            params.put("default_provider", getDefaultProvider());
         }
-        if (flags != null && flags.length() > 0) {
-            params.put("flags", flags);
+        if (getFlags() != null && getFlags().length() > 0) {
+            params.put("flags", getFlags());
         }
-        if (languagePreference != null && languagePreference.length() > 0) {
-            params.put("language_preference", languagePreference);
+        if (getLanguagePreference() != null && getLanguagePreference().length() > 0) {
+            params.put("language_preference", getLanguagePreference());
         }
         String encodedParams = URLEncoderUtils.encodeParameters(params);
 
         StringBuffer sb = new StringBuffer();
         sb.append("<iframe ");
-        sb.append("src=\"").append(embedUrl).append("?").append(encodedParams).append("\" ");
+        sb.append("src=\"").append(getApplicationDomain()).append("openid/embed?").append(encodedParams).append("\" ");
         sb.append("scrolling=\"no\" ");
         sb.append("frameBorder=\"no\" ");
         sb.append("allowtransparency=\"true\" ");
         sb.append("style=\"width: ").append(width).append("px; height: ").append(height).append("px;\"");
         sb.append("></iframe>");
         
-        JspWriter out = this.getJspContext().getOut();
+        JspWriter out = getJspContext().getOut();
         out.println(sb.toString());
     }
     
-    public String getEmbedUrl() {
-        return embedUrl;
+    public String getApplicationDomain() {
+        return applicationDomain != null ? applicationDomain : getConfig().getApplicationDomain();
     }
     
-    public void setEmbedUrl(String embedUrl) {
-        this.embedUrl = embedUrl;
+    public void setApplication(String applicationDomain) {
+        this.applicationDomain = applicationDomain;
+    }
+    
+    public String getTokenUrl() {
+        return tokenUrl != null ? tokenUrl : getConfig().getTokenUrl();
+    }
+    
+    public void setTokenUrl(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
     }
     
     public String getDefaultProvider() {
@@ -94,7 +100,7 @@ public class EmbedTag extends SimpleTagSupport {
     }
     
     public String getLanguagePreference() {
-        return languagePreference;
+        return languagePreference != null ? languagePreference : getConfig().getLanguagePreference();
     }
     
     public void setLanguagePreference(String languagePreference) {
@@ -115,9 +121,5 @@ public class EmbedTag extends SimpleTagSupport {
     
     public void setHeight(int height) {
         this.height = height;
-    }
-    
-    private static Config getConfig() {
-        return ConfigHolder.getConfig();
     }
 }

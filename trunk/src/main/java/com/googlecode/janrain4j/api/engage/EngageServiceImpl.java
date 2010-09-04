@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
 import com.googlecode.janrain4j.http.HttpResponse;
@@ -39,6 +38,8 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  */
 class EngageServiceImpl implements EngageService {
+    
+    public static final String API_URL = "https://rpxnow.com/api/v2/";
     
     public static final String ACTIVITY_METHOD = "activity";
     public static final String ALL_MAPPINGS_METHOD = "all_mappings";
@@ -70,7 +71,10 @@ class EngageServiceImpl implements EngageService {
     
     public static final String JSON = "json";
     
-    EngageServiceImpl() {
+    private Config config = null;
+    
+    EngageServiceImpl(Config config) {
+        this.config = config;
     }
     
     public UserData authInfo(String token) {
@@ -247,12 +251,12 @@ class EngageServiceImpl implements EngageService {
         }
 
         params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, getConfig().getApiKey());
+        params.put(API_KEY_PARAM, config.getApiKey());
         
-        String url = getConfig().getApiUrl() + "/" + method;
+        String url = API_URL + method;
         
         try {
-            HttpResponse response = HttpClientFactory.getInstance().post(url, params);
+            HttpResponse response = HttpClientFactory.getInstance(config).post(url, params);
             JSONObject rsp = new JSONObject(response.getContent());
             
             String stat = rsp.getString("stat");
@@ -337,9 +341,5 @@ class EngageServiceImpl implements EngageService {
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", e);
         }
-    }
-    
-    private static Config getConfig() {
-        return ConfigHolder.getConfig();
     }
 }

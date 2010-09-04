@@ -27,7 +27,6 @@ import java.net.URL;
 import java.util.Map;
 
 import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
@@ -36,7 +35,13 @@ import com.googlecode.janrain4j.util.URLEncoderUtils;
  */
 class HttpClientImpl implements HttpClient {
 
-    private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
+    public static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
+    
+    private Config config = null;
+    
+    public HttpClientImpl(Config config) {
+        this.config = config;
+    }
     
     public HttpResponse post(String url, Map<String, String> parameters) throws HttpFailureException {
         try {
@@ -63,13 +68,13 @@ class HttpClientImpl implements HttpClient {
         
         HttpURLConnection connection = null;
         
-        if (getConfig().getProxyHost() != null && getConfig().getProxyHost().length() > 0) {
-            if (getConfig().getProxyUsername() != null && getConfig().getProxyUsername().length() > 0) {
+        if (config.getProxyHost() != null && config.getProxyHost().length() > 0) {
+            if (config.getProxyUsername() != null && config.getProxyUsername().length() > 0) {
                 Authenticator.setDefault(new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         if (getRequestorType().equals(RequestorType.PROXY)) {
-                            return new PasswordAuthentication(getConfig().getProxyUsername(), getConfig().getProxyPassword().toCharArray());
+                            return new PasswordAuthentication(config.getProxyUsername(), config.getProxyPassword().toCharArray());
                         }
                         else {
                             return null;
@@ -77,19 +82,19 @@ class HttpClientImpl implements HttpClient {
                     }
                 });
             }
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(getConfig().getProxyHost(), getConfig().getProxyPort()));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved(config.getProxyHost(), config.getProxyPort()));
             connection = (HttpURLConnection) new URL(url).openConnection(proxy);
         }
         else {
             connection = (HttpURLConnection) new URL(url).openConnection();
         }
         
-        if (getConfig().getConnectTimeout() > -1) {
-            connection.setConnectTimeout(getConfig().getConnectTimeout());
+        if (config.getConnectTimeout() > -1) {
+            connection.setConnectTimeout(config.getConnectTimeout());
         }
         
-        if (getConfig().getReadTimeout() > -1) {
-            connection.setReadTimeout(getConfig().getReadTimeout());
+        if (config.getReadTimeout() > -1) {
+            connection.setReadTimeout(config.getReadTimeout());
         }
         
         return connection;
@@ -116,9 +121,5 @@ class HttpClientImpl implements HttpClient {
             contents.append(buffer, 0, n);
         }
         return contents.toString();
-    }
-    
-    private Config getConfig() {
-        return ConfigHolder.getConfig();
     }
 }

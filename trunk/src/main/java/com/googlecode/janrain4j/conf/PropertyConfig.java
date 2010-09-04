@@ -14,7 +14,6 @@
  */
 package com.googlecode.janrain4j.conf;
 
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -25,27 +24,89 @@ class PropertyConfig extends Config {
 
     public static final String JANRAIN4J_PROPERTIES = "janrain4j.properties";
     
+    public static final String KEY_PREFIX = "janrain4j.";
+    
+    public static final String API_KEY_KEY = KEY_PREFIX + "api.key";
+    public static final String APPLICATION_ID_KEY = KEY_PREFIX + "application.id";
+    public static final String APPLICATION_DOMAIN_KEY = KEY_PREFIX + "application.domain";
+    public static final String TOKEN_URL_KEY = KEY_PREFIX + "token.url";
+    public static final String LANGUAGE_PREFERENCE_KEY = KEY_PREFIX + "language.preference";
+    public static final String PROXY_HOST_KEY = KEY_PREFIX + "proxy.host";
+    public static final String PROXY_PORT_KEY = KEY_PREFIX + "proxy.port";
+    public static final String PROXY_USERNAME_KEY = KEY_PREFIX + "proxy.username";
+    public static final String PROXY_PASSWORD_KEY = KEY_PREFIX + "proxy.password";
+    public static final String CONNECT_TIMEOUT_KEY = KEY_PREFIX + "connect.timeout";
+    public static final String READ_TIMEOUT_KEY = KEY_PREFIX + "read.timeout";
+    
     public PropertyConfig() {
         this(JANRAIN4J_PROPERTIES);
     }
     
     public PropertyConfig(String file) {
-        Properties properties = null;
+        Properties properties;
         try {
             properties = (Properties) System.getProperties().clone();
         }
         catch (SecurityException e) {
             properties = new Properties();
         }
-        loadProperties(properties, getClass().getResourceAsStream("/" + file));
-        loadProperties(properties, getClass().getResourceAsStream("/WEB-INF/" + file));
-    }
-    
-    private void loadProperties(Properties properties, InputStream is) {
         try {
-            properties.load(is);
+            properties.load(getClass().getResourceAsStream("/" + file));
         }
         catch (Exception e) {
+        }
+        
+        if (properties.containsKey(API_KEY_KEY)) {
+            this.apiKey(properties.getProperty(API_KEY_KEY));
+        }
+        
+        if (properties.containsKey(APPLICATION_ID_KEY)) {
+            this.applicationID(properties.getProperty(APPLICATION_ID_KEY));
+        }
+        
+        if (properties.containsKey(APPLICATION_DOMAIN_KEY)) {
+            this.applicationDomain(properties.getProperty(APPLICATION_DOMAIN_KEY));
+        }
+        
+        if (properties.containsKey(TOKEN_URL_KEY)) {
+            this.tokenUrl(properties.getProperty(TOKEN_URL_KEY));
+        }
+        
+        if (properties.containsKey(LANGUAGE_PREFERENCE_KEY)) {
+            this.languagePreference(properties.getProperty(LANGUAGE_PREFERENCE_KEY));
+        }
+        
+        if (properties.containsKey(PROXY_HOST_KEY)) {
+            this.proxyHost(properties.getProperty(PROXY_HOST_KEY));
+        }
+        
+        if (properties.containsKey(PROXY_PORT_KEY)) {
+            this.proxyPort(parseInt(properties.getProperty(PROXY_PORT_KEY)));
+        }
+        
+        if (properties.containsKey(PROXY_USERNAME_KEY)) {
+            this.proxyUsername(properties.getProperty(PROXY_USERNAME_KEY));
+        }
+        
+        if (properties.containsKey(PROXY_PASSWORD_KEY)) {
+            this.proxyPassword(properties.getProperty(PROXY_PASSWORD_KEY));
+        }
+        
+        if (properties.containsKey(CONNECT_TIMEOUT_KEY)) {
+            this.connectTimeout(parseInt(properties.getProperty(CONNECT_TIMEOUT_KEY)));
+        }
+        
+        if (properties.containsKey(READ_TIMEOUT_KEY)) {
+            this.readTimeout(parseInt(properties.getProperty(READ_TIMEOUT_KEY)));
+        }
+    }
+    
+    private int parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        }
+        catch (NumberFormatException e) {
+            return -1;
         }
     }
 }
