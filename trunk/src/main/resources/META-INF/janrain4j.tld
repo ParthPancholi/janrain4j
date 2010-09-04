@@ -10,12 +10,17 @@
     <uri>http://janrain4j.googlecode.com/tags</uri>
     
     <tag>
-        <name>embed</name>
-        <tag-class>com.googlecode.janrain4j.tags.EmbedTag</tag-class>
+        <name>signInEmbedded</name>
+        <tag-class>com.googlecode.janrain4j.tags.SignInEmbeddedTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <name>embedUrl</name>
-            <required>true</required>
+            <name>applicationDomain</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tokenUrl</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>

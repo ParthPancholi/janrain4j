@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class ApiCallTest extends EngageServiceImplTestCase {
 
     private String method = "some_method";
-    private String url = apiUrl + "/" + method;
+    private String url = API_URL + method;
     
     @Test
     public void testApiCallWithSuccessResponse() throws Exception {

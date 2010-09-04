@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.PROVIDERS_PARAM;
@@ -35,7 +36,7 @@ import org.junit.Test;
 
 public class SetAuthProvidersTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + SET_AUTH_PROVIDERS_METHOD;
+    private String url = API_URL + SET_AUTH_PROVIDERS_METHOD;
     
     private List<String> providers = new ArrayList<String>();
     

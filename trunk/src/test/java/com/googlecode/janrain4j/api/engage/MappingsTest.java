@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.MAPPINGS_METHOD;
@@ -36,7 +37,7 @@ import org.junit.Test;
 
 public class MappingsTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + MAPPINGS_METHOD;
+    private String url = API_URL + MAPPINGS_METHOD;
     
     @Test
     public void testMultipleMappings() throws Exception {

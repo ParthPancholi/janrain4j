@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
@@ -34,7 +35,7 @@ import org.junit.Test;
 
 public class MapTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + MAP_METHOD;
+    private String url = API_URL + MAP_METHOD;
     
     @Test
     public void testMap() throws Exception {
