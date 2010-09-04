@@ -33,7 +33,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.http.HttpClient;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpResponse;
@@ -53,7 +52,6 @@ public class EngageServiceImplTestCase {
     protected Map<String, String> params = null;
     
     protected String apiKey = "my-api-key";
-    protected String apiUrl = "http://my-api-url.com";
     protected String identifier = "my-identifier";
     protected String primaryKey = "my-primary-key";
     
@@ -79,16 +77,14 @@ public class EngageServiceImplTestCase {
     public void setUp() throws Exception {
         config = mock(Config.class);
         when(config.getApiKey()).thenReturn(apiKey);
-        when(config.getApiUrl()).thenReturn(apiUrl);
-        ConfigHolder.setConfig(config);
         
         httpClient = mock(HttpClient.class);
         mockStatic(HttpClientFactory.class);
-        when(HttpClientFactory.getInstance()).thenReturn(httpClient);
+        when(HttpClientFactory.getInstance(config)).thenReturn(httpClient);
         
         httpResponse = mock(HttpResponse.class);
         
-        service = new EngageServiceImpl();
+        service = new EngageServiceImpl(config);
         
         params = new HashMap<String, String>();
     }

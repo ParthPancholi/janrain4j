@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.EXTENDED_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.GET_USER_DATA_METHOD;
@@ -34,7 +35,7 @@ import org.junit.Test;
 
 public class GetUserDataTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + GET_USER_DATA_METHOD;
+    private String url = API_URL + GET_USER_DATA_METHOD;
     
     @Test
     public void testGetUserData() throws Exception {

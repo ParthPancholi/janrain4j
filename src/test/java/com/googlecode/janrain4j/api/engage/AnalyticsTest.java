@@ -22,6 +22,7 @@ package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ANALYTICS_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.END_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
@@ -39,7 +40,7 @@ import org.junit.Test;
 
 public class AnalyticsTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + ANALYTICS_METHOD;
+    private String url = API_URL + ANALYTICS_METHOD;
     
     private SimpleDateFormat dateFormatter = null;
     

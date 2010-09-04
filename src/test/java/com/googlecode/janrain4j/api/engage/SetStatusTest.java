@@ -21,6 +21,7 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
@@ -34,7 +35,7 @@ import org.junit.Test;
 
 public class SetStatusTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + SET_STATUS_METHOD;
+    private String url = API_URL + SET_STATUS_METHOD;
     
     private String status = "Hello World!";
     private String location = "37.4220 -122.0843";

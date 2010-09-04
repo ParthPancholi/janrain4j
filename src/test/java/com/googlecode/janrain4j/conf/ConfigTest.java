@@ -29,55 +29,59 @@ import org.junit.Test;
 public class ConfigTest {
 
     private String apiKey = "my-api-key";
-    private String apiUrl = "http://my-api-url.com";
+    private String applicationID = "my-application-id";
+    private String applicationDomain = "my-application-domain";
+    private String tokenUrl = "http://my-token-url.com";
+    private String languagePreference = "nl";
     private String proxyHost = "http://my-proxy.com";
     private int proxyPort = 8080;
     private String proxyUsername = "my-username";
     private String proxyPassword = "my-password";
     private int connectTimeout = 60000;
     private int readTimeout = 120000;
-    private String embedUrl = "http://my-embed-url.com";
-    private String tokenUrl = "http://my-token-url.com";
     
     @Test
     public void testBuilderDefaultValues() {
         Config config = build();
         
         assertNull(config.getApiKey());
-        assertEquals("https://rpxnow.com/api/v2", config.getApiUrl());
+        assertNull(config.getApplicationID());
+        assertNull(config.getApplicationDomain());
+        assertNull(config.getTokenUrl());
+        assertNull(config.getLanguagePreference());
         assertNull(config.getProxyHost());
         assertEquals(-1, config.getProxyPort());
         assertNull(config.getProxyUsername());
         assertNull(config.getProxyPassword());
         assertEquals(-1, config.getConnectTimeout());
         assertEquals(-1, config.getReadTimeout());
-        assertNull(config.getEmbedUrl());
-        assertNull(config.getTokenUrl());
     }
     
     @Test
     public void testMutators() {
         Config config = build()
             .apiKey(apiKey)
-            .apiUrl(apiUrl)
+            .applicationID(applicationID)
+            .applicationDomain(applicationDomain)
+            .tokenUrl(tokenUrl)
+            .languagePreference(languagePreference)
             .proxyHost(proxyHost)
             .proxyPort(proxyPort)
             .proxyUsername(proxyUsername)
             .proxyPassword(proxyPassword)
             .connectTimeout(connectTimeout)
-            .readTimeout(readTimeout)
-            .embedUrl(embedUrl)
-            .tokenUrl(tokenUrl);
+            .readTimeout(readTimeout);
         
         assertEquals(apiKey, config.getApiKey());
-        assertEquals(apiUrl, config.getApiUrl());
+        assertEquals(applicationID, config.getApplicationID());
+        assertEquals(applicationDomain, config.getApplicationDomain());
+        assertEquals(tokenUrl, config.getTokenUrl());
+        assertEquals(languagePreference, config.getLanguagePreference());
         assertEquals(proxyHost, config.getProxyHost());
         assertEquals(proxyPort, config.getProxyPort());
         assertEquals(proxyUsername, config.getProxyUsername());
         assertEquals(proxyPassword, config.getProxyPassword());
         assertEquals(connectTimeout, config.getConnectTimeout());
         assertEquals(readTimeout, config.getReadTimeout());
-        assertEquals(embedUrl, config.getEmbedUrl());
-        assertEquals(tokenUrl, config.getTokenUrl());
     }    
 }

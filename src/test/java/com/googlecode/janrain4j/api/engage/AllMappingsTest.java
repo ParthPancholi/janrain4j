@@ -22,6 +22,7 @@ package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_MAPPINGS_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ import org.junit.Test;
 
 public class AllMappingsTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + ALL_MAPPINGS_METHOD;
+    private String url = API_URL + ALL_MAPPINGS_METHOD;
     
     @Test
     public void testMultipleMappings() throws Exception {

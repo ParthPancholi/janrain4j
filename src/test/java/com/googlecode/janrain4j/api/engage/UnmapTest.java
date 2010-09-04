@@ -22,6 +22,7 @@ package com.googlecode.janrain4j.api.engage;
 
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_IDENTIFIERS_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
@@ -35,7 +36,7 @@ import org.junit.Test;
 
 public class UnmapTest extends EngageServiceImplTestCase {
 
-    private String url = apiUrl + "/" + UNMAP_METHOD;
+    private String url = API_URL + UNMAP_METHOD;
     
     @Test
     public void testUnmapIdentifier() throws Exception {
