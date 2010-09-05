@@ -28,6 +28,8 @@ import org.junit.Test;
 
 public class ConfigTest {
 
+    private Config config = null;
+    
     private String apiKey = "my-api-key";
     private String applicationID = "my-application-id";
     private String applicationDomain = "my-application-domain";
@@ -42,7 +44,7 @@ public class ConfigTest {
     
     @Test
     public void testBuilderDefaultValues() {
-        Config config = build();
+        config = build();
         
         assertNull(config.getApiKey());
         assertNull(config.getApplicationID());
@@ -59,7 +61,7 @@ public class ConfigTest {
     
     @Test
     public void testMutators() {
-        Config config = build()
+        config = build()
             .apiKey(apiKey)
             .applicationID(applicationID)
             .applicationDomain(applicationDomain)
