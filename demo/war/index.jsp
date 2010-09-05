@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <body>
-        <h1>janrain4j</h1>
-        <janrain:signInEmbedded languagePreference="nl" />
+        <h1>janrain4j demo</h1>
+        <janrain:signInEmbedded />
     </body>
 </html>
