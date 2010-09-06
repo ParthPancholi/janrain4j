@@ -93,7 +93,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertNull(address.getRegion());
         assertNull(address.getPostalCode());
         assertNull(address.getCountry());
-        assertFalse(profile.hasLimitedData());
+        assertFalse(profile.isLimitedData());
     }
     
     @Test
@@ -170,7 +170,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertEquals("my-region", address.getRegion());
         assertEquals("my-postal-code", address.getPostalCode());
         assertEquals("my-country", address.getCountry());
-        assertFalse(profile.hasLimitedData());
+        assertFalse(profile.isLimitedData());
     }
     
     @Test
@@ -187,7 +187,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         
         UserData userData = service.buildUserData(new JSONObject(response), false);
         
-        assertTrue(userData.getProfile().hasLimitedData());
+        assertTrue(userData.getProfile().isLimitedData());
     }
     
     @Test

@@ -15,6 +15,11 @@
         <servlet-class>com.googlecode.janrain4j.demo.TokenServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.AdminServlet</servlet-class>
+    </servlet>
+    
 	<servlet-mapping>
 		<servlet-name>DemoServlet</servlet-name>
 		<url-pattern>/demo</url-pattern>
@@ -24,6 +29,20 @@
         <servlet-name>TokenServlet</servlet-name>
         <url-pattern>/token</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
     
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

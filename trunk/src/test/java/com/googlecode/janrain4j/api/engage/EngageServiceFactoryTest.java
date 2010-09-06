@@ -21,8 +21,6 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyNew;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
@@ -41,7 +39,6 @@ public class EngageServiceFactoryTest {
 
     Config config = null;
     EngageServiceImpl service = null;
-    
     
     @Before
     public void setUp() {

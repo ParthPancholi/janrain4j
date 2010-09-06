@@ -237,7 +237,7 @@ public class Profile {
      * succeeded in retrieving complete set of data, this field will be set to 
      * false.
      */
-    public boolean hasLimitedData() {
+    public boolean isLimitedData() {
         return limitedData;
     }
     

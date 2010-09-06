@@ -15,9 +15,10 @@
 package com.googlecode.janrain4j.tags;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
@@ -35,16 +36,15 @@ public class SignInLinkTag extends AbstractBaseTag {
     
     @Override
     public void doTag() throws JspException, IOException {
-        StringWriter sw = new StringWriter();
-        sw.append("<iframe ");
-        sw.append("<a class=\"rpxnow\" onclick=\"return false;\" href=\"");
-        sw.append(getApplicationDomain());
-        sw.append("openid/v2/signin?token_url=");
-        sw.append(URLEncoderUtils.encode(getTokenUrl()));
-        sw.append("\">");
-        sw.append(text);
-        sw.append("</a>");
-        getJspBody().invoke(sw);
+        PageContext pageContext = (PageContext) getJspContext();
+        JspWriter out = pageContext.getOut();
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("<a class=\"rpxnow\" onclick=\"return false;\" ");
+        sb.append("href=\"").append(getApplicationDomain()).append("openid/v2/signin?token_url=").append(URLEncoderUtils.encode(getTokenUrl())).append("\"");
+        sb.append(">").append(text).append("</a>");
+        
+        out.println(sb.toString());
     }
     
     public String getApplicationDomain() {
