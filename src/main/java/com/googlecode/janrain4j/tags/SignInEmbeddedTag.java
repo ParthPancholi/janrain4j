@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
@@ -41,6 +42,9 @@ public class SignInEmbeddedTag extends AbstractBaseTag {
     
     @Override
     public void doTag() throws JspException, IOException {
+        PageContext pageContext = (PageContext) getJspContext();
+        JspWriter out = pageContext.getOut();
+        
         Map<String, String> params = new HashMap<String, String>();
         params.put("token_url", getTokenUrl());
         if (getDefaultProvider() != null && getDefaultProvider().length() > 0) {
@@ -53,17 +57,14 @@ public class SignInEmbeddedTag extends AbstractBaseTag {
             params.put("language_preference", getLanguagePreference());
         }
         String encodedParams = URLEncoderUtils.encodeParameters(params);
-
+        
         StringBuffer sb = new StringBuffer();
         sb.append("<iframe ");
         sb.append("src=\"").append(getApplicationDomain()).append("openid/embed?").append(encodedParams).append("\" ");
-        sb.append("scrolling=\"no\" ");
-        sb.append("frameBorder=\"no\" ");
-        sb.append("allowtransparency=\"true\" ");
-        sb.append("style=\"width: ").append(width).append("px; height: ").append(height).append("px;\"");
+        sb.append("scrolling=\"no\" frameBorder=\"no\" allowtransparency=\"true\" ");
+        sb.append("style=\"width: ").append(Integer.toString(width)).append("px; height: ").append(Integer.toString(height)).append("px;\"");
         sb.append("></iframe>");
         
-        JspWriter out = getJspContext().getOut();
         out.println(sb.toString());
     }
     
