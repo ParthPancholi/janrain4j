@@ -25,6 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
@@ -70,6 +73,8 @@ class EngageServiceImpl implements EngageService {
     public static final String UNLINK_PARAM = "unlink";
     
     public static final String JSON = "json";
+    
+    private Log log = LogFactory.getLog(this.getClass());
     
     private Config config = null;
     
@@ -255,9 +260,27 @@ class EngageServiceImpl implements EngageService {
         
         String url = API_URL + method;
         
+        if (log.isInfoEnabled()) {
+            StringBuffer sb = new StringBuffer();
+            sb.append("Janrain Engage request: ").append(method).append("\n");
+            sb.append("url: ").append(url).append("\n");
+            sb.append("parameters: [\n");
+            for (Iterator<String> iterator = params.keySet().iterator(); iterator.hasNext();) {
+                String key = iterator.next();
+                String value = params.get(key);
+                sb.append("  ").append(key).append(": ").append(value).append("\n");
+            }
+            sb.append("]");
+            log.debug(sb.toString());
+        }
+        
         try {
             HttpResponse response = HttpClientFactory.getInstance(config).post(url, params);
             JSONObject rsp = new JSONObject(response.getContent());
+            
+            if (log.isDebugEnabled()) {
+                log.debug("Janrain Engage response:\n" + rsp.toString());
+            }
             
             String stat = rsp.getString("stat");
             if (!stat.equals("ok")) {

@@ -31,8 +31,13 @@ public class TokenServlet extends HttpServlet {
         
         EngageService engageService = EngageServiceFactory.getInstance();
         
+        log.info("Calling auth_info...");
+        
         UserData userData = engageService.authInfo(token);
         Profile profile = userData.getProfile();
+        String identifier = profile.getIdentifier();
+        
+        String message = "";
         
         User user = null;
         
@@ -41,20 +46,25 @@ public class TokenServlet extends HttpServlet {
             user = new User();
             try {
                 pm.makePersistent(user);
-                engageService.map(profile.getIdentifier(), Long.toString(user.getId()));
+                String primaryKey = Long.toString(user.getId());
+                log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
+                engageService.map(identifier, primaryKey);
+                message = "Thanks for registering!";
             }
             finally {
                 pm.close();
             }
         }
         else {
-            log.info("Primary key in profile, retrieving user from datastore...");
-            user = pm.getObjectById(User.class, Long.parseLong(profile.getPrimaryKey()));
+            String primaryKey = profile.getPrimaryKey();
+            log.info("Primary key [" + primaryKey + "] in profile, retrieving user from datastore...");
+            user = pm.getObjectById(User.class, Long.parseLong(primaryKey));
+            message = "Welcome back! ";
         }
         
         req.getSession().setAttribute("user", user);
         req.getSession().setAttribute("userData", userData);
         
-        resp.sendRedirect("signedin.jsp");
+        resp.sendRedirect("signedin.jsp?message=" + message);
     }
 }
