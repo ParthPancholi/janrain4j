@@ -10,9 +10,49 @@
         <servlet-class>com.googlecode.janrain4j.demo.TokenServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>MapServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.MapServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>UnmapServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.UnmapServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.DeleteAccountServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>SignOutServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.SignOutServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>TokenServlet</servlet-name>
         <url-pattern>/token</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>MapServlet</servlet-name>
+        <url-pattern>/map</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>UnmapServlet</servlet-name>
+        <url-pattern>/unmap</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/delete_account</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SignOutServlet</servlet-name>
+        <url-pattern>/sign_out</url-pattern>
     </servlet-mapping>
     
     <security-constraint>

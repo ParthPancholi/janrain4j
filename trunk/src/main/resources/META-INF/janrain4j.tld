@@ -50,4 +50,41 @@
         </attribute>
     </tag>
     
+    <tag>
+        <name>signInLink</name>
+        <tag-class>com.googlecode.janrain4j.tags.SignInLinkTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>applicationDomain</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tokenUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    
+        <tag>
+        <name>signInOverlay</name>
+        <tag-class>com.googlecode.janrain4j.tags.SignInOverlayTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>defaultProvider</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>flags</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>languagePreference</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    
 </taglib>

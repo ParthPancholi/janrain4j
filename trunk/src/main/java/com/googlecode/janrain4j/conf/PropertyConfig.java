@@ -16,6 +16,9 @@ package com.googlecode.janrain4j.conf;
 
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Marcel Overdijk
  * @since 1.0
@@ -38,22 +41,30 @@ class PropertyConfig extends Config {
     public static final String CONNECT_TIMEOUT_KEY = KEY_PREFIX + "connect.timeout";
     public static final String READ_TIMEOUT_KEY = KEY_PREFIX + "read.timeout";
     
+    private Log log = LogFactory.getLog(this.getClass());
+    
     public PropertyConfig() {
         this(JANRAIN4J_PROPERTIES);
     }
     
     public PropertyConfig(String file) {
+        
+        log.info("Loading janrain4j properties file: " + file + "...");
+        
         Properties properties;
         try {
             properties = (Properties) System.getProperties().clone();
         }
         catch (SecurityException e) {
+            log.info("Unable to retrieve system properties", e);
             properties = new Properties();
         }
         try {
             properties.load(getClass().getResourceAsStream("/" + file));
+            log.info("Successfully loaded janrain4j properties file");
         }
         catch (Exception e) {
+            log.error("Unable to load properties file: " + file, e);
         }
         
         if (properties.containsKey(API_KEY_KEY)) {

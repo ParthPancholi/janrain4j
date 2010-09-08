@@ -15,10 +15,12 @@
 package com.googlecode.janrain4j.tags;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspFragment;
 
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
@@ -32,19 +34,23 @@ public class SignInLinkTag extends AbstractBaseTag {
 
     private String applicationDomain = null;
     private String tokenUrl = null;
-    private String text = " Sign In ";
     
     @Override
     public void doTag() throws JspException, IOException {
         PageContext pageContext = (PageContext) getJspContext();
         JspWriter out = pageContext.getOut();
         
-        StringBuffer sb = new StringBuffer();
-        sb.append("<a class=\"rpxnow\" onclick=\"return false;\" ");
-        sb.append("href=\"").append(getApplicationDomain()).append("openid/v2/signin?token_url=").append(URLEncoderUtils.encode(getTokenUrl())).append("\"");
-        sb.append(">").append(text).append("</a>");
+        StringWriter sw = new StringWriter();
+        sw.append("<a class=\"rpxnow\" onclick=\"return false;\" ");
+        sw.append("href=\"").append(getApplicationDomain()).append("openid/v2/signin?token_url=").append(URLEncoderUtils.encode(getTokenUrl())).append("\"");
+        sw.append(">");
+        JspFragment body = getJspBody();
+        if (body != null) {
+            body.invoke(sw);
+        }
+        sw.append("</a>");
         
-        out.println(sb.toString());
+        out.print(sw.toString());
     }
     
     public String getApplicationDomain() {
@@ -61,9 +67,5 @@ public class SignInLinkTag extends AbstractBaseTag {
     
     public void setTokenUrl(String tokenUrl) {
         this.tokenUrl = tokenUrl;
-    }
-    
-    public void setText(String text) {
-        this.text = text;
     }
 }

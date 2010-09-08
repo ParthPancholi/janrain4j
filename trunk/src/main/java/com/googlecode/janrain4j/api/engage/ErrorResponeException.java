@@ -25,25 +25,25 @@ public class ErrorResponeException extends RuntimeException {
 
     private static final long serialVersionUID = 8537265678248536892L;
     
-    public static final String SERVICE_TEMPORARY_UNAVAILABLE_ERROR = "-1";
-    public static final String MISSING_PARAMETER_ERROR = "0";
-    public static final String INVALID_PARAMETER_ERROR = "1";
-    public static final String DATA_NOT_FOUND_ERROR = "2";
-    public static final String AUTHENTICATION_ERROR = "3";
-    public static final String FACEBOOK_ERROR = "4";
-    public static final String MAPPING_EXISTS_ERROR = "5";
-    public static final String INTERACTING_WITH_PREVIOUSLY_OPERATIONAL_PROVIDER_ERROR = "6";
-    public static final String ENGAGE_ACCOUNT_UPGRADE_NEEDED_ERROR = "7";
-    public static final String MISSING_THIRD_PARTY_CREDENTIALS_ERROR = "8";
-    public static final String THIRD_PARTY_CREDENTIALS_REVOKED_ERROR = "9";
-    public static final String APPLICATION_NOT_PROPERLY_CONFIGURED_ERROR = "10";
-    public static final String FEATURE_NOT_SUPPORTED_ERROR = "11";
-    public static final String GOOGLE_ERROR = "12";
-    public static final String TWITTER_ERROR = "13";
-    public static final String LINKED_IN_ERROR = "14";
-    public static final String LIVE_ID_ERROR = "15";
-    public static final String MY_SPACE_ERROR = "16";
-    public static final String YAHOO_ERROR = "17";
+    public static final int SERVICE_TEMPORARY_UNAVAILABLE_ERROR = -1;
+    public static final int MISSING_PARAMETER_ERROR = 0;
+    public static final int INVALID_PARAMETER_ERROR = 1;
+    public static final int DATA_NOT_FOUND_ERROR = 2;
+    public static final int AUTHENTICATION_ERROR = 3;
+    public static final int FACEBOOK_ERROR = 4;
+    public static final int MAPPING_EXISTS_ERROR = 5;
+    public static final int INTERACTING_WITH_PREVIOUSLY_OPERATIONAL_PROVIDER_ERROR = 6;
+    public static final int ENGAGE_ACCOUNT_UPGRADE_NEEDED_ERROR = 7;
+    public static final int MISSING_THIRD_PARTY_CREDENTIALS_ERROR = 8;
+    public static final int THIRD_PARTY_CREDENTIALS_REVOKED_ERROR = 9;
+    public static final int APPLICATION_NOT_PROPERLY_CONFIGURED_ERROR = 10;
+    public static final int FEATURE_NOT_SUPPORTED_ERROR = 11;
+    public static final int GOOGLE_ERROR = 12;
+    public static final int TWITTER_ERROR = 13;
+    public static final int LINKED_IN_ERROR = 14;
+    public static final int LIVE_ID_ERROR = 15;
+    public static final int MY_SPACE_ERROR = 16;
+    public static final int YAHOO_ERROR = 17;
     
     private int code;
     

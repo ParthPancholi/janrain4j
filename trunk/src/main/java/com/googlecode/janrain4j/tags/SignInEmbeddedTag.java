@@ -15,6 +15,7 @@
 package com.googlecode.janrain4j.tags;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,26 +47,31 @@ public class SignInEmbeddedTag extends AbstractBaseTag {
         JspWriter out = pageContext.getOut();
         
         Map<String, String> params = new HashMap<String, String>();
+        
         params.put("token_url", getTokenUrl());
+        
         if (getDefaultProvider() != null && getDefaultProvider().length() > 0) {
             params.put("default_provider", getDefaultProvider());
         }
+        
         if (getFlags() != null && getFlags().length() > 0) {
             params.put("flags", getFlags());
         }
+        
         if (getLanguagePreference() != null && getLanguagePreference().length() > 0) {
             params.put("language_preference", getLanguagePreference());
         }
+        
         String encodedParams = URLEncoderUtils.encodeParameters(params);
         
-        StringBuffer sb = new StringBuffer();
-        sb.append("<iframe ");
-        sb.append("src=\"").append(getApplicationDomain()).append("openid/embed?").append(encodedParams).append("\" ");
-        sb.append("scrolling=\"no\" frameBorder=\"no\" allowtransparency=\"true\" ");
-        sb.append("style=\"width: ").append(Integer.toString(width)).append("px; height: ").append(Integer.toString(height)).append("px;\"");
-        sb.append("></iframe>");
+        StringWriter sw = new StringWriter();
+        sw.append("<iframe ");
+        sw.append("src=\"").append(getApplicationDomain()).append("openid/embed?").append(encodedParams).append("\" ");
+        sw.append("scrolling=\"no\" frameBorder=\"no\" allowtransparency=\"true\" ");
+        sw.append("style=\"width: ").append(Integer.toString(width)).append("px; height: ").append(Integer.toString(height)).append("px;\"");
+        sw.append("></iframe>");
         
-        out.println(sb.toString());
+        out.print(sw.toString());
     }
     
     public String getApplicationDomain() {
