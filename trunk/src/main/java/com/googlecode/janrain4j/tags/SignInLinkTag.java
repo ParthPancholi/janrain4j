@@ -34,6 +34,8 @@ public class SignInLinkTag extends AbstractBaseTag {
 
     private String applicationDomain = null;
     private String tokenUrl = null;
+    private String style = null; 
+    private String styleClass = null;
     
     @Override
     public void doTag() throws JspException, IOException {
@@ -41,8 +43,16 @@ public class SignInLinkTag extends AbstractBaseTag {
         JspWriter out = pageContext.getOut();
         
         StringWriter sw = new StringWriter();
-        sw.append("<a class=\"rpxnow\" onclick=\"return false;\" ");
-        sw.append("href=\"").append(getApplicationDomain()).append("openid/v2/signin?token_url=").append(URLEncoderUtils.encode(getTokenUrl())).append("\"");
+        sw.append("<a href=\"").append(getApplicationDomain()).append("openid/v2/signin?token_url=").append(URLEncoderUtils.encode(getTokenUrl())).append("\" ");
+        sw.append("class=\"rpxnow");
+        if (getStyleClass() != null && getStyleClass().length() > 0) {
+            sw.append(" ").append(getStyleClass());
+        }
+        sw.append("\" ");
+        sw.append("onclick=\"return false;\"");
+        if (getStyle() != null && getStyle().length() > 0) {
+            sw.append(" style=\"").append(getStyle()).append("\"");
+        }
         sw.append(">");
         JspFragment body = getJspBody();
         if (body != null) {
@@ -67,5 +77,21 @@ public class SignInLinkTag extends AbstractBaseTag {
     
     public void setTokenUrl(String tokenUrl) {
         this.tokenUrl = tokenUrl;
+    }
+    
+    public String getStyle() {
+        return style;
+    }
+    
+    public void setStyle(String style) {
+        this.style = style;
+    }
+    
+    public String getStyleClass() {
+        return styleClass;
+    }
+    
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 }
