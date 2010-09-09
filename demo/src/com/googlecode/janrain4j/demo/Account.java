@@ -6,16 +6,16 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
-public class User {
+public class Account {
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Long id;
+    private Long primaryKey;
     
-    public User() {
+    public Account() {
     }
     
-    public Long getId() {
-        return id;
+    public Long getPrimaryKey() {
+        return primaryKey;
     }
 }

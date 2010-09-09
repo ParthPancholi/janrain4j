@@ -2,12 +2,12 @@ package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,32 +39,44 @@ public class TokenServlet extends HttpServlet {
         
         String message = "";
         
-        User user = null;
+        Account account = null;
         
-        if (StringUtils.isBlank(profile.getPrimaryKey())) {
-            log.info("Primary key not in profile, creating new user...");
-            user = new User();
+        Long primaryKey = null;
+        try {
+            primaryKey = Long.parseLong(profile.getPrimaryKey());
+        }
+        catch (NumberFormatException ignore) {
+        }
+        
+        if (primaryKey != null) {
+            log.info("Primary key [" + primaryKey + "] in profile, retrieving account from datastore...");
             try {
-                pm.makePersistent(user);
-                String primaryKey = Long.toString(user.getId());
+                account = pm.getObjectById(Account.class, primaryKey);
+                message = "Welcome back! ";
+            }
+            catch (JDOObjectNotFoundException e) {
+                log.info("Account not found in datastore for primary key [" + primaryKey + "]");
+            }
+        }
+        
+        if (account == null) {
+            log.info("Creating new account...");
+            account = new Account();
+            try {
+                pm.makePersistent(account);
                 log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
-                engageService.map(identifier, primaryKey);
+                primaryKey = account.getPrimaryKey();
+                engageService.map(identifier, String.valueOf(primaryKey));
                 message = "Thanks for registering!";
             }
             finally {
                 pm.close();
             }
         }
-        else {
-            String primaryKey = profile.getPrimaryKey();
-            log.info("Primary key [" + primaryKey + "] in profile, retrieving user from datastore...");
-            user = pm.getObjectById(User.class, Long.parseLong(primaryKey));
-            message = "Welcome back! ";
-        }
         
-        req.getSession().setAttribute("user", user);
+        req.getSession().setAttribute("primaryKey", primaryKey);
         req.getSession().setAttribute("userData", userData);
         
-        resp.sendRedirect("signedin.jsp?message=" + message);
+        resp.sendRedirect("user_data.jsp?message=" + message);
     }
 }

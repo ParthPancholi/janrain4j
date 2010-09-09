@@ -33,8 +33,7 @@ public class MapServlet extends HttpServlet {
         Profile profile = userData.getProfile();
         String identifier = profile.getIdentifier();
         
-        User user = (User) req.getSession().getAttribute("user");
-        String primaryKey = String.valueOf(user.getId());
+        Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
         log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
         
@@ -42,7 +41,7 @@ public class MapServlet extends HttpServlet {
         String message = "";
         
         try {
-            engageService.map(identifier, primaryKey, false);
+            engageService.map(identifier, String.valueOf(primaryKey), false);
             message = "Successfully mapped identifier: " + identifier;
         }
         catch (ErrorResponeException e) {
@@ -55,6 +54,6 @@ public class MapServlet extends HttpServlet {
             }
         }
         
-        resp.sendRedirect("signedin.jsp?error=" + error + "&message=" + message);
+        resp.sendRedirect("mappings.jsp?error=" + error + "&message=" + message);
     }
 }
