@@ -94,7 +94,7 @@ class EngageServiceImpl implements EngageService {
         return buildUserData(rsp, extended);
     }
     
-    public List<Contact> getContacts() {
+    public List<Contact> getContacts(String identifier) {
         // TODO
         List<Contact> contacts = new ArrayList<Contact>();
         return contacts;

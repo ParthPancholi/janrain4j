@@ -56,13 +56,14 @@ public interface EngageService {
     /**
      * Retrieve a list of contacts for an identifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
      * 
+     * @param identifier The identifier returned from a previous {@link #authInfo(String)} API call.
      * @return The <a href="http://portablecontacts.net/">Portable Contacts</a> data representing the address book contents.
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_get_contacts">Janrain Engage API Documentation: get_contacts</a>
      * @since 1.0
      */
-    public List<Contact> getContacts() throws EngageFailureException, ErrorResponeException;
+    public List<Contact> getContacts(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 

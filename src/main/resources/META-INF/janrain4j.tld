@@ -64,9 +64,19 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     
-        <tag>
+    <tag>
         <name>signInOverlay</name>
         <tag-class>com.googlecode.janrain4j.tags.SignInOverlayTag</tag-class>
         <body-content>scriptless</body-content>
