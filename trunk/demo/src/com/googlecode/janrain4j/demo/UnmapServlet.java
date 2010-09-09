@@ -17,23 +17,22 @@ public class UnmapServlet extends HttpServlet {
 
     private Log log = LogFactory.getLog(this.getClass());
     
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
         String identifier = req.getParameter("identifier");
         
         log.info("Parameter identifier = " + identifier);
         
-        User user = (User) req.getSession().getAttribute("user");
-        String primaryKey = String.valueOf(user.getId());
+        Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
         EngageService engageService = EngageServiceFactory.getInstance();
         
         log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
         
-        engageService.unmap(identifier, primaryKey);
+        engageService.unmap(identifier, String.valueOf(primaryKey));
         
         String message = "Successfully unmapped identifier: " + identifier;
         
-        resp.sendRedirect("signedin.jsp?message=" + message);
+        resp.sendRedirect("mappings.jsp?message=" + message);
     }
 }

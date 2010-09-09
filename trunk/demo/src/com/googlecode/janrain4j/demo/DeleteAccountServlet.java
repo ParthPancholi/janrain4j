@@ -18,10 +18,9 @@ public class DeleteAccountServlet extends HttpServlet {
 
     private Log log = LogFactory.getLog(this.getClass());
     
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
-        User user = (User) req.getSession().getAttribute("user");
-        String primaryKey = String.valueOf(user.getId());
+        Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
         PersistenceManager pm = PMF.get().getPersistenceManager();
         
@@ -29,14 +28,14 @@ public class DeleteAccountServlet extends HttpServlet {
         
         log.info("Calling unmap for primary key [" + primaryKey + "]...");
         
-        engageService.unmap(primaryKey);
+        engageService.unmap(String.valueOf(primaryKey));
         
-        log.info("Deleting user from datastore...");
+        log.info("Deleting account from datastore...");
         
-        User e = pm.getObjectById(User.class, user.getId());
+        Account e = pm.getObjectById(Account.class, primaryKey);
         pm.deletePersistent(e);
         
-        req.getSession().removeAttribute("user");
+        req.getSession().removeAttribute("primaryKey");
         req.getSession().removeAttribute("userData");
         
         String message = "Successfully deleted account";
