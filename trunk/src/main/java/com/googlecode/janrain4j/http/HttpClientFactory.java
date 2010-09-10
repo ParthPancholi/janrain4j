@@ -30,7 +30,7 @@ public class HttpClientFactory {
      * @param config The config.
      * @return A <code>HttpClient</code> instance.
      */
-    public static HttpClient getInstance(Config config) {
+    public static HttpClient getHttpClient(Config config) {
         return new HttpClientImpl(config);
     }
 }

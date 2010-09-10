@@ -26,7 +26,7 @@ public class MapServlet extends HttpServlet {
         
         log.info("Parameter token = " + token);
         
-        EngageService engageService = EngageServiceFactory.getInstance();
+        EngageService engageService = EngageServiceFactory.getEngageService();
         
         UserData userData = engageService.authInfo(token);
         
@@ -54,6 +54,6 @@ public class MapServlet extends HttpServlet {
             }
         }
         
-        resp.sendRedirect("mappings.jsp?error=" + error + "&message=" + message);
+        resp.sendRedirect("account.jsp?error=" + error + "&message=" + message);
     }
 }
