@@ -62,7 +62,10 @@
                                     <td>${mapping}</td>
                                     <td class="last">
                                         <ul class="actions-nav">
-                                            <li><a class="mini-button red" href="/unmap?identifier=${mapping}" onclick="return confirm('Are you sure?');">Unmap</a></li>
+                                            <c:url value="/unmap" var="url">
+                                                <c:param name="identifier" value="${mapping}"/>
+                                            </c:url>
+                                            <li><a class="mini-button red" href="${url}" onclick="return confirm('Are you sure?');">Unmap</a></li>
                                         </ul>
                                     </td>
                                 </tr>
