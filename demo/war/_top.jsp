@@ -24,9 +24,8 @@
             <li class="right ${(param.selected == 'account' ? 'selected' : '')}"><a href="/account.jsp">Account</a></li>
         </ul>
         <ul id="main-nav-right" class="tabs nav">
-            <li class="left ${(param.selected == 'all_mappings' ? 'selected' : '')}"><a href="#">All Mappings</a></li>
-            <li class="${(param.selected == 'analytics' ? 'selected' : '')}"><a href="#">Analytics</a></li>
-            <li class="right ${(param.selected == 'auth_providers' ? 'selected' : '')}"><a href="#">Auth Providers</a></li>
+            <li class="left ${(param.selected == 'help' ? 'selected' : '')}"><a href="#">Help</a></li>
+            <li class="right ${(param.selected == 'administrator' ? 'selected' : '')}"><a href="#">Administrator</a></li>
         </ul>
     </div>
 </div>
