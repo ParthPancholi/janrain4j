@@ -1,8 +1,6 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,19 +16,22 @@ public class SignOutServlet extends HttpServlet {
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
-        Map<String, Object> flash = new HashMap<String, Object>();
+        // create flash scope
+        FlashScope flashScope = new FlashScope(req);
         
+        // get signed in primary key
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
-        
-        String message = "";
         
         if (primaryKey != null) {
             log.info("Signing out account with primary key: " + primaryKey);
+            
+            // remove signed in account from session
             req.getSession().removeAttribute("primaryKey");
             req.getSession().removeAttribute("userData");
-            message = "Successfully signed out";
+            
+            flashScope.setAttribute("message", "You are signed out. Sign in again anytime.");
         }
         
-        resp.sendRedirect("index.jsp?message=" + message);
+        resp.sendRedirect("index.jsp");
     }
 }

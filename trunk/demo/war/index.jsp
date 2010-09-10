@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 
-<c:set var="flashScope" scope="request" value="${sessionScope.flash}" />
-<c:remove var="flash" scope="session" />
+<jsp:include page="_flash.jsp" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
@@ -14,17 +13,7 @@
             <jsp:param name="selected" value="signin" />
         </jsp:include>
         
-        <div class="container secondary-navigation">
-            <div class="span-18 breadcrumb">
-                <a href="#" id="start" class="item">home</a>
-                <a href="#" class="item">outro ítem</a>
-                <a href="#" class="item">outro ítem um pouco maior</a>
-            </div>
-            <div class="span-6 last generic-tools">
-                <a href="#" class="item">outro ítem</a>
-                <a href="#" class="item">outro ítem </a>
-            </div>
-        </div>
+        <jsp:include page="_flash_message.jsp" />
         
         <div class="container">
             <div class="half-content-wrapper span-17">

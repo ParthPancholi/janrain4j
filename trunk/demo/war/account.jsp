@@ -10,12 +10,15 @@
     <c:redirect url="index.jsp" />
 </c:if>
 
-<c:set var="flashScope" scope="request" value="${sessionScope.flash}" />
-<c:remove var="flash" scope="session" />
+<jsp:include page="_flash.jsp" />
 
-<%  EngageService engageService = EngageServiceFactory.getEngageService();
+<%  // create services
+    EngageService engageService = EngageServiceFactory.getEngageService();
+
+    // get signed in primary key
     Long primaryKey = (Long) session.getAttribute("primaryKey");
-                            
+    
+    // get mapped identifiers
     List<String> mappings = engageService.mappings(String.valueOf(primaryKey));
     pageContext.setAttribute("mappings", mappings);
  %>
@@ -28,17 +31,7 @@
             <jsp:param name="selected" value="account" />
         </jsp:include>
         
-        <div class="container secondary-navigation">
-            <div class="span-18 breadcrumb">
-                <a href="#" id="start" class="item">home</a>
-                <a href="#" class="item">outro ítem</a>
-                <a href="#" class="item">outro ítem um pouco maior</a>
-            </div>
-            <div class="span-6 last generic-tools">
-                <a href="#" class="item">outro ítem</a>
-                <a href="#" class="item">outro ítem </a>
-            </div>
-        </div>
+        <jsp:include page="_flash_message.jsp" />
         
         <div class="container">
             <div class="half-content-wrapper span-17">
