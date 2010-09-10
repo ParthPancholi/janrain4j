@@ -7,7 +7,7 @@
             <ul class="top-nav" id="left-top-nav">
                 <li class="first"><a href="http://janrain4j.googlecode.com" class="mini-button">Janrain4j</a></li>
                 <li><a class="mini-button" href="http://www.janrain.com">Janrain.com</a></li>
-                <li class="last"><a class="mini-button yellow" href="/help.jsp">Help</a></li>
+                <li class="last"><a class="mini-button yellow" href="/about.jsp">About</a></li>
             </ul>
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
@@ -24,7 +24,7 @@
             <li class="right ${(param.selected == 'account' ? 'selected' : '')}"><a href="/account.jsp">Account</a></li>
         </ul>
         <ul id="main-nav-right" class="tabs nav">
-            <li class="left ${(param.selected == 'help' ? 'selected' : '')}"><a href="#">Help</a></li>
+            <li class="left ${(param.selected == 'about' ? 'selected' : '')}"><a href="/about.jsp">About</a></li>
             <li class="right ${(param.selected == 'administrator' ? 'selected' : '')}"><a href="#">Administrator</a></li>
         </ul>
     </div>
