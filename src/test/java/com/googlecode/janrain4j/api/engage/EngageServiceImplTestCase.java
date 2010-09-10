@@ -80,7 +80,7 @@ public class EngageServiceImplTestCase {
         
         httpClient = mock(HttpClient.class);
         mockStatic(HttpClientFactory.class);
-        when(HttpClientFactory.getInstance(config)).thenReturn(httpClient);
+        when(HttpClientFactory.getHttpClient(config)).thenReturn(httpClient);
         
         httpResponse = mock(HttpResponse.class);
         

@@ -10,7 +10,7 @@
     <c:redirect url="index.jsp" />
 </c:if>
 
-<%  EngageService engageService = EngageServiceFactory.getInstance();
+<%  EngageService engageService = EngageServiceFactory.getEngageService();
     Long primaryKey = (Long) session.getAttribute("primaryKey");
                             
     List<String> mappings = engageService.mappings(String.valueOf(primaryKey));
@@ -22,7 +22,7 @@
     <jsp:include page="_head.jsp" />
     <body>
         <jsp:include page="_top.jsp">
-            <jsp:param name="selected" value="mappings" />
+            <jsp:param name="selected" value="account" />
         </jsp:include>
         
         <div class="container secondary-navigation">
@@ -57,8 +57,8 @@
                                 <th>Identifier</th>
                                 <th class="last"></th>
                             </tr>
-                            <c:forEach items="${mappings}" var="mapping">
-                                <tr class="odd">
+                            <c:forEach items="${mappings}" var="mapping" varStatus="status">
+                                <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
                                     <td>${mapping}</td>
                                     <td class="last">
                                         <ul class="actions-nav">

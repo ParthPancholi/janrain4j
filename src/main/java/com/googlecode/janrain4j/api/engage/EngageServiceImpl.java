@@ -275,7 +275,7 @@ class EngageServiceImpl implements EngageService {
         }
         
         try {
-            HttpResponse response = HttpClientFactory.getInstance(config).post(url, params);
+            HttpResponse response = HttpClientFactory.getHttpClient(config).post(url, params);
             JSONObject rsp = new JSONObject(response.getContent());
             
             if (log.isDebugEnabled()) {

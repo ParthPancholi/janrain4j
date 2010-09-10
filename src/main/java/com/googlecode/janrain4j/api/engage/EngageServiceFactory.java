@@ -32,7 +32,7 @@ public class EngageServiceFactory {
      * @return An <code>EngageService</code> instance.
      * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
-    public static EngageService getInstance() throws EngageFailureException {
+    public static EngageService getEngageService() throws EngageFailureException {
         return new EngageServiceImpl(ConfigHolder.getConfig());
     }
     
@@ -43,7 +43,7 @@ public class EngageServiceFactory {
      * @return An <code>EngageService</code> instance.
      * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
-    public static EngageService getInstance(Config config) throws EngageFailureException {
+    public static EngageService getEngageService(Config config) throws EngageFailureException {
         return new EngageServiceImpl(config);
     }    
 }

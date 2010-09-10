@@ -52,7 +52,7 @@ public class EngageServiceFactoryTest {
         
         whenNew(EngageServiceImpl.class).withArguments(config).thenReturn(service);
 
-        EngageServiceFactory.getInstance();
+        EngageServiceFactory.getEngageService();
         
         verifyNew(EngageServiceImpl.class).withArguments(config);
     }
@@ -61,7 +61,7 @@ public class EngageServiceFactoryTest {
     public void testGetInstanceWithConfig() throws Exception {
         whenNew(EngageServiceImpl.class).withArguments(config).thenReturn(service);
         
-        EngageServiceFactory.getInstance(config);
+        EngageServiceFactory.getEngageService(config);
         
         verifyNew(EngageServiceImpl.class).withArguments(config);
     }

@@ -7,11 +7,11 @@
             <ul class="top-nav" id="left-top-nav">
                 <li class="first"><a class="mini-button" href="http://www.janrain.com">Janrain.com</a></li>
                 <li><a href="http://janrain4j.googlecode.com" class="mini-button">Janrain4j</a></li>
-                <li class="last"><a class="mini-button yellow" href="#">Help</a></li>
+                <li class="last"><a class="mini-button yellow" href="/help.jsp">Help</a></li>
             </ul>
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
-                    <li class="append"><a href="/mappings.jsp">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
+                    <li class="append"><a href="/account.jsp">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
                     <li class="last"><a class="mini-button red" href="/sign_out">Sign Out</a></li>
                 </ul>
             </c:if>
@@ -20,8 +20,8 @@
         <ul id="main-nav-left" class="tabs nav">
             <li class="left ${(param.selected == 'signin' ? 'selected' : '')}"><a href="/">Sign In</a></li>
             <li class="${(param.selected == 'user_data' ? 'selected' : '')}"><a href="/user_data.jsp">User Data</a></li>
-            <li class="${(param.selected == 'mappings' ? 'selected' : '')}"><a href="/mappings.jsp">Mappings</a></li>
-            <li class="right ${(param.selected == 'social_publishing' ? 'selected' : '')}"><a href="/social_publishing.jsp">Social Publishing</a></li>
+            <li class="${(param.selected == 'social_publishing' ? 'selected' : '')}"><a href="/social_publishing.jsp">Social Publishing</a></li>
+            <li class="right ${(param.selected == 'account' ? 'selected' : '')}"><a href="/account.jsp">Account</a></li>
         </ul>
         <ul id="main-nav-right" class="tabs nav">
             <li class="left ${(param.selected == 'all_mappings' ? 'selected' : '')}"><a href="#">All Mappings</a></li>

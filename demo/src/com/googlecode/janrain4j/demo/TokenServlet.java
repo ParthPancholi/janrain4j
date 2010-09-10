@@ -2,8 +2,6 @@ package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
 
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 import com.googlecode.janrain4j.api.engage.Profile;
@@ -27,9 +30,8 @@ public class TokenServlet extends HttpServlet {
         
         log.info("Parameter token = " + token);
         
-        PersistenceManager pm = PMF.get().getPersistenceManager();
-        
-        EngageService engageService = EngageServiceFactory.getInstance();
+        DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+        EngageService engageService = EngageServiceFactory.getEngageService();
         
         log.info("Calling auth_info...");
         
@@ -39,7 +41,7 @@ public class TokenServlet extends HttpServlet {
         
         String message = "";
         
-        Account account = null;
+        Entity account = null;
         
         Long primaryKey = null;
         try {
@@ -51,27 +53,22 @@ public class TokenServlet extends HttpServlet {
         if (primaryKey != null) {
             log.info("Primary key [" + primaryKey + "] in profile, retrieving account from datastore...");
             try {
-                account = pm.getObjectById(Account.class, primaryKey);
+                account = datastoreService.get(KeyFactory.createKey("Account", primaryKey));
                 message = "Welcome back! ";
             }
-            catch (JDOObjectNotFoundException e) {
+            catch (EntityNotFoundException e) {
                 log.info("Account not found in datastore for primary key [" + primaryKey + "]");
             }
         }
         
         if (account == null) {
             log.info("Creating new account...");
-            account = new Account();
-            try {
-                pm.makePersistent(account);
-                log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
-                primaryKey = account.getPrimaryKey();
-                engageService.map(identifier, String.valueOf(primaryKey));
-                message = "Thanks for registering!";
-            }
-            finally {
-                pm.close();
-            }
+            account = new Entity("Account");
+            datastoreService.put(account);
+            log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
+            primaryKey = account.getKey().getId();
+            engageService.map(identifier, String.valueOf(primaryKey));
+            message = "Thanks for registering!";
         }
         
         req.getSession().setAttribute("primaryKey", primaryKey);

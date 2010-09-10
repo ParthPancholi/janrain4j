@@ -2,7 +2,6 @@ package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
 
-import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 
@@ -22,23 +24,26 @@ public class DeleteAccountServlet extends HttpServlet {
         
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+        String message = "";
         
-        EngageService engageService = EngageServiceFactory.getInstance();
+        if (primaryKey != null) {
         
-        log.info("Calling unmap for primary key [" + primaryKey + "]...");
-        
-        engageService.unmap(String.valueOf(primaryKey));
-        
-        log.info("Deleting account from datastore...");
-        
-        Account e = pm.getObjectById(Account.class, primaryKey);
-        pm.deletePersistent(e);
-        
-        req.getSession().removeAttribute("primaryKey");
-        req.getSession().removeAttribute("userData");
-        
-        String message = "Successfully deleted account";
+            DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+            EngageService engageService = EngageServiceFactory.getEngageService();
+            
+            log.info("Calling unmap for primary key [" + primaryKey + "]...");
+            
+            engageService.unmap(String.valueOf(primaryKey));
+            
+            log.info("Deleting account from datastore...");
+            
+            datastoreService.delete(KeyFactory.createKey("Account", primaryKey));
+            
+            req.getSession().removeAttribute("primaryKey");
+            req.getSession().removeAttribute("userData");
+            
+            message = "Successfully deleted account";
+        }
         
         resp.sendRedirect("index.jsp?message=" + message);
     }

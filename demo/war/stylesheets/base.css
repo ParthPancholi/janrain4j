@@ -2,6 +2,7 @@ body {
   color:#666;
   font-family:"lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
   background:#f7f7f7;
+  margin-bottom:20px;
 }
 
 a{ color:#2798D6; text-decoration:none;}

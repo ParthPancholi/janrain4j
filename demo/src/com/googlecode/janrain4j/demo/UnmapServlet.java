@@ -25,7 +25,7 @@ public class UnmapServlet extends HttpServlet {
         
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
-        EngageService engageService = EngageServiceFactory.getInstance();
+        EngageService engageService = EngageServiceFactory.getEngageService();
         
         log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
         
@@ -33,6 +33,6 @@ public class UnmapServlet extends HttpServlet {
         
         String message = "Successfully unmapped identifier: " + identifier;
         
-        resp.sendRedirect("mappings.jsp?message=" + message);
+        resp.sendRedirect("account.jsp?message=" + message);
     }
 }
