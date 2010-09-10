@@ -1,8 +1,6 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,22 +19,25 @@ public class UnmapServlet extends HttpServlet {
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
-        Map<String, Object> flash = new HashMap<String, Object>();
+        // create flash scope
+        FlashScope flashScope = new FlashScope(req);
         
-        String identifier = req.getParameter("identifier");
-        
-        log.info("Parameter identifier = " + identifier);
-        
-        Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
-        
+        // create services
         EngageService engageService = EngageServiceFactory.getEngageService();
         
-        log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
+        // get identifier to unmap from request
+        String identifier = req.getParameter("identifier");
+        log.info("Parameter identifier = " + identifier);
         
+        // get signed in primary key
+        Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
+        
+        // unmap identifier from primary key
+        log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
         engageService.unmap(identifier, String.valueOf(primaryKey));
         
-        String message = "Successfully unmapped identifier: " + identifier;
+        flashScope.setAttribute("message", "The identifier " + identifier + " is unmapped from your account.");
         
-        resp.sendRedirect("account.jsp?message=" + message);
+        resp.sendRedirect("account.jsp");
     }
 }

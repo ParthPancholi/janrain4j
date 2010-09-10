@@ -1,8 +1,6 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,40 +22,41 @@ public class MapServlet extends HttpServlet {
     
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
-        Map<String, Object> flash = new HashMap<String, Object>();
+        // create flash scope
+        FlashScope flashScope = new FlashScope(req);
         
-        String token = req.getParameter("token");
-        
-        log.info("Parameter token = " + token);
-        
+        // create services
         EngageService engageService = EngageServiceFactory.getEngageService();
         
-        UserData userData = engageService.authInfo(token);
+        // get janrain token from request
+        String token = req.getParameter("token");
+        log.info("Parameter token = " + token);
         
+        // get user data from janrain
+        UserData userData = engageService.authInfo(token);
         Profile profile = userData.getProfile();
         String identifier = profile.getIdentifier();
         
+        // get signed in primary key
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
+        // map identifier to primary key
         log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
-        
-        String error = "";
-        String message = "";
-        
         try {
             engageService.map(identifier, String.valueOf(primaryKey), false);
-            message = "Successfully mapped identifier: " + identifier;
+            flashScope.setAttribute("message", "The identifier " + identifier + " is now mapped to your account.");
         }
         catch (ErrorResponeException e) {
             if (e.getCode() == ErrorResponeException.MAPPING_EXISTS_ERROR) {
-                error = "Unable to map identifier: " + e.getMessage();
-                log.info(error);
+                flashScope.setAttribute("level", "error");
+                flashScope.setAttribute("message", "The identifier " + identifier + " is already mapped to another account.");
+                log.info("Identifier [" + identifier + "] is already mapped to another acoount");
             }
             else {
                 throw e;
             }
         }
         
-        resp.sendRedirect("account.jsp?error=" + error + "&message=" + message);
+        resp.sendRedirect("account.jsp");
     }
 }
