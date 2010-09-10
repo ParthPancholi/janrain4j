@@ -1,6 +1,8 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,8 @@ public class TokenServlet extends HttpServlet {
     
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         
+        Map<String, Object> flash = new HashMap<String, Object>();
+        
         String token = req.getParameter("token");
         
         log.info("Parameter token = " + token);
@@ -38,8 +42,6 @@ public class TokenServlet extends HttpServlet {
         UserData userData = engageService.authInfo(token);
         Profile profile = userData.getProfile();
         String identifier = profile.getIdentifier();
-        
-        String message = "";
         
         Entity account = null;
         
@@ -54,7 +56,7 @@ public class TokenServlet extends HttpServlet {
             log.info("Primary key [" + primaryKey + "] in profile, retrieving account from datastore...");
             try {
                 account = datastoreService.get(KeyFactory.createKey("Account", primaryKey));
-                message = "Welcome back! ";
+                flash.put("message", "Welcome back!");
             }
             catch (EntityNotFoundException e) {
                 log.info("Account not found in datastore for primary key [" + primaryKey + "]");
@@ -68,12 +70,13 @@ public class TokenServlet extends HttpServlet {
             log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
             primaryKey = account.getKey().getId();
             engageService.map(identifier, String.valueOf(primaryKey));
-            message = "Thanks for registering!";
+            flash.put("message", "Thanks for registering!");
         }
         
         req.getSession().setAttribute("primaryKey", primaryKey);
         req.getSession().setAttribute("userData", userData);
+        req.getSession().setAttribute("flash", flash);
         
-        resp.sendRedirect("user_data.jsp?message=" + message);
+        resp.sendRedirect("user_data.jsp");
     }
 }
