@@ -7,6 +7,9 @@
     <c:redirect url="index.jsp" />
 </c:if>
 
+<c:set var="flashScope" scope="request" value="${sessionScope.flash}" />
+<c:remove var="flash" scope="session" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
     <jsp:include page="_head.jsp" />
@@ -31,6 +34,9 @@
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
                     <h2>Profile</h2>
+                    <h3>flashScope = ${flashScope}</h3>
+                    <h3>flashScope["message"] = ${flashScope["message"]}</h3>
+                    <h3>flash = ${flash}</h3>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">

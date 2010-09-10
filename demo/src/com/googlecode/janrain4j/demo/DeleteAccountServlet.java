@@ -1,6 +1,8 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,8 @@ public class DeleteAccountServlet extends HttpServlet {
     private Log log = LogFactory.getLog(this.getClass());
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        
+        Map<String, Object> flash = new HashMap<String, Object>();
         
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         

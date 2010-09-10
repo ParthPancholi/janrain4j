@@ -10,6 +10,9 @@
     <c:redirect url="index.jsp" />
 </c:if>
 
+<c:set var="flashScope" scope="request" value="${sessionScope.flash}" />
+<c:remove var="flash" scope="session" />
+
 <%  EngageService engageService = EngageServiceFactory.getEngageService();
     Long primaryKey = (Long) session.getAttribute("primaryKey");
                             
