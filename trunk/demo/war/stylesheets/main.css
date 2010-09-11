@@ -1,5 +1,7 @@
 body{
   margin-bottom:15px;
+  overflow:scroll;
+  _overflow:scroll;
 }
 
 .secondary-navigation .info{
