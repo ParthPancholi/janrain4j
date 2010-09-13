@@ -26,25 +26,10 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner divider">
-                        <form action="/set_status" method="post" class="form">
-                            <div class="group clearfix">
-                                <label>Message</label>
-                                <textarea class="text" rows="10" cols="80"></textarea>
-                                <span class="description">Write here a long text</span>
-                            </div>
-                            <div class="group navform">
-                                <input type="submit" class="mini-button" value="Update your Status" />
-Facebook
-LinkedIn
-Twitter
-MySpace
-Google
-Yahoo! 
-                            </div>
-                        </form>
+Under Construction.
                     </div>
                     <div class="inner">
-                        Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>

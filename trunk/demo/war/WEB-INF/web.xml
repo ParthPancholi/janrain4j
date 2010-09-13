@@ -26,6 +26,11 @@
     </servlet>
     
     <servlet>
+        <servlet-name>SetStatusServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.SetStatusServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
         <servlet-name>SignOutServlet</servlet-name>
         <servlet-class>com.googlecode.janrain4j.demo.SignOutServlet</servlet-class>
     </servlet>
@@ -48,6 +53,11 @@
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/delete_account</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SetStatusServlet</servlet-name>
+        <url-pattern>/set_status</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

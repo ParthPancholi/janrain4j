@@ -4,6 +4,10 @@ body{
   _overflow:scroll;
 }
 
+input[type="submit"], input[type="reset"], input[type="button"]{
+  cursor:pointer;
+}
+
 div.secondary-navigation .info{
   background:url(../images/information.png) no-repeat 10px 50%;
   color:#006dba;

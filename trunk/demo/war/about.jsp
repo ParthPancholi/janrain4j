@@ -12,8 +12,6 @@
             <jsp:param name="selected" value="about" />
         </jsp:include>
         
-        <jsp:include page="_flash_message.jsp" />
-        
         <div class="container">
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
@@ -23,7 +21,7 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis aliquam tincidunt. Nulla ipsum ipsum, vulputate sed congue at, scelerisque nec leo. Nunc porta bibendum lorem, ac tincidunt enim placerat eu. Suspendisse egestas consequat leo, eget ornare augue auctor id. Nullam vel lectus libero, eu consectetur tortor. Suspendisse vestibulum tempus nulla, at laoreet lacus fermentum nec. Mauris egestas vulputate lacus, ut condimentum elit sodales eu. Fusce dapibus, diam commodo condimentum molestie, magna odio rhoncus orci, eu sodales nisl metus eu metus. Donec quis libero id odio luctus condimentum quis malesuada purus. Maecenas urna tortor, volutpat quis egestas eu, pretium nec ligula. Quisque ornare consequat mattis. Vivamus malesuada odio quis enim pulvinar interdum. Etiam ac nulla eros, sit amet euismod magna. Vivamus varius placerat ante a pulvinar. Aliquam vel metus justo, non tincidunt est.
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
