@@ -4,12 +4,18 @@ body{
   _overflow:scroll;
 }
 
-.secondary-navigation .info{
-  color:#2798D6;
+div.secondary-navigation .info{
+  background:url(../images/information.png) no-repeat 10px 50%;
+  color:#006dba;
+  padding-left:35px;
 }
 
-.secondary-navigation .error{
-  color:red;
+div.secondary-navigation .error{
+  background:url(../images/exclamation.png) no-repeat 10px 50%;
+  color:#cc0000;
   background-color:transparent;
   border-color:transparent;
+  border: 0;
+  margin-bottom: 0;
+  padding-left:35px;
 }

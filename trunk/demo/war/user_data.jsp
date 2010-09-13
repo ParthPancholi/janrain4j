@@ -17,8 +17,6 @@
             <jsp:param name="selected" value="user_data" />
         </jsp:include>
         
-        <jsp:include page="_flash_message.jsp" />
-        
         <div class="container">
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
