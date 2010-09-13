@@ -14,6 +14,7 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -25,8 +26,10 @@ import java.util.Date;
  * @see <a href="http://rpxnow.com/docs#profile_data">Profile data documentation</a>
  * @since 1.0
  */
-public class Profile {
+public class Profile implements Serializable {
 
+    private static final long serialVersionUID = -5861371209084356628L;
+    
     private String identifier = null;
     private String providerName = null;
     private String primaryKey = null;

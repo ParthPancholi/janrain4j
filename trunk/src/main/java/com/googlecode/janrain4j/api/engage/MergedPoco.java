@@ -14,12 +14,16 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
+
 /**
  * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class MergedPoco {
+public class MergedPoco implements Serializable {
 
+    private static final long serialVersionUID = -5053888385586404060L;
+    
 }

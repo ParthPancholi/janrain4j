@@ -14,6 +14,8 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
+
 /**
  * A dictionary of name parts.
  * 
@@ -21,8 +23,10 @@ package com.googlecode.janrain4j.api.engage;
  * @see <a href="http://rpxnow.com/docs#profile_name">Profile data documentation</a>
  * @since 1.0
  */
-public class Name {
+public class Name implements Serializable {
 
+    private static final long serialVersionUID = -689892622781213536L;
+    
     private String formatted = null;
     private String familyName = null;
     private String givenName = null;

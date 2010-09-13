@@ -14,6 +14,8 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
+
 /**
  * A dictionary of address parts.
  * 
@@ -21,8 +23,10 @@ package com.googlecode.janrain4j.api.engage;
  * @see <a href="http://rpxnow.com/docs#profile_address">Profile data documentation</a>
  * @since 1.0
  */
-public class Address {
+public class Address implements Serializable {
 
+    private static final long serialVersionUID = 8690374377421870995L;
+    
     private String formatted = null;
     private String streetAddress = null;
     private String locality = null;

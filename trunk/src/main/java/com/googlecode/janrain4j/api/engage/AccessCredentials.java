@@ -14,12 +14,16 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
+
 /**
  * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class AccessCredentials {
+public class AccessCredentials implements Serializable {
 
+    private static final long serialVersionUID = -1325646539192011350L;
+    
 }

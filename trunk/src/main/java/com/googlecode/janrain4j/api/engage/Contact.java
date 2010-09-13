@@ -14,12 +14,16 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
+import java.io.Serializable;
+
 /**
  * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-public class Contact {
+public class Contact implements Serializable {
 
+    private static final long serialVersionUID = 4913378142161360296L;
+    
 }
