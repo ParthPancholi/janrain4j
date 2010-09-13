@@ -17,15 +17,31 @@
             <jsp:param name="selected" value="social_publishing" />
         </jsp:include>
         
-        <jsp:include page="_flash_message.jsp" />
-        
         <div class="container">
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
-                    <h2>Social Publishing</h2>
+                    <h2>Set Status</h2>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
+                    </div>
+                    <div class="inner divider">
+                        <form action="/set_status" method="post" class="form">
+                            <div class="group clearfix">
+                                <label>Message</label>
+                                <textarea class="text" rows="10" cols="80"></textarea>
+                                <span class="description">Write here a long text</span>
+                            </div>
+                            <div class="group navform">
+                                <input type="submit" class="mini-button" value="Update your Status" />
+Facebook
+LinkedIn
+Twitter
+MySpace
+Google
+Yahoo! 
+                            </div>
+                        </form>
                     </div>
                     <div class="inner">
                         Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
