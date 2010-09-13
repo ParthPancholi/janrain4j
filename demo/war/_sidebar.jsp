@@ -2,30 +2,36 @@
     <div class="sidebar-top title">Janrain</div>
     <div class="sidebar">
         <div class="item first">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        <div class="item">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        <div class="item">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <div class="subtitle">Janrain4j</div>
         <div class="item">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <div class="item">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <div class="item">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
     </div>
     <div class="sidebar-bottom"></div>
     <div class="sidebar-top"></div>
     <div class="sidebar">
         <div class="item first">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <div class="item">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
         <div class="item">
-            Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
     </div>
     <div class="sidebar-bottom"></div>
