@@ -2,7 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.*" %>
 <%@ page import="com.googlecode.janrain4j.demo.*" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 

@@ -15,9 +15,10 @@ import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.Profile;
 import com.googlecode.janrain4j.api.engage.UserData;
 
-@SuppressWarnings("serial")
 public class MapServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1282116640537385957L;
+    
     private Log log = LogFactory.getLog(this.getClass());
     
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

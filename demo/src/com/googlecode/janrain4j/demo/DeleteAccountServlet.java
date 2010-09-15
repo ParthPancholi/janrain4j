@@ -15,9 +15,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 
-@SuppressWarnings("serial")
 public class DeleteAccountServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -668549824844323413L;
+    
     private Log log = LogFactory.getLog(this.getClass());
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

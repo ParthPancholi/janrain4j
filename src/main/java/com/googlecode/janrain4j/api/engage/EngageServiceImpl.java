@@ -211,7 +211,22 @@ class EngageServiceImpl implements EngageService {
     }
     
     public void activity(String identifier, Activity activity) {
-        // TODO
+        activity(identifier, activity, null);
+    }
+    
+    public void activity(String identifier, Activity activity, String location) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(IDENTIFIER_PARAM, identifier);
+        try {
+            params.put(ACTIVITY_PARAM, activity.toJSON());
+        }
+        catch (JSONException e) {
+            throw new EngageFailureException("Unexpected JSON error", e);
+        }
+        if (location != null && location.length() > 0) {
+            params.put(LOCATION_PARAM, location);
+        }
+        apiCall(ACTIVITY_METHOD, params);
     }
     
     public URL analytics(Date start, Date end) {
@@ -307,6 +322,8 @@ class EngageServiceImpl implements EngageService {
     
     UserData buildUserData(JSONObject rsp, boolean extended) {
         try {
+            UserData userData = new UserData();
+            
             JSONObject rspProfile = rsp.getJSONObject("profile");
             Profile profile = new Profile();
             profile.setIdentifier(rspProfile.getString("identifier"));
@@ -314,17 +331,17 @@ class EngageServiceImpl implements EngageService {
             profile.setPrimaryKey(rspProfile.optString("primaryKey", null));
             profile.setDisplayName(rspProfile.optString("displayName", null));
             profile.setPreferredUsername(rspProfile.optString("preferredUsername", null));
-            Name name = new Name();
             JSONObject rspName = rspProfile.optJSONObject("name");
             if (rspName != null) {
+                Name name = new Name();
                 name.setFormatted(rspName.optString("formatted", null));
                 name.setFamilyName(rspName.optString("familyName", null));
                 name.setGivenName(rspName.optString("givenName", null));
                 name.setMiddleName(rspName.optString("middleName", null));
                 name.setHonorificPrefix(rspName.optString("honorificPrefix", null));
                 name.setHonorificSuffix(rspName.optString("honorificSuffix", null));
+                profile.setName(name);
             }
-            profile.setName(name);
             profile.setGender(rspProfile.optString("gender", null));
             String birthday = rspProfile.optString("birthday", null);
             if (birthday != null && birthday.length() > 0) {
@@ -343,21 +360,48 @@ class EngageServiceImpl implements EngageService {
             profile.setUrl(rspProfile.optString("url", null));
             profile.setPhoneNumber(rspProfile.optString("phoneNumber", null));
             profile.setPhoto(rspProfile.optString("photo", null));
-            Address address = new Address();
             JSONObject rspAddress = rspProfile.optJSONObject("address");
             if (rspAddress != null) {
+                Address address = new Address();
                 address.setFormatted(rspAddress.optString("formatted", null));
                 address.setStreetAddress(rspAddress.optString("streetAddress", null));
                 address.setLocality(rspAddress.optString("locality", null));
                 address.setRegion(rspAddress.optString("region", null));
                 address.setPostalCode(rspAddress.optString("postalCode", null));
                 address.setCountry(rspAddress.optString("country", null));
+                profile.setAddress(address);
             }
-            profile.setAddress(address);
             profile.setLimitedData(rspProfile.optBoolean("limitedData", false));
-            
-            UserData userData = new UserData();
             userData.setProfile(profile);
+            
+            JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
+            if (rspAccessCredentials != null) {
+                AccessCredentials accessCredentials = new AccessCredentials();
+                accessCredentials.setType(rspAccessCredentials.optString("type"));
+                accessCredentials.setOauthToken(rspAccessCredentials.optString("oauthToken"));
+                accessCredentials.setOauthTokenSecret(rspAccessCredentials.optString("oauthTokenSecret"));
+                accessCredentials.setUid(rspAccessCredentials.optString("uid"));
+                accessCredentials.setAccessToken(rspAccessCredentials.optString("accessToken"));
+                accessCredentials.setExpires(rspAccessCredentials.optLong("expires"));
+                accessCredentials.setEact(rspAccessCredentials.optString("eact"));
+                userData.setAccessCredentials(accessCredentials);
+            }
+            
+            // TODO merged poco
+            
+            JSONArray rspFriends = rsp.optJSONArray("friends");
+            if (rspFriends != null) {
+                List<String> friends = new ArrayList<String>();
+                for (int i = 0; i < rspFriends.length(); i++) {
+                    try {
+                        friends.add(rspFriends.getString(i));
+                    }
+                    catch (JSONException e) {
+                        throw new EngageFailureException("Unexpected JSON error", e);
+                    }
+                }
+                userData.setFriends(friends);
+            }
             
             return userData;
         }

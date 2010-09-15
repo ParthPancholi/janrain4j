@@ -243,6 +243,19 @@ public interface EngageService {
     public void activity(String identifier, Activity activity) throws EngageFailureException, ErrorResponeException;
     
     /**
+     * Post an activity update to the user's activity stream.
+     * 
+     * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
+     * @param activity The activity structure.
+     * @param location This is a string containing location data associated with the content being published. The string is latitude, followed by longitude, for example "37.4220 -122.0843". Valid values for latitude are -90.0 to +90.0, with North being positive. Valid values for longitude are -180.0 to +180.0 with East being positive.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
+     * @see <a href="http://rpxnow.com/docs#api_activity">Janrain Engage API Documentation: activity</a>
+     * @since 1.0
+     */
+    public void activity(String identifier, Activity activity, String location) throws EngageFailureException, ErrorResponeException;
+    
+    /**
      * Get statistics for your application in a zip file.
      * 
      * @param start The start date.
