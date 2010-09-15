@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -69,14 +70,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertNull(profile.getPrimaryKey());
         assertNull(profile.getDisplayName());
         assertNull(profile.getPreferredUsername());
-        Name name = profile.getName();
-        assertNotNull(name);
-        assertNull(name.getFormatted());
-        assertNull(name.getFamilyName());
-        assertNull(name.getGivenName());
-        assertNull(name.getMiddleName());
-        assertNull(name.getHonorificPrefix());
-        assertNull(name.getHonorificSuffix());
+        assertNull(profile.getName());
         assertNull(profile.getGender());
         assertNull(profile.getBirthday());
         assertNull(profile.getUtcOffset());
@@ -85,15 +79,11 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertNull(userData.getProfile().getUrl());
         assertNull(profile.getPhoneNumber());
         assertNull(profile.getPhoto());
-        Address address = profile.getAddress();
-        assertNotNull(address);
-        assertNull(address.getFormatted());
-        assertNull(address.getStreetAddress());
-        assertNull(address.getLocality());
-        assertNull(address.getRegion());
-        assertNull(address.getPostalCode());
-        assertNull(address.getCountry());
+        assertNull(profile.getAddress());
         assertFalse(profile.isLimitedData());
+        assertNull(userData.getAccessCredentials());
+        assertNull(userData.getMergedPoco());
+        assertNull(userData.getFriends());
     }
     
     @Test
@@ -132,6 +122,20 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "    },\n" +
             "    \"limitedData\": false\n" +
             "  },\n" +
+            "  \"accessCredentials\": {\n" +
+            "    \"type\": \"my-access-credentials-type\",\n" +
+            "    \"oauthToken\": \"my-oauth-token\",\n" +
+            "    \"oauthTokenSecret\": \"my-oauth-token-secret\",\n" +
+            "    \"uid\": \"my-uid\",\n" +
+            "    \"accessToken\": \"my-access-token\",\n" +
+            "    \"expires\": 1234567890,\n" +
+            "    \"eact\": \"my-eact\"\n" +
+            "  },\n" +
+            "  \"friends\": [\n" +
+            "    \"friend1\",\n" +
+            "    \"friend2\",\n" +
+            "    \"friend3\"\n" +
+            "  ],\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
         
@@ -171,6 +175,21 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertEquals("my-postal-code", address.getPostalCode());
         assertEquals("my-country", address.getCountry());
         assertFalse(profile.isLimitedData());
+        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        assertNotNull(accessCredentials);
+        assertEquals("my-access-credentials-type", accessCredentials.getType());
+        assertEquals("my-oauth-token", accessCredentials.getOauthToken());
+        assertEquals("my-oauth-token-secret", accessCredentials.getOauthTokenSecret());
+        assertEquals("my-uid", accessCredentials.getUid());
+        assertEquals("my-access-token", accessCredentials.getAccessToken());
+        assertEquals(new Long(1234567890), accessCredentials.getExpires());
+        assertEquals("my-eact", accessCredentials.getEact());
+        List<String> friends = userData.getFriends();
+        assertNotNull(friends);
+        assertEquals(3, friends.size());
+        assertTrue(friends.contains("friend1"));
+        assertTrue(friends.contains("friend2"));
+        assertTrue(friends.contains("friend3"));
     }
     
     @Test
@@ -188,6 +207,152 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         UserData userData = service.buildUserData(new JSONObject(response), false);
         
         assertTrue(userData.getProfile().isLimitedData());
+    }
+    
+    @Test
+    public void testBuildUserDataWithOauthAccessCredentials() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"accessCredentials\": {\n" +
+            "    \"type\": \"OAuth\",\n" +
+            "    \"oauthToken\": \"my-oauth-token\",\n" +
+            "    \"oauthTokenSecret\": \"my-oauth-token-secret\"\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        assertNotNull(accessCredentials);
+        assertTrue(accessCredentials.isOauth());
+        assertEquals(AccessCredentials.TYPE_OAUTH, accessCredentials.getType());
+        assertEquals("my-oauth-token", accessCredentials.getOauthToken());
+        assertEquals("my-oauth-token-secret", accessCredentials.getOauthTokenSecret());
+    }
+    
+    @Test
+    public void testBuildUserDataWithFacebookAccessCredentials() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"accessCredentials\": {\n" +
+            "    \"type\": \"Facebook\",\n" +
+            "    \"uid\": \"my-uid\",\n" +
+            "    \"accessToken\": \"my-access-token\",\n" +
+            "    \"expires\": 1234567890\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        assertNotNull(accessCredentials);
+        assertTrue(accessCredentials.isFacebook());
+        assertEquals(AccessCredentials.TYPE_FACEBOOK, accessCredentials.getType());
+        assertEquals("my-uid", accessCredentials.getUid());
+        assertEquals("my-access-token", accessCredentials.getAccessToken());
+        assertEquals(new Long(1234567890), accessCredentials.getExpires());
+    }
+    
+    @Test
+    public void testBuildUserDataWithWindowsLiveAccessCredentials() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"accessCredentials\": {\n" +
+            "    \"type\": \"WindowsLive\",\n" +
+            "    \"eact\": \"my-eact\"\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        assertNotNull(accessCredentials);
+        assertTrue(accessCredentials.isWindowsLive());
+        assertEquals(AccessCredentials.TYPE_WINDOWS_LIVE, accessCredentials.getType());
+        assertEquals("my-eact", accessCredentials.getEact());
+    }
+    
+    @Test
+    public void testBuildUserDataWithNoFriends() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"friends\": [\n" +
+            "  ],\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        List<String> friends = userData.getFriends();
+        assertNotNull(friends);
+        assertEquals(0, friends.size());
+    }
+    
+    @Test
+    public void testBuildUserDataWithSingleFriend() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"friends\": [\n" +
+            "    \"friend1\"\n" +
+            "  ],\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        List<String> friends = userData.getFriends();
+        assertNotNull(friends);
+        assertEquals(1, friends.size());
+        assertTrue(friends.contains("friend1"));
+    }
+    
+    @Test
+    public void testBuildUserDataWithMultipleFriends() throws Exception {
+        String response =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"friends\": [\n" +
+            "    \"friend1\",\n" +
+            "    \"friend2\",\n" +
+            "    \"friend3\"\n" +
+            "  ],\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        UserData userData = service.buildUserData(new JSONObject(response), false);
+        
+        List<String> friends = userData.getFriends();
+        assertNotNull(friends);
+        assertEquals(3, friends.size());
+        assertTrue(friends.contains("friend1"));
+        assertTrue(friends.contains("friend2"));
+        assertTrue(friends.contains("friend3"));
     }
     
     @Test

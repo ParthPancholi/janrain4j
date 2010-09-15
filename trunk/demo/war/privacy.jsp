@@ -1,7 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 
 <jsp:include page="_flash.jsp" />
 
@@ -10,26 +9,20 @@
     <jsp:include page="_head.jsp" />
     <body>
         <jsp:include page="_top.jsp">
-            <jsp:param name="selected" value="signin" />
+            <jsp:param name="selected" value="about" />
         </jsp:include>
         
         <div class="container">
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
-                    <h2>Sign In</h2>
+                    <h2>Privacy Policy</h2>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        <c:choose>
-                            <c:when test="${empty sessionScope.primaryKey}">
-                                <janrain:signInEmbedded flags="hide_sign_in_with" />
-                            </c:when>
-                            <c:otherwise>
-                                You are already signed in. <a href="/sign_out">Sign out</a> to sign in with a different account.
-                            </c:otherwise>
-                        </c:choose>
+                        <p>The Janrain4j demo application does not store any information about visitors and signed in users.</p>
+                        <p>Note that the Janrain4j demo application uses the <a href="http://www.janrain.com">Janrain</a> user management platform which has it's own privacy policy which can be read <a href="http://www.janrain.com/janrain-privacy-policy">here</a>.</p>     
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>

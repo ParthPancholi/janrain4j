@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-@SuppressWarnings("serial")
 public class SignOutServlet extends HttpServlet {
+    
+    private static final long serialVersionUID = -2386164453030372120L;
     
     private Log log = LogFactory.getLog(this.getClass());
     
@@ -29,7 +30,7 @@ public class SignOutServlet extends HttpServlet {
             req.getSession().removeAttribute("primaryKey");
             req.getSession().removeAttribute("userData");
             
-            flashScope.setAttribute("message", "You are signed out. Sign in again anytime.");
+            flashScope.setAttribute("message", "You are signed out now. Sign in again anytime.");
         }
         
         resp.sendRedirect("index.jsp");

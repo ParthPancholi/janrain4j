@@ -12,9 +12,10 @@ import org.apache.commons.logging.LogFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 
-@SuppressWarnings("serial")
 public class UnmapServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 2627056642632769263L;
+    
     private Log log = LogFactory.getLog(this.getClass());
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

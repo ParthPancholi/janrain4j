@@ -21,9 +21,10 @@ import com.googlecode.janrain4j.api.engage.Name;
 import com.googlecode.janrain4j.api.engage.Profile;
 import com.googlecode.janrain4j.api.engage.UserData;
 
-@SuppressWarnings("serial")
 public class TokenServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -3866603902836322536L;
+    
     private Log log = LogFactory.getLog(this.getClass());
     
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -42,7 +43,7 @@ public class TokenServlet extends HttpServlet {
         log.info("Calling auth_info...");
         
         // get user data from janrain
-        UserData userData = engageService.authInfo(token);
+        UserData userData = engageService.authInfo(token, true);
         Profile profile = userData.getProfile();
         Name name = profile.getName();
         String identifier = profile.getIdentifier();

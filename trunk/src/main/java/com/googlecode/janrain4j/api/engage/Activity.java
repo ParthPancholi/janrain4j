@@ -15,6 +15,11 @@
 package com.googlecode.janrain4j.api.engage;
 
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONStringer;
 
 /**
  * Represents an activity update to be posted to the user's activity stream.  
@@ -24,29 +29,69 @@ import java.net.URL;
  */
 public class Activity {
 
-    private URL url;
-    private String action;
-    private String userGeneratedContent;
-    private String title;
-    private String description;
-    // TODO private ? actionLinks
+    private URL url = null;
+    private String action = null;
+    private String userGeneratedContent = null;
+    private String title = null;
+    private String description = null;
+    private List<ActionLink> actionLinks = null;
     // TODO private ? media
     // TODO private ? properties
     
+    /**
+     * Create a new <code>Activity</code>.
+     * 
+     * @param url The url.
+     * @param action The action.
+     */
     public Activity(URL url, String action) {
         this.url = url;
         this.action = action;
     }
     
+    protected String toJSON() throws JSONException {
+        JSONStringer json = new JSONStringer();
+        json.object();
+        json.key("url").value(url);
+        json.key("action").value(action);
+        if (userGeneratedContent != null && userGeneratedContent.length() > 0) {
+            json.key("user_generated_content").value(userGeneratedContent);
+        }
+        if (title != null && title.length() > 0) {
+            json.key("title").value(title);
+        }
+        if (description != null && description.length() > 0) {
+            json.key("description").value(description);
+        }
+        if (actionLinks != null && actionLinks.size() > 0) {
+            json.key("action_links");
+            json.array();
+            for (Iterator<ActionLink> iterator = actionLinks.iterator(); iterator.hasNext();) {
+                ActionLink actionLink = iterator.next();
+                json.object();
+                json.key("href").value(actionLink.getText());
+                json.key("text").value(actionLink.getHref());
+                json.endObject();
+            }
+            json.endArray();
+        }
+        
+        // TODO media, properties
+        
+        json.endObject();
+        return json.toString();
+    }
+    
     /**
-     * Returns the url of the resource being mentioned in the activity update
+     * Returns the URL of the resource being mentioned in the activity update.
      */
     public URL getUrl() {
         return url;
     }
     
     /**
-     * Sets the url of the resource being mentioned in the activity update
+     * Sets the URL of the resource being mentioned in the activity update.
+     * 
      * @param url The url.
      */
     public void setUrl(URL url) {
@@ -68,6 +113,7 @@ public class Activity {
      *   <li>"posted a comment"</li>
      *   <li>"took a quiz"</li>
      * </ul>
+     * 
      * @param action The string describing what the user did.
      */
     public void setAction(String action) {
@@ -85,6 +131,7 @@ public class Activity {
      * Sets the string containing the user-supplied content, such as a comment 
      * or the first paragraph of an article that the user wrote. Note that some 
      * providers (Twitter in particular) may truncate this value.
+     * 
      * @param userGeneratedContent The string containing the user-supplied content.
      */
     public void setUserGeneratedContent(String userGeneratedContent) {
@@ -100,6 +147,7 @@ public class Activity {
     
     /**
      * Sets the title of the resource being mentioned in the activity update.
+     * 
      * @param title The title of the resource being mentioned in the activity update.
      */
     public void setTitle(String title) {
@@ -115,9 +163,26 @@ public class Activity {
     
     /**
      * Sets the description of the resource mentioned in the activity update.
+     * 
      * @param description The description of the resource mentioned in the activity update.
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * Returns the action links a user can use to take action on.
+     */
+    public List<ActionLink> getActionLinks() {
+        return actionLinks;
+    }
+    
+    /**
+     * Sets the action links a user can use to take action on.
+     * 
+     * @param actionLinks The action links.
+     */
+    public void setActionLinks(List<ActionLink> actionLinks) {
+        this.actionLinks = actionLinks;
     }
 }

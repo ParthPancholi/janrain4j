@@ -8,6 +8,23 @@ input[type="submit"], input[type="reset"], input[type="button"]{
   cursor:pointer;
 }
 
+.form{
+  padding:0;
+}
+
+.form .group{
+    margin-bottom:10px;  
+}
+
+.form label{
+  padding-left:0;
+}
+
+.form textarea{
+  width:450px;
+  height:50px;
+}
+
 div.secondary-navigation .info{
   background:url(../images/information.png) no-repeat 10px 50%;
   color:#006dba;
@@ -22,4 +39,13 @@ div.secondary-navigation .error{
   border: 0;
   margin-bottom: 0;
   padding-left:35px;
+}
+
+td{
+  word-break:break-all;
+}
+
+td.user-data{
+  padding-left:0;
+  width:200px;
 }

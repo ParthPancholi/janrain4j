@@ -1,6 +1,9 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
+<%@ page import="com.googlecode.janrain4j.api.engage.*" %>
+<%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 
 <c:if test="${empty primaryKey}">
@@ -8,6 +11,22 @@
 </c:if>
 
 <jsp:include page="_flash.jsp" />
+
+<%  // get sign in provider from user data
+    UserData userData = (UserData) session.getAttribute("userData");
+    String providerName = userData.getProfile().getProviderName();
+    
+    // providers supporting set status
+    List list = new ArrayList();
+    list.add("Facebook");
+    list.add("LinkedIn");
+    list.add("Twitter");
+    list.add("MySpace");
+    list.add("Google");
+    list.add("Yahoo!");
+    
+    pageContext.setAttribute("setStatusSupported", (list.contains(providerName)));
+ %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
@@ -25,8 +44,33 @@
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
                     </div>
-                    <div class="inner divider">
-Under Construction.
+                    <div class="inner">
+                        <c:choose>
+                            <c:when test="${setStatusSupported}">
+                                <form action="/set_status" method="post" class="form">
+                                    <div class="group clearfix">
+                                        <label>Status Message</label>
+                                        <textarea name="message" class="text" rows="5" cols="80"></textarea>
+                                        <span class="description" style="margin-left:155px;">Note that some providers might truncate your update message.</span>
+                                    </div>
+                                    <div class="group navform">
+                                        <input type="submit" class="mini-button" value="Update your Status" style="margin-left:155px;" />
+                                    </div>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                Your provider does not support setting your status.
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="half-content-bottom"></div>
+                
+                <div class="half-content-top title">
+                    <h2>Activity</h2>
+                </div>
+                <div class="half-content">
+                    <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
