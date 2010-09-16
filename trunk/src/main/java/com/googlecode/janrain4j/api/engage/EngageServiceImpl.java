@@ -267,7 +267,7 @@ class EngageServiceImpl implements EngageService {
             JSONObject rsp = new JSONObject(jsonResponse);
             
             if (log.isDebugEnabled()) {
-                log.debug("Janrain Engage response:\n" + rsp.toString());
+                log.debug("Janrain Engage response:\n" + jsonResponse);
             }
             
             String stat = rsp.getString("stat");

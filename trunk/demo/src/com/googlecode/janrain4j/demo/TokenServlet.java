@@ -44,6 +44,8 @@ public class TokenServlet extends HttpServlet {
         
         // get user data from janrain
         AuthInfoResponse authInfoResponse = engageService.authInfo(token, true);
+        log.info("auth_info json response:\n" + authInfoResponse.getResponseAsJSON());
+        
         Profile profile = authInfoResponse.getProfile();
         Name name = profile.getName();
         String identifier = profile.getIdentifier();

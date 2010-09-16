@@ -33,8 +33,11 @@ public class MapServlet extends HttpServlet {
         String token = req.getParameter("token");
         log.info("Parameter token = " + token);
         
+        log.info("Calling auth_info...");
+        
         // get user data from janrain
         AuthInfoResponse authInfoResponse = engageService.authInfo(token);
+        log.info("auth_info json response:\n" + authInfoResponse.getResponseAsJSON());
         Profile profile = authInfoResponse.getProfile();
         String identifier = profile.getIdentifier();
         
