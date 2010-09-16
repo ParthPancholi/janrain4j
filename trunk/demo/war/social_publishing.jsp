@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.*" %>
+<%@ page import="com.googlecode.janrain4j.api.engage.response.*" %>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -13,11 +14,11 @@
 <jsp:include page="_flash.jsp" />
 
 <%  // get sign in provider from user data
-    UserData userData = (UserData) session.getAttribute("userData");
+    AuthInfoResponse userData = (AuthInfoResponse) session.getAttribute("userData");
     String providerName = userData.getProfile().getProviderName();
     
     // providers supporting set status
-    List list = new ArrayList();
+    List<String> list = new ArrayList<String>();
     list.add("Facebook");
     list.add("LinkedIn");
     list.add("Twitter");

@@ -14,10 +14,17 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import com.googlecode.janrain4j.api.engage.request.Activity;
+import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
+import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
+import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
+import com.googlecode.janrain4j.api.engage.response.GetContactsResponse;
+import com.googlecode.janrain4j.api.engage.response.GetUserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
+
 
 /**
  * The <code>EngageService</code> provides access to the Janrain Engage API.
@@ -38,7 +45,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public UserData authInfo(String token) throws EngageFailureException, ErrorResponeException;
+    public AuthInfoResponse authInfo(String token) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get information about the user currently signing in to your web application.
@@ -51,7 +58,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public UserData authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException;
+    public AuthInfoResponse authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Retrieve a list of contacts for an identifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
@@ -63,7 +70,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_get_contacts">Janrain Engage API Documentation: get_contacts</a>
      * @since 1.0
      */
-    public List<Contact> getContacts(String identifier) throws EngageFailureException, ErrorResponeException;
+    public GetContactsResponse getContacts(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -76,7 +83,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public UserData getUserData(String identifier) throws EngageFailureException, ErrorResponeException;
+    public GetUserDataResponse getUserData(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -90,7 +97,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public UserData getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException;
+    public GetUserDataResponse getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Set the status message for the account corresponding to an identifier.
@@ -216,7 +223,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_mappings">Janrain Engage API Documentation: mappings</a>
      * @since 1.0
      */
-    public List<String> mappings(String primaryKey) throws EngageFailureException, ErrorResponeException;
+    public MappingsResponse mappings(String primaryKey) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get all stored mappings for the application.
@@ -227,8 +234,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_all_mappings">Janrain Engage API Documentation: all_mappings</a>
      * @since 1.0
      */
-    public Map<String, List<String>> allMappings() throws EngageFailureException, ErrorResponeException;
-    // TODO public List<Mapping> allMappings() throws EngageFailureException, ErrorResponeException;
+    public AllMappingsResponse allMappings() throws EngageFailureException, ErrorResponeException;
     
     /**
      * Post an activity update to the user's activity stream.
@@ -246,6 +252,18 @@ public interface EngageService {
      * Post an activity update to the user's activity stream.
      * 
      * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
+     * @param activity The activity structure as JSON <code>String</code>.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
+     * @see <a href="http://rpxnow.com/docs#api_activity">Janrain Engage API Documentation: activity</a>
+     * @since 1.0
+     */
+    public void activity(String identifier, String activity) throws EngageFailureException, ErrorResponeException;
+    
+    /**
+     * Post an activity update to the user's activity stream.
+     * 
+     * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
      * @param activity The activity structure.
      * @param location This is a string containing location data associated with the content being published. The string is latitude, followed by longitude, for example "37.4220 -122.0843". Valid values for latitude are -90.0 to +90.0, with North being positive. Valid values for longitude are -180.0 to +180.0 with East being positive.
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
@@ -256,7 +274,20 @@ public interface EngageService {
     public void activity(String identifier, Activity activity, String location) throws EngageFailureException, ErrorResponeException;
     
     /**
-     * Get statistics for your application in a zip file.
+     * Post an activity update to the user's activity stream.
+     * 
+     * @param identifier The identifier returned from the {@link #authInfo(String)} API call.
+     * @param activity The activity structure as JSON <code>String</code>.
+     * @param location This is a string containing location data associated with the content being published. The string is latitude, followed by longitude, for example "37.4220 -122.0843". Valid values for latitude are -90.0 to +90.0, with North being positive. Valid values for longitude are -180.0 to +180.0 with East being positive.
+     * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
+     * @throws ErrorResponeException If the Janrain Engage API returns an error response.
+     * @see <a href="http://rpxnow.com/docs#api_activity">Janrain Engage API Documentation: activity</a>
+     * @since 1.0
+     */
+    public void activity(String identifier, String activity, String location) throws EngageFailureException, ErrorResponeException;
+    
+    /**
+     * Get statistics for your application.
      * 
      * @param start The start date.
      * @param end The end date.
@@ -266,7 +297,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_analytics">Janrain Engage API Documentation: analytics</a>
      * @since 1.0
      */
-    public URL analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException;
+    public AnalyticsResponse analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Set the providers that will be displayed in the <a href="http://rpxnow.com/docs#sign-in_interface">Sign-in</a> Interface.

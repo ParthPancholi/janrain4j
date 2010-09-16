@@ -12,18 +12,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.response;
 
-import java.io.Serializable;
+import java.util.List;
+
+import com.googlecode.janrain4j.api.engage.EngageService;
 
 /**
  * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see EngageService#getContacts(String)
  */
-public class Contact implements Serializable {
+public class GetContactsResponse extends EngageResponse {
 
-    private static final long serialVersionUID = 4913378142161360296L;
+    private static final long serialVersionUID = -7619050740310590636L;
     
+    private List<Contact> contacts = null;
+    
+    public GetContactsResponse(String jsonResponse) {
+        super(jsonResponse);
+        // TODO
+    }
+    
+    /**
+     * TODO
+     */
+    public List<Contact> getContacts() {
+        return contacts;
+    }
 }

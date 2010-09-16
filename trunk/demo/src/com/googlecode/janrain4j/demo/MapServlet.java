@@ -12,8 +12,8 @@ import org.apache.commons.logging.LogFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 import com.googlecode.janrain4j.api.engage.ErrorResponeException;
-import com.googlecode.janrain4j.api.engage.Profile;
-import com.googlecode.janrain4j.api.engage.UserData;
+import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
+import com.googlecode.janrain4j.api.engage.response.Profile;
 
 public class MapServlet extends HttpServlet {
 
@@ -34,8 +34,8 @@ public class MapServlet extends HttpServlet {
         log.info("Parameter token = " + token);
         
         // get user data from janrain
-        UserData userData = engageService.authInfo(token);
-        Profile profile = userData.getProfile();
+        AuthInfoResponse authInfoResponse = engageService.authInfo(token);
+        Profile profile = authInfoResponse.getProfile();
         String identifier = profile.getIdentifier();
         
         // get signed in primary key

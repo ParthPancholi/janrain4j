@@ -17,9 +17,9 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
-import com.googlecode.janrain4j.api.engage.Name;
-import com.googlecode.janrain4j.api.engage.Profile;
-import com.googlecode.janrain4j.api.engage.UserData;
+import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
+import com.googlecode.janrain4j.api.engage.response.Name;
+import com.googlecode.janrain4j.api.engage.response.Profile;
 
 public class TokenServlet extends HttpServlet {
 
@@ -43,8 +43,8 @@ public class TokenServlet extends HttpServlet {
         log.info("Calling auth_info...");
         
         // get user data from janrain
-        UserData userData = engageService.authInfo(token, true);
-        Profile profile = userData.getProfile();
+        AuthInfoResponse authInfoResponse = engageService.authInfo(token, true);
+        Profile profile = authInfoResponse.getProfile();
         Name name = profile.getName();
         String identifier = profile.getIdentifier();
         
@@ -94,7 +94,7 @@ public class TokenServlet extends HttpServlet {
         }
         
         req.getSession().setAttribute("primaryKey", primaryKey);
-        req.getSession().setAttribute("userData", userData);
+        req.getSession().setAttribute("userData", authInfoResponse);
         
         resp.sendRedirect("user_data.jsp");
     }

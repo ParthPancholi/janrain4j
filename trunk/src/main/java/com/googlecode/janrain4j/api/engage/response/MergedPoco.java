@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.response;
 
 import java.io.Serializable;
 
@@ -21,6 +21,8 @@ import java.io.Serializable;
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see AuthInfoResponse
+ * @see GetUserDataResponse
  */
 public class MergedPoco implements Serializable {
 

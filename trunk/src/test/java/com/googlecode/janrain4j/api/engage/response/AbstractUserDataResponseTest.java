@@ -18,7 +18,7 @@ import java.sql.Connection;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,14 +33,33 @@ import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONObject;
 
-public class BuildUserDataTest extends EngageServiceImplTestCase {
+@SuppressWarnings("serial")
+public class AbstractUserDataResponseTest {
 
+    private String jsonResponse = null;
+    private AbstractUserDataResponse response = null;
+    
     @Test
-    public void testBuildUserData() throws Exception {
-        UserData userData = service.buildUserData(new JSONObject(userDataResponse), false);
+    public void testAbstractUserDataResponse() throws Exception {
         
-        assertNotNull(userData);
-        Profile profile = userData.getProfile();
+        jsonResponse =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"displayName\": \"brian\",\n" +
+            "    \"preferredUsername\": \"brian\",\n" +
+            "    \"url\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new AbstractUserDataResponse(jsonResponse) {};
+        
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        
+        Profile profile = response.getProfile();
         assertNotNull(profile);
         assertEquals("http://brian.myopenid.com/", profile.getIdentifier());
         assertEquals("Other", profile.getProviderName());
@@ -50,8 +69,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
     }
     
     @Test
-    public void testBuildUserDataWithMinimalSetOfData() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithMinimalSetOfData() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -60,10 +80,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        assertNotNull(userData);
-        Profile profile = userData.getProfile();
+        Profile profile = response.getProfile();
         assertNotNull(profile);
         assertEquals("http://brian.myopenid.com/", profile.getIdentifier());
         assertEquals("Other", profile.getProviderName());
@@ -76,19 +95,20 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertNull(profile.getUtcOffset());
         assertNull(profile.getEmail());
         assertNull(profile.getVerifiedEmail());
-        assertNull(userData.getProfile().getUrl());
+        assertNull(profile.getUrl());
         assertNull(profile.getPhoneNumber());
         assertNull(profile.getPhoto());
         assertNull(profile.getAddress());
         assertFalse(profile.isLimitedData());
-        assertNull(userData.getAccessCredentials());
-        assertNull(userData.getMergedPoco());
-        assertNull(userData.getFriends());
+        assertNull(response.getAccessCredentials());
+        assertNull(response.getMergedPoco());
+        assertNull(response.getFriends());
     }
     
     @Test
-    public void testBuildUserDataWithFullSetOfData() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithFullSetOfData() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"identifier\": \"my-identifier\",\n" +
@@ -139,10 +159,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        assertNotNull(userData);
-        Profile profile = userData.getProfile();
+        Profile profile = response.getProfile();
         assertNotNull(profile);
         assertEquals("my-identifier", profile.getIdentifier());
         assertEquals("my-provider-name", profile.getProviderName());
@@ -163,7 +182,7 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertEquals("my-utc-offset", profile.getUtcOffset());
         assertEquals("my-email", profile.getEmail());
         assertEquals("my-verified-email", profile.getVerifiedEmail());
-        assertEquals("my-url", userData.getProfile().getUrl());
+        assertEquals("my-url", profile.getUrl());
         assertEquals("my-phone-number", profile.getPhoneNumber());
         assertEquals("my-photo", profile.getPhoto());
         Address address = profile.getAddress();
@@ -175,7 +194,8 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertEquals("my-postal-code", address.getPostalCode());
         assertEquals("my-country", address.getCountry());
         assertFalse(profile.isLimitedData());
-        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        
+        AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertEquals("my-access-credentials-type", accessCredentials.getType());
         assertEquals("my-oauth-token", accessCredentials.getOauthToken());
@@ -184,7 +204,8 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
         assertEquals("my-access-token", accessCredentials.getAccessToken());
         assertEquals(new Long(1234567890), accessCredentials.getExpires());
         assertEquals("my-eact", accessCredentials.getEact());
-        List<String> friends = userData.getFriends();
+        
+        List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(3, friends.size());
         assertTrue(friends.contains("friend1"));
@@ -193,8 +214,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
     }
     
     @Test
-    public void testBuildUserDataWithLimitedData() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithLimitedData() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -204,14 +226,15 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        assertTrue(userData.getProfile().isLimitedData());
+        assertTrue(response.getProfile().isLimitedData());
     }
     
     @Test
-    public void testBuildUserDataWithOauthAccessCredentials() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithOauthAccessCredentials() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -225,9 +248,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isOauth());
         assertEquals(AccessCredentials.TYPE_OAUTH, accessCredentials.getType());
@@ -236,8 +259,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
     }
     
     @Test
-    public void testBuildUserDataWithFacebookAccessCredentials() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithFacebookAccessCredentials() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -252,9 +276,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isFacebook());
         assertEquals(AccessCredentials.TYPE_FACEBOOK, accessCredentials.getType());
@@ -264,8 +288,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
     }
     
     @Test
-    public void testBuildUserDataWithWindowsLiveAccessCredentials() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithWindowsLiveAccessCredentials() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -278,9 +303,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        AccessCredentials accessCredentials = userData.getAccessCredentials();
+        AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isWindowsLive());
         assertEquals(AccessCredentials.TYPE_WINDOWS_LIVE, accessCredentials.getType());
@@ -288,8 +313,9 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
     }
     
     @Test
-    public void testBuildUserDataWithNoFriends() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithNoFriends() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -300,16 +326,17 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        List<String> friends = userData.getFriends();
+        List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(0, friends.size());
     }
     
     @Test
-    public void testBuildUserDataWithSingleFriend() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithSingleFriend() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -321,17 +348,18 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        List<String> friends = userData.getFriends();
+        List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(1, friends.size());
         assertTrue(friends.contains("friend1"));
     }
     
     @Test
-    public void testBuildUserDataWithMultipleFriends() throws Exception {
-        String response =
+    public void testAbstractUserDataResponseWithMultipleFriends() throws Exception {
+        
+        jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -345,31 +373,13 @@ public class BuildUserDataTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        UserData userData = service.buildUserData(new JSONObject(response), false);
+        response = new AbstractUserDataResponse(jsonResponse) {};
         
-        List<String> friends = userData.getFriends();
+        List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(3, friends.size());
         assertTrue(friends.contains("friend1"));
         assertTrue(friends.contains("friend2"));
         assertTrue(friends.contains("friend3"));
-    }
-    
-    @Test
-    public void testBuildUserDataExtended() throws Exception {
-        String response =
-            "{" +
-            "  \"profile\": {\n" +
-            "    \"providerName\": \"Other\",\n" +
-            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
-            "    \"limitedData\": true\n" +
-            // TODO
-            "  },\n" +
-            "  \"stat\": \"ok\"\n" +
-            "}";
-        
-        UserData userData = service.buildUserData(new JSONObject(response), true);
-        
-        assertNotNull(userData); // TODO replace with actual assertiations
     }
 }

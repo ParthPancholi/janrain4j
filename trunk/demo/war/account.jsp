@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.*" %>
+<%@ page import="com.googlecode.janrain4j.api.engage.response.*" %>
 <%@ page import="com.googlecode.janrain4j.demo.*" %>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -19,7 +20,8 @@
     Long primaryKey = (Long) session.getAttribute("primaryKey");
     
     // get mapped identifiers
-    List<String> mappings = engageService.mappings(String.valueOf(primaryKey));
+    MappingsResponse mappingsResponse = engageService.mappings(String.valueOf(primaryKey));
+    List<String> mappings = mappingsResponse.getMappings();
     pageContext.setAttribute("mappings", mappings);
  %>
 
