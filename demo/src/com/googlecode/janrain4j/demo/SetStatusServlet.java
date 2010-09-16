@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
-import com.googlecode.janrain4j.api.engage.UserData;
+import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
 
 public class SetStatusServlet extends HttpServlet {
 
@@ -30,8 +30,8 @@ public class SetStatusServlet extends HttpServlet {
         log.info("Parameter message = " + message);
         
         // get signed in identifier
-        UserData userData = (UserData) req.getSession().getAttribute("userData");
-        String identifier = userData.getProfile().getIdentifier();
+        AuthInfoResponse authInfoResponse = (AuthInfoResponse) req.getSession().getAttribute("userData");
+        String identifier = authInfoResponse.getProfile().getIdentifier();
         
         if (StringUtils.isNotBlank(message)) {
             

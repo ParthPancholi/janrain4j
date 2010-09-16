@@ -12,12 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.request;
 
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONStringer;
 
@@ -26,6 +27,8 @@ import com.googlecode.janrain4j.json.JSONStringer;
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see EngageService#activity(String, Activity)
+ * @see EngageService#activity(String, Activity, String)
  */
 public class Activity {
 
@@ -49,7 +52,7 @@ public class Activity {
         this.action = action;
     }
     
-    protected String toJSON() throws JSONException {
+    public String toJSON() throws JSONException {
         JSONStringer json = new JSONStringer();
         json.object();
         json.key("url").value(url);

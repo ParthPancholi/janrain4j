@@ -4,7 +4,7 @@
     <artifactId>janrain4j</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>janrain4j</name>
+    <name>Janrain4j</name>
     <description>A Java library for the Janrain API</description>
     <url>http://janrain4j.googlecode.com</url>
     <issueManagement>
@@ -13,7 +13,7 @@
     </issueManagement>
     <mailingLists>
         <mailingList>
-            <name>janrain4j</name>
+            <name>Janrain4j</name>
             <subscribe>janrain4j-subscribe@googlegroups.com</subscribe>
             <unsubscribe>janrain4j+unsubscribe@googlegroups.com</unsubscribe>
             <post>janrain4j@googlegroups.com</post>
@@ -51,7 +51,7 @@
                 <configuration>
                     <charset>UTF-8</charset>
                     <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <excludePackageNames>com.googlecode.janrain4j.http,com.googlecode.janrain4j.json,com.googlecode.janrain4j.tags,com.googlecode.janrain4j.util</excludePackageNames>
+                    <excludePackageNames>com.googlecode.janrain4j.http,com.googlecode.janrain4j.tags,com.googlecode.janrain4j.util</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>

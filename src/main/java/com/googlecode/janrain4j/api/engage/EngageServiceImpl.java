@@ -14,11 +14,7 @@
  */
 package com.googlecode.janrain4j.api.engage;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,11 +24,17 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.googlecode.janrain4j.api.engage.request.Activity;
+import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
+import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
+import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
+import com.googlecode.janrain4j.api.engage.response.GetContactsResponse;
+import com.googlecode.janrain4j.api.engage.response.GetUserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
 import com.googlecode.janrain4j.http.HttpResponse;
-import com.googlecode.janrain4j.json.JSONArray;
 import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONObject;
 
@@ -82,34 +84,35 @@ class EngageServiceImpl implements EngageService {
         this.config = config;
     }
     
-    public UserData authInfo(String token) {
+    public AuthInfoResponse authInfo(String token) {
         return authInfo(token, false);
     }
     
-    public UserData authInfo(String token, boolean extended) {
+    public AuthInfoResponse authInfo(String token, boolean extended) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(TOKEN_PARAM, token);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
-        JSONObject rsp = apiCall(AUTH_INFO_METHOD, params);
-        return buildUserData(rsp, extended);
+        String jsonResponse = apiCall(AUTH_INFO_METHOD, params);
+        return new AuthInfoResponse(jsonResponse);
     }
     
-    public List<Contact> getContacts(String identifier) {
-        // TODO
-        List<Contact> contacts = new ArrayList<Contact>();
-        return contacts;
+    public GetContactsResponse getContacts(String identifier) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(IDENTIFIER_PARAM, identifier);
+        String jsonResponse = apiCall(GET_CONTACTS_METHOD, params);
+        return new GetContactsResponse(jsonResponse);
     }
 
-    public UserData getUserData(String identifier) {
+    public GetUserDataResponse getUserData(String identifier) {
         return getUserData(identifier, false);
     }
 
-    public UserData getUserData(String identifier, boolean extended) {
+    public GetUserDataResponse getUserData(String identifier, boolean extended) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
-        JSONObject rsp = apiCall(GET_USER_DATA_METHOD, params);
-        return buildUserData(rsp, extended);
+        String jsonResponse = apiCall(GET_USER_DATA_METHOD, params);
+        return new GetUserDataResponse(jsonResponse);
     }
     
     public void setStatus(String identifier, String status) {
@@ -167,86 +170,53 @@ class EngageServiceImpl implements EngageService {
         apiCall(UNMAP_METHOD, params);
     }
     
-    public List<String> mappings(String primaryKey) {
+    public MappingsResponse mappings(String primaryKey) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(PRIMARY_KEY_PARAM, primaryKey);
-        JSONObject rsp = apiCall(MAPPINGS_METHOD, params);
-        JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
-        List<String> mappings = new ArrayList<String>();
-        if (rspIdentifiers != null) {
-            for (int i = 0; i < rspIdentifiers.length(); i++) {
-                try {
-                    mappings.add(rspIdentifiers.getString(i));
-                }
-                catch (JSONException e) {
-                    throw new EngageFailureException("Unexpected JSON error", e);
-                }
-            }
-        }
-        return mappings;
+        String jsonResponse = apiCall(MAPPINGS_METHOD, params);
+        return new MappingsResponse(jsonResponse);
     }
     
-    public Map<String, List<String>> allMappings() {
+    public AllMappingsResponse allMappings() {
         Map<String, String> params = new HashMap<String, String>();
-        JSONObject rsp = apiCall(ALL_MAPPINGS_METHOD, params);
-        JSONObject rspMappings = rsp.optJSONObject("mappings");
-        Map<String, List<String>> allMappings = new HashMap<String, List<String>>();
-        if (rspMappings != null) {
-            for (Iterator<String> iterator = rspMappings.keys(); iterator.hasNext();) {
-                String primaryKey = iterator.next();
-                try {
-                    JSONArray rspIdentifiers = rspMappings.getJSONArray(primaryKey);
-                    List<String> identifiers = new ArrayList<String>();
-                    for (int i = 0; i < rspIdentifiers.length(); i++) {
-                        identifiers.add(rspIdentifiers.getString(i));
-                    }
-                    allMappings.put(primaryKey, identifiers);
-                }
-                catch (JSONException e) {
-                    throw new EngageFailureException("Unexpected JSON error", e);
-                } 
-            }
-        }
-        return allMappings;
+        String jsonResponse = apiCall(ALL_MAPPINGS_METHOD, params);
+        return new AllMappingsResponse(jsonResponse);
     }
     
     public void activity(String identifier, Activity activity) {
         activity(identifier, activity, null);
     }
+
+    public void activity(String identifier, String activity) {
+         activity(identifier, activity, null);
+    }
     
     public void activity(String identifier, Activity activity, String location) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(IDENTIFIER_PARAM, identifier);
         try {
-            params.put(ACTIVITY_PARAM, activity.toJSON());
+            activity(identifier, activity.toJSON(), location);
         }
         catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", e);
+            throw new EngageFailureException("Unexpected JSON error", null, e);
         }
+    }
+    
+    public void activity(String identifier, String activity, String location) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(ACTIVITY_PARAM, activity);
         if (location != null && location.length() > 0) {
             params.put(LOCATION_PARAM, location);
         }
         apiCall(ACTIVITY_METHOD, params);
     }
     
-    public URL analytics(Date start, Date end) {
+    public AnalyticsResponse analytics(Date start, Date end) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         Map<String, String> params = new HashMap<String, String>();
         params.put(START_PARAM, dateFormatter.format(start));
         params.put(END_PARAM, dateFormatter.format(end));
-        JSONObject rsp = apiCall(ANALYTICS_METHOD, params);
-        try {
-            String rspUrl = rsp.getString("url");
-            try {
-                return new URL(rspUrl);
-            }
-            catch (MalformedURLException e) {
-                throw new EngageFailureException("Malformed url in response: " + rspUrl, e);
-            }
-        }
-        catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", e);
-        }
+        String jsonResponse = apiCall(ANALYTICS_METHOD, params);
+        return new AnalyticsResponse(jsonResponse);
     }
     
     public void setAuthProviders(List<String> providers) {
@@ -262,7 +232,7 @@ class EngageServiceImpl implements EngageService {
         apiCall(SET_AUTH_PROVIDERS_METHOD, params);
     }
     
-    JSONObject apiCall(String method, Map<String, String> partialParams) {
+    String apiCall(String method, Map<String, String> partialParams) {
         
         Map<String, String> params = new HashMap<String, String>();
         
@@ -289,9 +259,12 @@ class EngageServiceImpl implements EngageService {
             log.debug(sb.toString());
         }
         
+        String jsonResponse = null;
+        
         try {
             HttpResponse response = HttpClientFactory.getHttpClient(config).post(url, params);
-            JSONObject rsp = new JSONObject(response.getContent());
+            jsonResponse = response.getContent();
+            JSONObject rsp = new JSONObject(jsonResponse);
             
             if (log.isDebugEnabled()) {
                 log.debug("Janrain Engage response:\n" + rsp.toString());
@@ -303,110 +276,20 @@ class EngageServiceImpl implements EngageService {
                     JSONObject err = rsp.getJSONObject("err");
                     int code = err.getInt("code");
                     String msg = err.getString("msg");
-                    throw new ErrorResponeException(code, msg);
+                    throw new ErrorResponeException(code, msg, jsonResponse);
                 }
                 else {
-                    throw new EngageFailureException("Unexpected status in response: " + stat);
+                    throw new EngageFailureException("Unexpected status in response: " + stat, jsonResponse);
                 }
             }
             
-            return rsp;
+            return jsonResponse;
         }
         catch (HttpFailureException e) {
-            throw new EngageFailureException("Unexpected HTTP error", e);
+            throw new EngageFailureException("Unexpected HTTP error", jsonResponse, e);
         }
         catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", e);
-        }
-    }
-    
-    UserData buildUserData(JSONObject rsp, boolean extended) {
-        try {
-            UserData userData = new UserData();
-            
-            JSONObject rspProfile = rsp.getJSONObject("profile");
-            Profile profile = new Profile();
-            profile.setIdentifier(rspProfile.getString("identifier"));
-            profile.setProviderName(rspProfile.getString("providerName"));
-            profile.setPrimaryKey(rspProfile.optString("primaryKey", null));
-            profile.setDisplayName(rspProfile.optString("displayName", null));
-            profile.setPreferredUsername(rspProfile.optString("preferredUsername", null));
-            JSONObject rspName = rspProfile.optJSONObject("name");
-            if (rspName != null) {
-                Name name = new Name();
-                name.setFormatted(rspName.optString("formatted", null));
-                name.setFamilyName(rspName.optString("familyName", null));
-                name.setGivenName(rspName.optString("givenName", null));
-                name.setMiddleName(rspName.optString("middleName", null));
-                name.setHonorificPrefix(rspName.optString("honorificPrefix", null));
-                name.setHonorificSuffix(rspName.optString("honorificSuffix", null));
-                profile.setName(name);
-            }
-            profile.setGender(rspProfile.optString("gender", null));
-            String birthday = rspProfile.optString("birthday", null);
-            if (birthday != null && birthday.length() > 0) {
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    profile.setBirthday(dateFormatter.parse(birthday));
-                }
-                catch (ParseException e) {
-                    // swallow
-                }
-            }
-            profile.setUtcOffset(rspProfile.optString("utcOffset", null));
-            profile.setEmail(rspProfile.optString("email", null));
-            profile.setEmail(rspProfile.optString("email", null));
-            profile.setVerifiedEmail(rspProfile.optString("verifiedEmail", null));
-            profile.setUrl(rspProfile.optString("url", null));
-            profile.setPhoneNumber(rspProfile.optString("phoneNumber", null));
-            profile.setPhoto(rspProfile.optString("photo", null));
-            JSONObject rspAddress = rspProfile.optJSONObject("address");
-            if (rspAddress != null) {
-                Address address = new Address();
-                address.setFormatted(rspAddress.optString("formatted", null));
-                address.setStreetAddress(rspAddress.optString("streetAddress", null));
-                address.setLocality(rspAddress.optString("locality", null));
-                address.setRegion(rspAddress.optString("region", null));
-                address.setPostalCode(rspAddress.optString("postalCode", null));
-                address.setCountry(rspAddress.optString("country", null));
-                profile.setAddress(address);
-            }
-            profile.setLimitedData(rspProfile.optBoolean("limitedData", false));
-            userData.setProfile(profile);
-            
-            JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
-            if (rspAccessCredentials != null) {
-                AccessCredentials accessCredentials = new AccessCredentials();
-                accessCredentials.setType(rspAccessCredentials.optString("type"));
-                accessCredentials.setOauthToken(rspAccessCredentials.optString("oauthToken"));
-                accessCredentials.setOauthTokenSecret(rspAccessCredentials.optString("oauthTokenSecret"));
-                accessCredentials.setUid(rspAccessCredentials.optString("uid"));
-                accessCredentials.setAccessToken(rspAccessCredentials.optString("accessToken"));
-                accessCredentials.setExpires(rspAccessCredentials.optLong("expires"));
-                accessCredentials.setEact(rspAccessCredentials.optString("eact"));
-                userData.setAccessCredentials(accessCredentials);
-            }
-            
-            // TODO merged poco
-            
-            JSONArray rspFriends = rsp.optJSONArray("friends");
-            if (rspFriends != null) {
-                List<String> friends = new ArrayList<String>();
-                for (int i = 0; i < rspFriends.length(); i++) {
-                    try {
-                        friends.add(rspFriends.getString(i));
-                    }
-                    catch (JSONException e) {
-                        throw new EngageFailureException("Unexpected JSON error", e);
-                    }
-                }
-                userData.setFriends(friends);
-            }
-            
-            return userData;
-        }
-        catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", e);
+            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
         }
     }
 }

@@ -46,13 +46,25 @@ public class ErrorResponeException extends RuntimeException {
     public static final int YAHOO_ERROR = 17;
     
     private int code;
+    private String jsonResponse = null;
     
-    public ErrorResponeException(int code, String message) {
+    public ErrorResponeException(int code, String message, String jsonResponse) {
         super(message);
         this.code = code;
+        this.jsonResponse = jsonResponse;
     }
     
+    /**
+     * Return the Janrain Engage error code.
+     */
     public int getCode() {
         return code;
+    }
+    
+    /**
+     * Returns the JSON response if available, otherwise <code>null</code>.
+     */
+    public String getJsonResponse() {
+        return jsonResponse;
     }
 }

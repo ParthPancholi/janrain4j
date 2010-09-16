@@ -25,11 +25,22 @@ public class EngageFailureException extends RuntimeException {
 
     private static final long serialVersionUID = 1448290185758961585L;
     
-    public EngageFailureException(String message) {
+    private String jsonResponse = null;
+    
+    public EngageFailureException(String message, String jsonResponse) {
         super(message);
+        this.jsonResponse = jsonResponse;
     }
     
-    public EngageFailureException(String message, Throwable cause) {
+    public EngageFailureException(String message, String jsonResponse, Throwable cause) {
         super(message, cause);
+        this.jsonResponse = jsonResponse;
+    }
+    
+    /**
+     * Returns the JSON response if available, otherwise <code>null</code>.
+     */
+    public String getJsonResponse() {
+        return jsonResponse;
     }
 }

@@ -18,34 +18,27 @@ import java.sql.Connection;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.response;
 
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_MAPPINGS_METHOD;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_KEY_PARAM;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.API_URL;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
-import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
-public class AllMappingsTest extends EngageServiceImplTestCase {
+import com.googlecode.janrain4j.json.JSONObject;
 
-    private String url = API_URL + ALL_MAPPINGS_METHOD;
+public class AllMappingsResponseTest {
+
+    private String jsonResponse = null;
+    private AllMappingsResponse response = null;
     
     @Test
     public void testMultipleMappings() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
         
-        String response =
+        jsonResponse =
             "{\n" +
             "  \"mappings\": {\n" +
             "    \"1\": [\n" +
@@ -59,10 +52,12 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(response);
+        response = new AllMappingsResponse(jsonResponse);
         
-        Map<String, List<String>> allMappings = service.allMappings();
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        
+        Map<String, List<String>> allMappings = response.getAllMappings();
         
         assertEquals(2, allMappings.size());
         
@@ -74,17 +69,12 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
         assertEquals(2, allMappings.get("2").size());
         assertTrue(allMappings.get("2").contains("http://brianellin.com/"));
         assertTrue(allMappings.get("2").contains("http://brian.myopenid.com/"));
-        
-        verify(httpClient).post(url, params);
     }
     
     @Test
     public void testSingleMappings() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
         
-        String response =
+        jsonResponse =
             "{\n" +
             "  \"mappings\": {\n" +
             "    \"1\": [\n" +
@@ -94,40 +84,37 @@ public class AllMappingsTest extends EngageServiceImplTestCase {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(response);
+        response = new AllMappingsResponse(jsonResponse);
         
-        Map<String, List<String>> allMappings = service.allMappings();
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        
+        Map<String, List<String>> allMappings = response.getAllMappings();
         
         assertEquals(1, allMappings.size());
         
         assertTrue(allMappings.containsKey("1"));
         assertEquals(1, allMappings.get("1").size());
         assertTrue(allMappings.get("1").contains("http://cygnus.myopenid.com/"));
-        
-        verify(httpClient).post(url, params);
     }
     
     @Test
     public void testNoMappings() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
         
-        String response =
+        jsonResponse =
             "{\n" +
             "  \"mappings\": {\n" +
             "  },\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(response);
+        response = new AllMappingsResponse(jsonResponse);
         
-        Map<String, List<String>> allMappings = service.allMappings();
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        
+        Map<String, List<String>> allMappings = response.getAllMappings();
         
         assertEquals(0, allMappings.size());
-        
-        verify(httpClient).post(url, params);
     }
 }

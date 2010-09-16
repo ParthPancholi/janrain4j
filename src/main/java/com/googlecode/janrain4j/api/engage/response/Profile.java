@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage;
+package com.googlecode.janrain4j.api.engage.response;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +25,8 @@ import java.util.Date;
  * @author Marcel Overdijk
  * @see <a href="http://rpxnow.com/docs#profile_data">Profile data documentation</a>
  * @since 1.0
+ * @see AuthInfoResponse
+ * @see GetUserDataResponse
  */
 public class Profile implements Serializable {
 
