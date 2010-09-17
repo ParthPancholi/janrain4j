@@ -23,8 +23,7 @@ import java.io.Serializable;
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see AuthInfoResponse
- * @see GetUserDataResponse
+ * @see UserDataResponse
  */
 public class AccessCredentials implements Serializable {
 

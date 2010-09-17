@@ -25,8 +25,7 @@ import java.util.Date;
  * @author Marcel Overdijk
  * @see <a href="http://rpxnow.com/docs#profile_data">Profile data documentation</a>
  * @since 1.0
- * @see AuthInfoResponse
- * @see GetUserDataResponse
+ * @see UserDataResponse
  */
 public class Profile implements Serializable {
 
