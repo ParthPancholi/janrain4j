@@ -30,7 +30,7 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  * @see EngageService#mappings(String)
  */
-public class MappingsResponse extends EngageResponse {
+public class MappingsResponse extends AbstractEngageResponse {
 
     private static final long serialVersionUID = -1857683662834249312L;
     

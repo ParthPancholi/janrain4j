@@ -29,7 +29,7 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  * @see EngageService#analytics(java.util.Date, java.util.Date)
  */
-public class AnalyticsResponse extends EngageResponse {
+public class AnalyticsResponse extends AbstractEngageResponse {
 
     private static final long serialVersionUID = -7109134903889713304L;
     

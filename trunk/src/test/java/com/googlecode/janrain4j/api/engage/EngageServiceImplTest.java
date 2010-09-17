@@ -70,9 +70,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
-import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
-import com.googlecode.janrain4j.api.engage.response.GetUserDataResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.http.HttpClient;
 import com.googlecode.janrain4j.http.HttpClientFactory;
@@ -144,14 +143,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        AuthInfoResponse expected = mock(AuthInfoResponse.class);
-        whenNew(AuthInfoResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.authInfo(token));
         
         verify(httpClient).post(url, params);
-        verifyNew(AuthInfoResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     @Test
@@ -168,14 +167,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        AuthInfoResponse expected = mock(AuthInfoResponse.class);
-        whenNew(AuthInfoResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.authInfo(token, true));
         
         verify(httpClient).post(url, params);
-        verifyNew(AuthInfoResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     @Test
@@ -192,14 +191,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        AuthInfoResponse expected = mock(AuthInfoResponse.class);
-        whenNew(AuthInfoResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.authInfo(token, false));
         
         verify(httpClient).post(url, params);
-        verifyNew(AuthInfoResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     // TODO test getContacts
@@ -218,14 +217,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        GetUserDataResponse expected = mock(GetUserDataResponse.class);
-        whenNew(GetUserDataResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.getUserData(identifier));
         
         verify(httpClient).post(url, params);
-        verifyNew(GetUserDataResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     @Test
@@ -242,14 +241,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        GetUserDataResponse expected = mock(GetUserDataResponse.class);
-        whenNew(GetUserDataResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.getUserData(identifier, true));
         
         verify(httpClient).post(url, params);
-        verifyNew(GetUserDataResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     @Test
@@ -266,14 +265,14 @@ protected EngageServiceImpl service = null;
         when(httpClient.post(url, params)).thenReturn(httpResponse);
         when(httpResponse.getContent()).thenReturn(successResponse);
         
-        GetUserDataResponse expected = mock(GetUserDataResponse.class);
-        whenNew(GetUserDataResponse.class).withArguments(successResponse).thenReturn(expected);
+        UserDataResponse expected = mock(UserDataResponse.class);
+        whenNew(UserDataResponse.class).withArguments(successResponse).thenReturn(expected);
         
         // call service
         assertSame(expected, service.getUserData(identifier, false));
         
         verify(httpClient).post(url, params);
-        verifyNew(GetUserDataResponse.class).withArguments(successResponse);
+        verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
     @Test

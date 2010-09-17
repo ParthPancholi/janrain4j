@@ -20,10 +20,9 @@ import java.util.List;
 import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
-import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
-import com.googlecode.janrain4j.api.engage.response.GetContactsResponse;
-import com.googlecode.janrain4j.api.engage.response.GetUserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 
 /**
@@ -45,7 +44,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public AuthInfoResponse authInfo(String token) throws EngageFailureException, ErrorResponeException;
+    public UserDataResponse authInfo(String token) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Get information about the user currently signing in to your web application.
@@ -58,7 +57,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
      * @since 1.0
      */
-    public AuthInfoResponse authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException;
+    public UserDataResponse authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Retrieve a list of contacts for an identifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
@@ -70,7 +69,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs#api_get_contacts">Janrain Engage API Documentation: get_contacts</a>
      * @since 1.0
      */
-    public GetContactsResponse getContacts(String identifier) throws EngageFailureException, ErrorResponeException;
+    public ContactsResponse getContacts(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -83,7 +82,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public GetUserDataResponse getUserData(String identifier) throws EngageFailureException, ErrorResponeException;
+    public UserDataResponse getUserData(String identifier) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Obtain an up-to-date copy of a user's profile as previously returned by 
@@ -97,7 +96,7 @@ public interface EngageService {
      * @see <a href="http://rpxnow.com/docs/get_user_data">Janrain Engage API Documentation: get_user_data</a>
      * @since 1.0
      */
-    public GetUserDataResponse getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException;
+    public UserDataResponse getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException;
     
     /**
      * Set the status message for the account corresponding to an identifier.

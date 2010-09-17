@@ -21,7 +21,7 @@ import java.io.Serializable;
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see GetContactsResponse
+ * @see ContactsResponse
  */
 public class Contact implements Serializable {
 

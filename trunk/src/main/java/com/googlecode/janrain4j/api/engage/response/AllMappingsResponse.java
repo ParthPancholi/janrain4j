@@ -34,7 +34,7 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  * @see EngageService#allMappings()
  */
-public class AllMappingsResponse extends EngageResponse {
+public class AllMappingsResponse extends AbstractEngageResponse {
 
     private static final long serialVersionUID = 7817240961441974055L;
     
