@@ -214,9 +214,6 @@
                     <div class="inner">
                         <c:if test="${not empty userData.friends}">
                             <table class="table">
-                                <tr>             
-                                    <th>Identifier</th>
-                                </tr>
                                 <c:forEach items="${userData.friends}" var="identifier" varStatus="status">
                                     <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
                                         <td>${identifier}</td>
