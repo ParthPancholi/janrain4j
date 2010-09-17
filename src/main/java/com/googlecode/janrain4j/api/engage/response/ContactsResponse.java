@@ -25,13 +25,13 @@ import com.googlecode.janrain4j.api.engage.EngageService;
  * @since 1.0
  * @see EngageService#getContacts(String)
  */
-public class GetContactsResponse extends EngageResponse {
+public class ContactsResponse extends AbstractEngageResponse {
 
     private static final long serialVersionUID = -7619050740310590636L;
     
     private List<Contact> contacts = null;
     
-    public GetContactsResponse(String jsonResponse) {
+    public ContactsResponse(String jsonResponse) {
         super(jsonResponse);
         // TODO
     }

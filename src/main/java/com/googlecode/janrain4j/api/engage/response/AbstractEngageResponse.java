@@ -24,13 +24,13 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @author Marcel Overdijk
  * @since 1.0
  */
-abstract class EngageResponse implements Serializable {
+abstract class AbstractEngageResponse implements Serializable {
 
     private static final long serialVersionUID = -8862811237568844288L;
     
     private String jsonResponse = null;
     
-    public EngageResponse(String jsonResponse) {
+    public AbstractEngageResponse(String jsonResponse) {
         this.jsonResponse = jsonResponse;
     }
     

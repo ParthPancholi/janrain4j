@@ -14,7 +14,7 @@
 <jsp:include page="_flash.jsp" />
 
 <%  // get sign in provider from user data
-    AuthInfoResponse userData = (AuthInfoResponse) session.getAttribute("userData");
+    UserDataResponse userData = (UserDataResponse) session.getAttribute("userData");
     String providerName = userData.getProfile().getProviderName();
     
     // providers supporting set status
@@ -74,7 +74,7 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Under construction
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>

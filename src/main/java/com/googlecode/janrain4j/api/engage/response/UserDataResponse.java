@@ -25,13 +25,13 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONObject;
 
 /**
- * The <code>AbstractUserDataResponse</code> contains all the information Janrain Engage 
+ * The <code>UserDataResponse</code> contains all the information Janrain Engage 
  * knows about the user signing into your website.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-abstract class AbstractUserDataResponse extends EngageResponse {
+public class UserDataResponse extends AbstractEngageResponse {
 
     private static final long serialVersionUID = 236447883427917238L;
     
@@ -39,8 +39,9 @@ abstract class AbstractUserDataResponse extends EngageResponse {
     private AccessCredentials accessCredentials = null;
     private MergedPoco mergedPoco = null;
     private List<String> friends = null;
+    private boolean limitedData = false;
     
-    public AbstractUserDataResponse(String jsonResponse) {
+    public UserDataResponse(String jsonResponse) {
         super(jsonResponse);
         try {
             JSONObject rsp = getResponseAsJSONObject();
@@ -92,7 +93,6 @@ abstract class AbstractUserDataResponse extends EngageResponse {
                 address.setCountry(rspAddress.optString("country", null));
                 profile.setAddress(address);
             }
-            profile.setLimitedData(rspProfile.optBoolean("limitedData", false));
             
             // Access Credentials
             JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
@@ -123,6 +123,9 @@ abstract class AbstractUserDataResponse extends EngageResponse {
                     }
                 }
             }
+            
+            // Limited Data
+            limitedData = rsp.optBoolean("limitedData", false);
         }
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
@@ -159,5 +162,20 @@ abstract class AbstractUserDataResponse extends EngageResponse {
      */
     public List<String> getFriends() {
         return friends;
+    }
+    
+    /**
+     * Returns true if Janrain Engage was able to retrieve only limited public 
+     * data from the user's profile (e.g., because the login session has 
+     * expired or the user logged out from their account). If Janrain Engage 
+     * succeeded in retrieving complete set of data, this field will be set to 
+     * false. Used only with Facebook.
+     */
+    public boolean isLimitedData() {
+        return limitedData;
+    }
+    
+    void setLimitedData(boolean limitedData) {
+        this.limitedData = limitedData;
     }
 }

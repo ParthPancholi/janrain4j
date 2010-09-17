@@ -27,10 +27,9 @@ import org.apache.commons.logging.LogFactory;
 import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
-import com.googlecode.janrain4j.api.engage.response.AuthInfoResponse;
-import com.googlecode.janrain4j.api.engage.response.GetContactsResponse;
-import com.googlecode.janrain4j.api.engage.response.GetUserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
@@ -84,35 +83,35 @@ class EngageServiceImpl implements EngageService {
         this.config = config;
     }
     
-    public AuthInfoResponse authInfo(String token) {
+    public UserDataResponse authInfo(String token) {
         return authInfo(token, false);
     }
     
-    public AuthInfoResponse authInfo(String token, boolean extended) {
+    public UserDataResponse authInfo(String token, boolean extended) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(TOKEN_PARAM, token);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
         String jsonResponse = apiCall(AUTH_INFO_METHOD, params);
-        return new AuthInfoResponse(jsonResponse);
+        return new UserDataResponse(jsonResponse);
     }
     
-    public GetContactsResponse getContacts(String identifier) {
+    public ContactsResponse getContacts(String identifier) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         String jsonResponse = apiCall(GET_CONTACTS_METHOD, params);
-        return new GetContactsResponse(jsonResponse);
+        return new ContactsResponse(jsonResponse);
     }
 
-    public GetUserDataResponse getUserData(String identifier) {
+    public UserDataResponse getUserData(String identifier) {
         return getUserData(identifier, false);
     }
 
-    public GetUserDataResponse getUserData(String identifier, boolean extended) {
+    public UserDataResponse getUserData(String identifier, boolean extended) {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
         String jsonResponse = apiCall(GET_USER_DATA_METHOD, params);
-        return new GetUserDataResponse(jsonResponse);
+        return new UserDataResponse(jsonResponse);
     }
     
     public void setStatus(String identifier, String status) {

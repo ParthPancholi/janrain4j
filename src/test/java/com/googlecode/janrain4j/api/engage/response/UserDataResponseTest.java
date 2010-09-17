@@ -34,13 +34,13 @@ import org.junit.Test;
 import com.googlecode.janrain4j.json.JSONObject;
 
 @SuppressWarnings("serial")
-public class AbstractUserDataResponseTest {
+public class UserDataResponseTest {
 
     private String jsonResponse = null;
-    private AbstractUserDataResponse response = null;
+    private UserDataResponse response = null;
     
     @Test
-    public void testAbstractUserDataResponse() throws Exception {
+    public void testUserDataResponse() throws Exception {
         
         jsonResponse =
             "{" +
@@ -54,7 +54,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         assertEquals(jsonResponse, response.getResponseAsJSON());
         assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
@@ -69,7 +69,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithMinimalSetOfData() throws Exception {
+    public void testUserDataResponseWithMinimalSetOfData() throws Exception {
         
         jsonResponse =
             "{" +
@@ -80,7 +80,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -99,14 +99,14 @@ public class AbstractUserDataResponseTest {
         assertNull(profile.getPhoneNumber());
         assertNull(profile.getPhoto());
         assertNull(profile.getAddress());
-        assertFalse(profile.isLimitedData());
         assertNull(response.getAccessCredentials());
         assertNull(response.getMergedPoco());
         assertNull(response.getFriends());
+        assertFalse(response.isLimitedData());
     }
     
     @Test
-    public void testAbstractUserDataResponseWithFullSetOfData() throws Exception {
+    public void testUserDataResponseWithFullSetOfData() throws Exception {
         
         jsonResponse =
             "{" +
@@ -139,8 +139,7 @@ public class AbstractUserDataResponseTest {
             "      \"region\": \"my-region\",\n" +
             "      \"postalCode\": \"my-postal-code\",\n" +
             "      \"country\": \"my-country\"\n" +
-            "    },\n" +
-            "    \"limitedData\": false\n" +
+            "    }\n" +
             "  },\n" +
             "  \"accessCredentials\": {\n" +
             "    \"type\": \"my-access-credentials-type\",\n" +
@@ -156,10 +155,11 @@ public class AbstractUserDataResponseTest {
             "    \"friend2\",\n" +
             "    \"friend3\"\n" +
             "  ],\n" +
+            "  \"limitedData\": false,\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -193,7 +193,6 @@ public class AbstractUserDataResponseTest {
         assertEquals("my-region", address.getRegion());
         assertEquals("my-postal-code", address.getPostalCode());
         assertEquals("my-country", address.getCountry());
-        assertFalse(profile.isLimitedData());
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -211,28 +210,30 @@ public class AbstractUserDataResponseTest {
         assertTrue(friends.contains("friend1"));
         assertTrue(friends.contains("friend2"));
         assertTrue(friends.contains("friend3"));
+        
+        assertFalse(response.isLimitedData());
     }
     
     @Test
-    public void testAbstractUserDataResponseWithLimitedData() throws Exception {
+    public void testUserDataResponseWithLimitedData() throws Exception {
         
         jsonResponse =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
-            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
-            "    \"limitedData\": true\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
             "  },\n" +
+            "  \"limitedData\": true,\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
-        assertTrue(response.getProfile().isLimitedData());
+        assertTrue(response.isLimitedData());
     }
     
     @Test
-    public void testAbstractUserDataResponseWithOauthAccessCredentials() throws Exception {
+    public void testUserDataResponseWithOauthAccessCredentials() throws Exception {
         
         jsonResponse =
             "{" +
@@ -248,7 +249,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -259,7 +260,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithFacebookAccessCredentials() throws Exception {
+    public void testUserDataResponseWithFacebookAccessCredentials() throws Exception {
         
         jsonResponse =
             "{" +
@@ -276,7 +277,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -288,7 +289,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithWindowsLiveAccessCredentials() throws Exception {
+    public void testUserDataResponseWithWindowsLiveAccessCredentials() throws Exception {
         
         jsonResponse =
             "{" +
@@ -303,7 +304,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -313,7 +314,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithNoFriends() throws Exception {
+    public void testUserDataResponseWithNoFriends() throws Exception {
         
         jsonResponse =
             "{" +
@@ -326,7 +327,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -334,7 +335,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithSingleFriend() throws Exception {
+    public void testUserDataResponseWithSingleFriend() throws Exception {
         
         jsonResponse =
             "{" +
@@ -348,7 +349,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -357,7 +358,7 @@ public class AbstractUserDataResponseTest {
     }
     
     @Test
-    public void testAbstractUserDataResponseWithMultipleFriends() throws Exception {
+    public void testUserDataResponseWithMultipleFriends() throws Exception {
         
         jsonResponse =
             "{" +
@@ -373,7 +374,7 @@ public class AbstractUserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AbstractUserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(jsonResponse) {};
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);

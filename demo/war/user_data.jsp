@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
+<%@ page import="com.googlecode.janrain4j.api.engage.response.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 
@@ -8,6 +9,12 @@
 </c:if>
 
 <jsp:include page="_flash.jsp" />
+
+<%  // get complete json response from user data
+    UserDataResponse userData = (UserDataResponse) session.getAttribute("userData");
+    String jsonResponse = userData.getResponseAsJSONObject().toString(2);
+    pageContext.setAttribute("jsonResponse", jsonResponse);
+ %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
@@ -127,10 +134,6 @@
                                 <td class="user-data"><label>Country</label></td>
                                 <td>${userData.profile.address.country}</td>
                             </tr>
-                            <tr>
-                                <td class="user-data"><label>Limited Data</label></td>
-                                <td>${userData.profile.limitedData}</td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -197,7 +200,7 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Under construction.
+                        Under construction
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
@@ -224,6 +227,19 @@
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
+                
+                <div class="half-content-top title">
+                    <h2>Complete JSON Response</h2>
+                </div>
+                <div class="half-content">
+                    <div class="additional-tools divider clearfix">
+                    </div>
+                    <div class="inner">
+                        <pre style="white-space:pre-wrap;">${jsonResponse}</pre>
+                    </div>
+                </div>
+                <div class="half-content-bottom"></div>
+                
             </div>
             <jsp:include page="_sidebar.jsp" />
         </div>

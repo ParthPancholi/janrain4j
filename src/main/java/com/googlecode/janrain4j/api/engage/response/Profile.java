@@ -47,7 +47,6 @@ public class Profile implements Serializable {
     private String phoneNumber = null;
     private String photo = null;
     private Address address = null;
-    private boolean limitedData = false;
     
     Profile() {
     }
@@ -233,20 +232,5 @@ public class Profile implements Serializable {
     
     void setAddress(Address address) {
         this.address = address;
-    }
-    
-    /**
-     * Returns true if Janrain Engage was able to retrieve only limited public 
-     * data from the user's profile (e.g., because the login session has 
-     * expired or the user logged out from their account). If Janrain Engage 
-     * succeeded in retrieving complete set of data, this field will be set to 
-     * false.
-     */
-    public boolean isLimitedData() {
-        return limitedData;
-    }
-    
-    void setLimitedData(boolean limitedData) {
-        this.limitedData = limitedData;
     }
 }
