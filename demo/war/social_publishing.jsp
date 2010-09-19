@@ -74,7 +74,7 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Under construction
+                        Under construction.
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
