@@ -42,6 +42,7 @@ div.secondary-navigation .error{
 }
 
 td{
+  vertical-align:top;
   word-break:break-all;
 }
 

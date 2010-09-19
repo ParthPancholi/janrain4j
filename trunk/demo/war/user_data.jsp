@@ -108,7 +108,12 @@
                             </tr>
                             <tr>
                                 <td class="user-data"><label>Photo</label></td>
-                                <td>${userData.profile.photo}</td>
+                                <td>
+                                    <c:if test="${not empty userData.profile.photo}">
+                                        ${userData.profile.photo}
+                                        <img src="${userData.profile.photo}" style="margin-top:5px;" />
+                                    </c:if>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="user-data"><label>Formatted Address</label></td>
@@ -186,7 +191,7 @@
                                 </table>
                             </c:when>
                             <c:otherwise>
-                                Your provider does not provide any access credentials.
+                                Your provider did not provide any access credentials.
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -200,7 +205,7 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Under construction
+                        Under construction.
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
@@ -212,15 +217,20 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        <c:if test="${not empty userData.friends}">
-                            <table class="table">
-                                <c:forEach items="${userData.friends}" var="identifier" varStatus="status">
-                                    <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
-                                        <td>${identifier}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>                        
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${not empty userData.friends}">
+                                <table class="table">
+                                    <c:forEach items="${userData.friends}" var="identifier" varStatus="status">
+                                        <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
+                                            <td>${identifier}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:when>
+                            <c:otherwise>
+                                Your provider did not provide any friends.
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
