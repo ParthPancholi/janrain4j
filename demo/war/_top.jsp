@@ -25,7 +25,7 @@
         </ul>
         <ul id="main-nav-right" class="tabs nav">
             <li class="left ${(param.selected == 'about' ? 'selected' : '')}"><a href="/about.jsp">About</a></li>
-            <li class="right ${(param.selected == 'administrator' ? 'selected' : '')}"><a href="#">Administrator</a></li>
+            <li class="right ${(param.selected == 'administrator' ? 'selected' : '')}"><a href="https://appengine.google.com/dashboard?&app_id=janrain4j">Administrator</a></li>
         </ul>
     </div>
 </div>
