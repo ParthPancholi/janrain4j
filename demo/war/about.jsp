@@ -21,7 +21,8 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis aliquam tincidunt. Nulla ipsum ipsum, vulputate sed congue at, scelerisque nec leo. Nunc porta bibendum lorem, ac tincidunt enim placerat eu. Suspendisse egestas consequat leo, eget ornare augue auctor id. Nullam vel lectus libero, eu consectetur tortor. Suspendisse vestibulum tempus nulla, at laoreet lacus fermentum nec. Mauris egestas vulputate lacus, ut condimentum elit sodales eu. Fusce dapibus, diam commodo condimentum molestie, magna odio rhoncus orci, eu sodales nisl metus eu metus. Donec quis libero id odio luctus condimentum quis malesuada purus. Maecenas urna tortor, volutpat quis egestas eu, pretium nec ligula. Quisque ornare consequat mattis. Vivamus malesuada odio quis enim pulvinar interdum. Etiam ac nulla eros, sit amet euismod magna. Vivamus varius placerat ante a pulvinar. Aliquam vel metus justo, non tincidunt est.
+                        <p>This demo is an example application using the <a href="http://janrain4j.googlecode.com" target="_blank">Janrain4j</a> Java library.</p>
+                        <p>The source code of the demo can be found at <a href="http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo" target="_blank">http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo</a></p> 
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
