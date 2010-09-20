@@ -38,7 +38,7 @@ public class Activity {
     private String title = null;
     private String description = null;
     private List<ActionLink> actionLinks = null;
-    // TODO private ? media
+    private List<Media> media = null;
     // TODO private ? properties
     
     /**
@@ -187,5 +187,21 @@ public class Activity {
      */
     public void setActionLinks(List<ActionLink> actionLinks) {
         this.actionLinks = actionLinks;
+    }
+    
+    /**
+     * Returns the media attachments.
+     */
+    public List<Media> getMedia() {
+        return media;
+    }
+    
+    /**
+     * Sets the media attachments.
+     * 
+     * @param media The media attachments.
+     */
+    public void setMedia(List<Media> media) {
+        this.media = media;
     }
 }
