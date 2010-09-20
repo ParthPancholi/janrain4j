@@ -145,7 +145,37 @@ public class ActivityTest {
         assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\"}", activity.toJSON());
     }
     
-    // TODO test properties
+    @Test
+    public void testActivityWithMultipleProperties() throws Exception {
+        properties.add(new Property(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
+        properties.add(new Property(myLinkProperty2, myLinkProperty2Text, myLinkProperty2Href));
+        properties.add(new Property(myLinkProperty3, myLinkProperty3Text, myLinkProperty3Href));
+        properties.add(new Property(myStringProperty1, myStringProperty1Value));
+        properties.add(new Property(myStringProperty2, myStringProperty2Value));
+        properties.add(new Property(myStringProperty3, myStringProperty3Value));
+        activity.setProperties(properties);
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-string-property-1\":\"my-string-property-1-value\",\"my-string-property-2\":\"my-string-property-2-value\",\"my-string-property-3\":\"my-string-property-3-value\"}}", activity.toJSON());
+    }
+    
+    @Test
+    public void testActivityWithSingleLinkProperty() throws Exception {
+        properties.add(new Property(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
+        activity.setProperties(properties);
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"}}}", activity.toJSON());
+    }
+    
+    @Test
+    public void testActivityWithSingleStringProperty() throws Exception {
+        properties.add(new Property(myStringProperty1, myStringProperty1Value));
+        activity.setProperties(properties);
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-string-property-1\":\"my-string-property-1-value\"}}", activity.toJSON());
+    }
+    
+    @Test
+    public void testActivityWithNoProperties() throws Exception {
+        activity.setProperties(properties);
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\"}", activity.toJSON());
+    }
     
     @Test
     public void testActivityWithFullSetOfData() throws Exception {
@@ -167,7 +197,6 @@ public class ActivityTest {
         properties.add(new Property(myStringProperty2, myStringProperty2Value));
         properties.add(new Property(myStringProperty3, myStringProperty3Value));
         activity.setProperties(properties);
-        // TODO media, properties + separate test class property
-        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"user_generated_content\":\"my-user-generated-content\",\"title\":\"my-title\",\"description\":\"my-description\",\"action_links\":[{\"text\":\"my-action-link-1-text\",\"href\":\"my-action-link-1-href\"},{\"text\":\"my-action-link-2-text\",\"href\":\"my-action-link-2-href\"},{\"text\":\"my-action-link-3-text\",\"href\":\"my-action-link-3-href\"}]}", activity.toJSON());
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"user_generated_content\":\"my-user-generated-content\",\"title\":\"my-title\",\"description\":\"my-description\",\"action_links\":[{\"text\":\"my-action-link-1-text\",\"href\":\"my-action-link-1-href\"},{\"text\":\"my-action-link-2-text\",\"href\":\"my-action-link-2-href\"},{\"text\":\"my-action-link-3-text\",\"href\":\"my-action-link-3-href\"}],\"media\":[{\"type\":\"image\",\"src\":\"my-image-1-src\",\"href\":\"my-image-1-href\"},{\"type\":\"image\",\"src\":\"my-image-2-src\",\"href\":\"my-image-2-href\"},{\"type\":\"image\",\"src\":\"my-image-3-src\",\"href\":\"my-image-3-href\"}],\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-string-property-1\":\"my-string-property-1-value\",\"my-string-property-2\":\"my-string-property-2-value\",\"my-string-property-3\":\"my-string-property-3-value\"}}", activity.toJSON());
     }
 }

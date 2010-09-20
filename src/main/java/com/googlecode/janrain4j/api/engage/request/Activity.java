@@ -92,7 +92,6 @@ public class Activity {
                 iterator.next().writeJSON(json);
             }
             json.endObject();
-            json.endArray();
         }
         
         json.endObject();
