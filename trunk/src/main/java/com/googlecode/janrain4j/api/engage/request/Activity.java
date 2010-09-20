@@ -39,7 +39,7 @@ public class Activity {
     private String description = null;
     private List<ActionLink> actionLinks = null;
     private List<Media> media = null;
-    // TODO private ? properties
+    private List<Property> properties = null;
     
     /**
      * Create a new <code>Activity</code>.
@@ -66,20 +66,34 @@ public class Activity {
         if (description != null && description.length() > 0) {
             json.key("description").value(description);
         }
+        
         if (actionLinks != null && actionLinks.size() > 0) {
             json.key("action_links");
             json.array();
             for (Iterator<ActionLink> iterator = actionLinks.iterator(); iterator.hasNext();) {
-                ActionLink actionLink = iterator.next();
-                json.object();
-                json.key("href").value(actionLink.getText());
-                json.key("text").value(actionLink.getHref());
-                json.endObject();
+                iterator.next().writeJSON(json);
             }
             json.endArray();
         }
         
-        // TODO media, properties
+        if (media != null && media.size() > 0) {
+            json.key("media");
+            json.array();
+            for (Iterator<Media> iterator = media.iterator(); iterator.hasNext();) {
+                iterator.next().writeJSON(json);
+            }
+            json.endArray();
+        }
+        
+        if (properties != null && properties.size() > 0) {
+            json.key("properties");
+            json.object();
+            for (Iterator<Property> iterator = properties.iterator(); iterator.hasNext();) {
+                iterator.next().writeJSON(json);
+            }
+            json.endObject();
+            json.endArray();
+        }
         
         json.endObject();
         return json.toString();
@@ -203,5 +217,20 @@ public class Activity {
      */
     public void setMedia(List<Media> media) {
         this.media = media;
+    }
+    
+    /**
+     * Returns the properties of the activity update.
+     */
+    public List<Property> getProperties() {
+        return properties;
+    }
+    
+    /**
+     * Sets the properties of the activity update
+     * @param properties
+     */
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
     }
 }

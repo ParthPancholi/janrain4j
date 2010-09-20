@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage.request;
 
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONWriter;
+
 /**
  * An action link is a link a user can use to take action on an activity 
  * update on the provider.
@@ -36,6 +39,13 @@ public class ActionLink {
     public ActionLink(String text, String href) {
         this.text = text;
         this.href = href;
+    }
+    
+    public void writeJSON(JSONWriter writer) throws JSONException {
+        writer.object();
+        writer.key("text").value(text);
+        writer.key("href").value(href);
+        writer.endObject();
     }
     
     /**

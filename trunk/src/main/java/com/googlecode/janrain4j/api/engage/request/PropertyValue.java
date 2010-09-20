@@ -18,14 +18,13 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * Rich media attachment to be posted to the user's activity stream
+ * Represents the value of a <code>Property<code>.
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see Activity
- * @see @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
+ * @see Property
  */
-public interface Media {
+public interface PropertyValue {
 
     public void writeJSON(JSONWriter writer) throws JSONException;
 }

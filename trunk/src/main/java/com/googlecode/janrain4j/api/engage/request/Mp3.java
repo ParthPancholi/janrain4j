@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage.request;
 
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONWriter;
+
 /**
  * Mp3 attachment to be posted to the user's activity stream.
  * 
@@ -22,8 +25,10 @@ package com.googlecode.janrain4j.api.engage.request;
  * @see Activity
  * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public abstract class Mp3 extends Media {
+public class Mp3 implements Media {
 
+    public final String TYPE = "mp3";
+    
     private String src = null;
     private String title = null;
     private String artist = null;
@@ -38,19 +43,20 @@ public abstract class Mp3 extends Media {
         this.src = src;
     }
     
-    /**
-     * Create a new <code>Mp3</code> media attachment.
-     * 
-     * @param src The src.
-     * @param title The title.
-     * @param artist The artist.
-     * @param album The album.
-     */
-    public Mp3(String src, String title, String artist, String album) {
-        this(src);
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
+    public void writeJSON(JSONWriter writer) throws JSONException {
+        writer.object();
+        writer.key("type").value(TYPE);
+        writer.key("src").value(src);
+        if (title != null && title.length() > 0) {
+            writer.key("title").value(title);
+        }
+        if (artist != null && artist.length() > 0) {
+            writer.key("artist").value(artist);
+        }
+        if (album != null && album.length() > 0) {
+            writer.key("album").value(album);
+        }
+        writer.endObject();
     }
     
     /**
