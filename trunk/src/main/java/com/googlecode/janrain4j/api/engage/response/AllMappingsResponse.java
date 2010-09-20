@@ -41,7 +41,6 @@ public class AllMappingsResponse extends AbstractEngageResponse {
     private Map<String, List<String>> allMappings = null;
     
     public AllMappingsResponse(String jsonResponse) {
-        // TODO do not return map, but collection of Mapping instances
         super(jsonResponse);
         JSONObject rsp = getResponseAsJSONObject();
         JSONObject rspMappings = rsp.optJSONObject("mappings");
