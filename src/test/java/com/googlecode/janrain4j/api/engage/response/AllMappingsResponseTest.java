@@ -72,7 +72,7 @@ public class AllMappingsResponseTest {
     }
     
     @Test
-    public void testSingleMappings() throws Exception {
+    public void testSingleMapping() throws Exception {
         
         jsonResponse =
             "{\n" +

@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.api.engage.request;
 
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONWriter;
+
 /**
  * Flash attachment to be posted to the user's activity stream.
  * 
@@ -22,8 +25,10 @@ package com.googlecode.janrain4j.api.engage.request;
  * @see Activity
  * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public abstract class Flash extends Media {
+public class Flash implements Media {
 
+    public final String TYPE = "flash";
+    
     private String swfsrc = null;
     private String imgsrc = null;
     private Integer width = null;
@@ -42,34 +47,24 @@ public abstract class Flash extends Media {
         this.imgsrc = imgsrc;
     }
     
-    /**
-     * Create a new <code>Flash</code> media attachment.
-     * 
-     * @param swfsrc The swfsrc.
-     * @param imgsrc The imgsrc.
-     * @param width The width.
-     * @param height The height
-     */
-    public Flash(String swfsrc, String imgsrc, Integer width, Integer height) {
-        this(swfsrc, imgsrc);
-        this.width = width;
-        this.height = height;
-    }
-    
-    /**
-     * Create a new <code>Flash</code> media attachment.
-     * 
-     * @param swfsrc The swfsrc.
-     * @param imgsrc The imgsrc.
-     * @param width The width.
-     * @param height The height
-     * @param expandedWidth The expanded width
-     * @param expandedHeight The expanded height
-     */
-    public Flash(String swfsrc, String imgsrc, Integer width, Integer height, Integer expandedWidth, Integer expandedHeight) {
-        this(swfsrc, imgsrc, width, height);
-        this.expandedWidth = expandedWidth;
-        this.expandedHeight = expandedHeight;
+    public void writeJSON(JSONWriter writer) throws JSONException {
+        writer.object();
+        writer.key("type").value(TYPE);
+        writer.key("swfsrc").value(swfsrc);
+        writer.key("imgsrc").value(imgsrc);
+        if (width != null && width > 0) {
+            writer.key("width").value(width);
+        }
+        if (height != null && height > 0) {
+            writer.key("height").value(height);
+        }
+        if (expandedWidth != null && expandedWidth > 0) {
+            writer.key("expanded_width").value(expandedWidth);
+        }
+        if (expandedHeight != null && expandedHeight > 0) {
+            writer.key("expanded_height").value(expandedHeight);
+        }
+        writer.endObject();
     }
     
     /**
