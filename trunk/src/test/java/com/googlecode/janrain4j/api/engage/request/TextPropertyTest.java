@@ -27,16 +27,14 @@ import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONStringer;
 
-public class PropertyTest {
+public class TextPropertyTest {
 
-    private Property property = null;
+    private TextProperty property = null;
     
     JSONStringer json = null;
     
     private String key = "my-key";
-    private String value = "my-value";
     private String text = "my-text";
-    private String href = "my-href";
     
     @Before
     public void setUp() {
@@ -44,20 +42,11 @@ public class PropertyTest {
     }
     
     @Test
-    public void testStringPropertyValue() throws Exception {
-        property = new Property(key, value);
+    public void testTextProperty() throws Exception {
+        property = new TextProperty(key, text);
         json.object();
         property.writeJSON(json);
         json.endObject();
-        assertEquals("{\"my-key\":\"my-value\"}", json.toString());
-    }
-    
-    @Test
-    public void testLinkPropertyValue() throws Exception {
-        property = new Property(key, text, href);
-        json.object();
-        property.writeJSON(json);
-        json.endObject();
-        assertEquals("{\"my-key\":{\"text\":\"my-text\",\"href\":\"my-href\"}}", json.toString());
+        assertEquals("{\"my-key\":\"my-text\"}", json.toString());
     }
 }

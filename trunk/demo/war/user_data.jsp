@@ -110,8 +110,8 @@
                                 <td class="user-data"><label>Photo</label></td>
                                 <td>
                                     <c:if test="${not empty userData.profile.photo}">
-                                        ${userData.profile.photo}
-                                        <img src="${userData.profile.photo}" style="margin-top:5px;" />
+                                        <p>${userData.profile.photo}</p>
+                                        <img src="${userData.profile.photo}" />
                                     </c:if>
                                 </td>
                             </tr>

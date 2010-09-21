@@ -18,14 +18,14 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * Flash attachment to be posted to the user's activity stream.
+ * Flash media item to be posted to the user's activity stream.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  * @see Activity
  * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public class Flash implements Media {
+public class FlashMediaItem implements MediaItem {
 
     public final String TYPE = "flash";
     
@@ -37,12 +37,12 @@ public class Flash implements Media {
     private Integer expandedHeight = null;
     
     /**
-     * Create a new <code>Flash</code> media attachment.
+     * Create a new <code>FlashMediaItem</code>.
      * 
      * @param swfsrc The swfsrc.
      * @param imgsrc The imgsrc.
      */
-    public Flash(String swfsrc, String imgsrc) {
+    public FlashMediaItem(String swfsrc, String imgsrc) {
         this.swfsrc = swfsrc;
         this.imgsrc = imgsrc;
     }

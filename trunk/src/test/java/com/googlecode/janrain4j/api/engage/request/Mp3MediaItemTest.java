@@ -27,9 +27,9 @@ import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONStringer;
 
-public class Mp3Test {
+public class Mp3MediaItemTest {
 
-    private Mp3 mp3 = null;
+    private Mp3MediaItem mediaItem = null;
     
     JSONStringer json = null;
     
@@ -44,43 +44,43 @@ public class Mp3Test {
     }
     
     @Test
-    public void testMp3() throws Exception {
-        mp3 = new Mp3(src);
-        mp3.writeJSON(json);
+    public void testMp3MediaItem() throws Exception {
+        mediaItem = new Mp3MediaItem(src);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"mp3\",\"src\":\"my-src\"}", json.toString());
     }
     
     @Test
-    public void testMp3WithTitle() throws Exception {
-        mp3 = new Mp3(src);
-        mp3.setTitle(title);
-        mp3.writeJSON(json);
+    public void testMp3MediaItemWithTitle() throws Exception {
+        mediaItem = new Mp3MediaItem(src);
+        mediaItem.setTitle(title);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"mp3\",\"src\":\"my-src\",\"title\":\"my-title\"}", json.toString());
     }
     
     @Test
-    public void testMp3WithArtist() throws Exception {
-        mp3 = new Mp3(src);
-        mp3.setArtist(artist);
-        mp3.writeJSON(json);
+    public void testMp3MediaItemWithArtist() throws Exception {
+        mediaItem = new Mp3MediaItem(src);
+        mediaItem.setArtist(artist);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"mp3\",\"src\":\"my-src\",\"artist\":\"my-artist\"}", json.toString());
     }
     
     @Test
-    public void testMp3WithAlbum() throws Exception {
-        mp3 = new Mp3(src);
-        mp3.setAlbum(album);
-        mp3.writeJSON(json);
+    public void testMp3MediaItemWithAlbum() throws Exception {
+        mediaItem = new Mp3MediaItem(src);
+        mediaItem.setAlbum(album);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"mp3\",\"src\":\"my-src\",\"album\":\"my-album\"}", json.toString());
     }
     
     @Test
-    public void testMp3WithWithFullSetOfData() throws Exception {
-        mp3 = new Mp3(src);
-        mp3.setTitle(title);
-        mp3.setArtist(artist);
-        mp3.setAlbum(album);
-        mp3.writeJSON(json);
+    public void testMp3MediaItemWithWithFullSetOfData() throws Exception {
+        mediaItem = new Mp3MediaItem(src);
+        mediaItem.setTitle(title);
+        mediaItem.setArtist(artist);
+        mediaItem.setAlbum(album);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"mp3\",\"src\":\"my-src\",\"title\":\"my-title\",\"artist\":\"my-artist\",\"album\":\"my-album\"}", json.toString());
     }
 }

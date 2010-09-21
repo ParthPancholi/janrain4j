@@ -18,14 +18,14 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * Mp3 attachment to be posted to the user's activity stream.
+ * Mp3 media item to be posted to the user's activity stream.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  * @see Activity
  * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public class Mp3 implements Media {
+public class Mp3MediaItem implements MediaItem {
 
     public final String TYPE = "mp3";
     
@@ -35,11 +35,11 @@ public class Mp3 implements Media {
     private String album = null;
     
     /**
-     * Create a new <code>Mp3</code> media attachment.
+     * Create a new <code>Mp3MediaItem</code>.
      * 
      * @param src The src.
      */
-    public Mp3(String src) {
+    public Mp3MediaItem(String src) {
         this.src = src;
     }
     

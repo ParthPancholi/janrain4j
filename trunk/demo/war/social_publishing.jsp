@@ -68,18 +68,34 @@
                 <div class="half-content-bottom"></div>
                 
                 <div class="half-content-top title">
-                    <h2>Activity</h2>
+                    <h2>Publish Activity</h2>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
                         Under construction.
+                        <script type="text/javascript">
+                            alert('1');
+                            RPXNOW.loadAndRun(['Social'], function () {
+                                alert('1.5');
+                                var activity = new RPXNOW.Social.Activity(
+                                    "Share your comment",
+                                    "commented on 'Like My New Perfume?' on cuteoverload.com",
+                                    "http://cuteoverload.com/2009/10/26/like-my-new-perfume/"
+                                );
+                                RPXNOW.Social.publishActivity(activity);
+                            });
+                            alert('2');
+                        </script>
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
             </div>
             <jsp:include page="_sidebar.jsp" />
         </div>
+        
+        <janrain:load />
+        <janrain:init />
     </body>
 </html>

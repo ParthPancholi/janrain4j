@@ -27,9 +27,9 @@ import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONStringer;
 
-public class FlashTest {
+public class FlashMediaItemTest {
 
-    private Flash flash = null;
+    private FlashMediaItem mediaItem = null;
     
     JSONStringer json = null;
     
@@ -46,52 +46,52 @@ public class FlashTest {
     }
     
     @Test
-    public void testFlash() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.writeJSON(json);
+    public void testFlashMediaItem() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\"}", json.toString());
     }
     
     @Test
-    public void testFlashWithWidth() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.setWidth(width);
-        flash.writeJSON(json);
+    public void testFlashMediaItemWithWidth() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.setWidth(width);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\",\"width\":80}", json.toString());
     }
     
     @Test
-    public void testFlashWithHeight() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.setHeight(height);
-        flash.writeJSON(json);
+    public void testFlashMediaItemWithHeight() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.setHeight(height);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\",\"height\":60}", json.toString());
     }
     
     @Test
-    public void testFlashWithExpandedWith() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.setExpandedWidth(expandedWidth);
-        flash.writeJSON(json);
+    public void testFlashMediaItemWithExpandedWith() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.setExpandedWidth(expandedWidth);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\",\"expanded_width\":160}", json.toString());
     }
     
     @Test
-    public void testFlashWithExpandedHeight() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.setExpandedHeight(expandedHeight);
-        flash.writeJSON(json);
+    public void testFlashMediaItemWithExpandedHeight() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.setExpandedHeight(expandedHeight);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\",\"expanded_height\":120}", json.toString());
     }
     
     @Test
-    public void testFlashWithFullSetOfData() throws Exception {
-        flash = new Flash(swfsrc, imgsrc);
-        flash.setWidth(width);
-        flash.setHeight(height);
-        flash.setExpandedWidth(expandedWidth);
-        flash.setExpandedHeight(expandedHeight);
-        flash.writeJSON(json);
+    public void testFlashMediaItemWithFullSetOfData() throws Exception {
+        mediaItem = new FlashMediaItem(swfsrc, imgsrc);
+        mediaItem.setWidth(width);
+        mediaItem.setHeight(height);
+        mediaItem.setExpandedWidth(expandedWidth);
+        mediaItem.setExpandedHeight(expandedHeight);
+        mediaItem.writeJSON(json);
         assertEquals("{\"type\":\"flash\",\"swfsrc\":\"my-swfsrc\",\"imgsrc\":\"my-imgsrc\",\"width\":80,\"height\":60,\"expanded_width\":160,\"expanded_height\":120}", json.toString());
     }
 }

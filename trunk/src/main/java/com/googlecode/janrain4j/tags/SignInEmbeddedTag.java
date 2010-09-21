@@ -26,7 +26,7 @@ import javax.servlet.jsp.PageContext;
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
- * TODO
+ * Tag to embed the sign-in widget.
  * 
  * @author Marcel Overdijk
  * @since 1.0

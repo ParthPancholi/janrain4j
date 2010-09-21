@@ -25,10 +25,11 @@ import javax.servlet.jsp.tagext.JspFragment;
 import com.googlecode.janrain4j.util.URLEncoderUtils;
 
 /**
- * TODO
+ * Tag to add the sign-in link.
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see SignInOverlayTag
  */
 public class SignInLinkTag extends AbstractBaseTag {
 

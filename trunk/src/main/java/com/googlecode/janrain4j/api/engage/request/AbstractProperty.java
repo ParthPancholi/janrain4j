@@ -14,18 +14,28 @@
  */
 package com.googlecode.janrain4j.api.engage.request;
 
-import com.googlecode.janrain4j.json.JSONException;
-import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * Rich media attachment to be posted to the user's activity stream
- * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see Activity
- * @see @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public interface Media {
+abstract class AbstractProperty implements Property {
 
-    public void writeJSON(JSONWriter writer) throws JSONException;
+    protected String key = null;
+    
+    /**
+     * Returns the key of the property.
+     */
+    public String getKey() {
+        return key;
+    }
+    
+    /**
+     * Sets the key of the property.
+     * 
+     * @param key The key.
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

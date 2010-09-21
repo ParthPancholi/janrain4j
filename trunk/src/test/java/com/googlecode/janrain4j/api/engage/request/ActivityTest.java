@@ -34,7 +34,7 @@ public class ActivityTest {
     private Activity activity = null;
     
     private List<ActionLink> actionLinks = null;
-    private List<Media> media = null;
+    private List<MediaItem> media = null;
     private List<Property> properties = null;
     
     private String url = "http://my-url.com";
@@ -63,18 +63,18 @@ public class ActivityTest {
     private String myLinkProperty3 = "my-link-property-3";
     private String myLinkProperty3Text = "my-link-property-3-text";
     private String myLinkProperty3Href = "my-link-property-3-href";
-    private String myStringProperty1 = "my-string-property-1";
-    private String myStringProperty2 = "my-string-property-2";
-    private String myStringProperty3 = "my-string-property-3";
-    private String myStringProperty1Value = "my-string-property-1-value";
-    private String myStringProperty2Value = "my-string-property-2-value";
-    private String myStringProperty3Value = "my-string-property-3-value";
+    private String myTextProperty1 = "my-text-property-1";
+    private String myTextProperty2 = "my-text-property-2";
+    private String myTextProperty3 = "my-text-property-3";
+    private String myTextProperty1Text = "my-text-property-1-text";
+    private String myTextProperty2Text = "my-text-property-2-text";
+    private String myTextProperty3Text = "my-text-property-3-text";
     
     @Before
     public void setUp() throws Exception {
         activity = new Activity(new URL(url), action);
         actionLinks = new ArrayList<ActionLink>();
-        media = new ArrayList<Media>();
+        media = new ArrayList<MediaItem>();
         properties = new ArrayList<Property>();
     }
     
@@ -125,16 +125,16 @@ public class ActivityTest {
     
     @Test
     public void testActivityWithMultipleMedia() throws Exception {
-        media.add(new Image(image1Src, image1Href));
-        media.add(new Image(image2Src, image2Href));
-        media.add(new Image(image3Src, image3Href));
+        media.add(new ImageMediaItem(image1Src, image1Href));
+        media.add(new ImageMediaItem(image2Src, image2Href));
+        media.add(new ImageMediaItem(image3Src, image3Href));
         activity.setMedia(media);
         assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"media\":[{\"type\":\"image\",\"src\":\"my-image-1-src\",\"href\":\"my-image-1-href\"},{\"type\":\"image\",\"src\":\"my-image-2-src\",\"href\":\"my-image-2-href\"},{\"type\":\"image\",\"src\":\"my-image-3-src\",\"href\":\"my-image-3-href\"}]}", activity.toJSON());
     }
     
     @Test
     public void testActivityWithSingleMedia() throws Exception {
-        media.add(new Image(image1Src, image1Href));
+        media.add(new ImageMediaItem(image1Src, image1Href));
         activity.setMedia(media);
         assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"media\":[{\"type\":\"image\",\"src\":\"my-image-1-src\",\"href\":\"my-image-1-href\"}]}", activity.toJSON());
     }
@@ -147,28 +147,28 @@ public class ActivityTest {
     
     @Test
     public void testActivityWithMultipleProperties() throws Exception {
-        properties.add(new Property(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
-        properties.add(new Property(myLinkProperty2, myLinkProperty2Text, myLinkProperty2Href));
-        properties.add(new Property(myLinkProperty3, myLinkProperty3Text, myLinkProperty3Href));
-        properties.add(new Property(myStringProperty1, myStringProperty1Value));
-        properties.add(new Property(myStringProperty2, myStringProperty2Value));
-        properties.add(new Property(myStringProperty3, myStringProperty3Value));
+        properties.add(new LinkProperty(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
+        properties.add(new LinkProperty(myLinkProperty2, myLinkProperty2Text, myLinkProperty2Href));
+        properties.add(new LinkProperty(myLinkProperty3, myLinkProperty3Text, myLinkProperty3Href));
+        properties.add(new TextProperty(myTextProperty1, myTextProperty1Text));
+        properties.add(new TextProperty(myTextProperty2, myTextProperty2Text));
+        properties.add(new TextProperty(myTextProperty3, myTextProperty3Text));
         activity.setProperties(properties);
-        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-string-property-1\":\"my-string-property-1-value\",\"my-string-property-2\":\"my-string-property-2-value\",\"my-string-property-3\":\"my-string-property-3-value\"}}", activity.toJSON());
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-text-property-1\":\"my-text-property-1-text\",\"my-text-property-2\":\"my-text-property-2-text\",\"my-text-property-3\":\"my-text-property-3-text\"}}", activity.toJSON());
     }
     
     @Test
     public void testActivityWithSingleLinkProperty() throws Exception {
-        properties.add(new Property(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
+        properties.add(new LinkProperty(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
         activity.setProperties(properties);
         assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"}}}", activity.toJSON());
     }
     
     @Test
     public void testActivityWithSingleStringProperty() throws Exception {
-        properties.add(new Property(myStringProperty1, myStringProperty1Value));
+        properties.add(new TextProperty(myTextProperty1, myTextProperty1Text));
         activity.setProperties(properties);
-        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-string-property-1\":\"my-string-property-1-value\"}}", activity.toJSON());
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"properties\":{\"my-text-property-1\":\"my-text-property-1-text\"}}", activity.toJSON());
     }
     
     @Test
@@ -186,17 +186,17 @@ public class ActivityTest {
         actionLinks.add(new ActionLink(actionLink2Text, actionLink2Href));
         actionLinks.add(new ActionLink(actionLink3Text, actionLink3Href));
         activity.setActionLinks(actionLinks);
-        media.add(new Image(image1Src, image1Href));
-        media.add(new Image(image2Src, image2Href));
-        media.add(new Image(image3Src, image3Href));
+        media.add(new ImageMediaItem(image1Src, image1Href));
+        media.add(new ImageMediaItem(image2Src, image2Href));
+        media.add(new ImageMediaItem(image3Src, image3Href));
         activity.setMedia(media);
-        properties.add(new Property(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
-        properties.add(new Property(myLinkProperty2, myLinkProperty2Text, myLinkProperty2Href));
-        properties.add(new Property(myLinkProperty3, myLinkProperty3Text, myLinkProperty3Href));
-        properties.add(new Property(myStringProperty1, myStringProperty1Value));
-        properties.add(new Property(myStringProperty2, myStringProperty2Value));
-        properties.add(new Property(myStringProperty3, myStringProperty3Value));
+        properties.add(new LinkProperty(myLinkProperty1, myLinkProperty1Text, myLinkProperty1Href));
+        properties.add(new LinkProperty(myLinkProperty2, myLinkProperty2Text, myLinkProperty2Href));
+        properties.add(new LinkProperty(myLinkProperty3, myLinkProperty3Text, myLinkProperty3Href));
+        properties.add(new TextProperty(myTextProperty1, myTextProperty1Text));
+        properties.add(new TextProperty(myTextProperty2, myTextProperty2Text));
+        properties.add(new TextProperty(myTextProperty3, myTextProperty3Text));
         activity.setProperties(properties);
-        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"user_generated_content\":\"my-user-generated-content\",\"title\":\"my-title\",\"description\":\"my-description\",\"action_links\":[{\"text\":\"my-action-link-1-text\",\"href\":\"my-action-link-1-href\"},{\"text\":\"my-action-link-2-text\",\"href\":\"my-action-link-2-href\"},{\"text\":\"my-action-link-3-text\",\"href\":\"my-action-link-3-href\"}],\"media\":[{\"type\":\"image\",\"src\":\"my-image-1-src\",\"href\":\"my-image-1-href\"},{\"type\":\"image\",\"src\":\"my-image-2-src\",\"href\":\"my-image-2-href\"},{\"type\":\"image\",\"src\":\"my-image-3-src\",\"href\":\"my-image-3-href\"}],\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-string-property-1\":\"my-string-property-1-value\",\"my-string-property-2\":\"my-string-property-2-value\",\"my-string-property-3\":\"my-string-property-3-value\"}}", activity.toJSON());
+        assertEquals("{\"url\":\"http://my-url.com\",\"action\":\"my-action\",\"user_generated_content\":\"my-user-generated-content\",\"title\":\"my-title\",\"description\":\"my-description\",\"action_links\":[{\"text\":\"my-action-link-1-text\",\"href\":\"my-action-link-1-href\"},{\"text\":\"my-action-link-2-text\",\"href\":\"my-action-link-2-href\"},{\"text\":\"my-action-link-3-text\",\"href\":\"my-action-link-3-href\"}],\"media\":[{\"type\":\"image\",\"src\":\"my-image-1-src\",\"href\":\"my-image-1-href\"},{\"type\":\"image\",\"src\":\"my-image-2-src\",\"href\":\"my-image-2-href\"},{\"type\":\"image\",\"src\":\"my-image-3-src\",\"href\":\"my-image-3-href\"}],\"properties\":{\"my-link-property-1\":{\"text\":\"my-link-property-1-text\",\"href\":\"my-link-property-1-href\"},\"my-link-property-2\":{\"text\":\"my-link-property-2-text\",\"href\":\"my-link-property-2-href\"},\"my-link-property-3\":{\"text\":\"my-link-property-3-text\",\"href\":\"my-link-property-3-href\"},\"my-text-property-1\":\"my-text-property-1-text\",\"my-text-property-2\":\"my-text-property-2-text\",\"my-text-property-3\":\"my-text-property-3-text\"}}", activity.toJSON());
     }
 }

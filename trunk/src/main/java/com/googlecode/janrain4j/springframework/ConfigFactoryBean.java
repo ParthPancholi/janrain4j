@@ -12,20 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.tags;
-
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-
-import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
+package com.googlecode.janrain4j.springframework;
 
 /**
+ * TODO
+ * 
  * @author Marcel Overdijk
  * @since 1.0
  */
-abstract class AbstractBaseTag extends SimpleTagSupport {
+public class ConfigFactoryBean {
 
-    protected Config getConfig() {
-        return ConfigHolder.getConfig();
-    }
 }

@@ -27,13 +27,14 @@ import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONStringer;
 
-public class ImageTest {
+public class LinkPropertyTest {
 
-    private Image image = null;
+    private LinkProperty property = null;
     
     JSONStringer json = null;
     
-    private String src = "my-src";
+    private String key = "my-key";
+    private String text = "my-text";
     private String href = "my-href";
     
     @Before
@@ -42,9 +43,11 @@ public class ImageTest {
     }
     
     @Test
-    public void testImage() throws Exception {
-        image = new Image(src, href);
-        image.writeJSON(json);
-        assertEquals("{\"type\":\"image\",\"src\":\"my-src\",\"href\":\"my-href\"}", json.toString());
+    public void testLinkProperty() throws Exception {
+        property = new LinkProperty(key, text, href);
+        json.object();
+        property.writeJSON(json);
+        json.endObject();
+        assertEquals("{\"my-key\":{\"text\":\"my-text\",\"href\":\"my-href\"}}", json.toString());
     }
 }
