@@ -76,9 +76,7 @@
                     <div class="inner">
                         Under construction.
                         <script type="text/javascript">
-                            alert('1');
                             RPXNOW.loadAndRun(['Social'], function () {
-                                alert('1.5');
                                 var activity = new RPXNOW.Social.Activity(
                                     "Share your comment",
                                     "commented on 'Like My New Perfume?' on cuteoverload.com",
@@ -86,7 +84,6 @@
                                 );
                                 RPXNOW.Social.publishActivity(activity);
                             });
-                            alert('2');
                         </script>
                     </div>
                 </div>
