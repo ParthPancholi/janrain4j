@@ -74,6 +74,7 @@
             <jsp:include page="_sidebar.jsp" />
         </div>
         
+        <janrain:load />
         <janrain:signInOverlay flags="show_provider_list" />
     </body>
 </html>

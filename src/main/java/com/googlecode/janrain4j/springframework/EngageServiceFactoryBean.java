@@ -12,19 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.request;
-
-import com.googlecode.janrain4j.json.JSONException;
-import com.googlecode.janrain4j.json.JSONWriter;
+package com.googlecode.janrain4j.springframework;
 
 /**
- * Represents the value of a <code>Property<code>.
+ * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see Property
  */
-public interface PropertyValue {
+public class EngageServiceFactoryBean {
 
-    public void writeJSON(JSONWriter writer) throws JSONException;
 }

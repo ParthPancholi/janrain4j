@@ -18,42 +18,14 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * <code>PropertyValue</code> with a <code>String<code> value.
+ * Rich media item to be posted to the user's activity stream.
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see Property
+ * @see Activity
+ * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
  */
-public class StringPropertyValue implements PropertyValue {
+public interface MediaItem {
 
-    private String value = null;
-    
-    /**
-     * Create a new <code>StringPropertyValue</code>.
-     * 
-     * @param value The value.
-     */
-    public StringPropertyValue(String value) {
-        this.value = value;
-    }
-    
-    public void writeJSON(JSONWriter writer) throws JSONException {
-        writer.value(value);
-    }
-    
-    /**
-     * Returns the <code>String</code> value. 
-     */
-    public String getValue() {
-        return value;
-    }
-    
-    /**
-     * Sets the <code>String</code> value.
-     * 
-     * @param value The value.
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+    public void writeJSON(JSONWriter writer) throws JSONException;
 }

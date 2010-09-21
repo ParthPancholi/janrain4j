@@ -24,10 +24,11 @@ import javax.servlet.jsp.tagext.JspFragment;
 
 
 /**
- * TODO
+ * Tag to include the sign-in overlay.
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see SignInLinkTag
  */
 public class SignInOverlayTag extends AbstractBaseTag {
 
@@ -41,23 +42,19 @@ public class SignInOverlayTag extends AbstractBaseTag {
         JspWriter out = pageContext.getOut();
         
         StringWriter sw = new StringWriter();
-        sw.append("<script type=\"text/javascript\">");
-        sw.append("    var rpxJsHost = ((\"https:\" == document.location.protocol) ? \"https://\" : \"http://static.\");");
-        sw.append("    document.write(unescape(\"%3Cscript src='\" + rpxJsHost + \"rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E\"));");
-        sw.append("</script>");
-        sw.append("<script type=\"text/javascript\">");
-        sw.append("    RPXNOW.overlay = true;");
+        sw.append("<script type=\"text/javascript\">\n");
+        sw.append("    RPXNOW.overlay = true;\n");
         
         if (getDefaultProvider() != null && getDefaultProvider().length() > 0) {
-            sw.append("    RPXNOW.default_provider = '").append(getDefaultProvider()).append("';");
+            sw.append("    RPXNOW.default_provider = '").append(getDefaultProvider()).append("';\n");
         }
         
         if (getFlags() != null && getFlags().length() > 0) {
-            sw.append("    RPXNOW.flags = '").append(getFlags()).append("';");
+            sw.append("    RPXNOW.flags = '").append(getFlags()).append("';\n");
         }
         
         if (getLanguagePreference() != null && getLanguagePreference().length() > 0) {
-            sw.append("    RPXNOW.language_preference = '").append(getLanguagePreference()).append("';");
+            sw.append("    RPXNOW.language_preference = '").append(getLanguagePreference()).append("';\n");
         }
         
         JspFragment body = getJspBody();
@@ -93,18 +90,4 @@ public class SignInOverlayTag extends AbstractBaseTag {
     public void setLanguagePreference(String languagePreference) {
         this.languagePreference = languagePreference;
     }
-    
-    
-    
-    
-//    <script type="text/javascript">
-//    var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
-//    document.write(unescape("%3Cscript src='" + rpxJsHost +
-//  "rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
-//  </script>
-//  <script type="text/javascript">
-//    RPXNOW.overlay = true;
-//    RPXNOW.language_preference = 'en';
-//  </script>
-    
 }

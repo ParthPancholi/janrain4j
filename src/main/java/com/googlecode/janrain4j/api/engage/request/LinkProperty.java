@@ -18,64 +18,63 @@ import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONWriter;
 
 /**
- * Image attachment to be posted to the user's activity stream.
+ * <code>Property</code> with a text and href value.
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see Activity
- * @see <a href="http://developers.facebook.com/docs/guides/attachments">Media object format and rules</a>
+ * @see Property
  */
-public class Image implements Media {
+public class LinkProperty extends AbstractProperty {
 
-    public final String TYPE = "image";
-    
-    private String src = null;
+    private String text = null;
     private String href = null;
     
     /**
-     * Create a new <code>Image</code> media attachment.
+     * Create a new <code>LinkProperty</code>.
      * 
-     * @param src The src.
+     * @param key The key.
+     * @param text The text.
      * @param href The href.
      */
-    public Image(String src, String href) {
-        this.src = src;
+    public LinkProperty(String key, String text, String href) {
+        this.key = key;
+        this.text = text;
         this.href = href;
     }
     
     public void writeJSON(JSONWriter writer) throws JSONException {
+        writer.key(key);
         writer.object();
-        writer.key("type").value(TYPE);
-        writer.key("src").value(src);
+        writer.key("text").value(text);
         writer.key("href").value(href);
         writer.endObject();
     }
     
     /**
-     * Returns the src of the image attachment.
+     * Returns the text value.
      */
-    public String getSrc() {
-        return src;
+    public String getText() {
+        return text;
     }
     
     /**
-     * Sets the src of the image attachment.
+     * Sets the text value.
      * 
-     * @param src The src.
+     * @param text The text.
      */
-    public void setSrc(String src) {
-        this.src = src;
+    public void setText(String text) {
+        this.text = text;
     }
     
     /**
-     * Returns the href of the image attachment.
+     * Returns the href value.
      */
     public String getHref() {
         return href;
     }
     
     /**
-     * Sets the href of the image attachment.
+     * Sets the href value.
      * 
      * @param href The href.
      */

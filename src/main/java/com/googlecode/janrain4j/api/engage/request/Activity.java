@@ -38,7 +38,7 @@ public class Activity {
     private String title = null;
     private String description = null;
     private List<ActionLink> actionLinks = null;
-    private List<Media> media = null;
+    private List<MediaItem> media = null;
     private List<Property> properties = null;
     
     /**
@@ -79,7 +79,7 @@ public class Activity {
         if (media != null && media.size() > 0) {
             json.key("media");
             json.array();
-            for (Iterator<Media> iterator = media.iterator(); iterator.hasNext();) {
+            for (Iterator<MediaItem> iterator = media.iterator(); iterator.hasNext();) {
                 iterator.next().writeJSON(json);
             }
             json.endArray();
@@ -205,7 +205,7 @@ public class Activity {
     /**
      * Returns the media attachments.
      */
-    public List<Media> getMedia() {
+    public List<MediaItem> getMedia() {
         return media;
     }
     
@@ -214,7 +214,7 @@ public class Activity {
      * 
      * @param media The media attachments.
      */
-    public void setMedia(List<Media> media) {
+    public void setMedia(List<MediaItem> media) {
         this.media = media;
     }
     
