@@ -42,6 +42,10 @@ public class SignInOverlayTag extends AbstractBaseTag {
         JspWriter out = pageContext.getOut();
         
         StringWriter sw = new StringWriter();
+        sw.append("<script type=\"text/javascript\">");
+        sw.append("    var rpxJsHost = ((\"https:\" == document.location.protocol) ? \"https://\" : \"http://static.\");");
+        sw.append("    document.write(unescape(\"%3Cscript src='\" + rpxJsHost + \"rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E\"));");
+        sw.append("</script>");
         sw.append("<script type=\"text/javascript\">\n");
         sw.append("    RPXNOW.overlay = true;\n");
         
