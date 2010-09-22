@@ -10,28 +10,6 @@
     <uri>http://janrain4j.googlecode.com/tags</uri>
     
     <tag>
-        <name>load</name>
-        <tag-class>com.googlecode.janrain4j.tags.LoadTag</tag-class>
-        <body-content>empty</body-content>
-    </tag>
-    
-        <tag>
-        <name>init</name>
-        <tag-class>com.googlecode.janrain4j.tags.InitTag</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>applicationID</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>xdReceiver</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-    
-    <tag>
         <name>signInEmbedded</name>
         <tag-class>com.googlecode.janrain4j.tags.SignInEmbeddedTag</tag-class>
         <body-content>empty</body-content>

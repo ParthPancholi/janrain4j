@@ -75,24 +75,11 @@
                     </div>
                     <div class="inner">
                         Under construction.
-                        <script type="text/javascript">
-                            RPXNOW.loadAndRun(['Social'], function () {
-                                var activity = new RPXNOW.Social.Activity(
-                                    "Share your comment",
-                                    "commented on 'Like My New Perfume?' on cuteoverload.com",
-                                    "http://cuteoverload.com/2009/10/26/like-my-new-perfume/"
-                                );
-                                RPXNOW.Social.publishActivity(activity);
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
             </div>
             <jsp:include page="_sidebar.jsp" />
         </div>
-        
-        <janrain:load />
-        <janrain:init />
     </body>
 </html>
