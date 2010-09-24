@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Utility class that provides convenient methods on top of {@link java.net.URLEncoder}. 
+ * Utility class that provides convenient methods on top of {@link java.net.URLEncoder}.
  * 
  * @author Marcel Overdijk
  * @since 1.0
