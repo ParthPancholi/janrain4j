@@ -14,7 +14,12 @@
  */
 package com.googlecode.janrain4j.conf;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.Properties;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,24 +52,56 @@ class PropertyConfig extends Config {
         this(JANRAIN4J_PROPERTIES);
     }
     
-    public PropertyConfig(String file) {
-        
-        log.info("Loading janrain4j properties file: " + file + "...");
-        
-        Properties properties;
+    public PropertyConfig(String location) {
+        log.info("Loading janrain4j properties file from: " + location + "...");
+        loadProperties(getClass().getResource("/" + location));
+    }
+    
+    public PropertyConfig(ServletContext servletContenxt, String location) {
+        log.info("Loading janrain4j properties file from: " + location + "...");
         try {
-            properties = (Properties) System.getProperties().clone();
-        }
-        catch (SecurityException e) {
-            log.info("Unable to retrieve system properties", e);
-            properties = new Properties();
-        }
-        try {
-            properties.load(getClass().getResourceAsStream("/" + file));
-            log.info("Successfully loaded janrain4j properties file");
+            log.debug("Trying to load janrain4j properties using Springframework classes...");
+            Class<?> systemPropertyUtils = Class.forName("org.springframework.util.SystemPropertyUtils");
+            Method resolvePlaceholders = systemPropertyUtils.getMethod("resolvePlaceholders", String.class);
+            String resolvedLocation = (String) resolvePlaceholders.invoke(null, location);
+            log.debug("Resolved location: " + resolvedLocation);
+            
+            Class<?> resourceUtils = Class.forName("org.springframework.util.ResourceUtils");
+            Method isUrl = resourceUtils.getMethod("isUrl", String.class);
+            
+            if (!(Boolean) isUrl.invoke(null, resolvedLocation)) {
+                
+                Class<?> webUtils = Class.forName("org.springframework.web.util.WebUtils");
+                Method getRealPath = webUtils.getMethod("getRealPath", ServletContext.class, String.class);
+                resolvedLocation = (String) getRealPath.invoke(null, servletContenxt, resolvedLocation);
+                log.debug("Resolved real path: " + resolvedLocation);
+            }
+            
+            Method getURL = resourceUtils.getMethod("getURL", String.class);
+            URL resource = (URL) getURL.invoke(null, resolvedLocation);
+            log.debug("Resource url: " + resource.toString());
+            
+            loadProperties(resource);
         }
         catch (Exception e) {
-            log.error("Unable to load properties file: " + file, e);
+           log.debug("Unable to load janrain4j properties file using Springframework classes, falling back to normal properties loading", e);
+           loadProperties(getClass().getResource("/" + location));
+        }
+    }
+    
+    private void loadProperties(URL resource) {
+        Properties properties = loadSystemProperties();
+        try {
+            if (resource == null) {
+                log.warn("Unable to find janrain4j properties file");
+            }
+            else {
+                properties.load(resource.openStream());
+                log.info("Successfully loaded janrain4j properties file");    
+            }
+        }
+        catch (IOException e) {
+            log.error("Unable to load janrain4j properties file", e);
         }
         
         if (properties.containsKey(API_KEY_KEY)) {
@@ -110,6 +147,18 @@ class PropertyConfig extends Config {
         if (properties.containsKey(READ_TIMEOUT_KEY)) {
             this.readTimeout(parseInt(properties.getProperty(READ_TIMEOUT_KEY)));
         }
+    }
+    
+    private Properties loadSystemProperties() {
+        Properties properties;
+        try {
+            properties = (Properties) System.getProperties().clone();
+        }
+        catch (SecurityException e) {
+            log.info("Unable to retrieve system properties", e);
+            properties = new Properties();
+        }
+        return properties;
     }
     
     private int parseInt(String s) {
