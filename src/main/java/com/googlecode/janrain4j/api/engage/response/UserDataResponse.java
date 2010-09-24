@@ -36,9 +36,12 @@ public class UserDataResponse extends AbstractEngageResponse {
     private static final long serialVersionUID = 236447883427917238L;
     
     private Profile profile = null;
+    private JSONObject profileJsonObject = null;
     private AccessCredentials accessCredentials = null;
+    private JSONObject accessCredentialsJsonObject = null;
     private MergedPoco mergedPoco = null;
     private List<String> friends = null;
+    private JSONArray friendsJsonArray = null;
     private boolean limitedData = false;
     
     public UserDataResponse(String jsonResponse) {
@@ -48,6 +51,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             
             // Profile
             JSONObject rspProfile = rsp.getJSONObject("profile");
+            profileJsonObject = rspProfile;
             profile = new Profile();
             profile.setIdentifier(rspProfile.getString("identifier"));
             profile.setProviderName(rspProfile.getString("providerName"));
@@ -96,6 +100,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             
             // Access Credentials
             JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
+            accessCredentialsJsonObject = rspAccessCredentials;
             if (rspAccessCredentials != null) {
                 accessCredentials = new AccessCredentials();
                 accessCredentials.setType(rspAccessCredentials.optString("type"));
@@ -112,6 +117,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             
             // Friends
             JSONArray rspFriends = rsp.optJSONArray("friends");
+            friendsJsonArray = rspFriends;
             if (rspFriends != null) {
                 friends = new ArrayList<String>();
                 for (int i = 0; i < rspFriends.length(); i++) {
@@ -140,11 +146,25 @@ public class UserDataResponse extends AbstractEngageResponse {
     }
     
     /**
+     * Returns the user's profile as a <code>JSONObject</code>.
+     */
+    public JSONObject getProfileAsJSONObject() {
+        return profileJsonObject;
+    }
+    
+    /**
      * Returns the user's authorization credentials if the user logged in with 
      * a provider that allows account access after authentication.
      */
     public AccessCredentials getAccessCredentials() {
         return accessCredentials;
+    }
+    
+    /**
+     * Returns the user's authorization credentials as a <code>JSONObject</code>.
+     */
+    public JSONObject getAccessCredentialsAsJSONObject() {
+        return accessCredentialsJsonObject;
     }
     
     /**
@@ -156,12 +176,21 @@ public class UserDataResponse extends AbstractEngageResponse {
         return mergedPoco;
     }
     
+    // TODO get merged poco as JSONObject or JSONArray
+    
     /**
      * Returns the user's friends' identifiers if the extended request argument 
      * was 'true' and friends data were available.
      */
     public List<String> getFriends() {
         return friends;
+    }
+    
+    /**
+     * Returns the user's friends' identifiers as a <code>JSONArray</code>.
+     */
+    public JSONArray getFriendsAsJSONArray() {
+        return friendsJsonArray;
     }
     
     /**
@@ -173,9 +202,5 @@ public class UserDataResponse extends AbstractEngageResponse {
      */
     public boolean isLimitedData() {
         return limitedData;
-    }
-    
-    void setLimitedData(boolean limitedData) {
-        this.limitedData = limitedData;
     }
 }

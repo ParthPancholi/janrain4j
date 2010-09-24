@@ -29,13 +29,16 @@ abstract class AbstractEngageResponse implements Serializable {
     private static final long serialVersionUID = -8862811237568844288L;
     
     private String jsonResponse = null;
+    private JSONObject jsonObjectResponse = null;
     
     public AbstractEngageResponse(String jsonResponse) {
         this.jsonResponse = jsonResponse;
-    }
-    
-    void setJSONResponse(String jsonResponse) {
-        this.jsonResponse = jsonResponse;
+        try {
+            this.jsonObjectResponse = new JSONObject(jsonResponse);
+        }
+        catch (JSONException e) {
+            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+        }
     }
     
     /**
@@ -51,11 +54,6 @@ abstract class AbstractEngageResponse implements Serializable {
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      */
     public JSONObject getResponseAsJSONObject() throws EngageFailureException {
-        try {
-            return new JSONObject(jsonResponse);
-        }
-        catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
-        }
+        return jsonObjectResponse;
     }
 }

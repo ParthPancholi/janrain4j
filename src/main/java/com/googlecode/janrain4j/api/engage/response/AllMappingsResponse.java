@@ -39,11 +39,13 @@ public class AllMappingsResponse extends AbstractEngageResponse {
     private static final long serialVersionUID = 7817240961441974055L;
     
     private Map<String, List<String>> allMappings = null;
+    private JSONObject allMappingsJsonObject = null;
     
     public AllMappingsResponse(String jsonResponse) {
         super(jsonResponse);
         JSONObject rsp = getResponseAsJSONObject();
         JSONObject rspMappings = rsp.optJSONObject("mappings");
+        allMappingsJsonObject = rspMappings;
         allMappings = new HashMap<String, List<String>>();
         if (rspMappings != null) {
             for (Iterator<String> iterator = rspMappings.keys(); iterator.hasNext();) {
@@ -68,5 +70,12 @@ public class AllMappingsResponse extends AbstractEngageResponse {
      */
     public Map<String, List<String>> getAllMappings() {
         return allMappings;
+    }
+    
+    /**
+     * Returns all stored mappings for the application as a <code>JSONObject</code>.
+     */
+    public JSONObject getAllMappingsAsJSONObject() {
+        return allMappingsJsonObject;
     }
 }

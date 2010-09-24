@@ -35,11 +35,13 @@ public class MappingsResponse extends AbstractEngageResponse {
     private static final long serialVersionUID = -1857683662834249312L;
     
     private List<String> mappings = null;
+    private JSONArray mappingsJsonArray = null;
     
     public MappingsResponse(String jsonResponse) {
         super(jsonResponse);
         JSONObject rsp = getResponseAsJSONObject();
         JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
+        mappingsJsonArray = rspIdentifiers;
         mappings = new ArrayList<String>();
         if (rspIdentifiers != null) {
             for (int i = 0; i < rspIdentifiers.length(); i++) {
@@ -58,5 +60,12 @@ public class MappingsResponse extends AbstractEngageResponse {
      */
     public List<String> getMappings() {
         return mappings;
+    }
+    
+    /**
+     * Returns all stored mappings for the primary key as a <code>JSONArray</code>.
+     */
+    public JSONArray getMappingsAsJSONArray() {
+        return mappingsJsonArray;
     }
 }
