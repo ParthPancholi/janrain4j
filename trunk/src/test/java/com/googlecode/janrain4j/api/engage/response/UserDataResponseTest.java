@@ -82,6 +82,10 @@ public class UserDataResponseTest {
         
         response = new UserDataResponse(jsonResponse) {};
         
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
+        
         Profile profile = response.getProfile();
         assertNotNull(profile);
         assertEquals("http://brian.myopenid.com/", profile.getIdentifier());
@@ -160,6 +164,13 @@ public class UserDataResponseTest {
             "}";
         
         response = new UserDataResponse(jsonResponse) {};
+        
+        assertEquals(jsonResponse, response.getResponseAsJSON());
+        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        // TODO merged pocp
+        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -251,6 +262,8 @@ public class UserDataResponseTest {
         
         response = new UserDataResponse(jsonResponse) {};
         
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isOauth());
@@ -279,6 +292,8 @@ public class UserDataResponseTest {
         
         response = new UserDataResponse(jsonResponse) {};
         
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isFacebook());
@@ -306,6 +321,8 @@ public class UserDataResponseTest {
         
         response = new UserDataResponse(jsonResponse) {};
         
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
         assertTrue(accessCredentials.isWindowsLive());
@@ -329,6 +346,8 @@ public class UserDataResponseTest {
         
         response = new UserDataResponse(jsonResponse) {};
         
+        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
+        
         List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(0, friends.size());
@@ -350,6 +369,8 @@ public class UserDataResponseTest {
             "}";
         
         response = new UserDataResponse(jsonResponse) {};
+        
+        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -375,6 +396,8 @@ public class UserDataResponseTest {
             "}";
         
         response = new UserDataResponse(jsonResponse) {};
+        
+        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
