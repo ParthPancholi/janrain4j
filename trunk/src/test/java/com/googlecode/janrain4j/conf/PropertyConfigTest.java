@@ -33,10 +33,24 @@ import static com.googlecode.janrain4j.conf.PropertyConfig.READ_TIMEOUT_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.TOKEN_URL_KEY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+import javax.servlet.ServletContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({LogFactory.class, PropertyConfig.class})
 public class PropertyConfigTest {
 
     private PropertyConfig config = null;
@@ -158,5 +172,39 @@ public class PropertyConfigTest {
         assertNull(config.getProxyPassword());
         assertEquals(-1, config.getConnectTimeout());
         assertEquals(-1, config.getReadTimeout());
+    }
+    
+    @Test
+    public void testPropertyConfigWithoutSpring() throws Exception {
+        Log log = mock(Log.class);
+        mockStatic(LogFactory.class);
+        when(LogFactory.getLog(PropertyConfig.class)).thenReturn(log);
+
+        ClassNotFoundException cnfe = new ClassNotFoundException("org.springframework.util.SystemPropertyUtils");
+        mockStatic(Class.class);
+        when(Class.forName("org.springframework.util.SystemPropertyUtils")).thenThrow(cnfe);
+        
+        ServletContext servletContext = mock(ServletContext.class);
+        
+        // create config
+        config = new PropertyConfig(servletContext, "janrain4j.properties");
+        
+        verifyStatic();
+        Class.forName("org.springframework.util.SystemPropertyUtils");
+        
+        verify(log).debug("Trying to load janrain4j properties using Springframework classes...");
+        verify(log).debug("Unable to load janrain4j properties file using Springframework classes, falling back to normal properties loading", cnfe);
+        
+        assertEquals("my-config-api-key", config.getApiKey());
+        assertEquals("my-config-application-id", config.getApplicationID());
+        assertEquals("http://my-config-application-domain.com", config.getApplicationDomain());
+        assertEquals("http://my-config-token-url.com", config.getTokenUrl());
+        assertEquals("my-config-language-preference", config.getLanguagePreference());
+        assertEquals("http://my-config-proxy-host.com", config.getProxyHost());
+        assertEquals(8080, config.getProxyPort());
+        assertEquals("my-config-proxy-username", config.getProxyUsername());
+        assertEquals("my-config-proxy-password", config.getProxyPassword());
+        assertEquals(30000, config.getConnectTimeout());
+        assertEquals(60000, config.getReadTimeout());
     }
 }
