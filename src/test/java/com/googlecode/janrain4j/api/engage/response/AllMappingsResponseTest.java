@@ -56,6 +56,7 @@ public class AllMappingsResponseTest {
         
         assertEquals(jsonResponse, response.getResponseAsJSON());
         assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
@@ -88,6 +89,7 @@ public class AllMappingsResponseTest {
         
         assertEquals(jsonResponse, response.getResponseAsJSON());
         assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
@@ -112,6 +114,7 @@ public class AllMappingsResponseTest {
         
         assertEquals(jsonResponse, response.getResponseAsJSON());
         assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
