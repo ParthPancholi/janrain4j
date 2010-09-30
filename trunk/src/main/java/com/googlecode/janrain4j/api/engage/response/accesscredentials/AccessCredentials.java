@@ -12,23 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.accesscredentials;
 
 import java.io.Serializable;
 
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
+
 /**
- * If the user signed in with a provider that allows account access after 
- * authentication, this will be present and contain the user's authorization 
- * credentials.
+ * The user's authorization credentials.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  * @see UserDataResponse
  */
+@SuppressWarnings("serial")
 public class AccessCredentials implements Serializable {
 
-    private static final long serialVersionUID = -1325646539192011350L;
-    
     public static final String TYPE_OAUTH = "OAuth";
     public static final String TYPE_FACEBOOK = "Facebook";
     public static final String TYPE_WINDOWS_LIVE = "WindowsLive";
@@ -47,28 +48,40 @@ public class AccessCredentials implements Serializable {
     // Windows Live credentials
     private String eact = null;
     
-    AccessCredentials() {
+    private AccessCredentials() {
+    }
+    
+    public static AccessCredentials fromJSON(JSONObject json) throws JSONException {
+        AccessCredentials accessCredentials = new AccessCredentials();
+        accessCredentials.setType(json.optString("type"));
+        accessCredentials.setOauthToken(json.optString("oauthToken"));
+        accessCredentials.setOauthTokenSecret(json.optString("oauthTokenSecret"));
+        accessCredentials.setUid(json.optString("uid"));
+        accessCredentials.setAccessToken(json.optString("accessToken"));
+        accessCredentials.setExpires(json.optLong("expires"));
+        accessCredentials.setEact(json.optString("eact"));
+        return accessCredentials;
     }
     
     /**
      * Returns true if the signed in user is authenticated using OAuth. 
      */
     public boolean isOauth() {
-        return TYPE_OAUTH.equals(type);
+        return TYPE_OAUTH.equalsIgnoreCase(type);
     }
     
     /**
      * Returns true if the signed in user is authenticated using Facebook.
      */
     public boolean isFacebook() {
-        return TYPE_FACEBOOK.equals(type);
+        return TYPE_FACEBOOK.equalsIgnoreCase(type);
     }
     
     /**
      * Returns true if the signed in user is authenticated using Windows Live.
      */
     public boolean isWindowsLive() {
-        return TYPE_WINDOWS_LIVE.equals(type);
+        return TYPE_WINDOWS_LIVE.equalsIgnoreCase(type);
     }
     
     /**

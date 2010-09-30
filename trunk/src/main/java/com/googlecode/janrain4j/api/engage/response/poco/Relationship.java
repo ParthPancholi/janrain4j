@@ -12,19 +12,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.poco;
 
 import java.io.Serializable;
+
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
  * TODO
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see ContactsResponse
+ * @see Contact
  */
-public class Contact implements Serializable {
+@SuppressWarnings("serial")
+public class Relationship implements Serializable {
 
-    private static final long serialVersionUID = 4913378142161360296L;
+    private String value = null;
     
+    private Relationship() {
+    }
+    
+    public static Relationship fromJSON(JSONObject json) {
+        // TODO
+        return null;
+    }
+    
+    /**
+     * Returns TODO
+     */
+    public String getValue() {
+        return value;
+    }
+    
+    void setValue(String value) {
+        this.value = value;
+    }
 }

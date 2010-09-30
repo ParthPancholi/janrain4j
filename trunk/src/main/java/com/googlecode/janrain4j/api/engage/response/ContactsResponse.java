@@ -17,22 +17,23 @@ package com.googlecode.janrain4j.api.engage.response;
 import java.util.List;
 
 import com.googlecode.janrain4j.api.engage.EngageService;
+import com.googlecode.janrain4j.api.engage.response.poco.Contact;
 
 /**
- * TODO
+ * The <code>ContactsResponse</code> contains all list of contacts for an 
+ * indentifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
  * 
  * @author Marcel Overdijk
  * @since 1.0
  * @see EngageService#getContacts(String)
  */
+@SuppressWarnings("serial")
 public class ContactsResponse extends AbstractEngageResponse {
 
-    private static final long serialVersionUID = -7619050740310590636L;
-    
     private List<Contact> contacts = null;
     
-    public ContactsResponse(String jsonResponse) {
-        super(jsonResponse);
+    public ContactsResponse(String json) {
+        super(json);
         // TODO
     }
     

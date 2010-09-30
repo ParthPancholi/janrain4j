@@ -12,9 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.profile;
 
 import java.io.Serializable;
+
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
  * A dictionary of address parts.
@@ -24,10 +27,9 @@ import java.io.Serializable;
  * @since 1.0
  * @see Profile
  */
+@SuppressWarnings("serial")
 public class Address implements Serializable {
 
-    private static final long serialVersionUID = 8690374377421870995L;
-    
     private String formatted = null;
     private String streetAddress = null;
     private String locality = null;
@@ -35,7 +37,18 @@ public class Address implements Serializable {
     private String postalCode = null;
     private String country = null;
     
-    Address() {
+    private Address() {
+    }
+    
+    public static Address fromJSON(JSONObject json) throws JSONException {
+        Address address = new Address();
+        address.setFormatted(json.optString("formatted", null));
+        address.setStreetAddress(json.optString("streetAddress", null));
+        address.setLocality(json.optString("locality", null));
+        address.setRegion(json.optString("region", null));
+        address.setPostalCode(json.optString("postalCode", null));
+        address.setCountry(json.optString("country", null));
+        return address;
     }
     
     /**

@@ -12,9 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.profile;
 
 import java.io.Serializable;
+
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
  * A dictionary of name parts.
@@ -24,10 +27,9 @@ import java.io.Serializable;
  * @since 1.0
  * @see Profile
  */
+@SuppressWarnings("serial")
 public class Name implements Serializable {
 
-    private static final long serialVersionUID = -689892622781213536L;
-    
     private String formatted = null;
     private String familyName = null;
     private String givenName = null;
@@ -35,7 +37,18 @@ public class Name implements Serializable {
     private String honorificPrefix = null;
     private String honorificSuffix = null;
     
-    Name() {
+    private Name() {
+    }
+    
+    public static Name fromJSON(JSONObject json) throws JSONException {
+        Name name = new Name();
+        name.setFormatted(json.optString("formatted", null));
+        name.setFamilyName(json.optString("familyName", null));
+        name.setGivenName(json.optString("givenName", null));
+        name.setMiddleName(json.optString("middleName", null));
+        name.setHonorificPrefix(json.optString("honorificPrefix", null));
+        name.setHonorificSuffix(json.optString("honorificSuffix", null));
+        return name;
     }
     
     /**

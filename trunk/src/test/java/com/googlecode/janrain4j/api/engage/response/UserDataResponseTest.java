@@ -25,24 +25,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.Test;
 
+import com.googlecode.janrain4j.api.engage.response.accesscredentials.AccessCredentials;
+import com.googlecode.janrain4j.api.engage.response.profile.Address;
+import com.googlecode.janrain4j.api.engage.response.profile.Name;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONObject;
 
 @SuppressWarnings("serial")
 public class UserDataResponseTest {
 
-    private String jsonResponse = null;
+    private String json = null;
     private UserDataResponse response = null;
     
     @Test
     public void testUserDataResponse() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"displayName\": \"brian\",\n" +
@@ -54,10 +59,10 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -71,7 +76,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithMinimalSetOfData() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -80,11 +85,11 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -112,7 +117,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithFullSetOfData() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"identifier\": \"my-identifier\",\n" +
@@ -163,14 +168,14 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("profile").toString(), response.getProfileAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
         // TODO merged pocp
-        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
+        assertEquals(new JSONObject(json).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         Profile profile = response.getProfile();
         assertNotNull(profile);
@@ -228,7 +233,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithLimitedData() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -238,7 +243,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
         assertTrue(response.isLimitedData());
     }
@@ -246,7 +251,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithOauthAccessCredentials() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -260,9 +265,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -275,7 +280,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithFacebookAccessCredentials() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -290,9 +295,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -306,7 +311,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithWindowsLiveAccessCredentials() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -319,9 +324,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("accessCredentials").toString(), response.getAccessCredentialsAsJSONObject().toString());
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -331,9 +336,31 @@ public class UserDataResponseTest {
     }
     
     @Test
+    public void testUSerDataResponseWithMergedPoco() throws Exception {
+        
+        json =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"merged_poco\": {\n" +
+            // TODO
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new UserDataResponse(json) {};
+        
+        assertEquals(new JSONObject(json).optJSONObject("merged_poco").toString(), response.getMergedPocoAsJSONObject().toString());
+        
+        fail("TODO");
+    }
+    
+    @Test
     public void testUserDataResponseWithNoFriends() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -344,9 +371,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
+        assertEquals(new JSONObject(json).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -356,7 +383,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithSingleFriend() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -368,9 +395,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
+        assertEquals(new JSONObject(json).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -381,7 +408,7 @@ public class UserDataResponseTest {
     @Test
     public void testUserDataResponseWithMultipleFriends() throws Exception {
         
-        jsonResponse =
+        json =
             "{" +
             "  \"profile\": {\n" +
             "    \"providerName\": \"Other\",\n" +
@@ -395,9 +422,9 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(jsonResponse) {};
+        response = new UserDataResponse(json) {};
         
-        assertEquals(new JSONObject(jsonResponse).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
+        assertEquals(new JSONObject(json).optJSONArray("friends").toString(), response.getFriendsAsJSONArray().toString());
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);

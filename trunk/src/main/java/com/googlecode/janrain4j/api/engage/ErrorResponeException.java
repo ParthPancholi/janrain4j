@@ -21,10 +21,9 @@ package com.googlecode.janrain4j.api.engage;
  * @author Marcel Overdijk
  * @since 1.0
  */
+@SuppressWarnings("serial")
 public class ErrorResponeException extends RuntimeException {
 
-    private static final long serialVersionUID = 8537265678248536892L;
-    
     public static final int SERVICE_TEMPORARY_UNAVAILABLE_ERROR = -1;
     public static final int MISSING_PARAMETER_ERROR = 0;
     public static final int INVALID_PARAMETER_ERROR = 1;

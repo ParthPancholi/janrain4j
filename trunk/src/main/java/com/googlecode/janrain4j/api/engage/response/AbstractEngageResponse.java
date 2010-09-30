@@ -24,20 +24,19 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @author Marcel Overdijk
  * @since 1.0
  */
+@SuppressWarnings("serial")
 abstract class AbstractEngageResponse implements Serializable {
 
-    private static final long serialVersionUID = -8862811237568844288L;
+    private String json = null;
+    private JSONObject jsonObject = null;
     
-    private String jsonResponse = null;
-    private JSONObject jsonObjectResponse = null;
-    
-    public AbstractEngageResponse(String jsonResponse) {
-        this.jsonResponse = jsonResponse;
+    public AbstractEngageResponse(String json) {
+        this.json = json;
         try {
-            this.jsonObjectResponse = new JSONObject(jsonResponse);
+            this.jsonObject = new JSONObject(json);
         }
         catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+            throw new EngageFailureException("Unexpected JSON error", json, e);
         }
     }
     
@@ -45,7 +44,7 @@ abstract class AbstractEngageResponse implements Serializable {
      * Returns the Janrain Engage response body as a JSON <code>String</code>.
      */
     public String getResponseAsJSON() {
-        return jsonResponse;
+        return json;
     }
     
     /**
@@ -54,6 +53,6 @@ abstract class AbstractEngageResponse implements Serializable {
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      */
     public JSONObject getResponseAsJSONObject() throws EngageFailureException {
-        return jsonObjectResponse;
+        return jsonObject;
     }
 }

@@ -21,10 +21,9 @@ package com.googlecode.janrain4j.api.engage;
  * @author Marcel Overdijk
  * @since 1.0
  */
+@SuppressWarnings("serial")
 public class EngageFailureException extends RuntimeException {
 
-    private static final long serialVersionUID = 1448290185758961585L;
-    
     private String jsonResponse = null;
     
     public EngageFailureException(String message, String jsonResponse) {
