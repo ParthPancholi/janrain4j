@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
+<%@ page import="com.google.appengine.api.utils.SystemProperty" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.*" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.response.*" %>
 <%@ page import="com.googlecode.janrain4j.demo.*" %>
@@ -23,6 +24,14 @@
     MappingsResponse mappingsResponse = engageService.mappings(String.valueOf(primaryKey));
     List<String> mappings = mappingsResponse.getMappings();
     pageContext.setAttribute("mappings", mappings);
+    
+    // determine token url
+    String tokenUrl = "http://janrain4j.appspot.com/map";
+    if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
+        // overwrite token url in development
+        tokenUrl = "http://localhost:8888/map";
+    }
+    pageContext.setAttribute("tokenUrl", tokenUrl);
  %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,7 +50,7 @@
                     </div>
                     <div class="title-right-tools span-7 last">
                         <a class="item" href="/delete_account" onclick="return confirm('Are you sure?');">Delete Account</a>
-                        <janrain:signInLink styleClass="item" tokenUrl="http://localhost:8888/map">Add an Identifier</janrain:signInLink>
+                        <janrain:signInLink styleClass="item" tokenUrl="${tokenUrl}">Add an Identifier</janrain:signInLink>
                     </div>
                 </div>
                 <div class="half-content">

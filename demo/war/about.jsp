@@ -22,7 +22,7 @@
                     </div>
                     <div class="inner">
                         <p>This demo is an example application using the <a href="http://janrain4j.googlecode.com" target="_blank">Janrain4j</a> Java library.</p>
-                        <p>The source code of the demo can be found at <a href="http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo" target="_blank">http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo</a></p> 
+                        <p>The source code of the demo can be found at <a href="http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo" target="_blank">http://code.google.com/p/janrain4j/source/browse/#svn/trunk/demo</a></p>
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>

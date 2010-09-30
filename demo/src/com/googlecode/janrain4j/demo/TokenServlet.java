@@ -17,9 +17,9 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
-import com.googlecode.janrain4j.api.engage.response.Name;
-import com.googlecode.janrain4j.api.engage.response.Profile;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.profile.Name;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 public class TokenServlet extends HttpServlet {
 
