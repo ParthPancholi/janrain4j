@@ -40,6 +40,11 @@
         <servlet-class>com.googlecode.janrain4j.demo.SetStatusServlet</servlet-class>
     </servlet>
     
+        <servlet>
+        <servlet-name>ActivityServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.demo.ActivityServlet</servlet-class>
+    </servlet>
+    
     <servlet>
         <servlet-name>SignOutServlet</servlet-name>
         <servlet-class>com.googlecode.janrain4j.demo.SignOutServlet</servlet-class>
@@ -68,6 +73,11 @@
     <servlet-mapping>
         <servlet-name>SetStatusServlet</servlet-name>
         <url-pattern>/set_status</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ActivityServlet</servlet-name>
+        <url-pattern>/activity</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

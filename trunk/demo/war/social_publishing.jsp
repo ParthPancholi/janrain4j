@@ -17,16 +17,24 @@
     UserDataResponse userData = (UserDataResponse) session.getAttribute("userData");
     String providerName = userData.getProfile().getProviderName();
     
-    // providers supporting set status
-    List<String> list = new ArrayList<String>();
-    list.add("Facebook");
-    list.add("LinkedIn");
-    list.add("Twitter");
-    list.add("MySpace");
-    list.add("Google");
-    list.add("Yahoo!");
+    // providers supporting set status call
+    List<String> setStatus = new ArrayList<String>();
+    setStatus.add("Facebook");
+    setStatus.add("LinkedIn");
+    setStatus.add("Twitter");
+    setStatus.add("MySpace");
+    setStatus.add("Google");
+    setStatus.add("Yahoo!");
+    pageContext.setAttribute("setStatusSupported", (setStatus.contains(providerName)));
     
-    pageContext.setAttribute("setStatusSupported", (list.contains(providerName)));
+    // providers supporting activity call
+    List<String> activity = new ArrayList<String>();
+    activity.add("Facebook");
+    activity.add("LinkedIn");
+    activity.add("Twitter");
+    activity.add("MySpace");
+    activity.add("Yahoo!");
+    pageContext.setAttribute("activitySupported", (activity.contains(providerName)));
  %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,7 +63,7 @@
                                         <span class="description" style="margin-left:155px;">Note that some providers might truncate your update message.</span>
                                     </div>
                                     <div class="group navform">
-                                        <input type="submit" class="mini-button" value="Update your Status" style="margin-left:155px;" />
+                                        <input type="submit" class="mini-button" value="Update your Status" style="margin-left:155px; width:150px;" />
                                     </div>
                                 </form>
                             </c:when>
@@ -74,7 +82,27 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div class="inner">
-                        Under construction.
+                        <c:choose>
+                            <c:when test="${activitySupported}">
+                                <form action="/activity" method="post" class="form">
+                                    <div class="group clearfix">
+                                        Post an activity update to your activity stream promoting the Janrain4j library.<br />
+                                        The update will contain text promoting the Janrain4j library including action links and media items.<br />
+                                        <span class="description" style="margin-left:0px; padding-top:5px;">Note that the actual update posted might vary between providers.</span>
+                                    </div>
+                                    <div class="group clearfix">
+                                        <label>User Generated Content</label>
+                                        <textarea name="userGeneratedContent" class="text" rows="5" cols="80">Janrain4j is awesome!</textarea>
+                                    </div>
+                                    <div class="group navform">
+                                        <input type="submit" class="mini-button" value="Update your Activity" style="margin-left:155px; width:150px;" />
+                                    </div>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                Your provider does not support publishing an activity.
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="half-content-bottom"></div>
