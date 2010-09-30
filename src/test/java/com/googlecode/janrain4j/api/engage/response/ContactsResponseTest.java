@@ -21,32 +21,30 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
-
-import java.net.URL;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONObject;
 
-public class AnalyticsResponseTest {
+public class ContactsResponseTest {
 
     private String json = null;
-    private AnalyticsResponse response = null;
+    private ContactsResponse response = null;
     
     @Test
-    public void testAnalyticsResponse() throws Exception {
+    public void testContactsResponse() throws Exception {
         
         json =
             "{\n" +
-            "  \"url\": \"http:\\/\\/rpxnow.com\\/export?access_token=19e936b707e7862269c...&end=02\\/10\\/2010&api=true\",\n" +
-            "  \"stat\": \"ok\"\n" +
+            // TODO
             "}";
         
-        response = new AnalyticsResponse(json);
+        response = new ContactsResponse(json);
         
         assertEquals(json, response.getResponseAsJSON());
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
         
-        assertEquals(new URL("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true"), response.getUrl());
+        fail("TODO");
     }
 }

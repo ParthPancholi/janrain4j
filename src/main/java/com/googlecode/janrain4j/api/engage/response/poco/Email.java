@@ -12,19 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.poco;
 
-import java.io.Serializable;
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
- * TODO
+ * Email address for the <code>Contact</code>.
  * 
  * @author Marcel Overdijk
  * @since 1.0
- * @see UserDataResponse
+ * @see Contact
  */
-public class MergedPoco implements Serializable {
+@SuppressWarnings("serial")
+public class Email extends AbstractPluralField {
 
-    private static final long serialVersionUID = -5053888385586404060L;
+    private Email() {
+    }
     
+    public static Email fromJSON(JSONObject json) {
+        Email email = new Email();
+        email.setValue(json.optString("value"));
+        email.setType(json.optString("type"));
+        email.setPrimary(json.optBoolean("primary", false));
+        return email;
+    }
 }

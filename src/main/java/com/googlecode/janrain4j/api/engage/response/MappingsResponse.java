@@ -30,26 +30,25 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  * @see EngageService#mappings(String)
  */
+@SuppressWarnings("serial")
 public class MappingsResponse extends AbstractEngageResponse {
 
-    private static final long serialVersionUID = -1857683662834249312L;
-    
     private List<String> mappings = null;
-    private JSONArray mappingsJsonArray = null;
+    private JSONArray mappingsJSONArray = null;
     
-    public MappingsResponse(String jsonResponse) {
-        super(jsonResponse);
+    public MappingsResponse(String json) {
+        super(json);
         JSONObject rsp = getResponseAsJSONObject();
         JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
-        mappingsJsonArray = rspIdentifiers;
-        mappings = new ArrayList<String>();
         if (rspIdentifiers != null) {
+            mappingsJSONArray = rspIdentifiers;
+            mappings = new ArrayList<String>();
             for (int i = 0; i < rspIdentifiers.length(); i++) {
                 try {
                     mappings.add(rspIdentifiers.getString(i));
                 }
                 catch (JSONException e) {
-                    throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+                    throw new EngageFailureException("Unexpected JSON error", json, e);
                 }
             }
         }
@@ -66,6 +65,6 @@ public class MappingsResponse extends AbstractEngageResponse {
      * Returns all stored mappings for the primary key as a <code>JSONArray</code>.
      */
     public JSONArray getMappingsAsJSONArray() {
-        return mappingsJsonArray;
+        return mappingsJSONArray;
     }
 }

@@ -29,14 +29,13 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @since 1.0
  * @see EngageService#analytics(java.util.Date, java.util.Date)
  */
+@SuppressWarnings("serial")
 public class AnalyticsResponse extends AbstractEngageResponse {
 
-    private static final long serialVersionUID = -7109134903889713304L;
-    
     private URL url = null;
     
-    public AnalyticsResponse(String jsonResponse) {
-        super(jsonResponse);
+    public AnalyticsResponse(String json) {
+        super(json);
         JSONObject rsp = getResponseAsJSONObject();
         try {
             String rspUrl = rsp.getString("url");
@@ -44,11 +43,11 @@ public class AnalyticsResponse extends AbstractEngageResponse {
                 url = new URL(rspUrl);
             }
             catch (MalformedURLException e) {
-                throw new EngageFailureException("Malformed url in response: " + rspUrl, jsonResponse, e);
+                throw new EngageFailureException("Malformed url in response: " + rspUrl, json, e);
             }
         }
         catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+            throw new EngageFailureException("Unexpected JSON error", json, e);
         }
     }
     

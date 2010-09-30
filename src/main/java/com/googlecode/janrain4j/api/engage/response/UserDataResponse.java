@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.googlecode.janrain4j.api.engage.EngageFailureException;
+import com.googlecode.janrain4j.api.engage.response.accesscredentials.AccessCredentials;
+import com.googlecode.janrain4j.api.engage.response.poco.Contact;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONArray;
 import com.googlecode.janrain4j.json.JSONException;
 import com.googlecode.janrain4j.json.JSONObject;
@@ -31,93 +34,46 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @author Marcel Overdijk
  * @since 1.0
  */
+@SuppressWarnings("serial")
 public class UserDataResponse extends AbstractEngageResponse {
 
-    private static final long serialVersionUID = 236447883427917238L;
-    
     private Profile profile = null;
-    private JSONObject profileJsonObject = null;
+    private JSONObject profileJSONObject = null;
     private AccessCredentials accessCredentials = null;
-    private JSONObject accessCredentialsJsonObject = null;
-    private MergedPoco mergedPoco = null;
+    private JSONObject accessCredentialsJSONObject = null;
+    private Contact mergedPoco = null;
+    private JSONObject mergedPocoJSONObject = null;
     private List<String> friends = null;
-    private JSONArray friendsJsonArray = null;
+    private JSONArray friendsJSONArray = null;
     private boolean limitedData = false;
     
-    public UserDataResponse(String jsonResponse) {
-        super(jsonResponse);
+    public UserDataResponse(String json) {
+        super(json);
         try {
             JSONObject rsp = getResponseAsJSONObject();
             
             // Profile
             JSONObject rspProfile = rsp.getJSONObject("profile");
-            profileJsonObject = rspProfile;
-            profile = new Profile();
-            profile.setIdentifier(rspProfile.getString("identifier"));
-            profile.setProviderName(rspProfile.getString("providerName"));
-            profile.setPrimaryKey(rspProfile.optString("primaryKey", null));
-            profile.setDisplayName(rspProfile.optString("displayName", null));
-            profile.setPreferredUsername(rspProfile.optString("preferredUsername", null));
-            JSONObject rspName = rspProfile.optJSONObject("name");
-            if (rspName != null) {
-                Name name = new Name();
-                name.setFormatted(rspName.optString("formatted", null));
-                name.setFamilyName(rspName.optString("familyName", null));
-                name.setGivenName(rspName.optString("givenName", null));
-                name.setMiddleName(rspName.optString("middleName", null));
-                name.setHonorificPrefix(rspName.optString("honorificPrefix", null));
-                name.setHonorificSuffix(rspName.optString("honorificSuffix", null));
-                profile.setName(name);
-            }
-            profile.setGender(rspProfile.optString("gender", null));
-            String birthday = rspProfile.optString("birthday", null);
-            if (birthday != null && birthday.length() > 0) {
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    profile.setBirthday(dateFormatter.parse(birthday));
-                }
-                catch (ParseException ignore) {
-                }
-            }
-            profile.setUtcOffset(rspProfile.optString("utcOffset", null));
-            profile.setEmail(rspProfile.optString("email", null));
-            profile.setEmail(rspProfile.optString("email", null));
-            profile.setVerifiedEmail(rspProfile.optString("verifiedEmail", null));
-            profile.setUrl(rspProfile.optString("url", null));
-            profile.setPhoneNumber(rspProfile.optString("phoneNumber", null));
-            profile.setPhoto(rspProfile.optString("photo", null));
-            JSONObject rspAddress = rspProfile.optJSONObject("address");
-            if (rspAddress != null) {
-                Address address = new Address();
-                address.setFormatted(rspAddress.optString("formatted", null));
-                address.setStreetAddress(rspAddress.optString("streetAddress", null));
-                address.setLocality(rspAddress.optString("locality", null));
-                address.setRegion(rspAddress.optString("region", null));
-                address.setPostalCode(rspAddress.optString("postalCode", null));
-                address.setCountry(rspAddress.optString("country", null));
-                profile.setAddress(address);
-            }
+            profileJSONObject = rspProfile;
+            profile = Profile.fromJSON(rspProfile);
             
             // Access Credentials
             JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
-            accessCredentialsJsonObject = rspAccessCredentials;
             if (rspAccessCredentials != null) {
-                accessCredentials = new AccessCredentials();
-                accessCredentials.setType(rspAccessCredentials.optString("type"));
-                accessCredentials.setOauthToken(rspAccessCredentials.optString("oauthToken"));
-                accessCredentials.setOauthTokenSecret(rspAccessCredentials.optString("oauthTokenSecret"));
-                accessCredentials.setUid(rspAccessCredentials.optString("uid"));
-                accessCredentials.setAccessToken(rspAccessCredentials.optString("accessToken"));
-                accessCredentials.setExpires(rspAccessCredentials.optLong("expires"));
-                accessCredentials.setEact(rspAccessCredentials.optString("eact"));
+                accessCredentialsJSONObject = rspAccessCredentials;
+                accessCredentials = AccessCredentials.fromJSON(rspAccessCredentials);
             }
             
             // Merged Poco
-            // TODO
+            JSONObject rspMergedPoco = rsp.optJSONObject("merged_poco");
+            if (mergedPoco != null) {
+                mergedPocoJSONObject = rspMergedPoco;
+                mergedPoco = Contact.fromJSON(rspMergedPoco);
+            }
             
             // Friends
             JSONArray rspFriends = rsp.optJSONArray("friends");
-            friendsJsonArray = rspFriends;
+            friendsJSONArray = rspFriends;
             if (rspFriends != null) {
                 friends = new ArrayList<String>();
                 for (int i = 0; i < rspFriends.length(); i++) {
@@ -125,7 +81,7 @@ public class UserDataResponse extends AbstractEngageResponse {
                         friends.add(rspFriends.getString(i));
                     }
                     catch (JSONException e) {
-                        throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+                        throw new EngageFailureException("Unexpected JSON error", json, e);
                     }
                 }
             }
@@ -134,7 +90,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             limitedData = rsp.optBoolean("limitedData", false);
         }
         catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
+            throw new EngageFailureException("Unexpected JSON error", json, e);
         }
     }
     
@@ -149,7 +105,7 @@ public class UserDataResponse extends AbstractEngageResponse {
      * Returns the user's profile as a <code>JSONObject</code>.
      */
     public JSONObject getProfileAsJSONObject() {
-        return profileJsonObject;
+        return profileJSONObject;
     }
     
     /**
@@ -164,7 +120,7 @@ public class UserDataResponse extends AbstractEngageResponse {
      * Returns the user's authorization credentials as a <code>JSONObject</code>.
      */
     public JSONObject getAccessCredentialsAsJSONObject() {
-        return accessCredentialsJsonObject;
+        return accessCredentialsJSONObject;
     }
     
     /**
@@ -172,11 +128,17 @@ public class UserDataResponse extends AbstractEngageResponse {
      * data if the extended request argument was 'true' and extended profile 
      * data were available.
      */
-    public MergedPoco getMergedPoco() {
+    public Contact getMergedPoco() {
         return mergedPoco;
     }
     
-    // TODO get merged poco as JSONObject or JSONArray
+    /**
+     * Returns the merged <a href="http://portablecontacts.net/">Portable Contacts</a> 
+     * data as a <code>JSONObject</code>.
+     */
+    public JSONObject getMergedPocoAsJSONObject() {
+        return mergedPocoJSONObject;
+    }
     
     /**
      * Returns the user's friends' identifiers if the extended request argument 
@@ -190,7 +152,7 @@ public class UserDataResponse extends AbstractEngageResponse {
      * Returns the user's friends' identifiers as a <code>JSONArray</code>.
      */
     public JSONArray getFriendsAsJSONArray() {
-        return friendsJsonArray;
+        return friendsJSONArray;
     }
     
     /**

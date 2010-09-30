@@ -12,23 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.http;
+package com.googlecode.janrain4j.api.engage.response.poco;
+
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
- * <code>HttpFailureException</code> is thrown when any unknown error occurs 
- * while executing the http requests.
+ * URL of a photo of the <code>Contact</code>.
  * 
  * @author Marcel Overdijk
  * @since 1.0
+ * @see Contact
  */
 @SuppressWarnings("serial")
-public class HttpFailureException extends RuntimeException {
+public class Photo extends AbstractPluralField {
 
-    public HttpFailureException(String message) {
-        super(message);
+    private Photo() {
     }
     
-    public HttpFailureException(String message, Throwable cause) {
-        super(message, cause);
+    public static Photo fromJSON(JSONObject json) {
+        // TODO
+        return null;
     }
 }

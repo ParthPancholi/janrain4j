@@ -12,10 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.janrain4j.api.engage.response;
+package com.googlecode.janrain4j.api.engage.response.profile;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
  * A dictionary of fields forming the user's profile. This data may have been 
@@ -23,14 +29,13 @@ import java.util.Date;
  * Contacts schema.
  * 
  * @author Marcel Overdijk
- * @see <a href="http://rpxnow.com/docs#profile_data">Profile data documentation</a>
  * @since 1.0
  * @see UserDataResponse
+ * @see <a href="http://rpxnow.com/docs#profile_data">Profile data documentation</a>
  */
+@SuppressWarnings("serial")
 public class Profile implements Serializable {
 
-    private static final long serialVersionUID = -5861371209084356628L;
-    
     private String identifier = null;
     private String providerName = null;
     private String primaryKey = null;
@@ -47,7 +52,45 @@ public class Profile implements Serializable {
     private String photo = null;
     private Address address = null;
     
-    Profile() {
+    private Profile() {
+    }
+    
+    public static Profile fromJSON(JSONObject json) throws JSONException {
+        Profile profile = new Profile();
+        profile.setIdentifier(json.getString("identifier"));
+        profile.setProviderName(json.getString("providerName"));
+        profile.setPrimaryKey(json.optString("primaryKey", null));
+        profile.setDisplayName(json.optString("displayName", null));
+        profile.setPreferredUsername(json.optString("preferredUsername", null));
+        JSONObject rspName = json.optJSONObject("name");
+        if (rspName != null) {
+            Name name = Name.fromJSON(rspName);
+            profile.setName(name);
+        }
+        profile.setGender(json.optString("gender", null));
+        String birthday = json.optString("birthday", null);
+        if (birthday != null && birthday.length() > 0) {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                profile.setBirthday(dateFormatter.parse(birthday));
+            }
+            catch (ParseException ignore) {
+            }
+        }
+        profile.setUtcOffset(json.optString("utcOffset", null));
+        profile.setEmail(json.optString("email", null));
+        profile.setEmail(json.optString("email", null));
+        profile.setVerifiedEmail(json.optString("verifiedEmail", null));
+        profile.setUrl(json.optString("url", null));
+        profile.setPhoneNumber(json.optString("phoneNumber", null));
+        profile.setPhoto(json.optString("photo", null));
+        JSONObject rspAddress = json.optJSONObject("address");
+        if (rspAddress != null) {
+            Address address = Address.fromJSON(rspAddress);
+            profile.setAddress(address);
+        }
+        
+        return profile;
     }
     
     /**

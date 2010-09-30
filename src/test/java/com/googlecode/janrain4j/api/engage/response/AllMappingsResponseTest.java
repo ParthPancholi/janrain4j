@@ -32,13 +32,13 @@ import com.googlecode.janrain4j.json.JSONObject;
 
 public class AllMappingsResponseTest {
 
-    private String jsonResponse = null;
+    private String json = null;
     private AllMappingsResponse response = null;
     
     @Test
     public void testMultipleMappings() throws Exception {
         
-        jsonResponse =
+        json =
             "{\n" +
             "  \"mappings\": {\n" +
             "    \"1\": [\n" +
@@ -52,11 +52,11 @@ public class AllMappingsResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AllMappingsResponse(jsonResponse);
+        response = new AllMappingsResponse(json);
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
@@ -75,7 +75,7 @@ public class AllMappingsResponseTest {
     @Test
     public void testSingleMapping() throws Exception {
         
-        jsonResponse =
+        json =
             "{\n" +
             "  \"mappings\": {\n" +
             "    \"1\": [\n" +
@@ -85,11 +85,11 @@ public class AllMappingsResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AllMappingsResponse(jsonResponse);
+        response = new AllMappingsResponse(json);
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
@@ -103,18 +103,18 @@ public class AllMappingsResponseTest {
     @Test
     public void testNoMappings() throws Exception {
         
-        jsonResponse =
+        json =
             "{\n" +
             "  \"mappings\": {\n" +
             "  },\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new AllMappingsResponse(jsonResponse);
+        response = new AllMappingsResponse(json);
         
-        assertEquals(jsonResponse, response.getResponseAsJSON());
-        assertEquals(new JSONObject(jsonResponse).toString(), response.getResponseAsJSONObject().toString());
-        assertEquals(new JSONObject(jsonResponse).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
+        assertEquals(json, response.getResponseAsJSON());
+        assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
+        assertEquals(new JSONObject(json).optJSONObject("mappings").toString(), response.getAllMappingsAsJSONObject().toString());
         
         Map<String, List<String>> allMappings = response.getAllMappings();
         
