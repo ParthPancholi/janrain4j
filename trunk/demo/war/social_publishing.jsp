@@ -86,16 +86,18 @@
                             <c:when test="${activitySupported}">
                                 <form action="/activity" method="post" class="form">
                                     <div class="group clearfix">
-                                        Post an activity update to your activity stream promoting the Janrain4j library.<br />
-                                        The update will contain text promoting the Janrain4j library including action links and media items.<br />
-                                        <span class="description" style="margin-left:0px; padding-top:5px;">Note that the actual update posted might vary between providers.</span>
-                                    </div>
-                                    <div class="group clearfix">
                                         <label>User Generated Content</label>
                                         <textarea name="userGeneratedContent" class="text" rows="5" cols="80">Janrain4j is awesome!</textarea>
                                     </div>
                                     <div class="group navform">
                                         <input type="submit" class="mini-button" value="Update your Activity" style="margin-left:155px; width:150px;" />
+                                    </div>
+                                    <div class="group clearfix" style="margin-left:155px;">
+                                        Posts an activity update to your activity stream promoting the Janrain4j library.<br />
+                                        The update will contain text promoting the Janrain4j library including action links and media items.
+                                        Example activity posted to Facebook:
+                                        <img src="/images/activity-example.png" style="border:1px solid #eee; margin:5px 0; padding:5px;" width="450" />
+                                        <span class="description" style="margin-left:0px; padding-top:5px;">Note that the actual update posted might vary between providers.</span>
                                     </div>
                                 </form>
                             </c:when>

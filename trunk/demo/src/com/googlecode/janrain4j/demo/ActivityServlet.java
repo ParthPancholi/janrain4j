@@ -49,12 +49,12 @@ public class ActivityServlet extends HttpServlet {
             activity.setUserGeneratedContent(userGeneratedContent);
         }
         activity.setTitle("Janrain4j");
-        activity.setDescription("An unofficial Java library for the Janrain API.");
+        activity.setDescription("Janrain4j is an open-source Java library for the Janrain API.");
         
         // action links
         List<ActionLink> actionLinks = new ArrayList<ActionLink>();
         actionLinks.add(new ActionLink("Try out the Janrain4j Demo Application", "http://janrain4j.appspot.com/"));
-        actionLinks.add(new ActionLink("LEarn more about Janrain4j", "http://janrain4j.googlecode.com/"));
+        actionLinks.add(new ActionLink("Learn more about Janrain4j", "http://janrain4j.googlecode.com/"));
         activity.setActionLinks(actionLinks);
         
         // media

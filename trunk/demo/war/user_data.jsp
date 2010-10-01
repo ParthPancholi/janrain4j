@@ -27,12 +27,18 @@
         <div class="container">
             <div class="half-content-wrapper span-17">
                 <div class="half-content-top title">
-                    <h2>Profile</h2>
+                    <div class="span-10">
+                        <h2>Profile</h2>
+                    </div>
+                    <div class="title-right-tools span-7 last">
+                        <a id="profile-collapse" class="item" href="#">Collapse</a>
+                        <a id="profile-expand" class="item" href="#">Expand</a>
+                    </div>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
                     </div>
-                    <div class="inner">
+                    <div id="profile" class="inner">
                         <table>
                             <tr>
                                 <td class="user-data"><label>Identifier</label></td>
@@ -145,12 +151,127 @@
                 <div class="half-content-bottom"></div>
                 
                 <div class="half-content-top title">
-                    <h2>Plain JSON Response</h2>
+                    <div class="span-10">
+                        <h2>Access Credentials</h2>
+                    </div>
+                    <div class="title-right-tools span-7 last">
+                        <a id="access-credentials-collapse" class="item" href="#">Collapse</a>
+                        <a id="access-credentials-expand" class="item" href="#">Expand</a>
+                    </div>
                 </div>
                 <div class="half-content">
                     <div class="additional-tools divider clearfix">
                     </div>
-                    <div class="inner">
+                    <div id="access-credentials" class="inner">
+                        <c:choose>
+                            <c:when test="${not empty userData.accessCredentials}">
+                                <table>
+                                    <tr>
+                                        <td class="user-data"><label>Type</label></td>
+                                        <td>${userData.accessCredentials.type}</td>
+                                    </tr>
+                                    <c:if test="${userData.accessCredentials.oauth}">
+                                        <tr>
+                                            <td class="user-data"><label>Token</label></td>
+                                            <td>${userData.accessCredentials.oauthToken}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="user-data"><label>Token Secret</label></td>
+                                            <td>${userData.accessCredentials.oauthTokenSecret}</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${userData.accessCredentials.facebook}">
+                                        <tr>
+                                            <td class="user-data"><label>UID</label></td>
+                                            <td>${userData.accessCredentials.uid}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="user-data"><label>Access Token</label></td>
+                                            <td>${userData.accessCredentials.accessToken}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="user-data"><label>Expires</label></td>
+                                            <td>${userData.accessCredentials.expires}</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:if test="${userData.accessCredentials.windowsLive}">
+                                        <tr>
+                                            <td class="user-data"><label>Eact</label></td>
+                                            <td>${userData.accessCredentials.eact}</td>
+                                        </tr>
+                                    </c:if>
+                                </table>
+                            </c:when>
+                            <c:otherwise>
+                                Your provider did not provide any access credentials.
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="half-content-bottom"></div>
+                
+                <div class="half-content-top title">
+                    <div class="span-10">
+                        <h2>Merged Portable Contact</h2>
+                    </div>
+                    <div class="title-right-tools span-7 last">
+                        <a id="merged-poco-collapse" class="item" href="#">Collapse</a>
+                        <a id="merged-poco-expand" class="item" href="#">Expand</a>
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="additional-tools divider clearfix">
+                    </div>
+                    <div id="merged-poco" class="inner">
+                        Under construction.
+                    </div>
+                </div>
+                <div class="half-content-bottom"></div>
+                
+                <div class="half-content-top title">
+                    <div class="span-10">
+                        <h2>Friends</h2>
+                    </div>
+                    <div class="title-right-tools span-7 last">
+                        <a id="friends-collapse" class="item" href="#">Collapse</a>
+                        <a id="friends-expand" class="item" href="#">Expand</a>
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="additional-tools divider clearfix">
+                    </div>
+                    <div id="friends" class="inner">
+                        <c:choose>
+                            <c:when test="${not empty userData.friends}">
+                                <table class="table">
+                                    <c:forEach items="${userData.friends}" var="identifier" varStatus="status">
+                                        <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
+                                            <td>${identifier}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:when>
+                            <c:otherwise>
+                                Your provider did not provide any friends.
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+                <div class="half-content-bottom"></div>
+                
+                <div class="half-content-top title">
+                    <div class="span-10">
+                        <h2>Plain JSON Response</h2>
+                    </div>
+                    <div class="title-right-tools span-7 last">
+                        <a id="plain-response-collapse" class="item" href="#">Collapse</a>
+                        <a id="plain-response-expand" class="item" href="#">Expand</a>
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="additional-tools divider clearfix">
+                    </div>
+                    <div id="plain-response" class="inner">
                         <pre style="white-space:pre-wrap;">${jsonResponse}</pre>
                     </div>
                 </div>
@@ -159,5 +280,64 @@
             </div>
             <jsp:include page="_sidebar.jsp" />
         </div>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                
+                // profile
+                $('#profile-expand').click(function() {
+                    $('#profile').slideDown('fast');
+                    return false;
+                });
+                $('#profile-collapse').click(function() {
+                    $('#profile').hide();
+                    return false;
+                });
+
+                // access credentials
+                $('#access-credentials').hide();
+                $('#access-credentials-expand').click(function() {
+                    $('#access-credentials').slideDown('fast');
+                    return false;
+                });
+                $('#access-credentials-collapse').click(function() {
+                    $('#access-credentials').hide();
+                    return false;
+                });
+
+                // merged poco
+                $('#merged-poco').hide();
+                $('#merged-poco-expand').click(function() {
+                    $('#merged-poco').slideDown('fast');
+                    return false;
+                });
+                $('#merged-poco-collapse').click(function() {
+                    $('#merged-poco').hide();
+                    return false;
+                });
+
+                // friends
+                $('#friends').hide();
+                $('#friends-expand').click(function() {
+                    $('#friends').slideDown('fast');
+                    return false;
+                });
+                $('#friends-collapse').click(function() {
+                    $('#friends').hide();
+                    return false;
+                });
+                
+                // plain response
+                $('#plain-response').hide();
+                $('#plain-response-expand').click(function() {
+                    $('#plain-response').slideDown('fast');
+                    return false;
+                });
+                $('#plain-response-collapse').click(function() {
+                    $('#plain-response').hide();
+                    return false;
+                });
+            });
+        </script>
     </body>
 </html>

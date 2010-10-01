@@ -31,7 +31,12 @@
 </div>
 
 <c:if test="${not empty flashScope['message']}">
-    <div class="container secondary-navigation">
+    <div class="container secondary-navigation flash-message">
         <span class="item ${(not empty flashScope['level'] ? flashScope['level'] : 'info')}">${flashScope["message"]}</span>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#flash-message').delay(3500).fadeOut(600); 
+        });
+    </script>
 </c:if>
