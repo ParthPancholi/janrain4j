@@ -62,8 +62,11 @@ public class Contact implements Serializable {
     }
     
     public static Contact fromJSON(JSONObject json) {
+        Contact contact = new Contact();
+        contact.setId(json.optString("id"));
+        contact.setDisplayName(json.optString("displayName"));
         // TODO
-        return null;
+        return contact;
     }
     
     /**

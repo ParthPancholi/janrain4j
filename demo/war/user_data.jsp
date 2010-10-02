@@ -223,6 +223,17 @@
                     <div class="additional-tools divider clearfix">
                     </div>
                     <div id="merged-poco" class="inner">
+                        <table>
+                            <tr>
+                                <td class="user-data"><label>Id</label></td>
+                                <td>${userData.mergedPoco.id}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Display Name</label></td>
+                                <td>${userData.mergedPoco.displayName}</td>
+                            </tr>
+                        </table>
+                        json = ${userData.mergedPocoAsJSONObject}                    
                         Under construction.
                     </div>
                 </div>

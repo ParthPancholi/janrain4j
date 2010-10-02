@@ -14,8 +14,6 @@
  */
 package com.googlecode.janrain4j.api.engage.response;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +64,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             
             // Merged Poco
             JSONObject rspMergedPoco = rsp.optJSONObject("merged_poco");
-            if (mergedPoco != null) {
+            if (rspMergedPoco != null) {
                 mergedPocoJSONObject = rspMergedPoco;
                 mergedPoco = Contact.fromJSON(rspMergedPoco);
             }
