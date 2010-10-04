@@ -232,8 +232,93 @@
                                 <td class="user-data"><label>Display Name</label></td>
                                 <td>${userData.mergedPoco.displayName}</td>
                             </tr>
+                            <tr>
+                                <td class="user-data"><label>Formatted Name</label></td>
+                                <td>${userData.mergedPoco.name.formatted}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Family Name</label></td>
+                                <td>${userData.mergedPoco.name.familyName}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Given Name</label></td>
+                                <td>${userData.mergedPoco.name.givenName}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Middle Name</label></td>
+                                <td>${userData.mergedPoco.name.middleName}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Honorific Prefix</label></td>
+                                <td>${userData.mergedPoco.name.honorificPrefix}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Honorific Suffix</label></td>
+                                <td>${userData.mergedPoco.name.honorificSuffix}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Nickname</label></td>
+                                <td>${userData.mergedPoco.nickname}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Published</label></td>
+                                <td>${userData.mergedPoco.published}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Updated</label></td>
+                                <td>${userData.mergedPoco.updated}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Birthday</label></td>
+                                <td>${userData.mergedPoco.birthday}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Anniversary</label></td>
+                                <td>${userData.mergedPoco.anniversary}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Gender</label></td>
+                                <td>${userData.mergedPoco.gender}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Note</label></td>
+                                <td>${userData.mergedPoco.note}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Preferred Username</label></td>
+                                <td>${userData.mergedPoco.preferredUsername}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>UTC Offset</label></td>
+                                <td>${userData.mergedPoco.utcOffset}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Connected</label></td>
+                                <td>${userData.mergedPoco.connected}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Photos</label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="user-data" colspan="2">
+                                    <c:choose>
+                                        <c:when test="${not empty userData.mergedPoco.photos}">
+                                            <table class="table">
+                                                <c:forEach items="${userData.mergedPoco.photos}" var="photo" varStatus="status">
+                                                    <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
+                                                        <td>${photo.value}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </table>
+                                        </c:when>
+                                        <c:otherwise>
+                                            Your provider did not provide any photos.
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
                         </table>
-                        json = ${userData.mergedPocoAsJSONObject}                    
                         Under construction.
                     </div>
                 </div>

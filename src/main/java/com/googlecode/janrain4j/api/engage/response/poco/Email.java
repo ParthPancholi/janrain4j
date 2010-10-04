@@ -26,7 +26,7 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Email extends AbstractPluralField {
 
-    private Email() {
+    protected Email() {
     }
     
     public static Email fromJSON(JSONObject json) {

@@ -34,14 +34,12 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class MappingsResponse extends AbstractEngageResponse {
 
     private List<String> mappings = null;
-    private JSONArray mappingsJSONArray = null;
     
     public MappingsResponse(String json) {
         super(json);
         JSONObject rsp = getResponseAsJSONObject();
         JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
         if (rspIdentifiers != null) {
-            mappingsJSONArray = rspIdentifiers;
             mappings = new ArrayList<String>();
             for (int i = 0; i < rspIdentifiers.length(); i++) {
                 try {
@@ -59,12 +57,5 @@ public class MappingsResponse extends AbstractEngageResponse {
      */
     public List<String> getMappings() {
         return mappings;
-    }
-    
-    /**
-     * Returns all stored mappings for the primary key as a <code>JSONArray</code>.
-     */
-    public JSONArray getMappingsAsJSONArray() {
-        return mappingsJSONArray;
     }
 }

@@ -36,6 +36,11 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Profile implements Serializable {
 
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
+    
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
+    
     private String identifier = null;
     private String providerName = null;
     private String primaryKey = null;
@@ -52,7 +57,7 @@ public class Profile implements Serializable {
     private String photo = null;
     private Address address = null;
     
-    private Profile() {
+    protected Profile() {
     }
     
     public static Profile fromJSON(JSONObject json) throws JSONException {
@@ -62,21 +67,9 @@ public class Profile implements Serializable {
         profile.setPrimaryKey(json.optString("primaryKey", null));
         profile.setDisplayName(json.optString("displayName", null));
         profile.setPreferredUsername(json.optString("preferredUsername", null));
-        JSONObject rspName = json.optJSONObject("name");
-        if (rspName != null) {
-            Name name = Name.fromJSON(rspName);
-            profile.setName(name);
-        }
+        profile.setName(Name.fromJSON(json.optJSONObject("name")));
         profile.setGender(json.optString("gender", null));
-        String birthday = json.optString("birthday", null);
-        if (birthday != null && birthday.length() > 0) {
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                profile.setBirthday(dateFormatter.parse(birthday));
-            }
-            catch (ParseException ignore) {
-            }
-        }
+        profile.setBirthday(parseDate(json.optString("birthday", null)));
         profile.setUtcOffset(json.optString("utcOffset", null));
         profile.setEmail(json.optString("email", null));
         profile.setEmail(json.optString("email", null));
@@ -84,13 +77,20 @@ public class Profile implements Serializable {
         profile.setUrl(json.optString("url", null));
         profile.setPhoneNumber(json.optString("phoneNumber", null));
         profile.setPhoto(json.optString("photo", null));
-        JSONObject rspAddress = json.optJSONObject("address");
-        if (rspAddress != null) {
-            Address address = Address.fromJSON(rspAddress);
-            profile.setAddress(address);
-        }
-        
+        profile.setAddress(Address.fromJSON(json.optJSONObject("address")));
         return profile;
+    }
+    
+    private static Date parseDate(String date) {
+        if (date != null && date.length() > 0) {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_PATTERN);
+            try {
+                return dateFormatter.parse(date);
+            }
+            catch (ParseException ignore) {
+            }
+        }
+        return null;
     }
     
     /**
@@ -177,6 +177,20 @@ public class Profile implements Serializable {
         return gender;
     }
     
+    /**
+     * Returns true if the gender of the user is male. 
+     */
+    public boolean isMale() {
+        return MALE.equalsIgnoreCase(gender);
+    }
+    
+    /**
+     * Returns true if the gender of the user is female. 
+     */
+    public boolean isFemale() {
+        return FEMALE.equalsIgnoreCase(gender);
+    }
+    
     void setGender(String gender) {
         this.gender = gender;
     }
@@ -194,11 +208,11 @@ public class Profile implements Serializable {
     }
     
     /**
-     * Returns the offset from UTC of user's current time zone, as of the time 
-     * this response was returned. The value MUST conform to the offset portion 
-     * of xs:dateTime, e.g. -08:00. Note that this value MAY change over time 
-     * due to daylight saving time, and is thus meant to signify only the 
-     * current value of the user's timezone offset.
+     * Returns the offset from UTC of the user's current time zone, as of the 
+     * time this response was returned. The value MUST conform to the offset 
+     * portion of xs:dateTime, e.g. -08:00. Note that this value MAY change 
+     * over time due to daylight saving time, and is thus meant to signify only 
+     * the current value of the user's timezone offset.
      */
     public String getUtcOffset() {
         return utcOffset;

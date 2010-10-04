@@ -85,7 +85,7 @@ public class FlashMediaItemTest {
     }
     
     @Test
-    public void testFlashMediaItemWithFullSetOfData() throws Exception {
+    public void testFlashMediaItemWithAllFieldsPossible() throws Exception {
         mediaItem = new FlashMediaItem(swfsrc, imgsrc);
         mediaItem.setWidth(width);
         mediaItem.setHeight(height);

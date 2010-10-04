@@ -41,26 +41,21 @@ public class Organization implements Serializable {
     private String description = null;
     private boolean primary = false;
     
-    private Organization() {
+    protected Organization() {
     }
     
     public static Organization fromJSON(JSONObject json) {
-        // TODO
-        return null;
-    }
-    
-    /**
-     * Returns true if the type of this instance is job. 
-     */
-    public boolean isJob() {
-        return TYPE_JOB.equalsIgnoreCase(type);
-    }
-    
-    /**
-     * Returns true if the type of this instance is school. 
-     */
-    public boolean isSchool() {
-        return TYPE_SCHOOL.equalsIgnoreCase(type);
+        Organization organization = new Organization();
+        organization.setName(json.optString("name"));
+        organization.setDepartment(json.optString("department"));
+        organization.setTitle(json.optString("title"));
+        organization.setType(json.optString("type"));
+        organization.setStartDate(json.optString("startDate"));
+        organization.setEndDate(json.optString("endDate"));
+        organization.setLocation(json.optString("location"));
+        organization.setDescription(json.optString("description"));
+        organization.setPrimary(json.optBoolean("primary", false));
+        return organization;
     }
     
     /**
@@ -101,6 +96,20 @@ public class Organization implements Serializable {
      */
     public String getType() {
         return type;
+    }
+    
+    /**
+     * Returns true if the type of this instance is job. 
+     */
+    public boolean isJob() {
+        return TYPE_JOB.equalsIgnoreCase(type);
+    }
+    
+    /**
+     * Returns true if the type of this instance is school. 
+     */
+    public boolean isSchool() {
+        return TYPE_SCHOOL.equalsIgnoreCase(type);
     }
     
     void setType(String type) {

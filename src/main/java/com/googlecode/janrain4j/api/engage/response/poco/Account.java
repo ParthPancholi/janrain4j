@@ -33,12 +33,16 @@ public class Account implements Serializable {
     private String userid = null;
     private boolean primary = false;
     
-    private Account() {
+    protected Account() {
     }
     
     public static Account fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        Account account = new Account();
+        account.setDomain(json.optString("domain"));
+        account.setUsername(json.optString("username"));
+        account.setUserid(json.optString("userid"));
+        account.setPrimary(json.optBoolean("primary", false));
+        return account;
     }
     
     /**

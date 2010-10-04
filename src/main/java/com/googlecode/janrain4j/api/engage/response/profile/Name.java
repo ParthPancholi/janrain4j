@@ -37,17 +37,20 @@ public class Name implements Serializable {
     private String honorificPrefix = null;
     private String honorificSuffix = null;
     
-    private Name() {
+    protected Name() {
     }
     
     public static Name fromJSON(JSONObject json) throws JSONException {
-        Name name = new Name();
-        name.setFormatted(json.optString("formatted", null));
-        name.setFamilyName(json.optString("familyName", null));
-        name.setGivenName(json.optString("givenName", null));
-        name.setMiddleName(json.optString("middleName", null));
-        name.setHonorificPrefix(json.optString("honorificPrefix", null));
-        name.setHonorificSuffix(json.optString("honorificSuffix", null));
+        Name name = null;
+        if (json != null) {
+            name = new Name();
+            name.setFormatted(json.optString("formatted", null));
+            name.setFamilyName(json.optString("familyName", null));
+            name.setGivenName(json.optString("givenName", null));
+            name.setMiddleName(json.optString("middleName", null));
+            name.setHonorificPrefix(json.optString("honorificPrefix", null));
+            name.setHonorificSuffix(json.optString("honorificSuffix", null));
+        }
         return name;
     }
     
