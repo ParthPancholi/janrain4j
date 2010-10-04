@@ -26,11 +26,14 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Photo extends AbstractPluralField {
 
-    private Photo() {
+    protected Photo() {
     }
     
     public static Photo fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        Photo photo = new Photo();
+        photo.setValue(json.optString("value"));
+        photo.setType(json.optString("type"));
+        photo.setPrimary(json.optBoolean("primary", false));
+        return photo;
     }
 }

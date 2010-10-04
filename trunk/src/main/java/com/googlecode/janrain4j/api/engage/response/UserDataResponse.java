@@ -36,13 +36,9 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class UserDataResponse extends AbstractEngageResponse {
 
     private Profile profile = null;
-    private JSONObject profileJSONObject = null;
     private AccessCredentials accessCredentials = null;
-    private JSONObject accessCredentialsJSONObject = null;
     private Contact mergedPoco = null;
-    private JSONObject mergedPocoJSONObject = null;
     private List<String> friends = null;
-    private JSONArray friendsJSONArray = null;
     private boolean limitedData = false;
     
     public UserDataResponse(String json) {
@@ -52,26 +48,22 @@ public class UserDataResponse extends AbstractEngageResponse {
             
             // Profile
             JSONObject rspProfile = rsp.getJSONObject("profile");
-            profileJSONObject = rspProfile;
             profile = Profile.fromJSON(rspProfile);
             
             // Access Credentials
             JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
             if (rspAccessCredentials != null) {
-                accessCredentialsJSONObject = rspAccessCredentials;
                 accessCredentials = AccessCredentials.fromJSON(rspAccessCredentials);
             }
             
             // Merged Poco
             JSONObject rspMergedPoco = rsp.optJSONObject("merged_poco");
             if (rspMergedPoco != null) {
-                mergedPocoJSONObject = rspMergedPoco;
                 mergedPoco = Contact.fromJSON(rspMergedPoco);
             }
             
             // Friends
             JSONArray rspFriends = rsp.optJSONArray("friends");
-            friendsJSONArray = rspFriends;
             if (rspFriends != null) {
                 friends = new ArrayList<String>();
                 for (int i = 0; i < rspFriends.length(); i++) {
@@ -85,7 +77,7 @@ public class UserDataResponse extends AbstractEngageResponse {
             }
             
             // Limited Data
-            limitedData = rsp.optBoolean("limitedData", false);
+            limitedData = rsp.optBoolean("limitedData");
         }
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", json, e);
@@ -100,25 +92,11 @@ public class UserDataResponse extends AbstractEngageResponse {
     }
     
     /**
-     * Returns the user's profile as a <code>JSONObject</code>.
-     */
-    public JSONObject getProfileAsJSONObject() {
-        return profileJSONObject;
-    }
-    
-    /**
      * Returns the user's authorization credentials if the user logged in with 
      * a provider that allows account access after authentication.
      */
     public AccessCredentials getAccessCredentials() {
         return accessCredentials;
-    }
-    
-    /**
-     * Returns the user's authorization credentials as a <code>JSONObject</code>.
-     */
-    public JSONObject getAccessCredentialsAsJSONObject() {
-        return accessCredentialsJSONObject;
     }
     
     /**
@@ -131,26 +109,11 @@ public class UserDataResponse extends AbstractEngageResponse {
     }
     
     /**
-     * Returns the merged <a href="http://portablecontacts.net/">Portable Contacts</a> 
-     * data as a <code>JSONObject</code>.
-     */
-    public JSONObject getMergedPocoAsJSONObject() {
-        return mergedPocoJSONObject;
-    }
-    
-    /**
      * Returns the user's friends' identifiers if the extended request argument 
      * was 'true' and friends data were available.
      */
     public List<String> getFriends() {
         return friends;
-    }
-    
-    /**
-     * Returns the user's friends' identifiers as a <code>JSONArray</code>.
-     */
-    public JSONArray getFriendsAsJSONArray() {
-        return friendsJSONArray;
     }
     
     /**

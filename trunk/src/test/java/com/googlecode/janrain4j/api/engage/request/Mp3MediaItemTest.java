@@ -75,7 +75,7 @@ public class Mp3MediaItemTest {
     }
     
     @Test
-    public void testMp3MediaItemWithWithFullSetOfData() throws Exception {
+    public void testMp3MediaItemWithAllFieldsPossible() throws Exception {
         mediaItem = new Mp3MediaItem(src);
         mediaItem.setTitle(title);
         mediaItem.setArtist(artist);

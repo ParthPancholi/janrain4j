@@ -38,17 +38,15 @@ import com.googlecode.janrain4j.json.JSONObject;
 public class AllMappingsResponse extends AbstractEngageResponse {
 
     private Map<String, List<String>> allMappings = null;
-    private JSONObject allMappingsJSONObject = null;
     
     public AllMappingsResponse(String json) {
         super(json);
         JSONObject rsp = getResponseAsJSONObject();
         JSONObject rspMappings = rsp.optJSONObject("mappings");
         if (rspMappings != null) {
-            allMappingsJSONObject = rspMappings;
             allMappings = new HashMap<String, List<String>>();
-            for (Iterator<String> iterator = rspMappings.keys(); iterator.hasNext();) {
-                String primaryKey = iterator.next();
+            for (Iterator<?> iterator = rspMappings.keys(); iterator.hasNext();) {
+                String primaryKey = (String) iterator.next();
                 try {
                     JSONArray rspIdentifiers = rspMappings.getJSONArray(primaryKey);
                     List<String> identifiers = new ArrayList<String>();
@@ -69,12 +67,5 @@ public class AllMappingsResponse extends AbstractEngageResponse {
      */
     public Map<String, List<String>> getAllMappings() {
         return allMappings;
-    }
-    
-    /**
-     * Returns all stored mappings for the application as a <code>JSONObject</code>.
-     */
-    public JSONObject getAllMappingsAsJSONObject() {
-        return allMappingsJSONObject;
     }
 }

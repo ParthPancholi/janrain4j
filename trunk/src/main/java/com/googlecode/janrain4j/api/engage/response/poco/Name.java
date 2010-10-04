@@ -28,13 +28,99 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Name implements Serializable {
 
-    // TODO
+    private String formatted = null;
+    private String familyName = null;
+    private String givenName = null;
+    private String middleName = null;
+    private String honorificPrefix = null;
+    private String honorificSuffix = null;
     
-    private Name() {
+    protected Name() {
     }
     
     public static Name fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        Name name = null;
+        if (json != null) {
+            name = new Name();
+            name.setFormatted(json.optString("formatted", null));
+            name.setFamilyName(json.optString("familyName", null));
+            name.setGivenName(json.optString("givenName", null));
+            name.setMiddleName(json.optString("middleName", null));
+            name.setHonorificPrefix(json.optString("honorificPrefix", null));
+            name.setHonorificSuffix(json.optString("honorificSuffix", null));
+        }
+        return name;
+    }
+    
+    /**
+     * Returns the full name, including all middle names, titles, and suffixes 
+     * as appropriate, formatted for display (e.g. Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getFormatted() {
+        return formatted;
+    }
+    
+    void setFormatted(String formatted) {
+        this.formatted = formatted;
+    }
+    
+    /**
+     * Returns the family name of this Contact, or "Last Name" in most Western 
+     * languages (e.g. Smarr given the full name Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getFamilyName() {
+        return familyName;
+    }
+    
+    void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+    
+    /**
+     * Returns the given name of this Contact, or "First Name" in most Western 
+     * languages (e.g. Joseph given the full name Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getGivenName() {
+        return givenName;
+    }
+    
+    void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+    
+    /**
+     * Returns the middle name(s) of this Contact (e.g. Robert given the full 
+     * name Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getMiddleName() {
+        return middleName;
+    }
+    
+    void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+    
+    /**
+     * Returns the honorific prefix(es) of this Contact, or "Title" in most 
+     * Western languages (e.g. Mr. given the full name Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getHonorificPrefix() {
+        return honorificPrefix;
+    }
+    
+    void setHonorificPrefix(String honorificPrefix) {
+        this.honorificPrefix = honorificPrefix;
+    }
+    
+    /**
+     * Returns the honorific suffix(es) of this Contact, or "Suffix" in most 
+     * Western languages (e.g. Esq. given the full name Mr. Joseph Robert Smarr, Esq.).
+     */
+    public String getHonorificSuffix() {
+        return honorificSuffix;
+    }
+    
+    void setHonorificSuffix(String honorificSuffix) {
+        this.honorificSuffix = honorificSuffix;
     }
 }

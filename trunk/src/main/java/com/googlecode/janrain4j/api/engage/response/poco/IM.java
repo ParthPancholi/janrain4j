@@ -24,10 +24,10 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @see Contact
  */
 @SuppressWarnings("serial")
-public class InstantMessagingAddress extends AbstractPluralField {
+public class IM extends AbstractPluralField {
 
     public static final String TYPE_AIM = "aim";
-    public static final String TYPE_GTALK = "gtalk";
+    public static final String TYPE_GOOGLE_TALK = "gtalk";
     public static final String TYPE_ICQ = "icq";
     public static final String TYPE_XMPP = "xmpp";
     public static final String TYPE_MSN = "msn";
@@ -35,65 +35,68 @@ public class InstantMessagingAddress extends AbstractPluralField {
     public static final String TYPE_QQ = "qq";
     public static final String TYPE_YAHOO = "yahoo";
     
-    private InstantMessagingAddress() {
+    protected IM() {
     }
     
-    public static InstantMessagingAddress fromJSON(JSONObject json) {
-        // TODO
-        return null;
+    public static IM fromJSON(JSONObject json) {
+        IM im = new IM();
+        im.setValue(json.optString("value"));
+        im.setType(json.optString("type"));
+        im.setPrimary(json.optBoolean("primary", false));
+        return im;
     }
     
     /**
-     * Returns true if the type of this instance is aim. 
+     * Returns true if the type of this instance is AIM. 
      */
-    public boolean isAim() {
+    public boolean isAIM() {
         return TYPE_AIM.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is gtalk. 
+     * Returns true if the type of this instance is Google Talk. 
      */
-    public boolean isGtalk() {
-        return TYPE_GTALK.equalsIgnoreCase(type);
+    public boolean isGoogleTalk() {
+        return TYPE_GOOGLE_TALK.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is icq. 
+     * Returns true if the type of this instance is ICQ. 
      */
-    public boolean isIcq() {
+    public boolean isICQ() {
         return TYPE_ICQ.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is xmpp. 
+     * Returns true if the type of this instance is XMPP. 
      */
-    public boolean isXmpp() {
+    public boolean isXMPP() {
         return TYPE_XMPP.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is msn. 
+     * Returns true if the type of this instance is MSN. 
      */
-    public boolean isMsn() {
+    public boolean isMSN() {
         return TYPE_MSN.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is skype. 
+     * Returns true if the type of this instance is Skype. 
      */
     public boolean isSkype() {
         return TYPE_SKYPE.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is qq. 
+     * Returns true if the type of this instance is QQ. 
      */
-    public boolean isQq() {
+    public boolean isQQ() {
         return TYPE_QQ.equalsIgnoreCase(type);
     }
     
     /**
-     * Returns true if the type of this instance is yahoo. 
+     * Returns true if the type of this instance is Yahoo. 
      */
     public boolean isYahoo() {
         return TYPE_YAHOO.equalsIgnoreCase(type);

@@ -178,7 +178,7 @@ public class ActivityTest {
     }
     
     @Test
-    public void testActivityWithFullSetOfData() throws Exception {
+    public void testActivityWithAllFieldsPossible() throws Exception {
         activity.setUserGeneratedContent(userGeneratedContent);
         activity.setTitle(title);
         activity.setDescription(description);

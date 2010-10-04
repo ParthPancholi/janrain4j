@@ -30,12 +30,15 @@ public class PhoneNumber extends AbstractPluralField {
     public static final String TYPE_FAX = "fax";
     public static final String TYPE_PAGER = "pager";
     
-    private PhoneNumber() {
+    protected PhoneNumber() {
     }
     
     public static PhoneNumber fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        PhoneNumber phoneNumber = new PhoneNumber();
+        phoneNumber.setValue(json.optString("value"));
+        phoneNumber.setType(json.optString("type"));
+        phoneNumber.setPrimary(json.optBoolean("primary", false));
+        return phoneNumber;
     }
     
     /**
@@ -55,7 +58,7 @@ public class PhoneNumber extends AbstractPluralField {
     /**
      * Returns true if the type of this instance is pager. 
      */
-    public boolean isPAger() {
+    public boolean isPager() {
         return TYPE_PAGER.equalsIgnoreCase(type);
     }
 }

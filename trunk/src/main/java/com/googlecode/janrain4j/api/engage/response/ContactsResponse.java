@@ -32,6 +32,8 @@ public class ContactsResponse extends AbstractEngageResponse {
 
     private List<Contact> contacts = null;
     
+    // TODO response seems to include paging information... ticket created
+    
     public ContactsResponse(String json) {
         super(json);
         // TODO

@@ -37,12 +37,20 @@ public class Address implements Serializable {
     private String type = null;
     private boolean primary = false;
     
-    private Address() {
+    protected Address() {
     }
     
     public static Address fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        Address address = new Address();
+        address.setFormatted(json.optString("formatted"));
+        address.setStreetAddress(json.optString("streetAddress"));
+        address.setLocality(json.optString("locality"));
+        address.setRegion(json.optString("region"));
+        address.setPostalCode(json.optString("postalCode"));
+        address.setCountry(json.optString("country"));
+        address.setType(json.optString("type"));
+        address.setPrimary(json.optBoolean("primary", false));
+        return address;
     }
     
     /**

@@ -35,6 +35,24 @@ abstract class AbstractPluralField implements Serializable {
     }
     
     /**
+     * Returns the value of this instance.
+     */
+    public String getValue() {
+        return value;
+    }
+    
+    void setValue(String value) {
+        this.value = value;
+    }
+    
+    /**
+     * Returns the type of this instance.
+     */
+    public String getType() {
+        return type;
+    }
+    
+    /**
      * Returns true if the type of this instance is work. 
      */
     public boolean isWork() {
@@ -53,24 +71,6 @@ abstract class AbstractPluralField implements Serializable {
      */
     public boolean isOther() {
         return TYPE_OTHER.equalsIgnoreCase(type);
-    }
-    
-    /**
-     * Returns the value of this instance.
-     */
-    public String getValue() {
-        return value;
-    }
-    
-    void setValue(String value) {
-        this.value = value;
-    }
-    
-    /**
-     * Returns the type of this instance.
-     */
-    public String getType() {
-        return type;
     }
     
     void setType(String type) {

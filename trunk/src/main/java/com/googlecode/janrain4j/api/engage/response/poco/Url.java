@@ -29,12 +29,15 @@ public class Url extends AbstractPluralField {
     public static final String TYPE_BLOG = "blog";
     public static final String TYPE_PROFILE = "profile";
     
-    private Url() {
+    protected Url() {
     }
     
     public static Url fromJSON(JSONObject json) {
-        // TODO
-        return null;
+        Url url = new Url();
+        url.setValue(json.optString("value"));
+        url.setType(json.optString("type"));
+        url.setPrimary(json.optBoolean("primary", false));
+        return url;
     }
     
     /**
