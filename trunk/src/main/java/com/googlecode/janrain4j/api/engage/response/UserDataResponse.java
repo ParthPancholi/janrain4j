@@ -41,7 +41,7 @@ public class UserDataResponse extends AbstractEngageResponse {
     private List<String> friends = null;
     private boolean limitedData = false;
     
-    public UserDataResponse(String json) {
+    public UserDataResponse(String json) throws EngageFailureException {
         super(json);
         try {
             JSONObject rsp = getResponseAsJSONObject();
@@ -86,6 +86,8 @@ public class UserDataResponse extends AbstractEngageResponse {
     
     /**
      * Returns a dictionary of fields forming the user's profile.
+     * 
+     * @return The user's profile.
      */
     public Profile getProfile() {
         return profile;
@@ -94,6 +96,8 @@ public class UserDataResponse extends AbstractEngageResponse {
     /**
      * Returns the user's authorization credentials if the user logged in with 
      * a provider that allows account access after authentication.
+     * 
+     * @return The access credentials or <code>null</code> if not found in response.
      */
     public AccessCredentials getAccessCredentials() {
         return accessCredentials;
@@ -103,6 +107,8 @@ public class UserDataResponse extends AbstractEngageResponse {
      * Returns the merged <a href="http://portablecontacts.net/">Portable Contacts</a> 
      * data if the extended request argument was 'true' and extended profile 
      * data were available.
+     * 
+     * @return The merged Portable Contacts data or <code>null</code> if not found in response.
      */
     public Contact getMergedPoco() {
         return mergedPoco;
@@ -111,6 +117,8 @@ public class UserDataResponse extends AbstractEngageResponse {
     /**
      * Returns the user's friends' identifiers if the extended request argument 
      * was 'true' and friends data were available.
+     * 
+     * @return The user's friends' identifiers or <code>null</code> if not found in response.
      */
     public List<String> getFriends() {
         return friends;

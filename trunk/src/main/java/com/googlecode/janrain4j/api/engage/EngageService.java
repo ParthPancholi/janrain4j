@@ -27,6 +27,10 @@ import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 /**
  * The <code>EngageService</code> provides access to the Janrain Engage API.
+ * <p>
+ * Note that methods might throw a {@link ErrorResponeException} in case your 
+ * plan (Basic, Plus or Pro) is not sufficient for making the particular 
+ * Janrain Engage API call. 
  * 
  * @author Marcel Overdijk
  * @see <a href="http://rpxnow.com/docs">Janrain Engage Documentation</a>

@@ -14,7 +14,6 @@
  */
 package com.googlecode.janrain4j.api.engage.request;
 
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,7 +31,7 @@ import com.googlecode.janrain4j.json.JSONStringer;
  */
 public class Activity {
 
-    private URL url = null;
+    private String url = null;
     private String action = null;
     private String userGeneratedContent = null;
     private String title = null;
@@ -47,7 +46,7 @@ public class Activity {
      * @param url The url.
      * @param action The action.
      */
-    public Activity(URL url, String action) {
+    public Activity(String url, String action) {
         this.url = url;
         this.action = action;
     }
@@ -101,7 +100,7 @@ public class Activity {
     /**
      * Returns the URL of the resource being mentioned in the activity update.
      */
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
     
@@ -110,7 +109,7 @@ public class Activity {
      * 
      * @param url The url.
      */
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
     

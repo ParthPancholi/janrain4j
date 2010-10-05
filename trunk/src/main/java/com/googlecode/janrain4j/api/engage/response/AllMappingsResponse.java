@@ -39,7 +39,7 @@ public class AllMappingsResponse extends AbstractEngageResponse {
 
     private Map<String, List<String>> allMappings = null;
     
-    public AllMappingsResponse(String json) {
+    public AllMappingsResponse(String json) throws EngageFailureException {
         super(json);
         JSONObject rsp = getResponseAsJSONObject();
         JSONObject rspMappings = rsp.optJSONObject("mappings");
@@ -64,6 +64,8 @@ public class AllMappingsResponse extends AbstractEngageResponse {
     
     /**
      * Returns all stored mappings for the application.
+     * 
+     * @return The stored mappings or <code>null</code> if not found in response.
      */
     public Map<String, List<String>> getAllMappings() {
         return allMappings;

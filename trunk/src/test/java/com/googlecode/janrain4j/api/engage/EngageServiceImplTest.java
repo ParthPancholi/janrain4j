@@ -20,6 +20,8 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.api.engage;
 
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ACTIVITY_METHOD;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ACTIVITY_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_IDENTIFIERS_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ALL_MAPPINGS_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.ANALYTICS_METHOD;
@@ -29,6 +31,7 @@ import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.AUTH_INFO_ME
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.END_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.EXTENDED_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.FORMAT_PARAM;
+import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.GET_CONTACTS_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.GET_USER_DATA_METHOD;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.IDENTIFIER_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.JSON;
@@ -68,8 +71,10 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
+import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
@@ -99,6 +104,8 @@ protected EngageServiceImpl service = null;
     private String primaryKey = "my-primary-key";
     private String status = "my-status";
     private String location = "my-location";
+    private String activityString = "{ \"url\": \"http:\\/\\/my-url.com\\/\", \"action\": \"my-action\" }";
+    private Activity activityObject = null;
     private List<String> providers = new ArrayList<String>();
     
     private String method = "some_method";
@@ -127,6 +134,8 @@ protected EngageServiceImpl service = null;
         
         // expected params in api call
         params = new HashMap<String, String>();
+        
+        activityObject = new Activity("http://my-url.com", "my-action");
     }
     
     @Test
@@ -201,7 +210,28 @@ protected EngageServiceImpl service = null;
         verifyNew(UserDataResponse.class).withArguments(successResponse);
     }
     
-    // TODO test getContacts
+    @Test
+    public void testGetContacts() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        // api url
+        url = API_URL + GET_CONTACTS_METHOD;
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
+        
+        ContactsResponse expected = mock(ContactsResponse.class);
+        whenNew(ContactsResponse.class).withArguments(successResponse).thenReturn(expected);
+        
+        // call service
+        assertSame(expected, service.getContacts(identifier));
+        
+        verify(httpClient).post(url, params);
+        verifyNew(ContactsResponse.class).withArguments(successResponse);
+    }
     
     @Test
     public void testGetUserData() throws Exception {
@@ -550,7 +580,87 @@ protected EngageServiceImpl service = null;
         verifyNew(AllMappingsResponse.class).withArguments(successResponse);
     }
     
-    // TODO test activity
+    @Test
+    public void testActivityWithObject() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(ACTIVITY_PARAM, activityObject.toJSON());
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        // api url
+        url = API_URL + ACTIVITY_METHOD;
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
+        
+        // call service
+        service.activity(identifier, activityObject);
+        
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testActivityWithObjectAndLocation() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(ACTIVITY_PARAM, activityObject.toJSON());
+        params.put(LOCATION_PARAM, location);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        // api url
+        url = API_URL + ACTIVITY_METHOD;
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
+        
+        // call service
+        service.activity(identifier, activityObject, location);
+        
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testActivityWithString() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(ACTIVITY_PARAM, activityString);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        // api url
+        url = API_URL + ACTIVITY_METHOD;
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
+        
+        // call service
+        service.activity(identifier, activityString);
+        
+        verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testActivityWithStringAndLocation() throws Exception {
+        // expected params in api call
+        params.put(IDENTIFIER_PARAM, identifier);
+        params.put(ACTIVITY_PARAM, activityString);
+        params.put(LOCATION_PARAM, location);
+        params.put(FORMAT_PARAM, JSON);
+        params.put(API_KEY_PARAM, apiKey);
+        
+        // api url
+        url = API_URL + ACTIVITY_METHOD;
+        
+        when(httpClient.post(url, params)).thenReturn(httpResponse);
+        when(httpResponse.getContent()).thenReturn(successResponse);
+        
+        // call service
+        service.activity(identifier, activityString, location);
+        
+        verify(httpClient).post(url, params);
+    }
     
     @Test
     public void testAnalytics() throws Exception {

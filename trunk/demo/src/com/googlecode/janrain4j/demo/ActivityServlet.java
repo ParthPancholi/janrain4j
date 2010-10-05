@@ -1,7 +1,6 @@
 package com.googlecode.janrain4j.demo;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
+import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.request.ActionLink;
 import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.request.ImageMediaItem;
@@ -44,7 +45,7 @@ public class ActivityServlet extends HttpServlet {
         EngageService engageService = EngageServiceFactory.getEngageService();
             
         // activity
-        Activity activity = new Activity(new URL("http://janrain4j.appspot.com/"), "signed in to the Jarain4j Demo Application!");
+        Activity activity = new Activity("http://janrain4j.appspot.com/", "signed in to the Jarain4j Demo Application!");
         if (StringUtils.isNotBlank(userGeneratedContent)) {
             activity.setUserGeneratedContent(userGeneratedContent);
         }
@@ -62,10 +63,22 @@ public class ActivityServlet extends HttpServlet {
         media.add(new ImageMediaItem("http://janrain4j.appspot.com/images/janrain-engage-signin.png", "http://janrain4j.appspot.com/"));
         activity.setMedia(media);
         
-        log.info("Calling activity for identifier [" + identifier + "]...");
-        engageService.activity(identifier, activity);
-        
-        flashScope.setAttribute("message", "Your activity is updated.");
+        try {
+            // update activity
+            log.info("Calling activity for identifier [" + identifier + "]...");
+            engageService.activity(identifier, activity);
+            flashScope.setAttribute("message", "Your activity is updated.");
+        }
+        catch (EngageFailureException e) {
+            log.error("Unable to update activity", e);
+            flashScope.setAttribute("message", "An error occured while updating your activity. Please try again.");
+            flashScope.setAttribute("level", "error");
+        }
+        catch (ErrorResponeException e) {
+            log.error("Unable to update activity", e);
+            flashScope.setAttribute("message", "An error occured while updating your activity. Please try again.");
+            flashScope.setAttribute("level", "error");
+        }
         
         resp.sendRedirect("social_publishing.jsp");
     }

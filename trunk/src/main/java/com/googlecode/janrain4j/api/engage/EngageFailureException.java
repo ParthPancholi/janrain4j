@@ -22,7 +22,7 @@ package com.googlecode.janrain4j.api.engage;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class EngageFailureException extends RuntimeException {
+public class EngageFailureException extends Exception {
 
     private String jsonResponse = null;
     

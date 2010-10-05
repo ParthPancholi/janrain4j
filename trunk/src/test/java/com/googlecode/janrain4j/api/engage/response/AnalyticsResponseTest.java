@@ -22,8 +22,6 @@ package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.URL;
-
 import org.junit.Test;
 
 import com.googlecode.janrain4j.json.JSONObject;
@@ -47,6 +45,6 @@ public class AnalyticsResponseTest {
         assertEquals(json, response.getResponseAsJSON());
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
         
-        assertEquals(new URL("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true"), response.getUrl());
+        assertEquals("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true", response.getUrl());
     }
 }

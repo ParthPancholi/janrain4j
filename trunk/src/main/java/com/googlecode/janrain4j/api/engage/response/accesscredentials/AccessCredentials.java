@@ -86,6 +86,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the authentication type.
+     * 
+     * @return The authentication type or <code>null</code> if not found in response.
      */
     public String getType() {
         return type;
@@ -97,6 +99,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the OAuth token (only available with OAuth authentication).
+     * 
+     * @return The OAuth token or <code>null</code> if not found in response.
      */
     public String getOauthToken() {
         return oauthToken;
@@ -108,6 +112,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the OAuth token secret (only available with OAuth authentication).
+     * 
+     * @return The OAuth token secret or <code>null</code> if not found in response.
      */
     public String getOauthTokenSecret() {
         return oauthTokenSecret;
@@ -119,6 +125,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the UID (only available with Facebook authentication).
+     * 
+     * @return The UID or <code>null</code> if not found in response.
      */
     public String getUid() {
         return uid;
@@ -130,6 +138,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the access token (only available with Facebook authentication).
+     * 
+     * @return The access token or <code>null</code> if not found in response.
      */
     public String getAccessToken() {
         return accessToken;
@@ -141,6 +151,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the expires Unix timestamp (only available with Facebook authentication).
+     * 
+     * @return The expires Unix timestamp or <code>null</code> if not found in response.
      */
     public Long getExpires() {
         return expires;
@@ -152,6 +164,8 @@ public class AccessCredentials implements Serializable {
     
     /**
      * Returns the eact token (only available with Windows Live authentication).
+     * 
+     * @return The eact token or <code>null</code> if not found in response.
      */
     public String getEact() {
         return eact;

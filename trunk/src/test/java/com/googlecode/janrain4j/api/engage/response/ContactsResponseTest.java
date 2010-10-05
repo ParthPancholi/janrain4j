@@ -21,10 +21,13 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
 
 import org.junit.Test;
 
+import com.googlecode.janrain4j.api.engage.response.poco.Contact;
 import com.googlecode.janrain4j.json.JSONObject;
 
 public class ContactsResponseTest {
@@ -32,12 +35,48 @@ public class ContactsResponseTest {
     private String json = null;
     private ContactsResponse response = null;
     
+    // TODO response seems to include paging information... ticket created
+    
     @Test
     public void testContactsResponse() throws Exception {
         
-        json =
+        json = 
             "{\n" +
-            // TODO
+            "  \"response\": {\n" +
+            "    \"startIndex\": 1,\n" +
+            "    \"itemsPerPage\": 5,\n" +
+            "    \"entry\": [\n" +
+            "      {\n" +
+            "        \"displayName\": \"Bob Johnson\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"bob@example.com\",\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"displayName\": \"Cindy Smith\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"cindy.smith@example.com\"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"displayName\": \"Fred Williams\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"fred.williams@example.com\"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"totalResults\": 5\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
             "}";
         
         response = new ContactsResponse(json);
@@ -45,6 +84,11 @@ public class ContactsResponseTest {
         assertEquals(json, response.getResponseAsJSON());
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
         
-        fail("TODO");
+        List<Contact> contacts = response.getContacts();
+        assertNotNull(contacts);
+        assertEquals(3, contacts.size());
+        assertEquals("Bob Johnson", contacts.get(0).getDisplayName());
+        assertEquals("Cindy Smith", contacts.get(1).getDisplayName());
+        assertEquals("Fred Williams", contacts.get(2).getDisplayName());
     }
 }

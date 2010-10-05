@@ -208,6 +208,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the unique identifier for the contact.
+     * 
+     * @return The unique identifier or <code>null</code> if not found in response.
      */
     public String getId() {
         return id;
@@ -219,6 +221,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the name of the contact, suitable for display to end-users.
+     * 
+     * @return The display name or <code>null</code> if not found in response.
      */
     public String getDisplayName() {
         return displayName;
@@ -231,6 +235,8 @@ public class Contact implements Serializable {
     /**
      * Returns the broken-out components and fully formatted version of the 
      * contact's real name.
+     * 
+     * @return The name or <code>null</code> if not found in response.
      */
     public Name getName() {
         return name;
@@ -243,6 +249,8 @@ public class Contact implements Serializable {
     /**
      * Returns the casual way to address the Contact in real life, e.g. "Bob" 
      * or "Bobby" instead of "Robert".
+     * 
+     * @return The nickname or <code>null</code> if not found in response.
      */
     public String getNickname() {
         return nickname;
@@ -255,6 +263,8 @@ public class Contact implements Serializable {
     /**
      * Returns the date the contact was first added to the user's address book 
      * or friends list (i.e. the creation date of this entry).
+     * 
+     * @return The published date or <code>null</code> if not found in response.
      */
     public Date getPublished() {
         return published;
@@ -267,6 +277,8 @@ public class Contact implements Serializable {
     /**
      * Returns the most recent date the details of the contact were updated 
      * (i.e. the modified date of this entry).
+     * 
+     * @return The updated date or <code>null</code> if not found in response.
      */
     public Date getUpdated() {
         return updated;
@@ -278,6 +290,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the birthday of the contact.
+     * 
+     * @return The birthday or <code>null</code> if not found in response.
      */
     public Date getBirthday() {
         return birthday;
@@ -289,6 +303,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the wedding anniversary of the contact.
+     * 
+     * @return The wedding anniversary or <code>null</code> if not found in response.
      */
     public Date getAnniversary() {
         return anniversary;
@@ -300,6 +316,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the gender of the contact.
+     * 
+     * @return The gender or <code>null</code> if not found in response.
      */
     public String getGender() {
         return gender;
@@ -325,6 +343,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns notes about this contact, with an unspecified meaning or usage.
+     * 
+     * @return The notes or <code>null</code> if not found in response.
      */
     public String getNote() {
         return note;
@@ -337,6 +357,8 @@ public class Contact implements Serializable {
     /**
      * Returns the preferred username of the contact on sites that ask for a 
      * username (e.g. jsmarr or daveman692).
+     * 
+     * @return The preferred username or <code>null</code> if not found in response.
      */
     public String getPreferredUsername() {
         return preferredUsername;
@@ -349,6 +371,8 @@ public class Contact implements Serializable {
     /**
      * Returns the offset from UTC of the contact's current time zone, as of the 
      * time this response was returned.
+     * 
+     * @return The UTC offset or <code>null</code> if not found in response.
      */
     public String getUtcOffset() {
         return utcOffset;
@@ -373,6 +397,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the email addresses for the contact.
+     * 
+     * @return The email addresses or <code>null</code> if not found in response.
      */
     public List<Email> getEmails() {
         return emails;
@@ -384,6 +410,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the URL's of web pages relating to the contact.
+     * 
+     * @return The URL's or <code>null</code> if not found in response.
      */
     public List<Url> getUrls() {
         return urls;
@@ -395,6 +423,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the phone numbers for the contact.
+     * 
+     * @return The phone numbers or <code>null</code> if not found in response.
      */
     public List<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
@@ -406,6 +436,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the instant messaging addresses for the contact.
+     * 
+     * @return The instant messaging addresses or <code>null</code> if not found in response.
      */
     public List<IM> getIms() {
         return ims;
@@ -417,6 +449,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the URL's of photos of the contact.
+     * 
+     * @return The photos or <code>null</code> if not found in response.
      */
     public List<Photo> getPhotos() {
         return photos;
@@ -428,6 +462,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the user-defined categories or labels for the contact, e.g. "favorite" or "web20".
+     * 
+     * @return The tags or <code>null</code> if not found in response.
      */
     public List<String> getTags() {
         return tags;
@@ -440,6 +476,8 @@ public class Contact implements Serializable {
     /**
      * Returns the bi-directionally asserted relationships that were established 
      * between the user and the contact by the Service Provider.
+     * 
+     * @return The relationships or <code>null</code> if not found in response.
      */
     public List<Relationship> getRelationships() {
         return relationships;
@@ -451,6 +489,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the physical mailing addresses for the contact.
+     * 
+     * @return The physical mailing addresses or <code>null</code> if not found in response.
      */
     public List<Address> getAddresses() {
         return addresses;
@@ -462,6 +502,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the current or past organizational affiliations of the contact.
+     * 
+     * @return The organizations or <code>null</code> if not found in response.
      */
     public List<Organization> getOrganizations() {
         return organizations;
@@ -473,6 +515,8 @@ public class Contact implements Serializable {
     
     /**
      * Returns the online accounts held by the contact.
+     * 
+     * @return The accounts or <code>null</code> if not found in response.
      */
     public List<Account> getAccounts() {
         return accounts;

@@ -10,8 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
+import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 public class SetStatusServlet extends HttpServlet {
@@ -38,11 +40,22 @@ public class SetStatusServlet extends HttpServlet {
             // create services
             EngageService engageService = EngageServiceFactory.getEngageService();
             
-            // set status
-            log.info("Calling set_status for identifier [" + identifier + "]...");
-            engageService.setStatus(identifier, message);
-            
-            flashScope.setAttribute("message", "Your status is updated.");
+            try {
+                // set status
+                log.info("Calling set_status for identifier [" + identifier + "]...");
+                engageService.setStatus(identifier, message);
+                flashScope.setAttribute("message", "Your status is updated.");
+            }
+            catch (EngageFailureException e) {
+                log.error("Unable to set status", e);
+                flashScope.setAttribute("message", "An error occured while setting your status. Please try again.");
+                flashScope.setAttribute("level", "error");
+            }
+            catch (ErrorResponeException e) {
+                log.error("Unable to set status", e);
+                flashScope.setAttribute("message", "An error occured while setting your status. Please try again.");
+                flashScope.setAttribute("level", "error");
+            }
         }
         else {
             log.info("Skipping set_status as parameter message is empty");

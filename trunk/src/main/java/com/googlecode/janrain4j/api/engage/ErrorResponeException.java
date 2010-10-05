@@ -22,7 +22,7 @@ package com.googlecode.janrain4j.api.engage;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class ErrorResponeException extends RuntimeException {
+public class ErrorResponeException extends Exception {
 
     public static final int SERVICE_TEMPORARY_UNAVAILABLE_ERROR = -1;
     public static final int MISSING_PARAMETER_ERROR = 0;
