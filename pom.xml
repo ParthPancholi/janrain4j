@@ -1,84 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
+    <!-- The Basics -->
     <groupId>com.googlecode.janrain4j</groupId>
     <artifactId>janrain4j</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Janrain4j</name>
-    <description>A Java library for the Janrain API</description>
-    <url>http://janrain4j.googlecode.com</url>
-    <issueManagement>
-        <system>Google Code</system>
-        <url>http://code.google.com/p/janrain4j/issues/list</url>
-    </issueManagement>
-    <mailingLists>
-        <mailingList>
-            <name>Janrain4j</name>
-            <subscribe>janrain4j-subscribe@googlegroups.com</subscribe>
-            <unsubscribe>janrain4j+unsubscribe@googlegroups.com</unsubscribe>
-            <post>janrain4j@googlegroups.com</post>
-            <archive>http://groups.google.com/group/janrain4j</archive>
-        </mailingList>
-    </mailingLists>
-    <scm>
-        <connection>scm:svn:http://janrain4j.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:https://janrain4j.googlecode.com/svn/trunk/</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://janrain4j.googlecode.com/svn/trunk/</url>
-    </scm>
-    <repositories>
-        <repository>
-            <id>powermock-repo</id>
-            <url>http://powermock.googlecode.com/svn/repo/</url>
-        </repository>
-    </repositories>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <charset>UTF-8</charset>
-                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <excludePackageNames>com.googlecode.janrain4j.http,com.googlecode.janrain4j.tags,com.googlecode.janrain4j.util</excludePackageNames>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>sources-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-            	<groupId>org.apache.maven.plugins</groupId>
-            	<artifactId>maven-source-plugin</artifactId>
-            	<version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>javadoc-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -116,12 +43,109 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <reporting>
-    	<plugins>
-    	</plugins>
-    </reporting>
     <properties>
-    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+    
+    <!-- Build Settings -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                    <excludePackageNames>com.googlecode.janrain4j.http,com.googlecode.janrain4j.tags,com.googlecode.janrain4j.util</excludePackageNames>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sources-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <!-- More Project Information -->
+    <name>Janrain4j</name>
+    <description>A Java library for the Janrain API</description>
+    <url>http://janrain4j.googlecode.com</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>marceloverdijk</id>
+            <name>Marcel Overdijk</name>
+            <email>marceloverdijk@gmail.com</email>
+            <roles>
+                <role>lead</role>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/janrain4j/issues/list</url>
+    </issueManagement>
+    <mailingLists>
+        <mailingList>
+            <name>Janrain4j</name>
+            <subscribe>janrain4j-subscribe@googlegroups.com</subscribe>
+            <unsubscribe>janrain4j+unsubscribe@googlegroups.com</unsubscribe>
+            <post>janrain4j@googlegroups.com</post>
+            <archive>http://groups.google.com/group/janrain4j</archive>
+        </mailingList>
+    </mailingLists>
+    <scm>
+        <connection>scm:svn:http://janrain4j.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://janrain4j.googlecode.com/svn/trunk/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://janrain4j.googlecode.com/svn/trunk/</url>
+    </scm>
+    <repositories>
+        <repository>
+            <id>powermock-repo</id>
+            <url>http://powermock.googlecode.com/svn/repo/</url>
+        </repository>
+    </repositories>
 </project>
