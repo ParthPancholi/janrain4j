@@ -60,6 +60,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the name of the organization (e.g. company, school, or other organization).
+     * 
+     * @return The name or <code>null</code> if not found in response.
      */
     public String getName() {
         return name;
@@ -71,6 +73,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the department within this organization.
+     * 
+     * @return The department or <code>null</code> if not found in response.
      */
     public String getDepartment() {
         return department;
@@ -82,6 +86,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the job title or role within this organization.
+     * 
+     * @return The job title or <code>null</code> if not found in response.
      */
     public String getTitle() {
         return title;
@@ -93,6 +99,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the type of this instance.
+     * 
+     * @return The type or <code>null</code> if not found in response.
      */
     public String getType() {
         return type;
@@ -118,6 +126,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the date the <code>Contact</code> joined this organization.
+     * 
+     * @return The start date or <code>null</code> if not found in response.
      */
     public String getStartDate() {
         return startDate;
@@ -129,6 +139,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the date the <code>Contact</code> left this organization or the role specified by title within this organization.
+     * 
+     * @return The end date or <code>null</code> if not found in response.
      */
     public String getEndDate() {
         return endDate;
@@ -140,6 +152,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the physical location of this organization. This may be a complete address, or an abbreviated location like "San Francisco".
+     * 
+     * @return The physical location or <code>null</code> if not found in response.
      */
     public String getLocation() {
         return location;
@@ -151,6 +165,8 @@ public class Organization implements Serializable {
     
     /**
      * Returns the textual description of the role the <code>Contact</code> played in this organization
+     * 
+     * @return The description or <code>null</code> if not found in response.
      */
     public String getDescription() {
         return description;

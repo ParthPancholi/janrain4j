@@ -55,6 +55,8 @@ public class Name implements Serializable {
     /**
      * Returns the full name, including all middle names, titles, and suffixes 
      * as appropriate, formatted for display (e.g. Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The formatted name or <code>null</code> if not found in response.
      */
     public String getFormatted() {
         return formatted;
@@ -67,6 +69,8 @@ public class Name implements Serializable {
     /**
      * Returns the family name of this Contact, or "Last Name" in most Western 
      * languages (e.g. Smarr given the full name Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The family name or <code>null</code> if not found in response.
      */
     public String getFamilyName() {
         return familyName;
@@ -79,6 +83,8 @@ public class Name implements Serializable {
     /**
      * Returns the given name of this Contact, or "First Name" in most Western 
      * languages (e.g. Joseph given the full name Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The given name or <code>null</code> if not found in response.
      */
     public String getGivenName() {
         return givenName;
@@ -91,6 +97,8 @@ public class Name implements Serializable {
     /**
      * Returns the middle name(s) of this Contact (e.g. Robert given the full 
      * name Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The middle name or <code>null</code> if not found in response.
      */
     public String getMiddleName() {
         return middleName;
@@ -103,6 +111,8 @@ public class Name implements Serializable {
     /**
      * Returns the honorific prefix(es) of this Contact, or "Title" in most 
      * Western languages (e.g. Mr. given the full name Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The honorific prefix or <code>null</code> if not found in response.
      */
     public String getHonorificPrefix() {
         return honorificPrefix;
@@ -115,6 +125,8 @@ public class Name implements Serializable {
     /**
      * Returns the honorific suffix(es) of this Contact, or "Suffix" in most 
      * Western languages (e.g. Esq. given the full name Mr. Joseph Robert Smarr, Esq.).
+     * 
+     * @return The honorific suffix or <code>null</code> if not found in response.
      */
     public String getHonorificSuffix() {
         return honorificSuffix;

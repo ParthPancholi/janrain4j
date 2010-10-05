@@ -47,6 +47,8 @@ public class Account implements Serializable {
     
     /**
      * Returns the top-most authoritative domain for this account, e.g. "twitter.com".
+     * 
+     * @return The domain or <code>null</code> if not found in response.
      */
     public String getDomain() {
         return domain;
@@ -58,6 +60,8 @@ public class Account implements Serializable {
     
     /**
      * Returns the alphanumeric user name, usually chosen by the user, e.g. "jsmarr".
+     * 
+     * @return The username or <code>null</code> if not found in response.
      */
     public String getUsername() {
         return username;
@@ -68,7 +72,10 @@ public class Account implements Serializable {
     }
     
     /**
-     * Returns the user ID number, usually chosen automatically, and usually numeric but sometimes alphanumeric, e.g. "12345" or "1Z425A".
+     * Returns the user ID number, usually chosen automatically, and usually 
+     * numeric but sometimes alphanumeric, e.g. "12345" or "1Z425A".
+     * 
+     * @return The userid or <code>null</code> if not found in response.
      */
     public String getUserid() {
         return userid;

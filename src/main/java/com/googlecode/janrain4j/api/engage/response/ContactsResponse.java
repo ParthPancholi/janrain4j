@@ -14,13 +14,18 @@
  */
 package com.googlecode.janrain4j.api.engage.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.response.poco.Contact;
+import com.googlecode.janrain4j.json.JSONArray;
+import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.json.JSONObject;
 
 /**
- * The <code>ContactsResponse</code> contains all list of contacts for an 
+ * The <code>ContactsResponse</code> contains a list of contacts for the 
  * indentifier in the <a href="http://portablecontacts.net/">Portable Contacts</a> format.
  * 
  * @author Marcel Overdijk
@@ -34,13 +39,30 @@ public class ContactsResponse extends AbstractEngageResponse {
     
     // TODO response seems to include paging information... ticket created
     
-    public ContactsResponse(String json) {
+    public ContactsResponse(String json) throws EngageFailureException {
         super(json);
-        // TODO
+        JSONObject rsp = getResponseAsJSONObject();
+        JSONObject rspResponse = rsp.optJSONObject("response");
+        if (rspResponse != null) {
+            JSONArray rspEntry = rspResponse.optJSONArray("entry");
+            if (rspEntry != null) {
+                contacts = new ArrayList<Contact>();
+                for (int i = 0; i < rspEntry.length(); i++) {
+                    try {
+                        contacts.add(Contact.fromJSON(rspEntry.getJSONObject(i)));
+                    }
+                    catch (JSONException e) {
+                        throw new EngageFailureException("Unexpected JSON error", json, e);
+                    }
+                }
+            }
+        }
     }
     
     /**
-     * TODO
+     * Returns all list of contacts for the indentifier.
+     * 
+     * @return The list of contacts or <code>null</code> if not found in response.
      */
     public List<Contact> getContacts() {
         return contacts;

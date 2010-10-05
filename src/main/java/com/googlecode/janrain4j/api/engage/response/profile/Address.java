@@ -57,6 +57,8 @@ public class Address implements Serializable {
     /**
      * Returns the full mailing address, formatted for display or use with a 
      * mailing label.
+     * 
+     * @return The formatted address or <code>null</code> if not found in response.
      */
     public String getFormatted() {
         return formatted;
@@ -67,9 +69,10 @@ public class Address implements Serializable {
     }
     
     /**
-     * Returns the full street address component, which may include house 
-     * number, street name, PO BOX, and multi-line extended street address 
-     * information.
+     * Returns the full street address, which may include house number, street 
+     * name, PO BOX, and multi-line extended street address information.
+     * 
+     * @return The street address or <code>null</code> if not found in response.
      */
     public String getStreetAddress() {
         return streetAddress;
@@ -80,7 +83,9 @@ public class Address implements Serializable {
     }
     
     /**
-     * Returns the city or locality component.
+     * Returns the city or locality.
+     * 
+     * @return The city or locality or <code>null</code> if not found in response.
      */
     public String getLocality() {
         return locality;
@@ -91,7 +96,9 @@ public class Address implements Serializable {
     }
     
     /**
-     * Returns the state or region component.
+     * Returns the state or region.
+     * 
+     * @return The state or region or <code>null</code> if not found in response.
      */
     public String getRegion() {
         return region;
@@ -103,6 +110,8 @@ public class Address implements Serializable {
     
     /**
      * Returns the postal code or zipcode.
+     * 
+     * @return The postal code or zipcode or <code>null</code> if not found in response.
      */
     public String getPostalCode() {
         return postalCode;
@@ -113,7 +122,9 @@ public class Address implements Serializable {
     }
     
     /**
-     * Returns the country name component.
+     * Returns the country name.
+     * 
+     * @return The country name or <code>null</code> if not found in response.
      */
     public String getCountry() {
         return country;

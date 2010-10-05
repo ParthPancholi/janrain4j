@@ -36,6 +36,8 @@ abstract class AbstractPluralField implements Serializable {
     
     /**
      * Returns the value of this instance.
+     * 
+     * @return The value or <code>null</code> if not found in response.
      */
     public String getValue() {
         return value;
@@ -47,6 +49,8 @@ abstract class AbstractPluralField implements Serializable {
     
     /**
      * Returns the type of this instance.
+     * 
+     * @return The type or <code>null</code> if not found in response.
      */
     public String getType() {
         return type;

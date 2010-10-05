@@ -14,9 +14,6 @@
  */
 package com.googlecode.janrain4j.api.engage.response;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.json.JSONException;
@@ -32,19 +29,13 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class AnalyticsResponse extends AbstractEngageResponse {
 
-    private URL url = null;
+    private String url = null;
     
-    public AnalyticsResponse(String json) {
+    public AnalyticsResponse(String json) throws EngageFailureException {
         super(json);
         JSONObject rsp = getResponseAsJSONObject();
         try {
-            String rspUrl = rsp.getString("url");
-            try {
-                url = new URL(rspUrl);
-            }
-            catch (MalformedURLException e) {
-                throw new EngageFailureException("Malformed url in response: " + rspUrl, json, e);
-            }
+            url = rsp.getString("url");
         }
         catch (JSONException e) {
             throw new EngageFailureException("Unexpected JSON error", json, e);
@@ -54,7 +45,7 @@ public class AnalyticsResponse extends AbstractEngageResponse {
     /**
      * Returns the URL of the zip file containing the statistics for your application.
      */
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 }

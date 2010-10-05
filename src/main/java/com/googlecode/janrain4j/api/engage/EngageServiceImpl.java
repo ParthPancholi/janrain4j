@@ -83,11 +83,11 @@ class EngageServiceImpl implements EngageService {
         this.config = config;
     }
     
-    public UserDataResponse authInfo(String token) {
+    public UserDataResponse authInfo(String token) throws EngageFailureException, ErrorResponeException {
         return authInfo(token, false);
     }
     
-    public UserDataResponse authInfo(String token, boolean extended) {
+    public UserDataResponse authInfo(String token, boolean extended) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(TOKEN_PARAM, token);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
@@ -95,18 +95,18 @@ class EngageServiceImpl implements EngageService {
         return new UserDataResponse(jsonResponse);
     }
     
-    public ContactsResponse getContacts(String identifier) {
+    public ContactsResponse getContacts(String identifier) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         String jsonResponse = apiCall(GET_CONTACTS_METHOD, params);
         return new ContactsResponse(jsonResponse);
     }
 
-    public UserDataResponse getUserData(String identifier) {
+    public UserDataResponse getUserData(String identifier) throws EngageFailureException, ErrorResponeException {
         return getUserData(identifier, false);
     }
 
-    public UserDataResponse getUserData(String identifier, boolean extended) {
+    public UserDataResponse getUserData(String identifier, boolean extended) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(EXTENDED_PARAM, Boolean.toString(extended));
@@ -114,11 +114,11 @@ class EngageServiceImpl implements EngageService {
         return new UserDataResponse(jsonResponse);
     }
     
-    public void setStatus(String identifier, String status) {
+    public void setStatus(String identifier, String status) throws EngageFailureException, ErrorResponeException {
         setStatus(identifier, status, null);
     }
     
-    public void setStatus(String identifier, String status, String location) {
+    public void setStatus(String identifier, String status, String location) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(STATUS_PARAM, status);
@@ -128,11 +128,11 @@ class EngageServiceImpl implements EngageService {
         apiCall(SET_STATUS_METHOD, params);
     }
     
-    public void map(String identifier, String primaryKey) {
+    public void map(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException {
         map(identifier, primaryKey, true);
     }
     
-    public void map(String identifier, String primaryKey, boolean overwrite) {
+    public void map(String identifier, String primaryKey, boolean overwrite) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(PRIMARY_KEY_PARAM, primaryKey);
@@ -140,23 +140,23 @@ class EngageServiceImpl implements EngageService {
         apiCall(MAP_METHOD, params);
     }
 
-    public void unmap(String primaryKey) {
+    public void unmap(String primaryKey) throws EngageFailureException, ErrorResponeException {
         unmap(primaryKey, false);
     }
 
-    public void unmap(String primaryKey, boolean unlink) {
+    public void unmap(String primaryKey, boolean unlink) throws EngageFailureException, ErrorResponeException {
         unmap(null, true, primaryKey, unlink);
     }
 
-    public void unmap(String identifier, String primaryKey) {
+    public void unmap(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException {
         unmap(identifier, primaryKey, false);
     }
 
-    public void unmap(String identifier, String primaryKey, boolean unlink) {
+    public void unmap(String identifier, String primaryKey, boolean unlink) throws EngageFailureException, ErrorResponeException {
         unmap(identifier, false, primaryKey, unlink);
     }
     
-    protected void unmap(String identifier, boolean allIdentifiers, String primaryKey, boolean unlink) {
+    protected void unmap(String identifier, boolean allIdentifiers, String primaryKey, boolean unlink) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         if (!allIdentifiers) {
             params.put(IDENTIFIER_PARAM, identifier);
@@ -169,28 +169,28 @@ class EngageServiceImpl implements EngageService {
         apiCall(UNMAP_METHOD, params);
     }
     
-    public MappingsResponse mappings(String primaryKey) {
+    public MappingsResponse mappings(String primaryKey) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(PRIMARY_KEY_PARAM, primaryKey);
         String jsonResponse = apiCall(MAPPINGS_METHOD, params);
         return new MappingsResponse(jsonResponse);
     }
     
-    public AllMappingsResponse allMappings() {
+    public AllMappingsResponse allMappings() throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         String jsonResponse = apiCall(ALL_MAPPINGS_METHOD, params);
         return new AllMappingsResponse(jsonResponse);
     }
     
-    public void activity(String identifier, Activity activity) {
+    public void activity(String identifier, Activity activity) throws EngageFailureException, ErrorResponeException {
         activity(identifier, activity, null);
     }
 
-    public void activity(String identifier, String activity) {
+    public void activity(String identifier, String activity) throws EngageFailureException, ErrorResponeException {
          activity(identifier, activity, null);
     }
     
-    public void activity(String identifier, Activity activity, String location) {
+    public void activity(String identifier, Activity activity, String location) throws EngageFailureException, ErrorResponeException {
         try {
             activity(identifier, activity.toJSON(), location);
         }
@@ -199,7 +199,7 @@ class EngageServiceImpl implements EngageService {
         }
     }
     
-    public void activity(String identifier, String activity, String location) {
+    public void activity(String identifier, String activity, String location) throws EngageFailureException, ErrorResponeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put(IDENTIFIER_PARAM, identifier);
         params.put(ACTIVITY_PARAM, activity);
@@ -209,7 +209,7 @@ class EngageServiceImpl implements EngageService {
         apiCall(ACTIVITY_METHOD, params);
     }
     
-    public AnalyticsResponse analytics(Date start, Date end) {
+    public AnalyticsResponse analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         Map<String, String> params = new HashMap<String, String>();
         params.put(START_PARAM, dateFormatter.format(start));
@@ -218,7 +218,7 @@ class EngageServiceImpl implements EngageService {
         return new AnalyticsResponse(jsonResponse);
     }
     
-    public void setAuthProviders(List<String> providers) {
+    public void setAuthProviders(List<String> providers) throws EngageFailureException, ErrorResponeException {
         StringBuffer sb = new StringBuffer();
         for (String provider : providers) {
             if (sb.length() > 0) {
@@ -231,7 +231,7 @@ class EngageServiceImpl implements EngageService {
         apiCall(SET_AUTH_PROVIDERS_METHOD, params);
     }
     
-    String apiCall(String method, Map<String, String> partialParams) {
+    String apiCall(String method, Map<String, String> partialParams) throws EngageFailureException, ErrorResponeException {
         
         Map<String, String> params = new HashMap<String, String>();
         

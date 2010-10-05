@@ -30,7 +30,7 @@ abstract class AbstractEngageResponse implements Serializable {
     private String json = null;
     private JSONObject jsonObject = null;
     
-    public AbstractEngageResponse(String json) {
+    public AbstractEngageResponse(String json) throws EngageFailureException {
         this.json = json;
         try {
             this.jsonObject = new JSONObject(json);

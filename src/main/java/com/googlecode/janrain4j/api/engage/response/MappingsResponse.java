@@ -35,7 +35,7 @@ public class MappingsResponse extends AbstractEngageResponse {
 
     private List<String> mappings = null;
     
-    public MappingsResponse(String json) {
+    public MappingsResponse(String json) throws EngageFailureException {
         super(json);
         JSONObject rsp = getResponseAsJSONObject();
         JSONArray rspIdentifiers = rsp.optJSONArray("identifiers");
@@ -54,6 +54,8 @@ public class MappingsResponse extends AbstractEngageResponse {
     
     /**
      * Returns all stored mappings for the primary key.
+     * 
+     * @return The stored mappings or <code>null</code> if not found in response.
      */
     public List<String> getMappings() {
         return mappings;

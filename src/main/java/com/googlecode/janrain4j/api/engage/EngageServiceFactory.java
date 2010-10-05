@@ -30,9 +30,8 @@ public class EngageServiceFactory {
      * in {@link ConfigHolder}.
      * 
      * @return An <code>EngageService</code> instance.
-     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
-    public static EngageService getEngageService() throws EngageFailureException {
+    public static EngageService getEngageService() {
         return new EngageServiceImpl(ConfigHolder.getConfig());
     }
     
@@ -41,9 +40,8 @@ public class EngageServiceFactory {
      * 
      * @param config The config.
      * @return An <code>EngageService</code> instance.
-     * @throws EngageFailureException If any unexpected unknown error occurs while creating the EngageService.
      */
-    public static EngageService getEngageService(Config config) throws EngageFailureException {
+    public static EngageService getEngageService(Config config) {
         return new EngageServiceImpl(config);
     }    
 }

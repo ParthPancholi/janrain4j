@@ -22,7 +22,6 @@ package com.googlecode.janrain4j.api.engage.request;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class ActivityTest {
     
     @Before
     public void setUp() throws Exception {
-        activity = new Activity(new URL(url), action);
+        activity = new Activity(url, action);
         actionLinks = new ArrayList<ActionLink>();
         media = new ArrayList<MediaItem>();
         properties = new ArrayList<Property>();

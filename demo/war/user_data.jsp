@@ -300,6 +300,24 @@
                                 <td class="user-data"><label>Photos</label></td>
                                 <td></td>
                             </tr>
+                            <tr>
+                                <td class="user-data" colspan="2">
+                                    <c:choose>
+                                        <c:when test="${not empty userData.mergedPoco.photos}">
+                                            <table class="table">
+                                                <c:forEach items="${userData.mergedPoco.photos}" var="photo" varStatus="status">
+                                                    <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
+                                                        <td>${photo.value}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </table>
+                                        </c:when>
+                                        <c:otherwise>
+                                            Your provider did not provide any photos.
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
                         </table>
                         Under construction.
                     </div>

@@ -96,6 +96,8 @@ public class Profile implements Serializable {
     /**
      * Returns the user's OpenID URL. Use this value to sign the user in to 
      * your website. This field is always present.
+     * 
+     * @return The user's OpenID URL.
      */
     public String getIdentifier() {
         return identifier;
@@ -110,6 +112,8 @@ public class Profile implements Serializable {
      * used for this authentication. For well-known providers, Janrain Engage 
      * sends values such as "Google", "Facebook", and "MySpace"; "Other" is 
      * sent for other providers. New provider names are added over time.
+     * 
+     * @return The human-readable name of the authentication provider.
      */
     public String getProviderName() {
         return providerName;
@@ -123,6 +127,7 @@ public class Profile implements Serializable {
      * Returns the primary key of the user in your database. Only present if 
      * you are using the mapping API.
      * 
+     * @return The primary key or <code>null</code> if not found in response.
      * @see <a href="http://rpxnow.com/docs#mappings">Mappings</a>
      */
     public String getPrimaryKey() {
@@ -135,6 +140,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the name of the user, suitable for display to end-users.
+     * 
+     * @return The display name or <code>null</code> if not found in response.
      */
     public String getDisplayName() {
         return displayName;
@@ -147,6 +154,8 @@ public class Profile implements Serializable {
     /**
      * Returns the preferred username of the user on sites that ask for a 
      * username.
+     * 
+     * @return The preferred username or <code>null</code> if not found in response.
      */
     public String getPreferredUsername() {
         return preferredUsername;
@@ -159,6 +168,7 @@ public class Profile implements Serializable {
     /**
      * Returns the name of the user.
      * 
+     * @return The name or <code>null</code> if not found in response.
      * @see <a href="http://rpxnow.com/docs#profile_name">Profile data documentation</a>
      */
     public Name getName() {
@@ -172,6 +182,8 @@ public class Profile implements Serializable {
     /**
      * Returns the gender of the user. Canonical values are 'male', and 
      * 'female', but may be any value.
+     * 
+     * @return The gender or <code>null</code> if not found in response.
      */
     public String getGender() {
         return gender;
@@ -198,6 +210,8 @@ public class Profile implements Serializable {
     /**
      * Returns the date of birth of the user. Year field may be 0000 if 
      * unavailable.
+     * 
+     * @return The birthday or <code>null</code> if not found in response.
      */
     public Date getBirthday() {
         return birthday;
@@ -213,6 +227,8 @@ public class Profile implements Serializable {
      * portion of xs:dateTime, e.g. -08:00. Note that this value MAY change 
      * over time due to daylight saving time, and is thus meant to signify only 
      * the current value of the user's timezone offset.
+     * 
+     * @return The UTC offset or <code>null</code> if not found in response.
      */
     public String getUtcOffset() {
         return utcOffset;
@@ -224,6 +240,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the email address at which the user may be reached.
+     * 
+     * @return The email or <code>null</code> if not found in response.
      */
     public String getEmail() {
         return email;
@@ -235,6 +253,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the email address at which the person may be reached.
+     * 
+     * @return The verified email or <code>null</code> if not found in response.
      */
     public String getVerifiedEmail() {
         return verifiedEmail;
@@ -246,6 +266,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the URL of a webpage relating to this person.
+     * 
+     * @return The URL or <code>null</code> if not found in response.
      */
     public String getUrl() {
         return url;
@@ -257,6 +279,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the phone number at which the user may be reached.
+     * 
+     * @return The phone number or <code>null</code> if not found in response.
      */
     public String getPhoneNumber() {
         return phoneNumber;
@@ -268,6 +292,8 @@ public class Profile implements Serializable {
     
     /**
      * Returns the URL to a photo (GIF/JPG/PNG) of the user.
+     * 
+     * @return The URL or <code>null</code> if not found in response.
      */
     public String getPhoto() {
         return photo;
@@ -280,6 +306,7 @@ public class Profile implements Serializable {
     /**
      * Returns the address of the user.
      * 
+     * @return The address or <code>null</code> if not found in response.
      * @see <a href="http://rpxnow.com/docs#profile_address">Profile data documentation</a>
      */
     public Address getAddress() {

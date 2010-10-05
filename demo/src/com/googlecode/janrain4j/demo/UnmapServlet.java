@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
+import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 
 public class UnmapServlet extends HttpServlet {
 
@@ -33,11 +35,22 @@ public class UnmapServlet extends HttpServlet {
         // get signed in primary key
         Long primaryKey = (Long) req.getSession().getAttribute("primaryKey");
         
-        // unmap identifier from primary key
-        log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
-        engageService.unmap(identifier, String.valueOf(primaryKey));
-        
-        flashScope.setAttribute("message", "The identifier " + identifier + " is unmapped from your account.");
+        try {
+            // unmap identifier from primary key
+            log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
+            engageService.unmap(identifier, String.valueOf(primaryKey));
+            flashScope.setAttribute("message", "The identifier " + identifier + " is unmapped from your account.");
+        }
+        catch (EngageFailureException e) {
+            log.error("Unable to unmap identifier", e);
+            flashScope.setAttribute("message", "An error occured while unmapping identifier. Please try again.");
+            flashScope.setAttribute("level", "error");
+        }
+        catch (ErrorResponeException e) {
+            log.error("Unable to unmap identifier", e);
+            flashScope.setAttribute("message", "An error occured while unmapping identifier. Please try again.");
+            flashScope.setAttribute("level", "error");
+        }
         
         resp.sendRedirect("account.jsp");
     }
