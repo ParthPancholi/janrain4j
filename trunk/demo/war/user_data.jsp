@@ -298,69 +298,208 @@
                                         <td class="user-data"><label>Connected</label></td>
                                         <td>${userData.mergedPoco.connected}</td>
                                     </tr>
-                                    
-                                    <tr>
-                                        <td class="user-data"><label>Photos</label></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="user-data" colspan="2">
-                                            <c:choose>
-                                                <c:when test="${not empty userData.mergedPoco.photos}">
-                                                    <table class="table">
-                                                        <c:forEach items="${userData.mergedPoco.photos}" var="photo" varStatus="status">
-                                                            <tr class="${status.index % 2 == 0 ? 'odd' : 'even'}">
-                                                                <td>${photo.value}</td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </table>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    No photos available via your provider.
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                    </tr>
-                                    
                                     <tr>
                                         <td class="user-data"><label>Emails</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.emails}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.emails}" var="email">
+                                                        <li>
+                                                            ${email.value} (${email.type})
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>URL's</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.urls}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.urls}" var="url">
+                                                        <li>
+                                                            ${url.value} (${url.type})
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Phone Numbers</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.phoneNumbers}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.phoneNumbers}" var="phoneNumber">
+                                                        <li>
+                                                            ${phoneNumber.value} (${phoneNumber.type})
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>IM's</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.ims}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.ims}" var="im">
+                                                        <li>
+                                                            ${im.value} (${im.type})
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Photos</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.photos}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.photos}" var="photo">
+                                                        <li>
+                                                            ${photo.value} (${photo.type})
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Tags</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.tags}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.tags}" var="tag">
+                                                        <li>
+                                                            ${tag}
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Relationships</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.relationships}">
+                                                <ul>
+                                                    <c:forEach items="${userData.mergedPoco.relationships}" var="relationship">
+                                                        <li>
+                                                            ${relationship.value}
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Addresses</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.addresses}">
+                                                <c:forEach items="${userData.mergedPoco.addresses}" var="address">
+                                                    <table>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Formatted</label></td>
+                                                            <td>${address.formatted}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Street Address</label></td>
+                                                            <td>${address.streetAddress}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Locality</label></td>
+                                                            <td>${address.locality}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Region</label></td>
+                                                            <td>${address.region}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Postal Code</label></td>
+                                                            <td>${address.postalCode}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Country</label></td>
+                                                            <td>${address.country}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Type</label></td>
+                                                            <td>${address.type}</td>
+                                                        </tr>
+                                                    </table>
+                                                </c:forEach>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Organizations</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.organizations}">
+                                                <c:forEach items="${userData.mergedPoco.organizations}" var="organization">
+                                                    <table>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Name</label></td>
+                                                            <td>${organization.name}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Department</label></td>
+                                                            <td>${organization.department}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Title</label></td>
+                                                            <td>${organization.title}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Type</label></td>
+                                                            <td>${organization.type}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Start Date</label></td>
+                                                            <td>${organization.startDate}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>End Date</label></td>
+                                                            <td>${organization.endDate}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Location</label></td>
+                                                            <td>${organization.location}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Description</label></td>
+                                                            <td>${organization.description}</td>
+                                                        </tr>
+                                                    </table>
+                                                </c:forEach>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="user-data"><label>Accounts</label></td>
-                                        <td></td>
+                                        <td class="user-data-small">
+                                            <c:if test="${not empty userData.mergedPoco.accounts}">
+                                                <c:forEach items="${userData.mergedPoco.accounts}" var="account">
+                                                    <table>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Domain</label></td>
+                                                            <td>${account.domain}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Username</label></td>
+                                                            <td>${account.username}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="user-data-secondary"><label>Userid</label></td>
+                                                            <td>${account.userid}</td>
+                                                        </tr>
+                                                    </table>
+                                                </c:forEach>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </table>
                             </c:when>
