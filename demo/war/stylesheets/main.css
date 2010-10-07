@@ -43,10 +43,26 @@ div.secondary-navigation .error{
 
 td{
   vertical-align:top;
-  word-break:break-all;
+  /*word-break:break-all;*/
 }
 
 td.user-data{
   padding-left:0;
   width:200px;
 }
+
+td.user-data-small{
+  font-size:0.9em;
+}
+
+td.user-data-small ul{
+  margin-bottom:0;
+}
+
+td.user-data-small table{
+  border-top:1px solid #EEE;
+}
+
+td.user-data-secondary{
+   width:125px;
+ }
