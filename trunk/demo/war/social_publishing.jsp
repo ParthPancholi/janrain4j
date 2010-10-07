@@ -2,6 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.*" %>
 <%@ page import="com.googlecode.janrain4j.api.engage.response.*" %>
+<%@ page import="com.googlecode.janrain4j.api.engage.response.profile.*" %>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -14,8 +15,8 @@
 <jsp:include page="_flash.jsp" />
 
 <%  // get sign in provider from user data
-    UserDataResponse userData = (UserDataResponse) session.getAttribute("userData");
-    String providerName = userData.getProfile().getProviderName();
+    Profile profile = (Profile) session.getAttribute("profile");
+    String providerName = profile.getProviderName();
     
     // providers supporting set status call
     List<String> setStatus = new ArrayList<String>();
