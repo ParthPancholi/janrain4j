@@ -7,8 +7,7 @@
 
     <context-param>
         <param-name>janrain4jConfigLocation</param-name>
-        <param-value>janrain4j-Development.properties</param-value>
-        <!-- Note that account.jsp also contains a hard-coded token url independent from the janrain4j configuration -->
+        <param-value>janrain4j-Production.properties</param-value>
     </context-param>
     
     <listener>
