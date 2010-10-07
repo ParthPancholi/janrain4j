@@ -14,6 +14,8 @@
  */
 package com.googlecode.janrain4j.api.engage.response.poco;
 
+import java.io.Serializable;
+
 import com.googlecode.janrain4j.json.JSONObject;
 
 /**
@@ -24,8 +26,16 @@ import com.googlecode.janrain4j.json.JSONObject;
  * @see Contact
  */
 @SuppressWarnings("serial")
-public class Email extends AbstractPluralField {
+public class Email implements Serializable {
 
+    public static final String TYPE_WORK = "work";
+    public static final String TYPE_HOME = "home";
+    public static final String TYPE_OTHER = "other";
+    
+    protected String value = null;
+    protected String type = null;
+    protected boolean primary = false;
+    
     protected Email() {
     }
     
@@ -35,5 +45,63 @@ public class Email extends AbstractPluralField {
         email.setType(json.optString("type"));
         email.setPrimary(json.optBoolean("primary", false));
         return email;
+    }
+    
+    /**
+     * Returns the email address.
+     * 
+     * @return The email address or <code>null</code> if not found in response.
+     */
+    public String getValue() {
+        return value;
+    }
+    
+    void setValue(String value) {
+        this.value = value;
+    }
+    
+    /**
+     * Returns the type of the email address.
+     * 
+     * @return The type or <code>null</code> if not found in response.
+     */
+    public String getType() {
+        return type;
+    }
+    
+    /**
+     * Returns true if the type is work. 
+     */
+    public boolean isWork() {
+        return TYPE_WORK.equalsIgnoreCase(type);
+    }
+    
+    /**
+     * Returns true if the type is home. 
+     */
+    public boolean isHome() {
+        return TYPE_HOME.equalsIgnoreCase(type);
+    }
+    
+    /**
+     * Returns true if the type is other. 
+     */
+    public boolean isOther() {
+        return TYPE_OTHER.equalsIgnoreCase(type);
+    }
+    
+    void setType(String type) {
+        this.type = type;
+    }
+    
+    /**
+     * Returns true if the email address is the primary or preferred email address.
+     */
+    public boolean isPrimary() {
+        return primary;
+    }
+    
+    void setPrimary(boolean primary) {
+        this.primary = primary;
     }
 }
