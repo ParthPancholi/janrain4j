@@ -28,7 +28,11 @@ public class SignOutServlet extends HttpServlet {
             
             // remove signed in account from session
             req.getSession().removeAttribute("primaryKey");
-            req.getSession().removeAttribute("userData");
+            req.getSession().removeAttribute("profile");
+            req.getSession().removeAttribute("accessCredentials");
+            req.getSession().removeAttribute("mergedPoco");
+            req.getSession().removeAttribute("friends");
+            req.getSession().removeAttribute("jsonResponse");
             
             flashScope.setAttribute("message", "You are signed out now. Sign in again anytime.");
         }
