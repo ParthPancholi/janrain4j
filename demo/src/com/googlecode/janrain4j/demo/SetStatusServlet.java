@@ -14,7 +14,7 @@ import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 import com.googlecode.janrain4j.api.engage.ErrorResponeException;
-import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 public class SetStatusServlet extends HttpServlet {
 
@@ -32,8 +32,8 @@ public class SetStatusServlet extends HttpServlet {
         log.info("Parameter message = " + message);
         
         // get signed in identifier
-        UserDataResponse userDataResponse = (UserDataResponse) req.getSession().getAttribute("userData");
-        String identifier = userDataResponse.getProfile().getIdentifier();
+        Profile profile = (Profile) req.getSession().getAttribute("profile");
+        String identifier = profile.getIdentifier();
         
         if (StringUtils.isNotBlank(message)) {
             

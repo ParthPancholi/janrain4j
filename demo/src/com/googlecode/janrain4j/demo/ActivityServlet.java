@@ -20,7 +20,7 @@ import com.googlecode.janrain4j.api.engage.request.ActionLink;
 import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.request.ImageMediaItem;
 import com.googlecode.janrain4j.api.engage.request.MediaItem;
-import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 public class ActivityServlet extends HttpServlet {
 
@@ -38,8 +38,8 @@ public class ActivityServlet extends HttpServlet {
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         
         // get signed in identifier
-        UserDataResponse userDataResponse = (UserDataResponse) req.getSession().getAttribute("userData");
-        String identifier = userDataResponse.getProfile().getIdentifier();
+        Profile profile = (Profile) req.getSession().getAttribute("profile");
+        String identifier = profile.getIdentifier();
         
         // create services
         EngageService engageService = EngageServiceFactory.getEngageService();
