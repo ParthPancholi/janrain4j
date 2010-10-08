@@ -35,8 +35,6 @@ public class ContactsResponseTest {
     private String json = null;
     private ContactsResponse response = null;
     
-    // TODO response seems to include paging information... ticket created
-    
     @Test
     public void testContactsResponse() throws Exception {
         
