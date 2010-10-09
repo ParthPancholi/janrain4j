@@ -19,7 +19,6 @@ Attributes
   * `width` (optional) - The ..
   * `height` (optional) - The ..
 
-----
 
 ==signInLink==
 
@@ -38,7 +37,6 @@ Attributes
   * `style` (optional) - The ..
   * `styleClass` (optional) - The ..
 
-----
 
 ==signInOverlay==
 
