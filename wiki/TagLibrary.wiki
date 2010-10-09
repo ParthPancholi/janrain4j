@@ -24,13 +24,13 @@ _Attributes_
 
 Renders the sign-in link.
 
-Examples
+_Examples_
 
 {{{
 <janrain:signInLink>Sign In</janrain:signInLink>
 }}}
 
-Attributes
+_Attributes_
 
   * `applicationDomain` (optional) - The ..
   * `tokenUrl` (optional) - The ..
@@ -42,13 +42,13 @@ Attributes
 
 Includes the sign-in overlay.
 
-Examples
+_Examples_
 
 {{{
 <janrain:signInOverlay />
 }}}
 
-Attributes
+_Attributes_
 
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
