@@ -3,14 +3,13 @@
 
 Purpose
 
-
 Examples
 
 {{{
 <janrain:signInEmbedded />
 }}}
 
-===Attributes===
+Attributes
 
   * `applicationDomain` (optional) - The ..
   * `tokenUrl` (optional) - The ..
@@ -24,6 +23,37 @@ Examples
 
 ==signInLink==
 
+Purpose
 
+Examples
+
+{{{
+<janrain:signInLink tokenUrl="${tokenUrl}">Sign In</janrain:signInLink>
+}}}
+
+Attributes
+
+  * `applicationDomain` (optional) - The ..
+  * `tokenUrl` (optional) - The ..
+  * `style` (optional) - The ..
+  * `styleClass` (optional) - The ..
+
+----
 
 ==signInOverlay==
+
+Purpose
+
+Examples
+
+{{{
+<janrain:signInOverlay />
+}}}
+
+Attributes
+
+  * `defaultProvider` (optional) - The ..
+  * `flags` (optional) - The ..
+  * `languagePreference` (optional) - The ..
+
+----
