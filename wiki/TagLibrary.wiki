@@ -40,7 +40,7 @@ Attributes
 
 ==signInOverlay==
 
-includes the sign-in overlay.
+Includes the sign-in overlay.
 
 Examples
 
