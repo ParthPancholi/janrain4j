@@ -19,6 +19,10 @@ Attributes
   * `width` (optional) - The ..
   * `height` (optional) - The ..
 
+|| *Name* || *Required* || *Type* || *Description* ||
+|| applicationDomain || false || `java.lang.String` || The .. ||
+|| tokenUrl || false || `java.lang.String` || The .. ||
+
 ----
 
 ==signInLink==
