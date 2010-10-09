@@ -28,7 +28,7 @@ Purpose
 Examples
 
 {{{
-<janrain:signInLink tokenUrl="${tokenUrl}">Sign In</janrain:signInLink>
+<janrain:signInLink>Sign In</janrain:signInLink>
 }}}
 
 Attributes
