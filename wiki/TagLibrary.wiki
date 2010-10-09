@@ -1,7 +1,7 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,taglibrary,taglib,jsp
 ==signInEmbedded==
 
-Purpose
+Embeds the sign-in widget.
 
 Examples
 
@@ -22,7 +22,7 @@ Attributes
 
 ==signInLink==
 
-Purpose
+Renders the sign-in link.
 
 Examples
 
@@ -40,7 +40,7 @@ Attributes
 
 ==signInOverlay==
 
-Purpose
+includes the sign-in overlay.
 
 Examples
 
