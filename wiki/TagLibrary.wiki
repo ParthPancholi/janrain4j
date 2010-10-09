@@ -10,6 +10,9 @@ Examples
 <janrain:signInEmbedded />
 }}}
 
+Attributes
+
+  test
 
 ==signInLink==
 
