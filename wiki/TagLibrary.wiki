@@ -3,13 +3,13 @@
 
 Embeds the sign-in widget.
 
-Examples
+_Examples_
 
 {{{
 <janrain:signInEmbedded />
 }}}
 
-Attributes
+_Attributes_
 
   * `applicationDomain` (optional) - The ..
   * `tokenUrl` (optional) - The ..
