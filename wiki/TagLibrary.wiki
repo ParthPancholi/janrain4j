@@ -10,7 +10,7 @@ Examples
 <janrain:signInEmbedded />
 }}}
 
-Attributes
+===Attributes===
 
   * `applicationDomain` (optional) - The ..
   * `tokenUrl` (optional) - The ..
