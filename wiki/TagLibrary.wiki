@@ -13,12 +13,12 @@ Examples
 Attributes
 
   * `applicationDomain` (optional) - The ..
-  * tokenUrl (optional) - The ..
-  * defaultProvider (optional) - The ..
-  * flags (optional) - The ..
-  * languagePreference (optional) - The ..
-  * width (optional) - The ..
-  * height (optional) - The ..
+  * `tokenUrl` (optional) - The ..
+  * `defaultProvider` (optional) - The ..
+  * `flags` (optional) - The ..
+  * `languagePreference` (optional) - The ..
+  * `width` (optional) - The ..
+  * `height` (optional) - The ..
 
 ----
 
