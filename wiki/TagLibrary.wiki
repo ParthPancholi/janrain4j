@@ -19,15 +19,6 @@ Attributes
   * `width` (optional) - The ..
   * `height` (optional) - The ..
 
-|| *Name* || *Required* || *Type* || *Description* ||
-|| applicationDomain || false || `java.lang.String` || The .. ||
-|| tokenUrl || false || `java.lang.String` || The .. ||
-|| defaultProvider || false || `java.lang.String` || The .. ||
-|| flags || false || `java.lang.String` || The .. ||
-|| languagePreference || false || `java.lang.String` || The .. ||
-|| width || false || `int` || The .. ||
-|| height || false || `int` || The .. ||
-
 ----
 
 ==signInLink==
@@ -47,12 +38,6 @@ Attributes
   * `style` (optional) - The ..
   * `styleClass` (optional) - The ..
 
-|| *Name* || *Required* || *Type* || *Description* ||
-|| applicationDomain || false || `java.lang.String` || The .. ||
-|| tokenUrl || false || `java.lang.String` || The .. ||
-|| style || false || `java.lang.String` || The .. ||
-|| styleClass || false || `java.lang.String` || The .. ||
-
 ----
 
 ==signInOverlay==
@@ -70,10 +55,3 @@ Attributes
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
   * `languagePreference` (optional) - The ..
-
-|| *Name* || *Required* || *Type* || *Description* ||
-|| defaultProvider || false || `java.lang.String` || The .. ||
-|| flags || false || `java.lang.String` || The .. ||
-|| languagePreference || false || `java.lang.String` || The .. ||
-
-----
