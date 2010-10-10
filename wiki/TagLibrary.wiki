@@ -14,10 +14,10 @@ _Attributes_
   * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
   * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
   * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
-  * `flags` (optional) - The ..
+  * `flags` (optional) - The flags to be set. E.g. `show_provider_list`
   * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
-  * `width` (optional) - The width of the embedded sign-in widget in pixels. Defaults to `400`
-  * `height` (optional) - The height of the embedded sign-in widget in pixels. Defaults to `240`
+  * `width` (optional) - The width of the sign-in widget in pixels. Defaults to `400`
+  * `height` (optional) - The height of the sign-in widget in pixels. Defaults to `240`
 
 
 ==signInLink==
@@ -34,8 +34,8 @@ _Attributes_
 
   * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
   * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
-  * `style` (optional) - The ..
-  * `styleClass` (optional) - The ..
+  * `style` (optional) - The CSS style to be added to the link. E.g. `color: black; font-size: 16px;`
+  * `styleClass` (optional) - The CSS style class to be added to the link. E.g. `my-class`
 
 
 ==signInOverlay==
@@ -51,5 +51,5 @@ _Examples_
 _Attributes_
 
   * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
-  * `flags` (optional) - The ..
+  * `flags` (optional) - The flags to be set. E.g. `show_provider_list`
   * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
