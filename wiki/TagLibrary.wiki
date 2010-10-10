@@ -3,7 +3,7 @@
 
 Embeds the sign-in widget.
 
-_Examples_
+_Example_
 
 {{{
 <janrain:signInEmbedded />
@@ -11,11 +11,11 @@ _Examples_
 
 _Attributes_
 
-  * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
-  * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
+  * `applicationDomain` (optional) - The Janrain application domain. Defaults to value from ConfigHolder. E.g. `https://mydomain.rpxnow.com/`
+  * `tokenUrl` (optional) - The token url. Defaults to value from ConfigHolder. E.g. `http://mydomain.com/token`
   * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
   * `flags` (optional) - The flags to be set. E.g. `show_provider_list`
-  * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
+  * `languagePreference` (optional) - The language preference. Defaults to value from ConfigHolder. E.g. `en` or `nl`
   * `width` (optional) - The width of the sign-in widget in pixels. Defaults to `400`
   * `height` (optional) - The height of the sign-in widget in pixels. Defaults to `240`
 
@@ -24,7 +24,7 @@ _Attributes_
 
 Renders the sign-in link.
 
-_Examples_
+_Example_
 
 {{{
 <janrain:signInLink>Sign In</janrain:signInLink>
@@ -32,8 +32,8 @@ _Examples_
 
 _Attributes_
 
-  * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
-  * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
+  * `applicationDomain` (optional) - The Janrain application domain. Defaults to value from ConfigHolder. E.g. `https://mydomain.rpxnow.com/`
+  * `tokenUrl` (optional) - The token url. Defaults to value from ConfigHolder. E.g. `http://mydomain.com/token`
   * `style` (optional) - The CSS style to be added to the link. E.g. `color: black; font-size: 16px;`
   * `styleClass` (optional) - The CSS style class to be added to the link. E.g. `my-class`
 
@@ -42,7 +42,7 @@ _Attributes_
 
 Includes the sign-in overlay.
 
-_Examples_
+_Example_
 
 {{{
 <janrain:signInOverlay />
@@ -52,4 +52,4 @@ _Attributes_
 
   * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
   * `flags` (optional) - The flags to be set. E.g. `show_provider_list`
-  * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
+  * `languagePreference` (optional) - The language preference. Defaults to value from ConfigHolder. E.g. `en` or `nl`
