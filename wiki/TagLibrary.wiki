@@ -3,12 +3,17 @@
 
 Embeds the sign-in widget.
 
-_Example_
+_Examples_
 
 {{{
 <janrain:signInEmbedded />
 }}}
 
+  Example of 
+
+{{{
+<janrain:signInEmbedded width="600" />
+}}}
 _Attributes_
 
   * `applicationDomain` (optional) - The Janrain application domain. Defaults to value from !ConfigHolder. E.g. `https://mydomain.rpxnow.com/`
