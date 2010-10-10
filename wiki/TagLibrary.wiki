@@ -11,7 +11,7 @@ _Examples_
 
 _Attributes_
 
-  * `applicationDomain` (optional) - The Janrain application domain. E.g. https://mydomain.rpxnow.com/
+  * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
   * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
@@ -32,8 +32,8 @@ _Examples_
 
 _Attributes_
 
-  * `applicationDomain` (optional) - The Janrain application domain. E.g. https://mydomain.rpxnow.com/
-  * `tokenUrl` (optional) - The token url. E.g. http://mydomain.com/token
+  * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
+  * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
   * `style` (optional) - The ..
   * `styleClass` (optional) - The ..
 
@@ -52,4 +52,4 @@ _Attributes_
 
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
-  * `languagePreference` (optional) - The ..
+  * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
