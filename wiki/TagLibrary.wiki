@@ -16,8 +16,8 @@ _Attributes_
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
   * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
-  * `width` (optional) - The ..
-  * `height` (optional) - The ..
+  * `width` (optional) - The width of the embedded sign-in widget in px. Defaults to 400
+  * `height` (optional) - The height of the embedded sign-in widget in px. Defaults to 240
 
 
 ==signInLink==
