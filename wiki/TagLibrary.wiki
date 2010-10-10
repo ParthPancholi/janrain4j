@@ -11,7 +11,7 @@ _Examples_
 
 _Attributes_
 
-  * `applicationDomain` (optional) - The Janrain application domain. E.g. https://mydomain.rpxnow.com/
+  * `applicationDomain` (optional) - The Janrain application domain. E.g. !https://mydomain.rpxnow.com/
   * `tokenUrl` (optional) - The token url. E.g. http://mydomain.com/token
   * `defaultProvider` (optional) - The ..
   * `flags` (optional) - The ..
