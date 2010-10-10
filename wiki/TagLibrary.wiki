@@ -13,7 +13,7 @@ _Attributes_
 
   * `applicationDomain` (optional) - The Janrain application domain. E.g. `https://mydomain.rpxnow.com/`
   * `tokenUrl` (optional) - The token url. E.g. `http://mydomain.com/token`
-  * `defaultProvider` (optional) - The ..
+  * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
   * `flags` (optional) - The ..
   * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
   * `width` (optional) - The width of the embedded sign-in widget in pixels. Defaults to `400`
@@ -50,6 +50,6 @@ _Examples_
 
 _Attributes_
 
-  * `defaultProvider` (optional) - The ..
+  * `defaultProvider` (optional) - The default sign-in provider. E.g. `facebook`
   * `flags` (optional) - The ..
   * `languagePreference` (optional) - The language preference. E.g. `en` or `nl`
