@@ -66,9 +66,42 @@ If you prefer a sign-in link with a pop-up instead of the embedded widget then u
 
 The `<janrain:signInOverlay />` tag should be included just before the closing `</body>` tag.
 
-All jsp tags use the values configured in `janrain4j.properties`. But if needed they can be overridden. See the [TagLibrary tag library] section for a complete tag library reference.
+All jsp tags use the values configured in `janrain4j.properties`. But if needed they can be overridden. See the [TagLibrary tag library] section for the complete Janrain4j tag library reference.
 
 =Authentication Information=
 
+After signing in Janrain will redirect to the token url configured in the `janrain4j.properties`. You need to map this token url using a Servlet or Controller (dependent on what framework you are using).
+
+A typical Servlet implementation will look like:
+
+{{{
+public class TokenServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        // Retrieve the token sent by Janrain 
+        String token = request.getParameter("token");
+        
+        // Get the EngageService
+        EngageService engageService = EngageServiceFactory.getEngageService();
+
+        try {
+            // Retrieve the Janrain user data
+            UserDataResponse userDataResponse = engageService.authInfo(token);
+            Profile profile = userDataResponse.getProfile();
+            String identifier = profile.getIdentifier();
+
+            // TODO Retrieve more user data like
+            // TODO Do something with the retrieved user data 
+        }
+        catch (EngageFailureException e) {
+            // TODO
+        }
+        catch (ErrorResponeException e) {
+            // TODO
+        }
+    }
+}
+}}}
 
 =Next Steps=
