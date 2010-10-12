@@ -1,5 +1,5 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,taglibrary,taglib,jsp
-==signInEmbedded==
+=signInEmbedded=
 
 Embeds the sign-in widget.
 
@@ -20,7 +20,7 @@ _Attributes_
   * `height` (optional) - The height of the sign-in widget in pixels. Defaults to `240`
 
 
-==signInLink==
+=signInLink=
 
 Renders the sign-in link.
 
@@ -38,7 +38,7 @@ _Attributes_
   * `styleClass` (optional) - The CSS style class to be added to the link. E.g. `my-class`
 
 
-==signInOverlay==
+=signInOverlay=
 
 Includes the sign-in overlay.
 
