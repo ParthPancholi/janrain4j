@@ -1,2 +1,6 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,gettingstarted
 Under construction.
+
+=Installation=
+
+[Download] and add the janrain4j-x.x.x.jar to your classpath.
