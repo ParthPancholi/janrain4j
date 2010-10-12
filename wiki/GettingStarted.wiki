@@ -51,7 +51,7 @@ Create a sign-in jsp page containing:
 }}}
 
 This will include the Janrain embedded sign-in widget on your page.
-If you prefer a sign-in link with a pop-up instead of the widget then use:
+If you prefer a sign-in link with a pop-up instead of the embedded widget then use:
 
 {{{
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
