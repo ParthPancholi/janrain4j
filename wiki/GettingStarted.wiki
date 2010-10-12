@@ -43,7 +43,9 @@ Create a sign-in jsp page containing:
 
 <html>
     <body>
+        ..
         <janrain:signInEmbedded />
+        ..
     </body>
 </html>
 }}}
@@ -52,8 +54,19 @@ This will include the Janrain embedded sign-in widget on your page.
 If you prefer a sign-in link instead of the widget then use:
 
 {{{
+<%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 
+<html>
+    <body>
+        ..
+        <janrain:signInLink />
+        ..
+        <janrain:signInOverlay />
+    </body>
+</html>
 }}}
+
+The `<janrain:signInOverlay />` tag should be included before the closing `</body>` tag.
 
 All jsp tags use the values configured in `janrain4j.properties`. But if needed they can be overridden. See the [TagLibrary tag library] section for a complete tag library reference.
 
