@@ -12,8 +12,6 @@ Maven users should add the library using the following dependency:
     <groupId>com.googlecode.janrain4j</groupId>
     <artifactId>janrain4j</artifactId>
     <version>1.0.0</version>
-    <type>jar</type>
-    <scope>compile</scope>
 </dependency>
 }}}
 
