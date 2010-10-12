@@ -106,3 +106,8 @@ public class TokenServlet extends HttpServlet {
 }}}
 
 =Next Steps=
+
+The above code shows how easily you can retrieve the user data from the signed-in user using the `authInfo` method. The example code only retrieves the identifier, but there so much more info available.
+
+After retrieving the user data (and in particular the identifier)  you can do all kind of thing with the data
+ * Store the data in your local database
