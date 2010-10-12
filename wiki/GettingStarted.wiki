@@ -1,6 +1,6 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,gettingstarted
-Under construction.
+Under construction
 
 =Installation=
 
-[Download] and add the janrain4j-x.x.x.jar to your classpath.
+[http://code.google.com/p/janrain4j/downloads/list Download] and add the janrain4j-x.x.x.jar to your classpath.
