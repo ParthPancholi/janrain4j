@@ -20,3 +20,14 @@ Maven users should add the library using the following dependency:
 =Configuration=
 
 Create the janrain4j.properties file inside the root of your classpath (it should end up in `webapp/WEB-INF/classes`).
+
+The file should contain:
+
+{{{
+janrain4j.api.key = your_api_key
+janrain4j.application.id = your_application_id
+janrain4j.application.domain = https://your_app.rpxnow.com/
+janrain4j.token.url = http://localhost:8888/your_token_path
+}}}
+
+You can access the Janrain API key and application ID from the Janrain dashboard.
