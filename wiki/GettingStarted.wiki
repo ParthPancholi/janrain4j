@@ -36,6 +36,24 @@ For advanced configuration options available see the [Configuration configuratio
 
 =Sign-in Page=
 
+Create a sign-in jsp page containing:
+
+{{{
+<%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
+
+<html>
+    <body>
+        <janrain:signInEmbedded />
+    </body>
+</html>
+}}}
+
+This will include the Janrain embedded sign-in widget on your page.
+If you prefer a sign-in link instead of the widget then use:
+
+{{{
+
+}}}
 
 =Authentication Information=
 
