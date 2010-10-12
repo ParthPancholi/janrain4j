@@ -3,4 +3,16 @@ Under construction
 
 =Installation=
 
-[http://code.google.com/p/janrain4j/downloads/list Download] and add the janrain4j-x.x.x.jar to your classpath.
+[http://code.google.com/p/janrain4j/downloads/list Download] and add the janrain4j-x.x.x.jar to your project's classpath.
+
+Maven users should add the library using the following dependency:
+
+{{{
+<dependency>
+    <groupId>com.googlecode.janrain4j</groupId>
+    <artifactId>janrain4j</artifactId>
+    <version>1.0.0</version>
+    <type>jar</type>
+    <scope>compile</scope>
+</dependency>
+}}}
