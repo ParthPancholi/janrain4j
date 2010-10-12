@@ -19,4 +19,4 @@ Maven users should add the library using the following dependency:
 
 =Configuration=
 
-Create the janrain4j.properties file inside your classpath.
+Create the janrain4j.properties file inside the root of your classpath (it should end up in `webapp/WEB-INF/classes`).
