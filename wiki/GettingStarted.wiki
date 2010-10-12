@@ -55,7 +55,7 @@ If you prefer a sign-in link instead of the widget then use:
 
 }}}
 
-All jsp tags use values from provided configuration options in `janrain4j.properties`. But if needed they can be overridden. See the [TagLibrary tag library] section for complete tag library reference.
+All jsp tags use the values configured in `janrain4j.properties`. But if needed they can be overridden. See the [TagLibrary tag library] section for a complete tag library reference.
 
 =Authentication Information=
 
