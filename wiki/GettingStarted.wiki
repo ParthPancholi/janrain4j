@@ -37,4 +37,7 @@ For advanced configuration options available see the [Configuration configuratio
 =Sign-in Page=
 
 
-=Retrieve Authentication Information=
+=Authentication Information=
+
+
+=Next Steps=
