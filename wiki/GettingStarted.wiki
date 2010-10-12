@@ -3,7 +3,7 @@ Under construction
 
 =Installation=
 
-[http://code.google.com/p/janrain4j/downloads/list Download] and add the janrain4j-x.x.x.jar to your project's classpath.
+[http://code.google.com/p/janrain4j/downloads/list Download] and add the janrain4j-x.x.x.jar to your project's classpath (`webapp/WEB-INF/lib`).
 
 Maven users should add the library using the following dependency:
 
@@ -16,3 +16,7 @@ Maven users should add the library using the following dependency:
     <scope>compile</scope>
 </dependency>
 }}}
+
+=Configuration=
+
+Create the janrain4j.properties file inside your classpath.
