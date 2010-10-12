@@ -33,3 +33,8 @@ janrain4j.token.url = http://localhost:8888/your_token_path
 You can access the Janrain API Key, Application ID and Application Domain from the Janrain dashboard. 
 
 For advanced configuration options available see the [Configuration configuration] section.
+
+=Sign-in Page=
+
+
+=Retrieve Authentication Information=
