@@ -41,9 +41,9 @@ Create a sign-in jsp page containing:
 
 <html>
     <body>
-        ..
+        ...
         <janrain:signInEmbedded />
-        ..
+        ...
     </body>
 </html>
 }}}
@@ -56,9 +56,9 @@ If you prefer a sign-in link with a pop-up instead of the embedded widget then u
 
 <html>
     <body>
-        ..
+        ...
         <janrain:signInLink>Sign-in</janrain:signInLink>
-        ..
+        ...
         <janrain:signInOverlay />
     </body>
 </html>
@@ -91,7 +91,8 @@ public class TokenServlet extends HttpServlet {
             Profile profile = userDataResponse.getProfile();
             String identifier = profile.getIdentifier();
 
-            // TODO Retrieve more user data like
+            // TODO Retrieve more user data like name, email, friends, ...
+
             // TODO Do something with the retrieved user data 
         }
         catch (EngageFailureException e) {
