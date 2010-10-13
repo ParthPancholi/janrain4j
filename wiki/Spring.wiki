@@ -11,7 +11,7 @@ And then autowire it in e.g. a Spring Controller class like:
 @Autowired private EngageService engageService;
 }}}
 
-When configuring the `janrain4j.properties` file using the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] servlet listener you also have more options to locate the file. You can e.g. use `classpath` locations and `${}` placeholders. See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] apidocs for more information.
+When configuring the `janrain4j.properties` file using the `Janrain4jConfigListener` servlet listener you also have more options to locate the file. You can e.g. use `classpath` locations and `${}` placeholders. See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] apidocs for more information.
 
 {{{
 <context-param>
