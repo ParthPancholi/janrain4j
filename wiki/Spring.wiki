@@ -13,9 +13,6 @@ And then autowire it in e.g. a Spring Controller class like:
 
 When configuring the `janrain4j.properties` file using a servlet listener... TODO
 
-
-See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] apidocs for more information.
-
 {{{
 <context-param>
     <param-name>janrain4jConfigLocation</param-name>
@@ -32,3 +29,5 @@ See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/j
 }}}
 
 Just make sure the `Janrain4jConfigListener` is configured before the Spring `ContextLoaderListener`. Otherwise Spring will create the !EngageService with configuration options form the default `janrain4j.properties` file.
+
+See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] apidocs for more information.
