@@ -5,6 +5,14 @@ Under construction.
 
 The simplest configuration possible is to create a `janrain4j.properties` file containing the Janrain4j configuration inside the root of your classpath (it should end up in `webapp/WEB-INF/classes`).
 
+The file should contain at least:
+
+{{{
+janrain4j.api.key = your_api_key
+janrain4j.application.id = your_application_id
+janrain4j.application.domain = https://your_application_domain.rpxnow.com/
+janrain4j.token.url = http://localhost:8888/your_token_path
+}}}
 
 =Advanced=
 
