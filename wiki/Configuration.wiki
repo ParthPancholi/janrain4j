@@ -28,5 +28,17 @@ janrain4j.read.timeout = your_http_read_timeout
 
 =Advanced=
 
+By default Janrain4j will look for a `janrain4j.properties` file inside the root of your classpath. If you want to use a different file name you can override the file name using a servlet listener and context parameter in your `web.xml`:
+
+{{{
+<context-param>
+    <param-name>janrain4jConfigLocation</param-name>
+    <param-value>janrain4j-Development.properties</param-value>
+</context-param>
+    
+<listener>
+    <listener-class>com.googlecode.janrain4j.conf.Janrain4jConfigListener</listener-class>
+</listener>
+}}}
 
 =Programmatic=
