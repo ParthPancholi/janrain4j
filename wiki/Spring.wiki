@@ -1,7 +1,7 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,spring,springframework
 Under Construction
 
-
+Janrain4j integrates very well with the Spring framework. You can easily let Spring create an !EngageService bean and inject it in classes you need.
 
 {{{
 <bean class="com.googlecode.janrain4j.api.engage.EngageServiceFactory" factory-method="getEngageService" />
