@@ -17,13 +17,13 @@ janrain4j.token.url = http://localhost:8888/your_token_path
 Other (optional) configuration options are:
 
 {{{
-janrain4j.language.preference = 
-janrain4j.proxy.host = 
-janrain4j.proxy.port = 
-janrain4j.proxy.username = 
-janrain4j.proxy.password = 
-janrain4j.connect.timeout = 
-janrain4j.read.timeout = 
+janrain4j.language.preference = your_language_preference
+janrain4j.proxy.host = your_proxy_host
+janrain4j.proxy.port = your_proxy_port
+janrain4j.proxy.username = your_proxy_username
+janrain4j.proxy.password = your_proxy_password
+janrain4j.connect.timeout = http_connection_timeout
+janrain4j.read.timeout = http_read_timeout
 }}}
 
 =Advanced=
