@@ -10,3 +10,17 @@ And then autowire it in e.g. a Spring Controller class like:
 {{{
 @Autowired private EngageService engageService;
 }}}
+
+When configuring the `janrain4j.properties' file 
+
+
+{{{
+<context-param>
+    <param-name>janrain4jConfigLocation</param-name>
+    <param-value>classpath:META-INF/janrain4j-${com.google.appengine.runtime.environment}.properties</param-value>
+</context-param>
+
+<listener>
+    <listener-class>com.googlecode.janrain4j.conf.Janrain4jConfigListener</listener-class>
+</listener>
+}}}
