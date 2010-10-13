@@ -3,6 +3,8 @@ Under construction.
 
 =Simple=
 
+The simplest configuration possible is to create a `janrain4j.properties` file containing the Janrain4j configuration inside the root of your classpath (it should end up in `webapp/WEB-INF/classes`).
+
 
 =Advanced=
 
