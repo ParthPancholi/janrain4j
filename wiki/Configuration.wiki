@@ -41,4 +41,8 @@ By default Janrain4j will look for a `janrain4j.properties` file inside the root
 </listener>
 }}}
 
+This makes it easy to switch between properties files for e.g. Development and Production environments.
+
+If you are using Ant or Maven you can even use filter tokens to replace the environment during the build process.
+
 =Programmatic=
