@@ -49,7 +49,7 @@ And if you are using the Spring framework you should also have a look at the [Sp
 
 =Programmatic=
 
-You can also programmatically configure Janrain4j. This might be useful for unit testing but can also be used in production if you prefer. Just make sure you create and store the Config before you interact with the EngageService.  
+You can also programmatically configure Janrain4j. This might be useful for unit testing but can also be used in production if you prefer. Just make sure you create - and store - the Config object before you interact with the !EngageService.  
 
 {{{
 import static com.googlecode.janrain4j.conf.Config.Builder.*;
