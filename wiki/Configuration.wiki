@@ -22,8 +22,8 @@ janrain4j.proxy.host = your_proxy_host
 janrain4j.proxy.port = your_proxy_port
 janrain4j.proxy.username = your_proxy_username
 janrain4j.proxy.password = your_proxy_password
-janrain4j.connect.timeout = http_connection_timeout
-janrain4j.read.timeout = http_read_timeout
+janrain4j.connect.timeout = your_http_connection_timeout
+janrain4j.read.timeout = your_http_read_timeout
 }}}
 
 =Advanced=
