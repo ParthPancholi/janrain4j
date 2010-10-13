@@ -14,6 +14,18 @@ janrain4j.application.domain = https://your_application_domain.rpxnow.com/
 janrain4j.token.url = http://localhost:8888/your_token_path
 }}}
 
+Other (optional) configuration options are:
+
+{{{
+janrain4j.language.preference = 
+janrain4j.proxy.host = 
+janrain4j.proxy.port = 
+janrain4j.proxy.username = 
+janrain4j.proxy.password = 
+janrain4j.connect.timeout = 
+janrain4j.read.timeout = 
+}}}
+
 =Advanced=
 
 
