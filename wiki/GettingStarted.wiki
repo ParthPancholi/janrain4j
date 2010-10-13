@@ -23,7 +23,7 @@ The file should contain:
 janrain4j.api.key = your_api_key
 janrain4j.application.id = your_application_id
 janrain4j.application.domain = https://your_application_domain.rpxnow.com/
-janrain4j.token.url = http://localhost:8888/your_token_path
+janrain4j.token.url = http://www.your_domain.com/your_token_path
 }}}
 
 You can access the Janrain API Key, Application ID and Application Domain from the Janrain dashboard. 
