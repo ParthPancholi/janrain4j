@@ -48,3 +48,17 @@ If you are using Ant or Maven you can even use filter tokens to replace the envi
 And if you are using the Spring framework you should also have a look at the [Spring] integration section, as you can also use Spring property placeholders inside the config location parameter value.
 
 =Programmatic=
+
+{{{
+import static com.googlecode.janrain4j.conf.Config.Builder.*;
+
+import com.googlecode.janrain4j.conf.ConfigHolder;
+
+Config config = build()
+        .apiKey("your_api_key")
+        .applicationID("your_application_id")
+        .applicationDomain("https://your_application_domain.rpxnow.com/")
+        .tokenUrl("http://www.your_domain.com/your_token_path");
+
+ConfigHolder.setConfig(config);
+}}}
