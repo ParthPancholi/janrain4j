@@ -11,7 +11,7 @@ And then autowire it in e.g. a Spring Controller class like:
 @Autowired private EngageService engageService;
 }}}
 
-When configuring the `janrain4j.properties' file 
+When configuring the `janrain4j.properties` file 
 
 
 {{{
