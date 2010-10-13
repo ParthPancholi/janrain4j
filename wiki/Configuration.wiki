@@ -45,5 +45,6 @@ This makes it easy to switch between properties files for e.g. Development and P
 
 If you are using Ant or Maven you can even use filter tokens to replace the environment during the build process.
 
-Spring users should also have a look at the [Spring] integration section.
+Spring framework users should also have a look at the [Spring] integration section, as you can also use Spring property placeholders inside the config location parameter value.
+
 =Programmatic=
