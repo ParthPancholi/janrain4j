@@ -3,7 +3,7 @@
 
 Embeds the sign-in widget.
 
-_Examples_
+_Example_
 
 {{{
 <janrain:signInEmbedded />
