@@ -31,6 +31,7 @@ import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
 import com.googlecode.janrain4j.http.HttpResponse;
@@ -79,8 +80,15 @@ class EngageServiceImpl implements EngageService {
     
     private Config config = null;
     
+    EngageServiceImpl() {
+    }
+    
     EngageServiceImpl(Config config) {
         this.config = config;
+    }
+    
+    Config getConfig() {
+        return config == null ? ConfigHolder.getConfig() : config;
     }
     
     public UserDataResponse authInfo(String token) throws EngageFailureException, ErrorResponeException {
@@ -240,7 +248,7 @@ class EngageServiceImpl implements EngageService {
         }
 
         params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, config.getApiKey());
+        params.put(API_KEY_PARAM, getConfig().getApiKey());
         
         String url = API_URL + method;
         
@@ -261,7 +269,7 @@ class EngageServiceImpl implements EngageService {
         String jsonResponse = null;
         
         try {
-            HttpResponse response = HttpClientFactory.getHttpClient(config).post(url, params);
+            HttpResponse response = HttpClientFactory.getHttpClient(getConfig()).post(url, params);
             jsonResponse = response.getContent();
             JSONObject rsp = new JSONObject(jsonResponse);
             
