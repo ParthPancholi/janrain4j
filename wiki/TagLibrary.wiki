@@ -3,10 +3,14 @@
 
 Embeds the sign-in widget.
 
-_Example_
+_Examples_
 
 {{{
 <janrain:signInEmbedded />
+
+<janrain:signInEmbedded languagePreference="en" />
+
+<janrain:signInEmbedded width="600" height="360" />
 }}}
 
 _Attributes_
@@ -24,10 +28,12 @@ _Attributes_
 
 Renders the sign-in link.
 
-_Example_
+_Examples_
 
 {{{
 <janrain:signInLink>Sign In</janrain:signInLink>
+
+<janrain:signInLink styleClass="my-style">Sign In</janrain:signInLink>
 }}}
 
 _Attributes_
@@ -42,10 +48,12 @@ _Attributes_
 
 Includes the sign-in overlay.
 
-_Example_
+_Examples_
 
 {{{
 <janrain:signInOverlay />
+
+<janrain:signInOverlay languagePreference="en" />
 }}}
 
 _Attributes_
