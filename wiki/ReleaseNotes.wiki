@@ -1,7 +1,7 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,releasenotes
 =1.0.1=
 2010-10-15
-  * EngageServiceImpl (created without Config) should always use global Config (Issue #1)
+  * !EngageServiceImpl (created without Config) should always use global Config (Issue #1)
 
 =1.0.0=
 2010-10-08
