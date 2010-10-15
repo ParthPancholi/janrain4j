@@ -9,7 +9,7 @@ Maven users should add the library using the following dependency:
 <dependency>
     <groupId>com.googlecode.janrain4j</groupId>
     <artifactId>janrain4j</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 }}}
 
