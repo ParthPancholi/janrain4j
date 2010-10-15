@@ -50,6 +50,7 @@ import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNLINK_PARAM
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNMAP_METHOD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -78,6 +79,7 @@ import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
+import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.http.HttpClient;
 import com.googlecode.janrain4j.http.HttpClientFactory;
 import com.googlecode.janrain4j.http.HttpFailureException;
@@ -841,5 +843,27 @@ protected EngageServiceImpl service = null;
         service.apiCall(method, params);
         
         verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testConfigSet() {
+        service = new EngageServiceImpl(config);
+        Config otherConfig = mock(Config.class);
+        ConfigHolder.setConfig(otherConfig);
+        
+        assertNotSame(otherConfig, service.getConfig());
+    }
+    
+    @Test
+    public void testNoConfigSet() {
+        service = new EngageServiceImpl();
+        ConfigHolder.setConfig(config);
+        
+        assertSame(config, service.getConfig());
+        
+        Config newConfig = mock(Config.class);
+        ConfigHolder.setConfig(newConfig);
+        
+        assertSame(newConfig, service.getConfig());
     }
 }

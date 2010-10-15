@@ -32,7 +32,7 @@ public class EngageServiceFactory {
      * @return An <code>EngageService</code> instance.
      */
     public static EngageService getEngageService() {
-        return new EngageServiceImpl(ConfigHolder.getConfig());
+        return new EngageServiceImpl();
     }
     
     /**

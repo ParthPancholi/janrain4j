@@ -50,11 +50,11 @@ public class EngageServiceFactoryTest {
     public void testGetInstance() throws Exception {
         ConfigHolder.setConfig(config);
         
-        whenNew(EngageServiceImpl.class).withArguments(config).thenReturn(service);
+        whenNew(EngageServiceImpl.class).withNoArguments().thenReturn(service);
 
         EngageServiceFactory.getEngageService();
         
-        verifyNew(EngageServiceImpl.class).withArguments(config);
+        verifyNew(EngageServiceImpl.class).withNoArguments();
     }
     
     @Test
