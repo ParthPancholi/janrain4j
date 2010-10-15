@@ -28,7 +28,7 @@ janrain4j.read.timeout = your_http_read_timeout
 
 =Advanced=
 
-By default Janrain4j will look for a `janrain4j.properties` file inside the root of your classpath. If you want to use a different file name you can override it by using the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] servlet listener and context parameter in your `web.xml`:
+By default Janrain4j will look for a `janrain4j.properties` file inside the root of your classpath. If you want to use a different file name you can override it by using the [http://janrain4j.googlecode.com/svn/docs/1.0.x/apidocs/com/googlecode/janrain4j/conf/Janrain4jConfigListener.html Janrain4jConfigListener] servlet listener and context parameter in your `web.xml`:
 
 {{{
 <context-param>
@@ -43,9 +43,7 @@ By default Janrain4j will look for a `janrain4j.properties` file inside the root
 
 This makes it easy to switch between properties files for e.g. Development and Production environments.
 
-If you are using Ant or Maven you can even use filter tokens to replace the environment in the config location parameter value during the build process.
-
-And if you are using the Spring framework you should also have a look at the [Spring] integration section, as you can also use Spring property placeholders inside the config location parameter value.
+If you are using the Spring framework you should also have a look at the [Spring] integration section, as you can also use Spring property placeholders inside the config location parameter value.
 
 =Programmatic=
 
@@ -65,4 +63,4 @@ Config config = build()
 ConfigHolder.setConfig(config);
 }}}
 
-See the [http://janrain4j.googlecode.com/svn/docs/1.0.0/apidocs/com/googlecode/janrain4j/conf/Config.html Config] apidocs for more information.
+See the [http://janrain4j.googlecode.com/svn/docs/1.0.x/apidocs/com/googlecode/janrain4j/conf/Config.html Config] apidocs for more information.
