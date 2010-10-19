@@ -1,1 +1,2 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,grails,groovy
+Check out the [http://www.grails.org/plugin/janrain Grails plugin portal] for more information about the Grails Janrain plugin.
