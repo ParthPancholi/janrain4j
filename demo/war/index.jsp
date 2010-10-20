@@ -23,7 +23,7 @@
                     </div>
                     <div class="inner">
                         <c:choose>
-                            <c:when test="${empty sessionScope.primaryKey}">
+                            <c:when test="${empty primaryKey}">
                                 <janrain:signInEmbedded flags="hide_sign_in_with" />
                             </c:when>
                             <c:otherwise>

@@ -11,7 +11,7 @@
             </ul>
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
-                    <li class="append"><a href="/account.jsp">${(not empty profile.name.formatted ? profile.name.formatted : profile.identifier)}</a></li>
+                    <li class="append"><a href="/account.jsp">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
                     <li class="last"><a class="mini-button red" href="/sign_out">Sign Out</a></li>
                 </ul>
             </c:if>

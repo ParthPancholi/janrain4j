@@ -34,8 +34,6 @@ public class MapServlet extends HttpServlet {
         String token = req.getParameter("token");
         log.info("Parameter token = " + token);
         
-        
-        
         try {
             // get user data from janrain
             log.info("Calling auth_info...");

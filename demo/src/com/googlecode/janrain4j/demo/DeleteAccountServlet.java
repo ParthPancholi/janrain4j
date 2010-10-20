@@ -48,11 +48,7 @@ public class DeleteAccountServlet extends HttpServlet {
                 
                 // remove signed in account from session
                 req.getSession().removeAttribute("primaryKey");
-                req.getSession().removeAttribute("profile");
-                req.getSession().removeAttribute("accessCrendentials");
-                req.getSession().removeAttribute("mergedPoco");
-                req.getSession().removeAttribute("friends");
-                req.getSession().removeAttribute("jsonResponse");
+                req.getSession().removeAttribute("userData");
                 
                 flashScope.setAttribute("message", "Your account is deleted. Register again by signing in anytime.");
                 

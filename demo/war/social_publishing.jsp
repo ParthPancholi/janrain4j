@@ -15,8 +15,8 @@
 <jsp:include page="_flash.jsp" />
 
 <%  // get sign in provider from user data
-    Profile profile = (Profile) session.getAttribute("profile");
-    String providerName = profile.getProviderName();
+    UserDataResponse userDataResponse = (UserDataResponse) session.getAttribute("userData");
+    String providerName = userDataResponse.getProfile().getProviderName();
     
     // providers supporting set status call
     List<String> setStatus = new ArrayList<String>();
