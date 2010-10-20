@@ -22,7 +22,6 @@ import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.api.engage.response.profile.Name;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
-import com.googlecode.janrain4j.json.JSONException;
 
 public class TokenServlet extends HttpServlet {
 
@@ -105,11 +104,7 @@ public class TokenServlet extends HttpServlet {
             }
             
             req.getSession().setAttribute("primaryKey", primaryKey);
-            req.getSession().setAttribute("profile", userDataResponse.getProfile());
-            req.getSession().setAttribute("accessCredentials", userDataResponse.getAccessCredentials());
-            req.getSession().setAttribute("mergedPoco", userDataResponse.getMergedPoco());
-            req.getSession().setAttribute("friends", userDataResponse.getFriends());
-            req.getSession().setAttribute("jsonResponse", userDataResponse.getResponseAsJSONObject().toString(2));
+            req.getSession().setAttribute("userData", userDataResponse);
             
             resp.sendRedirect("user_data.jsp");
         }
@@ -119,11 +114,6 @@ public class TokenServlet extends HttpServlet {
             flashScope.setAttribute("level", "error");
         }
         catch (ErrorResponeException e) {
-            log.error("Unable to get auth info", e);
-            flashScope.setAttribute("message", "An error occured while retrieving your user profile. Please try again.");
-            flashScope.setAttribute("level", "error");
-        }
-        catch (JSONException e) {
             log.error("Unable to get auth info", e);
             flashScope.setAttribute("message", "An error occured while retrieving your user profile. Please try again.");
             flashScope.setAttribute("level", "error");
