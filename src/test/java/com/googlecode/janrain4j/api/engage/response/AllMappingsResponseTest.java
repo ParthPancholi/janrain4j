@@ -21,8 +21,11 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -116,5 +119,33 @@ public class AllMappingsResponseTest {
         Map<String, List<String>> allMappings = response.getAllMappings();
         
         assertEquals(0, allMappings.size());
+    }
+    
+    @Test
+    public void testSerializable() throws Exception {
+        
+        json =
+            "{\n" +
+            "  \"mappings\": {\n" +
+            "    \"1\": [\n" +
+            "      \"http:\\/\\/cygnus.myopenid.com\\/\"\n" +
+            "    ],\n" +
+            "    \"2\": [\n" +
+            "      \"http:\\/\\/brianellin.com\\/\",\n" +
+            "      \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "    ]\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new AllMappingsResponse(json);
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(response);
+        oos.close();
+        
+        assertTrue(out.toByteArray().length > 0);
+        assertNotNull(response.getResponseAsJSONObject());
     }
 }
