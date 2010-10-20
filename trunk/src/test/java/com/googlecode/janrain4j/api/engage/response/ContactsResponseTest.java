@@ -22,7 +22,10 @@ package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import org.junit.Test;
@@ -88,5 +91,58 @@ public class ContactsResponseTest {
         assertEquals("Bob Johnson", contacts.get(0).getDisplayName());
         assertEquals("Cindy Smith", contacts.get(1).getDisplayName());
         assertEquals("Fred Williams", contacts.get(2).getDisplayName());
+    }
+    
+    @Test
+    public void testSerializable() throws Exception {
+        
+        json = 
+            "{\n" +
+            "  \"response\": {\n" +
+            "    \"startIndex\": 1,\n" +
+            "    \"itemsPerPage\": 5,\n" +
+            "    \"entry\": [\n" +
+            "      {\n" +
+            "        \"displayName\": \"Bob Johnson\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"bob@example.com\",\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"displayName\": \"Cindy Smith\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"cindy.smith@example.com\"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"displayName\": \"Fred Williams\",\n" +
+            "        \"emails\": [\n" +
+            "          {\n" +
+            "            \"type\": \"other\",\n" +
+            "            \"value\": \"fred.williams@example.com\"\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"totalResults\": 5\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new ContactsResponse(json);
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(response);
+        oos.close();
+        
+        assertTrue(out.toByteArray().length > 0);
+        assertNotNull(response.getResponseAsJSONObject());
     }
 }

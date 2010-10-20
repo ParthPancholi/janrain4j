@@ -28,7 +28,7 @@ import com.googlecode.janrain4j.json.JSONObject;
 abstract class AbstractEngageResponse implements Serializable {
 
     private String json = null;
-    private JSONObject jsonObject = null;
+    private transient JSONObject jsonObject = null;
     
     public AbstractEngageResponse(String json) throws EngageFailureException {
         this.json = json;
@@ -53,6 +53,14 @@ abstract class AbstractEngageResponse implements Serializable {
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      */
     public JSONObject getResponseAsJSONObject() throws EngageFailureException {
+        if (jsonObject == null) {
+            try {
+                this.jsonObject = new JSONObject(json);
+            }
+            catch (JSONException e) {
+                throw new EngageFailureException("Unexpected JSON error", json, e);
+            }
+        }
         return jsonObject;
     }
 }

@@ -21,8 +21,11 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import org.junit.Test;
@@ -98,5 +101,28 @@ public class MappingsResponseTest {
         List<String> mappings = response.getMappings();
         
         assertEquals(0, mappings.size());
+    }
+    
+    @Test
+    public void testSerializable() throws Exception {
+        
+        json =
+            "{\n" +
+            "  \"stat\": \"ok\",\n" +
+            "  \"identifiers\": [\n" +
+            "    \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+            "    \"http:\\/\\/brianellin.com\\/\"\n" +
+            "  ]\n" +
+            "}";
+        
+        response = new MappingsResponse(json);
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(response);
+        oos.close();
+        
+        assertTrue(out.toByteArray().length > 0);
+        assertNotNull(response.getResponseAsJSONObject());
     }
 }

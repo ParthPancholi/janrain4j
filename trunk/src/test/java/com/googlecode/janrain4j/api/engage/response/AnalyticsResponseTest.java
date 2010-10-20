@@ -21,6 +21,11 @@ import java.sql.Connection;
 package com.googlecode.janrain4j.api.engage.response;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 
 import org.junit.Test;
 
@@ -46,5 +51,25 @@ public class AnalyticsResponseTest {
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
         
         assertEquals("http://rpxnow.com/export?access_token=19e936b707e7862269c...&end=02/10/2010&api=true", response.getUrl());
+    }
+    
+    @Test
+    public void testSerializable() throws Exception {
+        
+        json =
+            "{\n" +
+            "  \"url\": \"http:\\/\\/rpxnow.com\\/export?access_token=19e936b707e7862269c...&end=02\\/10\\/2010&api=true\",\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new AnalyticsResponse(json);
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(response);
+        oos.close();
+        
+        assertTrue(out.toByteArray().length > 0);
+        assertNotNull(response.getResponseAsJSONObject());
     }
 }

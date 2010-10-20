@@ -25,6 +25,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -45,7 +47,6 @@ import com.googlecode.janrain4j.api.engage.response.poco.Url;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONObject;
 
-@SuppressWarnings("serial")
 public class UserDataResponseTest {
 
     private String json = null;
@@ -75,7 +76,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         assertEquals(json, response.getResponseAsJSON());
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
@@ -269,7 +270,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         assertEquals(json, response.getResponseAsJSON());
         assertEquals(new JSONObject(json).toString(), response.getResponseAsJSONObject().toString());
@@ -477,7 +478,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -505,7 +506,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -532,7 +533,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         AccessCredentials accessCredentials = response.getAccessCredentials();
         assertNotNull(accessCredentials);
@@ -679,7 +680,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         Contact mergedPoco = response.getMergedPoco();
         assertNotNull(mergedPoco);
@@ -832,7 +833,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -854,7 +855,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -879,7 +880,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -902,7 +903,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         assertTrue(response.isLimitedData());
     }
@@ -920,7 +921,7 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         assertFalse(response.isLimitedData());
     }
@@ -937,8 +938,34 @@ public class UserDataResponseTest {
             "  \"stat\": \"ok\"\n" +
             "}";
         
-        response = new UserDataResponse(json) {};
+        response = new UserDataResponse(json);
         
         assertFalse(response.isLimitedData());
+    }
+    
+    @Test
+    public void testSerializable() throws Exception {
+        
+        json =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"displayName\": \"brian\",\n" +
+            "    \"preferredUsername\": \"brian\",\n" +
+            "    \"url\": \"http:\\/\\/brian.myopenid.com\\/\",\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new UserDataResponse(json);
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(response);
+        oos.close();
+        
+        assertTrue(out.toByteArray().length > 0);
+        assertNotNull(response.getResponseAsJSONObject());
     }
 }
