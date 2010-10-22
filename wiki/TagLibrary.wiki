@@ -1,8 +1,4 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,taglibrary,taglib,jsp
-{{{
-<%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
-}}}
-
 =signInEmbedded=
 
 Embeds the sign-in widget.
