@@ -23,37 +23,16 @@ import javax.servlet.ServletContextListener;
  * This listener supports a <code>janrain4jConfigLocation</code> init parameter 
  * to specify the location of the janrain4j properties file.
  * 
- * <p>If used in a Spring environment the location can be:
- * <ul>
- *     <li>a "classpath:" location (e.g. <code>classpath:janrain4j.properties</code>)</li>
- *     <li>an absolute file URL (e.g. <code>file:C:/janrain4j.properties</code>)</li>
- *     <li>a plain path relative to the web application root directory (e.g. <code>/WEB-INF/janrain4j.properties</code>)</li>
- * </ul>
- * Also Spring <code>${}</code> placeholders are supported. The needed Spring  
- * classes are dynamically instantiated so there is no hard dependency to the 
- * Spring Framework.
- * 
- * <p>In non Spring environments <code>Class.getResource("/" + location)</code> 
- * is used to locate the janrain4j properties file.
- * 
  * <p>Example context-param configuration:
  * <pre>
  * &lt;context-param&gt;
  *     &lt;param-name&gt;janrain4jConfigLocation&lt;/param-name&gt;
  *     &lt;param-value&gt;my-janrain4j.properties&lt;/param-value&gt;
  * &lt;/context-param>
- * 
- * or
- * 
- * &lt;context-param&gt;
- *     &lt;param-name&gt;janrain4jConfigLocation&lt;/param-name&gt;
- *     &lt;param-value&gt;classpath:META-INF/janrain4j-${system.property.runtime.environment}.properties&lt;/param-value&gt;
- * &lt;/context-param>
  * </pre>
  * 
  * <p>Example listener configuration:
  * <pre>
- * &lt;/context-param>
  * 
  * &lt;listener&gt;
  *     &lt;listener-class&gt;com.googlecode.janrain4j.conf.Janrain4jConfigListener&lt;/listener-class&gt;
