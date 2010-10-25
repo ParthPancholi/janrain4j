@@ -37,8 +37,8 @@ import com.googlecode.janrain4j.conf.ConfigHolder;
 @PrepareForTest(EngageServiceFactory.class)
 public class EngageServiceFactoryTest {
 
-    Config config = null;
-    EngageServiceImpl service = null;
+    private Config config = null;
+    private EngageServiceImpl service = null;
     
     @Before
     public void setUp() {
