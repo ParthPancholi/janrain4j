@@ -40,10 +40,13 @@ public class Photo implements Serializable {
     }
     
     public static Photo fromJSON(JSONObject json) {
-        Photo photo = new Photo();
-        photo.setValue(json.optString("value"));
-        photo.setType(json.optString("type"));
-        photo.setPrimary(json.optBoolean("primary", false));
+        Photo photo = null;
+        if (json != null) {
+            photo = new Photo();
+            photo.setValue(json.optString("value"));
+            photo.setType(json.optString("type"));
+            photo.setPrimary(json.optBoolean("primary", false));
+        }
         return photo;
     }
     

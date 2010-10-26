@@ -38,12 +38,15 @@ public class BodyType implements Serializable {
     }
     
     public static BodyType fromJSON(JSONObject json) {
-        BodyType bodyType = new BodyType();
-        bodyType.setBuild(json.optString("build"));
-        bodyType.setEyeColor(json.optString("eyeColor"));
-        bodyType.setHairColor(json.optString("hairColor"));
-        bodyType.setHeight(json.optDouble("height"));
-        bodyType.setWeight(json.optDouble("weight"));
+        BodyType bodyType = null;
+        if (json != null) {
+            bodyType = new BodyType();
+            bodyType.setBuild(json.optString("build"));
+            bodyType.setEyeColor(json.optString("eyeColor"));
+            bodyType.setHairColor(json.optString("hairColor"));
+            bodyType.setHeight(json.optDouble("height"));
+            bodyType.setWeight(json.optDouble("weight"));
+        }
         return bodyType;
     }
     

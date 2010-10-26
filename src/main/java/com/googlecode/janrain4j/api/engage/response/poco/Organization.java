@@ -45,16 +45,19 @@ public class Organization implements Serializable {
     }
     
     public static Organization fromJSON(JSONObject json) {
-        Organization organization = new Organization();
-        organization.setName(json.optString("name"));
-        organization.setDepartment(json.optString("department"));
-        organization.setTitle(json.optString("title"));
-        organization.setType(json.optString("type"));
-        organization.setStartDate(json.optString("startDate"));
-        organization.setEndDate(json.optString("endDate"));
-        organization.setLocation(json.optString("location"));
-        organization.setDescription(json.optString("description"));
-        organization.setPrimary(json.optBoolean("primary", false));
+        Organization organization = null;
+        if (json != null) {
+            organization = new Organization();
+            organization.setName(json.optString("name"));
+            organization.setDepartment(json.optString("department"));
+            organization.setTitle(json.optString("title"));
+            organization.setType(json.optString("type"));
+            organization.setStartDate(json.optString("startDate"));
+            organization.setEndDate(json.optString("endDate"));
+            organization.setLocation(json.optString("location"));
+            organization.setDescription(json.optString("description"));
+            organization.setPrimary(json.optBoolean("primary", false));
+        }
         return organization;
     }
     

@@ -37,6 +37,8 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Contact implements Serializable {
 
+    // TODO indicate portable contact data / open social data
+    
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     
@@ -80,6 +82,7 @@ public class Contact implements Serializable {
     private String livingArrangement = null;
     private String lookingFor = null;
     private String profileSong = null;
+    private String profileUrl = null;
     private String profileVideo = null;
     private String relationshipStatus = null;
     private String religion = null;
@@ -111,266 +114,269 @@ public class Contact implements Serializable {
     }
     
     public static Contact fromJSON(JSONObject json) {
-        Contact contact = new Contact();
-        contact.setId(json.optString("id", null));
-        contact.setDisplayName(json.optString("displayName", null));
-        contact.setName(Name.fromJSON(json.optJSONObject("name")));
-        contact.setNickname(json.optString("nickname", null));
-        contact.setPublished(parseDateTime(json.optString("published", null)));
-        contact.setUpdated(parseDateTime(json.optString("updated", null)));
-        contact.setBirthday(parseDate(json.optString("birthday", null)));
-        contact.setAnniversary(parseDate(json.optString("anniversary", null)));
-        contact.setGender(json.optString("gender", null));
-        contact.setNote(json.optString("note", null));
-        contact.setPreferredUsername(json.optString("preferredUsername", null));
-        contact.setUtcOffset(json.optString("utcOffset", null));
-        contact.setConnected(json.optBoolean("connected"));
-        
-        JSONArray emailsJSONArray = json.optJSONArray("emails");
-        if (emailsJSONArray != null) {
-            List<Email> emails = new ArrayList<Email>();
-            for (int i = 0; i < emailsJSONArray.length(); i++) {
-                emails.add(Email.fromJSON(emailsJSONArray.optJSONObject(i)));
+        Contact contact = null;
+        if (json != null) {
+            contact = new Contact();
+            contact.setId(json.optString("id", null));
+            contact.setDisplayName(json.optString("displayName", null));
+            contact.setName(Name.fromJSON(json.optJSONObject("name")));
+            contact.setNickname(json.optString("nickname", null));
+            contact.setPublished(parseDateTime(json.optString("published", null)));
+            contact.setUpdated(parseDateTime(json.optString("updated", null)));
+            contact.setBirthday(parseDate(json.optString("birthday", null)));
+            contact.setAnniversary(parseDate(json.optString("anniversary", null)));
+            contact.setGender(json.optString("gender", null));
+            contact.setNote(json.optString("note", null));
+            contact.setPreferredUsername(json.optString("preferredUsername", null));
+            contact.setUtcOffset(json.optString("utcOffset", null));
+            contact.setConnected(json.optBoolean("connected"));
+            
+            JSONArray emailsJSONArray = json.optJSONArray("emails");
+            if (emailsJSONArray != null) {
+                List<Email> emails = new ArrayList<Email>();
+                for (int i = 0; i < emailsJSONArray.length(); i++) {
+                    emails.add(Email.fromJSON(emailsJSONArray.optJSONObject(i)));
+                }
+                contact.setEmails(emails);
             }
-            contact.setEmails(emails);
-        }
-        
-        JSONArray urlsJSONArray = json.optJSONArray("urls");
-        if (urlsJSONArray != null) {
-            List<Url> urls = new ArrayList<Url>();
-            for (int i = 0; i < urlsJSONArray.length(); i++) {
-                urls.add(Url.fromJSON(urlsJSONArray.optJSONObject(i)));
+            
+            JSONArray urlsJSONArray = json.optJSONArray("urls");
+            if (urlsJSONArray != null) {
+                List<Url> urls = new ArrayList<Url>();
+                for (int i = 0; i < urlsJSONArray.length(); i++) {
+                    urls.add(Url.fromJSON(urlsJSONArray.optJSONObject(i)));
+                }
+                contact.setUrls(urls);
             }
-            contact.setUrls(urls);
-        }
-        
-        JSONArray phoneNumbersJSONArray = json.optJSONArray("phoneNumbers");
-        if (phoneNumbersJSONArray != null) {
-            List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
-            for (int i = 0; i < phoneNumbersJSONArray.length(); i++) {
-                phoneNumbers.add(PhoneNumber.fromJSON(phoneNumbersJSONArray.optJSONObject(i)));
+            
+            JSONArray phoneNumbersJSONArray = json.optJSONArray("phoneNumbers");
+            if (phoneNumbersJSONArray != null) {
+                List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
+                for (int i = 0; i < phoneNumbersJSONArray.length(); i++) {
+                    phoneNumbers.add(PhoneNumber.fromJSON(phoneNumbersJSONArray.optJSONObject(i)));
+                }
+                contact.setPhoneNumbers(phoneNumbers);
             }
-            contact.setPhoneNumbers(phoneNumbers);
-        }
-        
-        JSONArray imsJSONArray = json.optJSONArray("ims");
-        if (imsJSONArray != null) {
-            List<IM> ims = new ArrayList<IM>();
-            for (int i = 0; i < imsJSONArray.length(); i++) {
-                ims.add(IM.fromJSON(imsJSONArray.optJSONObject(i)));
+            
+            JSONArray imsJSONArray = json.optJSONArray("ims");
+            if (imsJSONArray != null) {
+                List<IM> ims = new ArrayList<IM>();
+                for (int i = 0; i < imsJSONArray.length(); i++) {
+                    ims.add(IM.fromJSON(imsJSONArray.optJSONObject(i)));
+                }
+                contact.setIms(ims);
             }
-            contact.setIms(ims);
-        }
-        
-        JSONArray photosJSONArray = json.optJSONArray("photos");
-        if (photosJSONArray != null) {
-            List<Photo> photos = new ArrayList<Photo>();
-            for (int i = 0; i < photosJSONArray.length(); i++) {
-                photos.add(Photo.fromJSON(photosJSONArray.optJSONObject(i)));
+            
+            JSONArray photosJSONArray = json.optJSONArray("photos");
+            if (photosJSONArray != null) {
+                List<Photo> photos = new ArrayList<Photo>();
+                for (int i = 0; i < photosJSONArray.length(); i++) {
+                    photos.add(Photo.fromJSON(photosJSONArray.optJSONObject(i)));
+                }
+                contact.setPhotos(photos);
             }
-            contact.setPhotos(photos);
-        }
-        
-        JSONArray tagsJSONArray = json.optJSONArray("tags");
-        if (tagsJSONArray != null) {
-            List<String> tags = new ArrayList<String>();
-            for (int i = 0; i < tagsJSONArray.length(); i++) {
-                tags.add(tagsJSONArray.optString(i));
+            
+            JSONArray tagsJSONArray = json.optJSONArray("tags");
+            if (tagsJSONArray != null) {
+                List<String> tags = new ArrayList<String>();
+                for (int i = 0; i < tagsJSONArray.length(); i++) {
+                    tags.add(tagsJSONArray.optString(i));
+                }
+                contact.setTags(tags);
             }
-            contact.setTags(tags);
-        }
-        
-        JSONArray relationshipsJSONArray = json.optJSONArray("relationships");
-        if (relationshipsJSONArray != null) {
-            List<Relationship> relationships = new ArrayList<Relationship>();
-            for (int i = 0; i < relationshipsJSONArray.length(); i++) {
-                Relationship relationship = new Relationship();
-                relationship.setValue(relationshipsJSONArray.optString(i));
-                relationships.add(relationship);
+            
+            JSONArray relationshipsJSONArray = json.optJSONArray("relationships");
+            if (relationshipsJSONArray != null) {
+                List<Relationship> relationships = new ArrayList<Relationship>();
+                for (int i = 0; i < relationshipsJSONArray.length(); i++) {
+                    Relationship relationship = new Relationship();
+                    relationship.setValue(relationshipsJSONArray.optString(i));
+                    relationships.add(relationship);
+                }
+                contact.setRelationships(relationships);
             }
-            contact.setRelationships(relationships);
-        }
-        
-        JSONArray addressesJSONArray = json.optJSONArray("addresses");
-        if (addressesJSONArray != null) {
-            List<Address> addresses = new ArrayList<Address>();
-            for (int i = 0; i < addressesJSONArray.length(); i++) {
-                addresses.add(Address.fromJSON(addressesJSONArray.optJSONObject(i)));
+            
+            JSONArray addressesJSONArray = json.optJSONArray("addresses");
+            if (addressesJSONArray != null) {
+                List<Address> addresses = new ArrayList<Address>();
+                for (int i = 0; i < addressesJSONArray.length(); i++) {
+                    addresses.add(Address.fromJSON(addressesJSONArray.optJSONObject(i)));
+                }
+                contact.setAddresses(addresses);
             }
-            contact.setAddresses(addresses);
-        }
-        
-        JSONArray organizationsJSONArray = json.optJSONArray("organizations");
-        if (organizationsJSONArray != null) {
-            List<Organization> organizations = new ArrayList<Organization>();
-            for (int i = 0; i < organizationsJSONArray.length(); i++) {
-                organizations.add(Organization.fromJSON(organizationsJSONArray.optJSONObject(i)));
+            
+            JSONArray organizationsJSONArray = json.optJSONArray("organizations");
+            if (organizationsJSONArray != null) {
+                List<Organization> organizations = new ArrayList<Organization>();
+                for (int i = 0; i < organizationsJSONArray.length(); i++) {
+                    organizations.add(Organization.fromJSON(organizationsJSONArray.optJSONObject(i)));
+                }
+                contact.setOrganizations(organizations);
             }
-            contact.setOrganizations(organizations);
-        }
-        
-        JSONArray accountsJSONArray = json.optJSONArray("accounts");
-        if (accountsJSONArray != null) {
-            List<Account> accounts = new ArrayList<Account>();
-            for (int i = 0; i < accountsJSONArray.length(); i++) {
-                accounts.add(Account.fromJSON(accountsJSONArray.optJSONObject(i)));
+            
+            JSONArray accountsJSONArray = json.optJSONArray("accounts");
+            if (accountsJSONArray != null) {
+                List<Account> accounts = new ArrayList<Account>();
+                for (int i = 0; i < accountsJSONArray.length(); i++) {
+                    accounts.add(Account.fromJSON(accountsJSONArray.optJSONObject(i)));
+                }
+                contact.setAccounts(accounts);
             }
-            contact.setAccounts(accounts);
-        }
-        
-        contact.setAboutMe(json.optString("aboutMe", null));
-        contact.setBodyType(BodyType.fromJSON(json.optJSONObject("bodyType")));
-        contact.setCurrentLocation(Address.fromJSON(json.optJSONObject("currentLocation")));
-        contact.setDrinker(json.optString("drinker", null));
-        contact.setEthnicity(json.optString("ethnicity", null));
-        contact.setFashion(json.optString("fashion", null));
-        contact.setHappiestWhen(json.optString("happiestWhen", null));
-        contact.setHumor(json.optString("humor", null));
-        contact.setLivingArrangement(json.optString("livingArrangement", null));
-        contact.setLookingFor(json.optString("lookingFor", null));
-        contact.setProfileSong(json.optString("profileSong", null));
-        contact.setProfileVideo(json.optString("profileVideo", null));
-        contact.setRelationshipStatus(json.optString("relationshipStatus", null));
-        contact.setReligion(json.optString("religion", null));
-        contact.setRomance(json.optString("romance", null));
-        contact.setScaredOf(json.optString("scaredOf", null));
-        contact.setSexualOrientation(json.optString("sexualOrientation", null));
-        contact.setSmoker(json.optString("smoker", null));
-        contact.setStatus(json.optString("status", null));
-        
-        JSONArray activitiesJSONArray = json.optJSONArray("activities");
-        if (activitiesJSONArray != null) {
-            List<String> activities = new ArrayList<String>();
-            for (int i = 0; i < activitiesJSONArray.length(); i++) {
-                activities.add(activitiesJSONArray.optString(i));
+            
+            contact.setAboutMe(json.optString("aboutMe", null));
+            contact.setBodyType(BodyType.fromJSON(json.optJSONObject("bodyType")));
+            contact.setCurrentLocation(Address.fromJSON(json.optJSONObject("currentLocation")));
+            contact.setDrinker(json.optString("drinker", null));
+            contact.setEthnicity(json.optString("ethnicity", null));
+            contact.setFashion(json.optString("fashion", null));
+            contact.setHappiestWhen(json.optString("happiestWhen", null));
+            contact.setHumor(json.optString("humor", null));
+            contact.setLivingArrangement(json.optString("livingArrangement", null));
+            contact.setLookingFor(json.optString("lookingFor", null));
+            contact.setProfileSong(json.optString("profileSong", null));
+            contact.setProfileUrl(json.optString("profileUrl", null));
+            contact.setProfileVideo(json.optString("profileVideo", null));
+            contact.setRelationshipStatus(json.optString("relationshipStatus", null));
+            contact.setReligion(json.optString("religion", null));
+            contact.setRomance(json.optString("romance", null));
+            contact.setScaredOf(json.optString("scaredOf", null));
+            contact.setSexualOrientation(json.optString("sexualOrientation", null));
+            contact.setSmoker(json.optString("smoker", null));
+            contact.setStatus(json.optString("status", null));
+            
+            JSONArray activitiesJSONArray = json.optJSONArray("activities");
+            if (activitiesJSONArray != null) {
+                List<String> activities = new ArrayList<String>();
+                for (int i = 0; i < activitiesJSONArray.length(); i++) {
+                    activities.add(activitiesJSONArray.optString(i));
+                }
+                contact.setActivities(activities);
             }
-            contact.setActivities(activities);
-        }
-        
-        JSONArray booksJSONArray = json.optJSONArray("books");
-        if (booksJSONArray != null) {
-            List<String> books = new ArrayList<String>();
-            for (int i = 0; i < booksJSONArray.length(); i++) {
-                books.add(booksJSONArray.optString(i));
+            
+            JSONArray booksJSONArray = json.optJSONArray("books");
+            if (booksJSONArray != null) {
+                List<String> books = new ArrayList<String>();
+                for (int i = 0; i < booksJSONArray.length(); i++) {
+                    books.add(booksJSONArray.optString(i));
+                }
+                contact.setBooks(books);
             }
-            contact.setBooks(books);
-        }
-        
-        JSONArray carsJSONArray = json.optJSONArray("cars");
-        if (carsJSONArray != null) {
-            List<String> cars = new ArrayList<String>();
-            for (int i = 0; i < carsJSONArray.length(); i++) {
-                cars.add(carsJSONArray.optString(i));
+            
+            JSONArray carsJSONArray = json.optJSONArray("cars");
+            if (carsJSONArray != null) {
+                List<String> cars = new ArrayList<String>();
+                for (int i = 0; i < carsJSONArray.length(); i++) {
+                    cars.add(carsJSONArray.optString(i));
+                }
+                contact.setCars(cars);
             }
-            contact.setCars(cars);
-        }
-        
-        contact.setChildren(json.optString("children", null));
-        
-        JSONArray foodJSONArray = json.optJSONArray("food");
-        if (foodJSONArray != null) {
-            List<String> food = new ArrayList<String>();
-            for (int i = 0; i < foodJSONArray.length(); i++) {
-                food.add(foodJSONArray.optString(i));
+            
+            contact.setChildren(json.optString("children", null));
+            
+            JSONArray foodJSONArray = json.optJSONArray("food");
+            if (foodJSONArray != null) {
+                List<String> food = new ArrayList<String>();
+                for (int i = 0; i < foodJSONArray.length(); i++) {
+                    food.add(foodJSONArray.optString(i));
+                }
+                contact.setFood(food);
             }
-            contact.setFood(food);
-        }
-        
-        JSONArray heroesJSONArray = json.optJSONArray("heroes");
-        if (heroesJSONArray != null) {
-            List<String> heroes = new ArrayList<String>();
-            for (int i = 0; i < heroesJSONArray.length(); i++) {
-                heroes.add(heroesJSONArray.optString(i));
+            
+            JSONArray heroesJSONArray = json.optJSONArray("heroes");
+            if (heroesJSONArray != null) {
+                List<String> heroes = new ArrayList<String>();
+                for (int i = 0; i < heroesJSONArray.length(); i++) {
+                    heroes.add(heroesJSONArray.optString(i));
+                }
+                contact.setHeroes(heroes);
             }
-            contact.setHeroes(heroes);
-        }
-        
-        JSONArray interestsJSONArray = json.optJSONArray("interests");
-        if (interestsJSONArray != null) {
-            List<String> interests = new ArrayList<String>();
-            for (int i = 0; i < interestsJSONArray.length(); i++) {
-                interests.add(interestsJSONArray.optString(i));
+            
+            JSONArray interestsJSONArray = json.optJSONArray("interests");
+            if (interestsJSONArray != null) {
+                List<String> interests = new ArrayList<String>();
+                for (int i = 0; i < interestsJSONArray.length(); i++) {
+                    interests.add(interestsJSONArray.optString(i));
+                }
+                contact.setInterests(interests);
             }
-            contact.setInterests(interests);
-        }
-        
-        contact.setJobInterests(json.optString("jobInterests", null));
-        
-        JSONArray languagesSpokenJSONArray = json.optJSONArray("languagesSpoken");
-        if (languagesSpokenJSONArray != null) {
-            List<String> languagesSpoken = new ArrayList<String>();
-            for (int i = 0; i < languagesSpokenJSONArray.length(); i++) {
-                languagesSpoken.add(languagesSpokenJSONArray.optString(i));
+            
+            contact.setJobInterests(json.optString("jobInterests", null));
+            
+            JSONArray languagesSpokenJSONArray = json.optJSONArray("languagesSpoken");
+            if (languagesSpokenJSONArray != null) {
+                List<String> languagesSpoken = new ArrayList<String>();
+                for (int i = 0; i < languagesSpokenJSONArray.length(); i++) {
+                    languagesSpoken.add(languagesSpokenJSONArray.optString(i));
+                }
+                contact.setLanguagesSpoken(languagesSpoken);
             }
-            contact.setLanguagesSpoken(languagesSpoken);
-        }
-        
-        JSONArray moviesJSONArray = json.optJSONArray("movies");
-        if (moviesJSONArray != null) {
-            List<String> movies = new ArrayList<String>();
-            for (int i = 0; i < moviesJSONArray.length(); i++) {
-                movies.add(moviesJSONArray.optString(i));
+            
+            JSONArray moviesJSONArray = json.optJSONArray("movies");
+            if (moviesJSONArray != null) {
+                List<String> movies = new ArrayList<String>();
+                for (int i = 0; i < moviesJSONArray.length(); i++) {
+                    movies.add(moviesJSONArray.optString(i));
+                }
+                contact.setMovies(movies);
             }
-            contact.setMovies(movies);
-        }
-        
-        JSONArray musicJSONArray = json.optJSONArray("music");
-        if (musicJSONArray != null) {
-            List<String> music = new ArrayList<String>();
-            for (int i = 0; i < musicJSONArray.length(); i++) {
-                music.add(musicJSONArray.optString(i));
+            
+            JSONArray musicJSONArray = json.optJSONArray("music");
+            if (musicJSONArray != null) {
+                List<String> music = new ArrayList<String>();
+                for (int i = 0; i < musicJSONArray.length(); i++) {
+                    music.add(musicJSONArray.optString(i));
+                }
+                contact.setMusic(music);
             }
-            contact.setMusic(music);
-        }
-        
-        contact.setPets(json.optString("pets", null));
-        contact.setPoliticalViews(json.optString("politicalViews", null));
-        
-        JSONArray quotesJSONArray = json.optJSONArray("quotes");
-        if (quotesJSONArray != null) {
-            List<String> quotes = new ArrayList<String>();
-            for (int i = 0; i < quotesJSONArray.length(); i++) {
-                quotes.add(quotesJSONArray.optString(i));
+            
+            contact.setPets(json.optString("pets", null));
+            contact.setPoliticalViews(json.optString("politicalViews", null));
+            
+            JSONArray quotesJSONArray = json.optJSONArray("quotes");
+            if (quotesJSONArray != null) {
+                List<String> quotes = new ArrayList<String>();
+                for (int i = 0; i < quotesJSONArray.length(); i++) {
+                    quotes.add(quotesJSONArray.optString(i));
+                }
+                contact.setQuotes(quotes);
             }
-            contact.setQuotes(quotes);
-        }
-        
-        JSONArray sportsJSONArray = json.optJSONArray("sports");
-        if (sportsJSONArray != null) {
-            List<String> sports = new ArrayList<String>();
-            for (int i = 0; i < sportsJSONArray.length(); i++) {
-                sports.add(sportsJSONArray.optString(i));
+            
+            JSONArray sportsJSONArray = json.optJSONArray("sports");
+            if (sportsJSONArray != null) {
+                List<String> sports = new ArrayList<String>();
+                for (int i = 0; i < sportsJSONArray.length(); i++) {
+                    sports.add(sportsJSONArray.optString(i));
+                }
+                contact.setSports(sports);
             }
-            contact.setSports(sports);
-        }
-        
-        JSONArray turnOffsJSONArray = json.optJSONArray("turnOffs");
-        if (turnOffsJSONArray != null) {
-            List<String> turnOffs = new ArrayList<String>();
-            for (int i = 0; i < turnOffsJSONArray.length(); i++) {
-                turnOffs.add(turnOffsJSONArray.optString(i));
+            
+            JSONArray turnOffsJSONArray = json.optJSONArray("turnOffs");
+            if (turnOffsJSONArray != null) {
+                List<String> turnOffs = new ArrayList<String>();
+                for (int i = 0; i < turnOffsJSONArray.length(); i++) {
+                    turnOffs.add(turnOffsJSONArray.optString(i));
+                }
+                contact.setTurnOffs(turnOffs);
             }
-            contact.setTurnOffs(turnOffs);
-        }
-        
-        JSONArray turnOnsJSONArray = json.optJSONArray("turnOns");
-        if (turnOnsJSONArray != null) {
-            List<String> turnOns = new ArrayList<String>();
-            for (int i = 0; i < turnOnsJSONArray.length(); i++) {
-                turnOns.add(turnOnsJSONArray.optString(i));
+            
+            JSONArray turnOnsJSONArray = json.optJSONArray("turnOns");
+            if (turnOnsJSONArray != null) {
+                List<String> turnOns = new ArrayList<String>();
+                for (int i = 0; i < turnOnsJSONArray.length(); i++) {
+                    turnOns.add(turnOnsJSONArray.optString(i));
+                }
+                contact.setTurnOns(turnOns);
             }
-            contact.setTurnOns(turnOns);
-        }
-        
-        JSONArray tvShowsJSONArray = json.optJSONArray("tvShows");
-        if (tvShowsJSONArray != null) {
-            List<String> tvShows = new ArrayList<String>();
-            for (int i = 0; i < tvShowsJSONArray.length(); i++) {
-                tvShows.add(tvShowsJSONArray.optString(i));
+            
+            JSONArray tvShowsJSONArray = json.optJSONArray("tvShows");
+            if (tvShowsJSONArray != null) {
+                List<String> tvShows = new ArrayList<String>();
+                for (int i = 0; i < tvShowsJSONArray.length(); i++) {
+                    tvShows.add(tvShowsJSONArray.optString(i));
+                }
+                contact.setTvShows(tvShows);
             }
-            contact.setTvShows(tvShows);
         }
-        
         return contact;
     }
     
@@ -860,6 +866,19 @@ public class Contact implements Serializable {
     
     void setProfileSong(String profileSong) {
         this.profileSong = profileSong;
+    }
+    
+    /**
+     * Returns the profile url of the contact.
+     * 
+     * @return The profile url or <code>null</code> if not found in response.
+     */
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+    
+    void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
     
     /**

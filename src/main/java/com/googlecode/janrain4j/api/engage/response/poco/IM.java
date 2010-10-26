@@ -46,10 +46,13 @@ public class IM implements Serializable {
     }
     
     public static IM fromJSON(JSONObject json) {
-        IM im = new IM();
-        im.setValue(json.optString("value"));
-        im.setType(json.optString("type"));
-        im.setPrimary(json.optBoolean("primary", false));
+        IM im = null;
+        if (json != null) {
+            im = new IM();
+            im.setValue(json.optString("value"));
+            im.setType(json.optString("type"));
+            im.setPrimary(json.optBoolean("primary", false));
+        }
         return im;
     }
     

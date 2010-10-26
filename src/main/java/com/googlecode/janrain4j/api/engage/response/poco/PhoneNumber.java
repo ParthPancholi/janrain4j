@@ -43,10 +43,13 @@ public class PhoneNumber implements Serializable {
     }
     
     public static PhoneNumber fromJSON(JSONObject json) {
-        PhoneNumber phoneNumber = new PhoneNumber();
-        phoneNumber.setValue(json.optString("value"));
-        phoneNumber.setType(json.optString("type"));
-        phoneNumber.setPrimary(json.optBoolean("primary", false));
+        PhoneNumber phoneNumber = null;
+        if (json != null) {
+            phoneNumber = new PhoneNumber();
+            phoneNumber.setValue(json.optString("value"));
+            phoneNumber.setType(json.optString("type"));
+            phoneNumber.setPrimary(json.optBoolean("primary", false));
+        }
         return phoneNumber;
     }
     

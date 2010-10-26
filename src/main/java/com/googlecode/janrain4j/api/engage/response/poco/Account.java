@@ -37,11 +37,14 @@ public class Account implements Serializable {
     }
     
     public static Account fromJSON(JSONObject json) {
-        Account account = new Account();
-        account.setDomain(json.optString("domain"));
-        account.setUsername(json.optString("username"));
-        account.setUserid(json.optString("userid"));
-        account.setPrimary(json.optBoolean("primary", false));
+        Account account = null;
+        if (json != null) {
+            account = new Account();
+            account.setDomain(json.optString("domain"));
+            account.setUsername(json.optString("username"));
+            account.setUserid(json.optString("userid"));
+            account.setPrimary(json.optBoolean("primary", false));
+        }
         return account;
     }
     
