@@ -451,6 +451,8 @@ public class UserDataResponseTest {
         assertEquals("my-merged-poco-account2-userid", account2.getUserid());
         assertFalse(account2.isPrimary());
         
+        // TODO test open social fields
+        
         List<String> friends = response.getFriends();
         assertNotNull(friends);
         assertEquals(3, friends.size());
@@ -817,6 +819,8 @@ public class UserDataResponseTest {
         assertEquals("my-merged-poco-account2-username", account2.getUsername());
         assertEquals("my-merged-poco-account2-userid", account2.getUserid());
         assertFalse(account2.isPrimary());
+        
+        // TODO test open social fields
     }
     
     @Test
