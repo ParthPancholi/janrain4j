@@ -43,6 +43,7 @@ public class Contact implements Serializable {
     public static final String MALE = "male";
     public static final String FEMALE = "female";
     
+    // portable contacts
     private String id = null;
     private String displayName = null;
     private Name name = null;
@@ -56,7 +57,6 @@ public class Contact implements Serializable {
     private String preferredUsername = null;
     private String utcOffset = null;
     private boolean connected = false;
-    
     private List<Email> emails = null;
     private List<Url> urls = null;
     private List<PhoneNumber> phoneNumbers = null;
@@ -67,6 +67,45 @@ public class Contact implements Serializable {
     private List<Address> addresses = null;
     private List<Organization> organizations = null;
     private List<Account> accounts = null;
+    
+    // open social
+    private String aboutMe = null;
+    private String bodyType = null; // TODO
+    private String currentLocation = null; // TODO
+    private String drinker = null;
+    private String ethnicity = null;
+    private String fashion = null;
+    private String happiestWhen = null;
+    private String humor = null;
+    private String livingArrangement = null;
+    private String lookingFor = null;
+    private String profileSong = null;
+    private String profileVideo = null;
+    private String relationshipStatus = null;
+    private String religion = null;
+    private String romance = null;
+    private String scaredOf = null;
+    private String sexualOrientation = null;
+    private String smoker = null;
+    private String status = null;
+    private List<String> activities = null;
+    private List<String> books = null;
+    private List<String> cars = null;
+    private String children = null;
+    private List<String> food = null;
+    private List<String> heroes = null;
+    private List<String> interests = null;
+    private String jobInterests = null;
+    private List<String> languagesSpoken = null;
+    private List<String> movies = null;
+    private List<String> music = null;
+    private String pets = null;
+    private String politicalViews = null;
+    private List<String> quotes = null;
+    private List<String> sports = null;
+    private List<String> turnOffs = null;
+    private List<String> turnOns = null;
+    private List<String> tvShows = null;
     
     protected Contact() {
     }
@@ -178,6 +217,154 @@ public class Contact implements Serializable {
             }
             contact.setAccounts(accounts);
         }
+        
+        contact.setAboutMe(json.optString("aboutMe", null));
+        // TODO bodyType
+        // TODO currentLocation
+        contact.setDrinker(json.optString("drinker", null));
+        contact.setEthnicity(json.optString("ethnicity", null));
+        contact.setFashion(json.optString("fashion", null));
+        contact.setHappiestWhen(json.optString("happiestWhen", null));
+        contact.setHumor(json.optString("humor", null));
+        contact.setLivingArrangement(json.optString("livingArrangement", null));
+        contact.setLookingFor(json.optString("lookingFor", null));
+        contact.setProfileSong(json.optString("profileSong", null));
+        contact.setProfileVideo(json.optString("profileVideo", null));
+        contact.setRelationshipStatus(json.optString("relationshipStatus", null));
+        contact.setReligion(json.optString("religion", null));
+        contact.setRomance(json.optString("romance", null));
+        contact.setScaredOf(json.optString("scaredOf", null));
+        contact.setSexualOrientation(json.optString("sexualOrientation", null));
+        contact.setSmoker(json.optString("smoker", null));
+        contact.setStatus(json.optString("status", null));
+        
+        // TODO activities
+        
+        JSONArray booksJSONArray = json.optJSONArray("books");
+        if (booksJSONArray != null) {
+            List<String> books = new ArrayList<String>();
+            for (int i = 0; i < booksJSONArray.length(); i++) {
+                books.add(booksJSONArray.optString(i));
+            }
+            contact.setBooks(books);
+        }
+        
+        JSONArray carsJSONArray = json.optJSONArray("cars");
+        if (carsJSONArray != null) {
+            List<String> cars = new ArrayList<String>();
+            for (int i = 0; i < carsJSONArray.length(); i++) {
+                cars.add(carsJSONArray.optString(i));
+            }
+            contact.setCars(cars);
+        }
+        
+        contact.setChildren(json.optString("children", null));
+        
+        JSONArray foodJSONArray = json.optJSONArray("food");
+        if (foodJSONArray != null) {
+            List<String> food = new ArrayList<String>();
+            for (int i = 0; i < foodJSONArray.length(); i++) {
+                food.add(foodJSONArray.optString(i));
+            }
+            contact.setFood(food);
+        }
+        
+        JSONArray heroesJSONArray = json.optJSONArray("heroes");
+        if (heroesJSONArray != null) {
+            List<String> heroes = new ArrayList<String>();
+            for (int i = 0; i < heroesJSONArray.length(); i++) {
+                heroes.add(heroesJSONArray.optString(i));
+            }
+            contact.setHeroes(heroes);
+        }
+        
+        JSONArray interestsJSONArray = json.optJSONArray("interests");
+        if (interestsJSONArray != null) {
+            List<String> interests = new ArrayList<String>();
+            for (int i = 0; i < interestsJSONArray.length(); i++) {
+                interests.add(interestsJSONArray.optString(i));
+            }
+            contact.setInterests(interests);
+        }
+        
+        contact.setJobInterests(json.optString("jobInterests", null));
+        
+        JSONArray languagesSpokenJSONArray = json.optJSONArray("languagesSpoken");
+        if (languagesSpokenJSONArray != null) {
+            List<String> languagesSpoken = new ArrayList<String>();
+            for (int i = 0; i < languagesSpokenJSONArray.length(); i++) {
+                languagesSpoken.add(languagesSpokenJSONArray.optString(i));
+            }
+            contact.setLanguagesSpoken(languagesSpoken);
+        }
+        
+        JSONArray moviesJSONArray = json.optJSONArray("movies");
+        if (moviesJSONArray != null) {
+            List<String> movies = new ArrayList<String>();
+            for (int i = 0; i < moviesJSONArray.length(); i++) {
+                movies.add(moviesJSONArray.optString(i));
+            }
+            contact.setMovies(movies);
+        }
+        
+        JSONArray musicJSONArray = json.optJSONArray("music");
+        if (musicJSONArray != null) {
+            List<String> music = new ArrayList<String>();
+            for (int i = 0; i < musicJSONArray.length(); i++) {
+                music.add(musicJSONArray.optString(i));
+            }
+            contact.setMusic(music);
+        }
+        
+        contact.setPets(json.optString("pets", null));
+        contact.setPoliticalViews(json.optString("politicalViews", null));
+        
+        JSONArray quotesJSONArray = json.optJSONArray("quotes");
+        if (quotesJSONArray != null) {
+            List<String> quotes = new ArrayList<String>();
+            for (int i = 0; i < quotesJSONArray.length(); i++) {
+                quotes.add(quotesJSONArray.optString(i));
+            }
+            contact.setQuotes(quotes);
+        }
+        
+        JSONArray sportsJSONArray = json.optJSONArray("sports");
+        if (sportsJSONArray != null) {
+            List<String> sports = new ArrayList<String>();
+            for (int i = 0; i < sportsJSONArray.length(); i++) {
+                sports.add(sportsJSONArray.optString(i));
+            }
+            contact.setSports(sports);
+        }
+        
+        JSONArray turnOffsJSONArray = json.optJSONArray("turnOffs");
+        if (turnOffsJSONArray != null) {
+            List<String> turnOffs = new ArrayList<String>();
+            for (int i = 0; i < turnOffsJSONArray.length(); i++) {
+                turnOffs.add(turnOffsJSONArray.optString(i));
+            }
+            contact.setTurnOffs(turnOffs);
+        }
+        
+        JSONArray turnOnsJSONArray = json.optJSONArray("turnOns");
+        if (turnOnsJSONArray != null) {
+            List<String> turnOns = new ArrayList<String>();
+            for (int i = 0; i < turnOnsJSONArray.length(); i++) {
+                turnOns.add(turnOnsJSONArray.optString(i));
+            }
+            contact.setTurnOns(turnOns);
+        }
+        
+        JSONArray tvShowsJSONArray = json.optJSONArray("tvShows");
+        if (tvShowsJSONArray != null) {
+            List<String> tvShows = new ArrayList<String>();
+            for (int i = 0; i < tvShowsJSONArray.length(); i++) {
+                tvShows.add(tvShowsJSONArray.optString(i));
+            }
+            contact.setTvShows(tvShows);
+        }
+        
+        // TODO test open social fields
         
         return contact;
     }
@@ -524,5 +711,487 @@ public class Contact implements Serializable {
     
     void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+    
+    /**
+     * Returns the general statement about the contact.
+     * 
+     * @return The general statement or <code>null</code> if not found in response.
+     */
+    public String getAboutMe() {
+        return aboutMe;
+    }
+    
+    void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+    
+    /**
+     * Returns the body characteristics of the contact.
+     * 
+     * @return The body characteristics or <code>null</code> if not found in response.
+     */
+    public String getBodyType() {
+        return bodyType;
+    }
+    
+    void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
+    }
+    
+    /**
+     * Returns the current location of the contact.
+     * 
+     * @return The current location or <code>null</code> if not found in response.
+     */
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+    
+    void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+    
+    /**
+     * Returns the drinking status of the contact.
+     * 
+     * @return The drinking status or <code>null</code> if not found in response.
+     */
+    public String getDrinker() {
+        return drinker;
+    }
+    
+    void setDrinker(String drinker) {
+        this.drinker = drinker;
+    }
+    
+    /**
+     * Returns the ethnicity of the contact.
+     * 
+     * @return The ethnicity or <code>null</code> if not found in response.
+     */
+    public String getEthnicity() {
+        return ethnicity;
+    }
+    
+    void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+    
+    /**
+     * Returns the thoughts on fashion of the contact.
+     * 
+     * @return The thoughts on fashion or <code>null</code> if not found in response.
+     */
+    public String getFashion() {
+        return fashion;
+    }
+    
+    void setFashion(String fashion) {
+        this.fashion = fashion;
+    }
+    
+    /**
+     * Returns the description of when the contact is happiest.
+     * 
+     * @return The description of when the contact is happiest or <code>null</code> if not found in response.
+     */
+    public String getHappiestWhen() {
+        return happiestWhen;
+    }
+    
+    void setHappiestWhen(String happiestWhen) {
+        this.happiestWhen = happiestWhen;
+    }
+    
+    /**
+     * Returns the thoughts on humor of the contact.
+     * 
+     * @return The thoughts on humor or <code>null</code> if not found in response.
+     */
+    public String getHumor() {
+        return humor;
+    }
+    
+    void setHumor(String humor) {
+        this.humor = humor;
+    }
+    
+    /**
+     * Returns the description of the living arrangement of the contact.
+     * 
+     * @return The description of the living arrangement or <code>null</code> if not found in response.
+     */
+    public String getLivingArrangement() {
+        return livingArrangement;
+    }
+    
+    void setLivingArrangement(String livingArrangement) {
+        this.livingArrangement = livingArrangement;
+    }
+    
+    /**
+     * Returns the statement about who or what the contact is looking for, or 
+     * what the contact is interested in meeting people for.
+     * 
+     * @return What the contact is looking for or <code>null</code> if not found in response.
+     */
+    public String getLookingFor() {
+        return lookingFor;
+    }
+    
+    void setLookingFor(String lookingFor) {
+        this.lookingFor = lookingFor;
+    }
+    
+    /**
+     * Returns the profile song of the contact.
+     * 
+     * @return The profile song or <code>null</code> if not found in response.
+     */
+    public String getProfileSong() {
+        return profileSong;
+    }
+    
+    void setProfileSong(String profileSong) {
+        this.profileSong = profileSong;
+    }
+    
+    /**
+     * Returns the profile video of the contact.
+     * 
+     * @return The profile video or <code>null</code> if not found in response.
+     */
+    public String getProfileVideo() {
+        return profileVideo;
+    }
+    
+    void setProfileVideo(String profileVideo) {
+        this.profileVideo = profileVideo;
+    }
+    
+    /**
+     * Returns the relationship status of the contact.
+     * 
+     * @return The relationship status or <code>null</code> if not found in response.
+     */
+    public String getRelationshipStatus() {
+        return relationshipStatus;
+    }
+    
+    void setRelationshipStatus(String relationshipStatus) {
+        this.relationshipStatus = relationshipStatus;
+    }
+    
+    /**
+     * Returns the religion or religious views of the contact.
+     * 
+     * @return The religion or <code>null</code> if not found in response.
+     */
+    public String getReligion() {
+        return religion;
+    }
+    
+    void setReligion(String religion) {
+        this.religion = religion;
+    }
+    
+    /**
+     * Returns the comments about romance of the contact.
+     * 
+     * @return The comments about romance or <code>null</code> if not found in response.
+     */
+    public String getRomance() {
+        return romance;
+    }
+    
+    void setRomance(String romance) {
+        this.romance = romance;
+    }
+    
+    /**
+     * Returns what the contact is scared of.
+     * 
+     * @return What the contact is scared of or <code>null</code> if not found in response.
+     */
+    public String getScaredOf() {
+        return scaredOf;
+    }
+    
+    void setScaredOf(String scaredOf) {
+        this.scaredOf = scaredOf;
+    }
+    
+    /**
+     * Returns the sexual orientation of the contact.
+     * 
+     * @return The sexual orientation or <code>null</code> if not found in response.
+     */
+    public String getSexualOrientation() {
+        return sexualOrientation;
+    }
+    
+    void setSexualOrientation(String sexualOrientation) {
+        this.sexualOrientation = sexualOrientation;
+    }
+    
+    /**
+     * Returns the smoking status of the contact.
+     * 
+     * @return The smoking status or <code>null</code> if not found in response.
+     */
+    public String getSmoker() {
+        return smoker;
+    }
+    
+    void setSmoker(String smoker) {
+        this.smoker = smoker;
+    }
+    
+    /**
+     * Returns the status, headline or shoutout of the contact.
+     * 
+     * @return The status or <code>null</code> if not found in response.
+     */
+    public String getStatus() {
+        return status;
+    }
+    
+    void setStatus(String status) {
+        this.status = status;
+    }
+    
+    /**
+     * Returns the favorite activities of the contact.
+     * 
+     * @return The activities or <code>null</code> if not found in response.
+     */
+    public List<String> getActivities() {
+        return activities;
+    }
+    
+    void setActivities(List<String> activities) {
+        this.activities = activities;
+    }
+    
+    /**
+     * Returns the favorite books of the contact.
+     * 
+     * @return The books or <code>null</code> if not found in response.
+     */
+    public List<String> getBooks() {
+        return books;
+    }
+    
+    void setBooks(List<String> books) {
+        this.books = books;
+    }
+    
+    /**
+     * Returns the favorite cars of the contact.
+     * 
+     * @return The cars or <code>null</code> if not found in response.
+     */
+    public List<String> getCars() {
+        return cars;
+    }
+    
+    void setCars(List<String> cars) {
+        this.cars = cars;
+    }
+
+    /**
+     * Returns the description of the children of the contact.
+     * 
+     * @return The description of the children or <code>null</code> if not found in response.
+     */
+    public String getChildren() {
+        return children;
+    }
+    
+    void setChildren(String children) {
+        this.children = children;
+    }
+    
+    /**
+     * Returns the favorite food of the contact.
+     * 
+     * @return The food or <code>null</code> if not found in response.
+     */
+    public List<String> getFood() {
+        return food;
+    }
+    
+    void setFood(List<String> food) {
+        this.food = food;
+    }
+    
+    /**
+     * Returns the favorite heroes of the contact.
+     * 
+     * @return The heroes or <code>null</code> if not found in response.
+     */
+    public List<String> getHeroes() {
+        return heroes;
+    }
+    
+    void setHeroes(List<String> heroes) {
+        this.heroes = heroes;
+    }
+    
+    /**
+     * Returns the interests, hobbies or passions of the contact.
+     * 
+     * @return The interests or <code>null</code> if not found in response.
+     */
+    public List<String> getInterests() {
+        return interests;
+    }
+    
+    void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
+    
+    /**
+     * Returns the favorite jobs, or job interests and skills of the contact.
+     * 
+     * @return The job interests or <code>null</code> if not found in response.
+     */
+    public String getJobInterests() {
+        return jobInterests;
+    }
+    
+    void setJobInterests(String jobInterests) {
+        this.jobInterests = jobInterests;
+    }
+    
+    /**
+     * Returns the languages the contact speaks as ISO 639-1 codes.
+     * 
+     * @return The languages or <code>null</code> if not found in response.
+     */
+    public List<String> getLanguagesSpoken() {
+        return languagesSpoken;
+    }
+    
+    void setLanguagesSpoken(List<String> languagesSpoken) {
+        this.languagesSpoken = languagesSpoken;
+    }
+    
+    /**
+     * Returns the favorite movies of the contact.
+     * 
+     * @return The movies or <code>null</code> if not found in response.
+     */
+    public List<String> getMovies() {
+        return movies;
+    }
+    
+    void setMovies(List<String> movies) {
+        this.movies = movies;
+    }
+    
+    /**
+     * Returns the favorite music of the contact.
+     * 
+     * @return The music or <code>null</code> if not found in response.
+     */
+    public List<String> getMusic() {
+        return music;
+    }
+    
+    void setMusic(List<String> music) {
+        this.music = music;
+    }
+    
+    /**
+     * Returns the description of the pets of the contact.
+     * 
+     * @return The description of the pets or <code>null</code> if not found in response.
+     */
+    public String getPets() {
+        return pets;
+    }
+    
+    void setPets(String pets) {
+        this.pets = pets;
+    }
+    
+    /**
+     * Returns the political views of the contact.
+     * 
+     * @return The political views or <code>null</code> if not found in response.
+     */
+    public String getPoliticalViews() {
+        return politicalViews;
+    }
+    
+    void setPoliticalViews(String politicalViews) {
+        this.politicalViews = politicalViews;
+    }
+    
+    /**
+     * Returns the favorite quotes of the contact.
+     * 
+     * @return The quotes or <code>null</code> if not found in response.
+     */
+    public List<String> getQuotes() {
+        return quotes;
+    }
+    
+    void setQuotes(List<String> quotes) {
+        this.quotes = quotes;
+    }
+    
+    /**
+     * Returns the favorite sports of the contact.
+     * 
+     * @return The sports or <code>null</code> if not found in response.
+     */
+    public List<String> getSports() {
+        return sports;
+    }
+    
+    void setSports(List<String> sports) {
+        this.sports = sports;
+    }
+    
+    /**
+     * Returns the turn offs of the contact.
+     * 
+     * @return The turn offs or <code>null</code> if not found in response.
+     */
+    public List<String> getTurnOffs() {
+        return turnOffs;
+    }
+    
+    void setTurnOffs(List<String> turnOffs) {
+        this.turnOffs = turnOffs;
+    }
+    
+    /**
+     * Returns the turn ons of the contact.
+     * 
+     * @return The turn ons or <code>null</code> if not found in response.
+     */
+    public List<String> getTurnOns() {
+        return turnOns;
+    }
+    
+    void setTurnOns(List<String> turnOns) {
+        this.turnOns = turnOns;
+    }
+    
+    /**
+     * Returns the favorite TV shows the contact.
+     * 
+     * @return The TV shows or <code>null</code> if not found in response.
+     */
+    public List<String> getTvShows() {
+        return tvShows;
+    }
+    
+    void setTvShows(List<String> tvShows) {
+        this.tvShows = tvShows;
     }
 }
