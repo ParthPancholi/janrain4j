@@ -71,7 +71,7 @@ public class Contact implements Serializable {
     // open social
     private String aboutMe = null;
     private String bodyType = null; // TODO
-    private String currentLocation = null; // TODO
+    private Address currentLocation = null;
     private String drinker = null;
     private String ethnicity = null;
     private String fashion = null;
@@ -220,7 +220,7 @@ public class Contact implements Serializable {
         
         contact.setAboutMe(json.optString("aboutMe", null));
         // TODO bodyType
-        // TODO currentLocation
+        contact.setCurrentLocation(Address.fromJSON(json.optJSONObject("currentLocation")));
         contact.setDrinker(json.optString("drinker", null));
         contact.setEthnicity(json.optString("ethnicity", null));
         contact.setFashion(json.optString("fashion", null));
@@ -363,8 +363,6 @@ public class Contact implements Serializable {
             }
             contact.setTvShows(tvShows);
         }
-        
-        // TODO test open social fields
         
         return contact;
     }
@@ -744,11 +742,11 @@ public class Contact implements Serializable {
      * 
      * @return The current location or <code>null</code> if not found in response.
      */
-    public String getCurrentLocation() {
+    public Address getCurrentLocation() {
         return currentLocation;
     }
     
-    void setCurrentLocation(String currentLocation) {
+    void setCurrentLocation(Address currentLocation) {
         this.currentLocation = currentLocation;
     }
     
@@ -886,7 +884,7 @@ public class Contact implements Serializable {
     /**
      * Returns the religion or religious views of the contact.
      * 
-     * @return The religion or <code>null</code> if not found in response.
+     * @return The religion or religious views or <code>null</code> if not found in response.
      */
     public String getReligion() {
         return religion;
@@ -951,7 +949,7 @@ public class Contact implements Serializable {
     /**
      * Returns the status, headline or shoutout of the contact.
      * 
-     * @return The status or <code>null</code> if not found in response.
+     * @return The status, headline or shoutout or <code>null</code> if not found in response.
      */
     public String getStatus() {
         return status;
@@ -964,7 +962,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite activities of the contact.
      * 
-     * @return The activities or <code>null</code> if not found in response.
+     * @return The favorite activities or <code>null</code> if not found in response.
      */
     public List<String> getActivities() {
         return activities;
@@ -977,7 +975,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite books of the contact.
      * 
-     * @return The books or <code>null</code> if not found in response.
+     * @return The favorite books or <code>null</code> if not found in response.
      */
     public List<String> getBooks() {
         return books;
@@ -990,7 +988,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite cars of the contact.
      * 
-     * @return The cars or <code>null</code> if not found in response.
+     * @return The favorite cars or <code>null</code> if not found in response.
      */
     public List<String> getCars() {
         return cars;
@@ -1016,7 +1014,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite food of the contact.
      * 
-     * @return The food or <code>null</code> if not found in response.
+     * @return The favorite food or <code>null</code> if not found in response.
      */
     public List<String> getFood() {
         return food;
@@ -1029,7 +1027,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite heroes of the contact.
      * 
-     * @return The heroes or <code>null</code> if not found in response.
+     * @return The favorite heroes or <code>null</code> if not found in response.
      */
     public List<String> getHeroes() {
         return heroes;
@@ -1042,7 +1040,7 @@ public class Contact implements Serializable {
     /**
      * Returns the interests, hobbies or passions of the contact.
      * 
-     * @return The interests or <code>null</code> if not found in response.
+     * @return The interests, hobbies or passions or <code>null</code> if not found in response.
      */
     public List<String> getInterests() {
         return interests;
@@ -1055,7 +1053,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite jobs, or job interests and skills of the contact.
      * 
-     * @return The job interests or <code>null</code> if not found in response.
+     * @return The favorite jobs, or job interests and skills or <code>null</code> if not found in response.
      */
     public String getJobInterests() {
         return jobInterests;
@@ -1081,7 +1079,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite movies of the contact.
      * 
-     * @return The movies or <code>null</code> if not found in response.
+     * @return The favorite movies or <code>null</code> if not found in response.
      */
     public List<String> getMovies() {
         return movies;
@@ -1094,7 +1092,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite music of the contact.
      * 
-     * @return The music or <code>null</code> if not found in response.
+     * @return The favorite music or <code>null</code> if not found in response.
      */
     public List<String> getMusic() {
         return music;
@@ -1133,7 +1131,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite quotes of the contact.
      * 
-     * @return The quotes or <code>null</code> if not found in response.
+     * @return The favorite quotes or <code>null</code> if not found in response.
      */
     public List<String> getQuotes() {
         return quotes;
@@ -1146,7 +1144,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite sports of the contact.
      * 
-     * @return The sports or <code>null</code> if not found in response.
+     * @return The favorite sports or <code>null</code> if not found in response.
      */
     public List<String> getSports() {
         return sports;
@@ -1185,7 +1183,7 @@ public class Contact implements Serializable {
     /**
      * Returns the favorite TV shows the contact.
      * 
-     * @return The TV shows or <code>null</code> if not found in response.
+     * @return The favorite TV shows or <code>null</code> if not found in response.
      */
     public List<String> getTvShows() {
         return tvShows;
