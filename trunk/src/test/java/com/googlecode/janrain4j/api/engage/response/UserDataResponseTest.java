@@ -203,11 +203,11 @@ public class UserDataResponseTest {
             "    }],\n" +
             "    \"tags\": [\n" +
             "      \"my-merged-poco-tag1\",\n" +
-            "      \"my-merged-poco-tag2\",\n" +
+            "      \"my-merged-poco-tag2\"\n" +
             "    ],\n" +
             "    \"relationships\": [\n" +
             "      \"my-merged-poco-relationship1\",\n" +
-            "      \"my-merged-poco-relationship2\",\n" +
+            "      \"my-merged-poco-relationship2\"\n" +
             "    ],\n" +
             "    \"addresses\": [{\n" +
             "      \"formatted\": \"my-merged-poco-address1-formatted\",\n" +
@@ -259,7 +259,97 @@ public class UserDataResponseTest {
             "      \"username\": \"my-merged-poco-account2-username\",\n" +
             "      \"userid\": \"my-merged-poco-account2-userid\",\n" +
             "      \"primary\": false\n" +
-            "    }]\n" +
+            "    }],\n" +
+            "    \"aboutMe\": \"my-merged-poco-about-me\",\n" +
+            "    \"bodyType\": {\n" +
+            "      \"build\": \"my-merged-poco-body-type-build\",\n" +
+            "      \"eyeColor\": \"my-merged-poco-body-type-eye-color\",\n" +
+            "      \"hairColor\": \"my-merged-poco-body-type-hair-color\",\n" +
+            "      \"height\": 1.9,\n" +
+            "      \"weight\": 75\n" +
+            "    },\n" +
+            "    \"currentLocation\": {\n" +
+            "      \"formatted\": \"my-merged-poco-current-location-formatted\",\n" +
+            "      \"streetAddress\": \"my-merged-poco-current-location-street-address\",\n" +
+            "      \"locality\": \"my-merged-poco-current-location-locality\",\n" +
+            "      \"region\": \"my-merged-poco-current-location-region\",\n" +
+            "      \"postalCode\": \"my-merged-poco-current-location-postal-code\",\n" +
+            "      \"country\": \"my-merged-poco-current-location-country\",\n" +
+            "      \"type\": \"my-merged-poco-current-location-type\"\n" +
+            "    },\n" +
+            "    \"drinker\": \"my-merged-poco-drinker\",\n" +
+            "    \"ethnicity\": \"my-merged-poco-ethnicity\",\n" +
+            "    \"fashion\": \"my-merged-poco-fashion\",\n" +
+            "    \"happiestWhen\": \"my-merged-poco-happiest-when\",\n" +
+            "    \"humor\": \"my-merged-poco-humor\",\n" +
+            "    \"livingArrangement\": \"my-merged-poco-living-arrangement\",\n" +
+            "    \"lookingFor\": \"my-merged-poco-looking-for\",\n" +
+            "    \"profileSong\": \"my-merged-poco-profile-song\",\n" +
+            "    \"profileUrl\": \"my-merged-poco-profile-url\",\n" +
+            "    \"profileVideo\": \"my-merged-poco-profile-video\",\n" +
+            "    \"relationshipStatus\": \"my-merged-poco-relationship-status\",\n" +
+            "    \"religion\": \"my-merged-poco-religion\",\n" +
+            "    \"romance\": \"my-merged-poco-romance\",\n" +
+            "    \"scaredOf\": \"my-merged-poco-scared-of\",\n" +
+            "    \"sexualOrientation\": \"my-merged-poco-sexual-orientation\",\n" +
+            "    \"smoker\": \"my-merged-poco-smoker\",\n" +
+            "    \"status\": \"my-merged-poco-status\",\n" +
+            "    \"activities\": [\n" +
+            "      \"my-merged-poco-activity1\",\n" +
+            "      \"my-merged-poco-activity2\",\n" +
+            "    ],\n" +
+            "    \"books\": [\n" +
+            "      \"my-merged-poco-book1\",\n" +
+            "      \"my-merged-poco-book2\",\n" +
+            "    ],\n" +
+            "    \"cars\": [\n" +
+            "      \"my-merged-poco-car1\",\n" +
+            "      \"my-merged-poco-car2\",\n" +
+            "    ],\n" +
+            "    \"children\": \"my-merged-poco-children\",\n" +
+            "    \"food\": [\n" +
+            "      \"my-merged-poco-food1\",\n" +
+            "      \"my-merged-poco-food2\",\n" +
+            "    ],\n" +
+            "    \"heroes\": [\n" +
+            "      \"my-merged-poco-hero1\",\n" +
+            "      \"my-merged-poco-hero2\",\n" +
+            "    ],\n" +
+            "    \"jobInterests\": \"my-merged-poco-job-interests\",\n" +
+            "    \"languagesSpoken\": [\n" +
+            "      \"my-merged-poco-language-spoken1\",\n" +
+            "      \"my-merged-poco-language-spoken2\",\n" +
+            "    ],\n" +
+            "    \"movies\": [\n" +
+            "      \"my-merged-poco-movie1\",\n" +
+            "      \"my-merged-poco-movie2\",\n" +
+            "    ],\n" +
+            "    \"music\": [\n" +
+            "      \"my-merged-poco-music1\",\n" +
+            "      \"my-merged-poco-music2\",\n" +
+            "    ],\n" +
+            "    \"pets\": \"my-merged-poco-pets\",\n" +
+            "    \"politicalViews\": \"my-merged-poco-political-views\",\n" +
+            "    \"quotes\": [\n" +
+            "      \"my-merged-poco-quote1\",\n" +
+            "      \"my-merged-poco-quote2\",\n" +
+            "    ],\n" +
+            "    \"sports\": [\n" +
+            "      \"my-merged-poco-sport1\",\n" +
+            "      \"my-merged-poco-sport2\",\n" +
+            "    ],\n" +
+            "    \"turnOffs\": [\n" +
+            "      \"my-merged-poco-turn-off1\",\n" +
+            "      \"my-merged-poco-turn-off2\",\n" +
+            "    ],\n" +
+            "    \"turnOns\": [\n" +
+            "      \"my-merged-poco-turn-on1\",\n" +
+            "      \"my-merged-poco-turn-on2\",\n" +
+            "    ],\n" +
+            "    \"tvShows\": [\n" +
+            "      \"my-merged-poco-tv-show1\",\n" +
+            "      \"my-merged-poco-tv-show2\",\n" +
+            "    ]\n" +
             "  },\n" +
             "  \"friends\": [\n" +
             "    \"friend1\",\n" +
@@ -450,8 +540,94 @@ public class UserDataResponseTest {
         assertEquals("my-merged-poco-account2-username", account2.getUsername());
         assertEquals("my-merged-poco-account2-userid", account2.getUserid());
         assertFalse(account2.isPrimary());
-        
-        // TODO test open social fields
+        assertEquals("my-merged-poco-about-me", mergedPoco.getAboutMe());
+        assertNotNull(mergedPoco.getBodyType());
+        assertEquals("my-merged-poco-body-type-build", mergedPoco.getBodyType().getBuild());
+        assertEquals("my-merged-poco-body-type-eye-color", mergedPoco.getBodyType().getEyeColor());
+        assertEquals("my-merged-poco-body-type-hair-color", mergedPoco.getBodyType().getHairColor());
+        assertEquals(new Double(1.9), mergedPoco.getBodyType().getHeight());
+        assertEquals(new Double(75), mergedPoco.getBodyType().getWeight());
+        assertNotNull(mergedPoco.getCurrentLocation());
+        assertEquals("my-merged-poco-current-location-formatted", mergedPoco.getCurrentLocation().getFormatted());
+        assertEquals("my-merged-poco-current-location-street-address", mergedPoco.getCurrentLocation().getStreetAddress());
+        assertEquals("my-merged-poco-current-location-locality", mergedPoco.getCurrentLocation().getLocality());
+        assertEquals("my-merged-poco-current-location-region", mergedPoco.getCurrentLocation().getRegion());
+        assertEquals("my-merged-poco-current-location-postal-code", mergedPoco.getCurrentLocation().getPostalCode());
+        assertEquals("my-merged-poco-current-location-country", mergedPoco.getCurrentLocation().getCountry());
+        assertEquals("my-merged-poco-current-location-type", mergedPoco.getCurrentLocation().getType());
+        assertEquals("my-merged-poco-drinker", mergedPoco.getDrinker());
+        assertEquals("my-merged-poco-ethnicity", mergedPoco.getEthnicity());
+        assertEquals("my-merged-poco-fashion", mergedPoco.getFashion());
+        assertEquals("my-merged-poco-happiest-when", mergedPoco.getHappiestWhen());
+        assertEquals("my-merged-poco-humor", mergedPoco.getHumor());
+        assertEquals("my-merged-poco-living-arrangement", mergedPoco.getLivingArrangement());
+        assertEquals("my-merged-poco-looking-for", mergedPoco.getLookingFor());
+        assertEquals("my-merged-poco-profile-song", mergedPoco.getProfileSong());
+        assertEquals("my-merged-poco-profile-url", mergedPoco.getProfileUrl());
+        assertEquals("my-merged-poco-profile-video", mergedPoco.getProfileVideo());
+        assertEquals("my-merged-poco-relationship-status", mergedPoco.getRelationshipStatus());
+        assertEquals("my-merged-poco-religion", mergedPoco.getReligion());
+        assertEquals("my-merged-poco-romance", mergedPoco.getRomance());
+        assertEquals("my-merged-poco-scared-of", mergedPoco.getScaredOf());
+        assertEquals("my-merged-poco-sexual-orientation", mergedPoco.getSexualOrientation());
+        assertEquals("my-merged-poco-smoker", mergedPoco.getSmoker());
+        assertEquals("my-merged-poco-status", mergedPoco.getStatus());
+        List<String> activities = mergedPoco.getActivities();
+        assertEquals(2, activities.size());
+        assertTrue(activities.contains("my-merged-poco-activity1"));
+        assertTrue(activities.contains("my-merged-poco-activity2"));
+        List<String> books = mergedPoco.getBooks();
+        assertEquals(2, books.size());
+        assertTrue(books.contains("my-merged-poco-book1"));
+        assertTrue(books.contains("my-merged-poco-book2"));
+        List<String> cars = mergedPoco.getCars();
+        assertEquals(2, cars.size());
+        assertTrue(cars.contains("my-merged-poco-car1"));
+        assertTrue(cars.contains("my-merged-poco-car2"));
+        assertEquals("my-merged-poco-children", mergedPoco.getChildren());
+        List<String> food = mergedPoco.getFood();
+        assertEquals(2, food.size());
+        assertTrue(food.contains("my-merged-poco-food1"));
+        assertTrue(food.contains("my-merged-poco-food2"));
+        List<String> heroes = mergedPoco.getHeroes();
+        assertEquals(2, heroes.size());
+        assertTrue(heroes.contains("my-merged-poco-hero1"));
+        assertTrue(heroes.contains("my-merged-poco-hero2"));
+        assertEquals("my-merged-poco-job-interests", mergedPoco.getJobInterests());
+        List<String> languagesSpoken = mergedPoco.getLanguagesSpoken();
+        assertEquals(2, languagesSpoken.size());
+        assertTrue(languagesSpoken.contains("my-merged-poco-language-spoken1"));
+        assertTrue(languagesSpoken.contains("my-merged-poco-language-spoken2"));
+        List<String> movies = mergedPoco.getMovies();
+        assertEquals(2, movies.size());
+        assertTrue(movies.contains("my-merged-poco-movie1"));
+        assertTrue(movies.contains("my-merged-poco-movie2"));
+        List<String> music = mergedPoco.getMusic();
+        assertEquals(2, music.size());
+        assertTrue(music.contains("my-merged-poco-music1"));
+        assertTrue(music.contains("my-merged-poco-music2"));
+        assertEquals("my-merged-poco-pets", mergedPoco.getPets());
+        assertEquals("my-merged-poco-political-views", mergedPoco.getPoliticalViews());
+        List<String> quotes = mergedPoco.getQuotes();
+        assertEquals(2, quotes.size());
+        assertTrue(quotes.contains("my-merged-poco-quote1"));
+        assertTrue(quotes.contains("my-merged-poco-quote2"));
+        List<String> sports = mergedPoco.getSports();
+        assertEquals(2, sports.size());
+        assertTrue(sports.contains("my-merged-poco-sport1"));
+        assertTrue(sports.contains("my-merged-poco-sport2"));
+        List<String> turnOffs = mergedPoco.getTurnOffs();
+        assertEquals(2, turnOffs.size());
+        assertTrue(turnOffs.contains("my-merged-poco-turn-off1"));
+        assertTrue(turnOffs.contains("my-merged-poco-turn-off2"));
+        List<String> turnOns = mergedPoco.getTurnOns();
+        assertEquals(2, turnOns.size());
+        assertTrue(turnOns.contains("my-merged-poco-turn-on1"));
+        assertTrue(turnOns.contains("my-merged-poco-turn-on2"));
+        List<String> tvShows = mergedPoco.getTvShows();
+        assertEquals(2, tvShows.size());
+        assertTrue(tvShows.contains("my-merged-poco-tv-show1"));
+        assertTrue(tvShows.contains("my-merged-poco-tv-show2"));
         
         List<String> friends = response.getFriends();
         assertNotNull(friends);
@@ -621,11 +797,11 @@ public class UserDataResponseTest {
             "    }],\n" +
             "    \"tags\": [\n" +
             "      \"my-merged-poco-tag1\",\n" +
-            "      \"my-merged-poco-tag2\",\n" +
+            "      \"my-merged-poco-tag2\"\n" +
             "    ],\n" +
             "    \"relationships\": [\n" +
             "      \"my-merged-poco-relationship1\",\n" +
-            "      \"my-merged-poco-relationship2\",\n" +
+            "      \"my-merged-poco-relationship2\"\n" +
             "    ],\n" +
             "    \"addresses\": [{\n" +
             "      \"formatted\": \"my-merged-poco-address1-formatted\",\n" +
@@ -864,7 +1040,63 @@ public class UserDataResponseTest {
             "    \"scaredOf\": \"my-merged-poco-scared-of\",\n" +
             "    \"sexualOrientation\": \"my-merged-poco-sexual-orientation\",\n" +
             "    \"smoker\": \"my-merged-poco-smoker\",\n" +
-            "    \"status\": \"my-merged-poco-status\"\n" +
+            "    \"status\": \"my-merged-poco-status\",\n" +
+            "    \"activities\": [\n" +
+            "      \"my-merged-poco-activity1\",\n" +
+            "      \"my-merged-poco-activity2\",\n" +
+            "    ],\n" +
+            "    \"books\": [\n" +
+            "      \"my-merged-poco-book1\",\n" +
+            "      \"my-merged-poco-book2\",\n" +
+            "    ],\n" +
+            "    \"cars\": [\n" +
+            "      \"my-merged-poco-car1\",\n" +
+            "      \"my-merged-poco-car2\",\n" +
+            "    ],\n" +
+            "    \"children\": \"my-merged-poco-children\",\n" +
+            "    \"food\": [\n" +
+            "      \"my-merged-poco-food1\",\n" +
+            "      \"my-merged-poco-food2\",\n" +
+            "    ],\n" +
+            "    \"heroes\": [\n" +
+            "      \"my-merged-poco-hero1\",\n" +
+            "      \"my-merged-poco-hero2\",\n" +
+            "    ],\n" +
+            "    \"jobInterests\": \"my-merged-poco-job-interests\",\n" +
+            "    \"languagesSpoken\": [\n" +
+            "      \"my-merged-poco-language-spoken1\",\n" +
+            "      \"my-merged-poco-language-spoken2\",\n" +
+            "    ],\n" +
+            "    \"movies\": [\n" +
+            "      \"my-merged-poco-movie1\",\n" +
+            "      \"my-merged-poco-movie2\",\n" +
+            "    ],\n" +
+            "    \"music\": [\n" +
+            "      \"my-merged-poco-music1\",\n" +
+            "      \"my-merged-poco-music2\",\n" +
+            "    ],\n" +
+            "    \"pets\": \"my-merged-poco-pets\",\n" +
+            "    \"politicalViews\": \"my-merged-poco-political-views\",\n" +
+            "    \"quotes\": [\n" +
+            "      \"my-merged-poco-quote1\",\n" +
+            "      \"my-merged-poco-quote2\",\n" +
+            "    ],\n" +
+            "    \"sports\": [\n" +
+            "      \"my-merged-poco-sport1\",\n" +
+            "      \"my-merged-poco-sport2\",\n" +
+            "    ],\n" +
+            "    \"turnOffs\": [\n" +
+            "      \"my-merged-poco-turn-off1\",\n" +
+            "      \"my-merged-poco-turn-off2\",\n" +
+            "    ],\n" +
+            "    \"turnOns\": [\n" +
+            "      \"my-merged-poco-turn-on1\",\n" +
+            "      \"my-merged-poco-turn-on2\",\n" +
+            "    ],\n" +
+            "    \"tvShows\": [\n" +
+            "      \"my-merged-poco-tv-show1\",\n" +
+            "      \"my-merged-poco-tv-show2\",\n" +
+            "    ]\n" +
             "  },\n" +
             "  \"stat\": \"ok\"\n" +
             "}";
@@ -905,8 +1137,62 @@ public class UserDataResponseTest {
         assertEquals("my-merged-poco-sexual-orientation", mergedPoco.getSexualOrientation());
         assertEquals("my-merged-poco-smoker", mergedPoco.getSmoker());
         assertEquals("my-merged-poco-status", mergedPoco.getStatus());
-        
-        // TODO test open social plural fields
+        List<String> activities = mergedPoco.getActivities();
+        assertEquals(2, activities.size());
+        assertTrue(activities.contains("my-merged-poco-activity1"));
+        assertTrue(activities.contains("my-merged-poco-activity2"));
+        List<String> books = mergedPoco.getBooks();
+        assertEquals(2, books.size());
+        assertTrue(books.contains("my-merged-poco-book1"));
+        assertTrue(books.contains("my-merged-poco-book2"));
+        List<String> cars = mergedPoco.getCars();
+        assertEquals(2, cars.size());
+        assertTrue(cars.contains("my-merged-poco-car1"));
+        assertTrue(cars.contains("my-merged-poco-car2"));
+        assertEquals("my-merged-poco-children", mergedPoco.getChildren());
+        List<String> food = mergedPoco.getFood();
+        assertEquals(2, food.size());
+        assertTrue(food.contains("my-merged-poco-food1"));
+        assertTrue(food.contains("my-merged-poco-food2"));
+        List<String> heroes = mergedPoco.getHeroes();
+        assertEquals(2, heroes.size());
+        assertTrue(heroes.contains("my-merged-poco-hero1"));
+        assertTrue(heroes.contains("my-merged-poco-hero2"));
+        assertEquals("my-merged-poco-job-interests", mergedPoco.getJobInterests());
+        List<String> languagesSpoken = mergedPoco.getLanguagesSpoken();
+        assertEquals(2, languagesSpoken.size());
+        assertTrue(languagesSpoken.contains("my-merged-poco-language-spoken1"));
+        assertTrue(languagesSpoken.contains("my-merged-poco-language-spoken2"));
+        List<String> movies = mergedPoco.getMovies();
+        assertEquals(2, movies.size());
+        assertTrue(movies.contains("my-merged-poco-movie1"));
+        assertTrue(movies.contains("my-merged-poco-movie2"));
+        List<String> music = mergedPoco.getMusic();
+        assertEquals(2, music.size());
+        assertTrue(music.contains("my-merged-poco-music1"));
+        assertTrue(music.contains("my-merged-poco-music2"));
+        assertEquals("my-merged-poco-pets", mergedPoco.getPets());
+        assertEquals("my-merged-poco-political-views", mergedPoco.getPoliticalViews());
+        List<String> quotes = mergedPoco.getQuotes();
+        assertEquals(2, quotes.size());
+        assertTrue(quotes.contains("my-merged-poco-quote1"));
+        assertTrue(quotes.contains("my-merged-poco-quote2"));
+        List<String> sports = mergedPoco.getSports();
+        assertEquals(2, sports.size());
+        assertTrue(sports.contains("my-merged-poco-sport1"));
+        assertTrue(sports.contains("my-merged-poco-sport2"));
+        List<String> turnOffs = mergedPoco.getTurnOffs();
+        assertEquals(2, turnOffs.size());
+        assertTrue(turnOffs.contains("my-merged-poco-turn-off1"));
+        assertTrue(turnOffs.contains("my-merged-poco-turn-off2"));
+        List<String> turnOns = mergedPoco.getTurnOns();
+        assertEquals(2, turnOns.size());
+        assertTrue(turnOns.contains("my-merged-poco-turn-on1"));
+        assertTrue(turnOns.contains("my-merged-poco-turn-on2"));
+        List<String> tvShows = mergedPoco.getTvShows();
+        assertEquals(2, tvShows.size());
+        assertTrue(tvShows.contains("my-merged-poco-tv-show1"));
+        assertTrue(tvShows.contains("my-merged-poco-tv-show2"));
     }
     
     @Test
