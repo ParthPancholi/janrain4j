@@ -238,7 +238,14 @@ public class Contact implements Serializable {
         contact.setSmoker(json.optString("smoker", null));
         contact.setStatus(json.optString("status", null));
         
-        // TODO activities
+        JSONArray activitiesJSONArray = json.optJSONArray("activities");
+        if (activitiesJSONArray != null) {
+            List<String> activities = new ArrayList<String>();
+            for (int i = 0; i < activitiesJSONArray.length(); i++) {
+                activities.add(activitiesJSONArray.optString(i));
+            }
+            contact.setActivities(activities);
+        }
         
         JSONArray booksJSONArray = json.optJSONArray("books");
         if (booksJSONArray != null) {
