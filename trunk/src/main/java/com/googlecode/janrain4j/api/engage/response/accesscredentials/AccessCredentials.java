@@ -52,14 +52,17 @@ public class AccessCredentials implements Serializable {
     }
     
     public static AccessCredentials fromJSON(JSONObject json) throws JSONException {
-        AccessCredentials accessCredentials = new AccessCredentials();
-        accessCredentials.setType(json.optString("type"));
-        accessCredentials.setOauthToken(json.optString("oauthToken"));
-        accessCredentials.setOauthTokenSecret(json.optString("oauthTokenSecret"));
-        accessCredentials.setUid(json.optString("uid"));
-        accessCredentials.setAccessToken(json.optString("accessToken"));
-        accessCredentials.setExpires(json.optLong("expires"));
-        accessCredentials.setEact(json.optString("eact"));
+        AccessCredentials accessCredentials = null;
+        if (json != null) {
+            accessCredentials = new AccessCredentials();
+            accessCredentials.setType(json.optString("type"));
+            accessCredentials.setOauthToken(json.optString("oauthToken"));
+            accessCredentials.setOauthTokenSecret(json.optString("oauthTokenSecret"));
+            accessCredentials.setUid(json.optString("uid"));
+            accessCredentials.setAccessToken(json.optString("accessToken"));
+            accessCredentials.setExpires(json.optLong("expires"));
+            accessCredentials.setEact(json.optString("eact"));
+        }
         return accessCredentials;
     }
     

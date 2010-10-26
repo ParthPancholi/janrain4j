@@ -42,10 +42,13 @@ public class Url implements Serializable {
     }
     
     public static Url fromJSON(JSONObject json) {
-        Url url = new Url();
-        url.setValue(json.optString("value"));
-        url.setType(json.optString("type"));
-        url.setPrimary(json.optBoolean("primary", false));
+        Url url = null;
+        if (json != null) {
+            url = new Url();
+            url.setValue(json.optString("value"));
+            url.setType(json.optString("type"));
+            url.setPrimary(json.optBoolean("primary", false));
+        }
         return url;
     }
     

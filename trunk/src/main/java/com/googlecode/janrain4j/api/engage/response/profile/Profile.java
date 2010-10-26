@@ -61,23 +61,26 @@ public class Profile implements Serializable {
     }
     
     public static Profile fromJSON(JSONObject json) throws JSONException {
-        Profile profile = new Profile();
-        profile.setIdentifier(json.getString("identifier"));
-        profile.setProviderName(json.getString("providerName"));
-        profile.setPrimaryKey(json.optString("primaryKey", null));
-        profile.setDisplayName(json.optString("displayName", null));
-        profile.setPreferredUsername(json.optString("preferredUsername", null));
-        profile.setName(Name.fromJSON(json.optJSONObject("name")));
-        profile.setGender(json.optString("gender", null));
-        profile.setBirthday(parseDate(json.optString("birthday", null)));
-        profile.setUtcOffset(json.optString("utcOffset", null));
-        profile.setEmail(json.optString("email", null));
-        profile.setEmail(json.optString("email", null));
-        profile.setVerifiedEmail(json.optString("verifiedEmail", null));
-        profile.setUrl(json.optString("url", null));
-        profile.setPhoneNumber(json.optString("phoneNumber", null));
-        profile.setPhoto(json.optString("photo", null));
-        profile.setAddress(Address.fromJSON(json.optJSONObject("address")));
+        Profile profile = null;
+        if (json != null) {
+            profile = new Profile();
+            profile.setIdentifier(json.getString("identifier"));
+            profile.setProviderName(json.getString("providerName"));
+            profile.setPrimaryKey(json.optString("primaryKey", null));
+            profile.setDisplayName(json.optString("displayName", null));
+            profile.setPreferredUsername(json.optString("preferredUsername", null));
+            profile.setName(Name.fromJSON(json.optJSONObject("name")));
+            profile.setGender(json.optString("gender", null));
+            profile.setBirthday(parseDate(json.optString("birthday", null)));
+            profile.setUtcOffset(json.optString("utcOffset", null));
+            profile.setEmail(json.optString("email", null));
+            profile.setEmail(json.optString("email", null));
+            profile.setVerifiedEmail(json.optString("verifiedEmail", null));
+            profile.setUrl(json.optString("url", null));
+            profile.setPhoneNumber(json.optString("phoneNumber", null));
+            profile.setPhoto(json.optString("photo", null));
+            profile.setAddress(Address.fromJSON(json.optJSONObject("address")));
+        }
         return profile;
     }
     

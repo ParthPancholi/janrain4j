@@ -40,10 +40,13 @@ public class Email implements Serializable {
     }
     
     public static Email fromJSON(JSONObject json) {
-        Email email = new Email();
-        email.setValue(json.optString("value"));
-        email.setType(json.optString("type"));
-        email.setPrimary(json.optBoolean("primary", false));
+        Email email = null;
+        if (json != null) {
+            email = new Email();
+            email.setValue(json.optString("value"));
+            email.setType(json.optString("type"));
+            email.setPrimary(json.optBoolean("primary", false));
+        }
         return email;
     }
     

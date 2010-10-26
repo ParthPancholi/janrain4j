@@ -45,24 +45,9 @@ public class UserDataResponse extends AbstractEngageResponse {
         super(json);
         try {
             JSONObject rsp = getResponseAsJSONObject();
-            
-            // Profile
-            JSONObject rspProfile = rsp.getJSONObject("profile");
-            profile = Profile.fromJSON(rspProfile);
-            
-            // Access Credentials
-            JSONObject rspAccessCredentials = rsp.optJSONObject("accessCredentials");
-            if (rspAccessCredentials != null) {
-                accessCredentials = AccessCredentials.fromJSON(rspAccessCredentials);
-            }
-            
-            // Merged Poco
-            JSONObject rspMergedPoco = rsp.optJSONObject("merged_poco");
-            if (rspMergedPoco != null) {
-                mergedPoco = Contact.fromJSON(rspMergedPoco);
-            }
-            
-            // Friends
+            profile = Profile.fromJSON(rsp.getJSONObject("profile"));
+            accessCredentials = AccessCredentials.fromJSON(rsp.optJSONObject("accessCredentials"));
+            mergedPoco = Contact.fromJSON(rsp.optJSONObject("merged_poco"));
             JSONArray rspFriends = rsp.optJSONArray("friends");
             if (rspFriends != null) {
                 friends = new ArrayList<String>();
@@ -75,8 +60,6 @@ public class UserDataResponse extends AbstractEngageResponse {
                     }
                 }
             }
-            
-            // Limited Data
             limitedData = rsp.optBoolean("limitedData");
         }
         catch (JSONException e) {
