@@ -2,7 +2,7 @@
 =1.1.0=
 UNDER DEVELOPMENT
   * Improved Spring and Spring Security support (Issue #2)
-  * Added OpenSocial fields to Contact (Issue #4)
+  * Added !OpenSocial fields to Contact (Issue #4)
 
 =1.0.2=
 2010-10-20
