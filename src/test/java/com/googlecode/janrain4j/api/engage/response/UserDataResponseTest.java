@@ -819,8 +819,94 @@ public class UserDataResponseTest {
         assertEquals("my-merged-poco-account2-username", account2.getUsername());
         assertEquals("my-merged-poco-account2-userid", account2.getUserid());
         assertFalse(account2.isPrimary());
+    }
+    
+    @Test
+    public void testUserDataResponseWithOpenSocialFields() throws Exception {
         
-        // TODO test open social fields
+        json =
+            "{" +
+            "  \"profile\": {\n" +
+            "    \"providerName\": \"Other\",\n" +
+            "    \"identifier\": \"http:\\/\\/brian.myopenid.com\\/\"\n" +
+            "  },\n" +
+            "  \"merged_poco\": {\n" +
+            "    \"aboutMe\": \"my-merged-poco-about-me\",\n" +
+            "    \"bodyType\": {\n" +
+            "      \"build\": \"my-merged-poco-body-type-build\",\n" +
+            "      \"eyeColor\": \"my-merged-poco-body-type-eye-color\",\n" +
+            "      \"hairColor\": \"my-merged-poco-body-type-hair-color\",\n" +
+            "      \"height\": 1.9,\n" +
+            "      \"weight\": 75\n" +
+            "    },\n" +
+            "    \"currentLocation\": {\n" +
+            "      \"formatted\": \"my-merged-poco-current-location-formatted\",\n" +
+            "      \"streetAddress\": \"my-merged-poco-current-location-street-address\",\n" +
+            "      \"locality\": \"my-merged-poco-current-location-locality\",\n" +
+            "      \"region\": \"my-merged-poco-current-location-region\",\n" +
+            "      \"postalCode\": \"my-merged-poco-current-location-postal-code\",\n" +
+            "      \"country\": \"my-merged-poco-current-location-country\",\n" +
+            "      \"type\": \"my-merged-poco-current-location-type\"\n" +
+            "    },\n" +
+            "    \"drinker\": \"my-merged-poco-drinker\",\n" +
+            "    \"ethnicity\": \"my-merged-poco-ethnicity\",\n" +
+            "    \"fashion\": \"my-merged-poco-fashion\",\n" +
+            "    \"happiestWhen\": \"my-merged-poco-happiest-when\",\n" +
+            "    \"humor\": \"my-merged-poco-humor\",\n" +
+            "    \"livingArrangement\": \"my-merged-poco-living-arrangement\",\n" +
+            "    \"lookingFor\": \"my-merged-poco-looking-for\",\n" +
+            "    \"profileSong\": \"my-merged-poco-profile-song\",\n" +
+            "    \"profileUrl\": \"my-merged-poco-profile-url\",\n" +
+            "    \"profileVideo\": \"my-merged-poco-profile-video\",\n" +
+            "    \"relationshipStatus\": \"my-merged-poco-relationship-status\",\n" +
+            "    \"religion\": \"my-merged-poco-religion\",\n" +
+            "    \"romance\": \"my-merged-poco-romance\",\n" +
+            "    \"scaredOf\": \"my-merged-poco-scared-of\",\n" +
+            "    \"sexualOrientation\": \"my-merged-poco-sexual-orientation\",\n" +
+            "    \"smoker\": \"my-merged-poco-smoker\",\n" +
+            "    \"status\": \"my-merged-poco-status\"\n" +
+            "  },\n" +
+            "  \"stat\": \"ok\"\n" +
+            "}";
+        
+        response = new UserDataResponse(json);
+        
+        Contact mergedPoco = response.getMergedPoco();
+        assertNotNull(mergedPoco);
+        assertEquals("my-merged-poco-about-me", mergedPoco.getAboutMe());
+        assertNotNull(mergedPoco.getBodyType());
+        assertEquals("my-merged-poco-body-type-build", mergedPoco.getBodyType().getBuild());
+        assertEquals("my-merged-poco-body-type-eye-color", mergedPoco.getBodyType().getEyeColor());
+        assertEquals("my-merged-poco-body-type-hair-color", mergedPoco.getBodyType().getHairColor());
+        assertEquals(new Double(1.9), mergedPoco.getBodyType().getHeight());
+        assertEquals(new Double(75), mergedPoco.getBodyType().getWeight());
+        assertNotNull(mergedPoco.getCurrentLocation());
+        assertEquals("my-merged-poco-current-location-formatted", mergedPoco.getCurrentLocation().getFormatted());
+        assertEquals("my-merged-poco-current-location-street-address", mergedPoco.getCurrentLocation().getStreetAddress());
+        assertEquals("my-merged-poco-current-location-locality", mergedPoco.getCurrentLocation().getLocality());
+        assertEquals("my-merged-poco-current-location-region", mergedPoco.getCurrentLocation().getRegion());
+        assertEquals("my-merged-poco-current-location-postal-code", mergedPoco.getCurrentLocation().getPostalCode());
+        assertEquals("my-merged-poco-current-location-country", mergedPoco.getCurrentLocation().getCountry());
+        assertEquals("my-merged-poco-current-location-type", mergedPoco.getCurrentLocation().getType());
+        assertEquals("my-merged-poco-drinker", mergedPoco.getDrinker());
+        assertEquals("my-merged-poco-ethnicity", mergedPoco.getEthnicity());
+        assertEquals("my-merged-poco-fashion", mergedPoco.getFashion());
+        assertEquals("my-merged-poco-happiest-when", mergedPoco.getHappiestWhen());
+        assertEquals("my-merged-poco-humor", mergedPoco.getHumor());
+        assertEquals("my-merged-poco-living-arrangement", mergedPoco.getLivingArrangement());
+        assertEquals("my-merged-poco-looking-for", mergedPoco.getLookingFor());
+        assertEquals("my-merged-poco-profile-song", mergedPoco.getProfileSong());
+        assertEquals("my-merged-poco-profile-url", mergedPoco.getProfileUrl());
+        assertEquals("my-merged-poco-profile-video", mergedPoco.getProfileVideo());
+        assertEquals("my-merged-poco-relationship-status", mergedPoco.getRelationshipStatus());
+        assertEquals("my-merged-poco-religion", mergedPoco.getReligion());
+        assertEquals("my-merged-poco-romance", mergedPoco.getRomance());
+        assertEquals("my-merged-poco-scared-of", mergedPoco.getScaredOf());
+        assertEquals("my-merged-poco-sexual-orientation", mergedPoco.getSexualOrientation());
+        assertEquals("my-merged-poco-smoker", mergedPoco.getSmoker());
+        assertEquals("my-merged-poco-status", mergedPoco.getStatus());
+        
+        // TODO test open social plural fields
     }
     
     @Test
