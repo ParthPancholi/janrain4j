@@ -70,7 +70,7 @@ public class Contact implements Serializable {
     
     // open social
     private String aboutMe = null;
-    private String bodyType = null; // TODO
+    private BodyType bodyType = null;
     private Address currentLocation = null;
     private String drinker = null;
     private String ethnicity = null;
@@ -219,7 +219,7 @@ public class Contact implements Serializable {
         }
         
         contact.setAboutMe(json.optString("aboutMe", null));
-        // TODO bodyType
+        contact.setBodyType(BodyType.fromJSON(json.optJSONObject("bodyType")));
         contact.setCurrentLocation(Address.fromJSON(json.optJSONObject("currentLocation")));
         contact.setDrinker(json.optString("drinker", null));
         contact.setEthnicity(json.optString("ethnicity", null));
@@ -729,11 +729,11 @@ public class Contact implements Serializable {
      * 
      * @return The body characteristics or <code>null</code> if not found in response.
      */
-    public String getBodyType() {
+    public BodyType getBodyType() {
         return bodyType;
     }
     
-    void setBodyType(String bodyType) {
+    void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
     
