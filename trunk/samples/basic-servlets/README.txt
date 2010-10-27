@@ -4,4 +4,4 @@ Run sample with embedded Tomcat server:
 
 And open a browser and navigate to:
 
-    http://localhost:8080/basic-servlets
+    http://localhost:8080/
