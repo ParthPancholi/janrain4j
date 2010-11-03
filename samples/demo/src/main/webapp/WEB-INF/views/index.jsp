@@ -2,7 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
-<html>
+<html tab="sign_in">
     <body>
         <div class="half-content-top title">
             <h2>Sign In</h2>
