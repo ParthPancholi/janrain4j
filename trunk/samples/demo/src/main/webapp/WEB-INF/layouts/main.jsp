@@ -16,8 +16,11 @@
         <decorator:head />
     </head>
     <body>
+        <c:set var="tab">
+            <decorator:getProperty property="tab" default="sign_in" />
+        </c:set> 
         <jsp:include page="_top.jsp">
-            <jsp:param name="selected" value="signin" />
+            <jsp:param name="tab" value="${tab}" />
         </jsp:include>
         <div class="container">
             <div class="half-content-wrapper span-17">

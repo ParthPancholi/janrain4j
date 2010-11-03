@@ -1,6 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
-<html>
+<html tab="about">
     <body>
         <div class="half-content-top title">
             <h2>About</h2>
