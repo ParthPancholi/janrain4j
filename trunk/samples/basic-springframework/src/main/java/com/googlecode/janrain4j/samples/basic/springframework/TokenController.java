@@ -20,7 +20,7 @@ public class TokenController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(method = RequestMethod.POST)
-    public String index(@RequestParam String token, Model model) {
+    public String signIn(@RequestParam String token, Model model) {
         try {
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
             model.addAttribute("userData", userDataResponse);
