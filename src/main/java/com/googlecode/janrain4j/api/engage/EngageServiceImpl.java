@@ -136,6 +136,12 @@ class EngageServiceImpl implements EngageService {
         apiCall(SET_STATUS_METHOD, params);
     }
     
+    public boolean supportsSetStatus(String providerName) {
+        
+        // TODO Auto-generated method stub
+        return false;
+    }
+    
     public void map(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException {
         map(identifier, primaryKey, true);
     }
@@ -215,6 +221,11 @@ class EngageServiceImpl implements EngageService {
             params.put(LOCATION_PARAM, location);
         }
         apiCall(ACTIVITY_METHOD, params);
+    }
+    
+    public boolean supportsActivity(String providerName) {
+        // TODO Auto-generated method stub
+        return false;
     }
     
     public AnalyticsResponse analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException {

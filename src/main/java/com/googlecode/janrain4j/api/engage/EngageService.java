@@ -126,6 +126,15 @@ public interface EngageService {
      * @since 1.0
      */
     public void setStatus(String identifier, String status, String location) throws EngageFailureException, ErrorResponeException;
+
+    /**
+     * Returns true if the provider name supports the {@link #setStatus(String, String)} API call.
+     * 
+     * @param providerName The provider name
+     * @return True if supported.
+     * @since 1.1
+     */
+    public boolean supportsSetStatus(String providerName);
     
     /**
      * Map an OpenID identifier to a primary key. Future logins by this owner 
@@ -288,6 +297,15 @@ public interface EngageService {
      * @since 1.0
      */
     public void activity(String identifier, String activity, String location) throws EngageFailureException, ErrorResponeException;
+    
+    /**
+     * Returns true if the provider name supports the {@link #activity(String, Activity)} API call.
+     * 
+     * @param providerName The provider name
+     * @return True if supported.
+     * @since 1.1
+     */
+    public boolean supportsActivity(String providerName);
     
     /**
      * Get statistics for your application.
