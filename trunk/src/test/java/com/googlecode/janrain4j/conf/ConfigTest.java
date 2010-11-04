@@ -20,9 +20,14 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.conf;
 
+import static com.googlecode.janrain4j.conf.Config.DEFAULT_SET_STATUS_PROVIDER_NAMES;
+import static com.googlecode.janrain4j.conf.Config.DEFAULT_ACTIVITY_PROVIDER_NAMES;
 import static com.googlecode.janrain4j.conf.Config.Builder.build;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -41,6 +46,8 @@ public class ConfigTest {
     private String proxyPassword = "my-password";
     private int connectTimeout = 60000;
     private int readTimeout = 120000;
+    private List<String> setStatusProviderNames = Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2");
+    private List<String> activityProviderNames = Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2");
     
     @Test
     public void testBuilderDefaultValues() {
@@ -57,6 +64,8 @@ public class ConfigTest {
         assertNull(config.getProxyPassword());
         assertEquals(-1, config.getConnectTimeout());
         assertEquals(-1, config.getReadTimeout());
+        assertEquals(DEFAULT_SET_STATUS_PROVIDER_NAMES, config.getSetStatusProviderNames());
+        assertEquals(DEFAULT_ACTIVITY_PROVIDER_NAMES, config.getActivityProviderNames());
     }
     
     @Test
@@ -72,7 +81,9 @@ public class ConfigTest {
             .proxyUsername(proxyUsername)
             .proxyPassword(proxyPassword)
             .connectTimeout(connectTimeout)
-            .readTimeout(readTimeout);
+            .readTimeout(readTimeout)
+            .setStatusProviderNames(setStatusProviderNames)
+            .activityProviderNames(activityProviderNames);
         
         assertEquals(apiKey, config.getApiKey());
         assertEquals(applicationID, config.getApplicationID());
@@ -85,5 +96,7 @@ public class ConfigTest {
         assertEquals(proxyPassword, config.getProxyPassword());
         assertEquals(connectTimeout, config.getConnectTimeout());
         assertEquals(readTimeout, config.getReadTimeout());
+        assertEquals(setStatusProviderNames, config.getSetStatusProviderNames());
+        assertEquals(activityProviderNames, config.getActivityProviderNames());
     }    
 }

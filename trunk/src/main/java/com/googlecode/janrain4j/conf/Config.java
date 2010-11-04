@@ -14,6 +14,11 @@
  */
 package com.googlecode.janrain4j.conf;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.googlecode.janrain4j.api.engage.EngageService;
+
 /**
  * User-configurable properties. In most cases it is not needed to create a 
  * <code>Config</code> manually. To create a <code>Config</code> 
@@ -44,7 +49,9 @@ package com.googlecode.janrain4j.conf;
  *         .proxyUsername(proxyUsername)
  *         .proxyPassword(proxyPassword)
  *         .connectTimeout(connectTimeout)
- *         .readTimeout(readTimeout);
+ *         .readTimeout(readTimeout)
+ *         .setStatusProviderNames(setStatusProviderNames)
+ *         .activityProviderNames(activityProviderNames);
  * </pre>
  * </blockquote>
  * 
@@ -53,6 +60,9 @@ package com.googlecode.janrain4j.conf;
  */
 public class Config {
 
+    public static List<String> DEFAULT_SET_STATUS_PROVIDER_NAMES = Arrays.asList("Facebook", "LinkedIn", "Twitter", "MySpace", "Google", "Yahoo!");
+    public static List<String> DEFAULT_ACTIVITY_PROVIDER_NAMES = Arrays.asList("Facebook", "LinkedIn", "Twitter", "MySpace", "Yahoo!");
+    
     private String apiKey = null;
     private String applicationID = null;
     private String applicationDomain = null;
@@ -64,6 +74,8 @@ public class Config {
     private String proxyPassword = null;
     private int connectTimeout = -1;
     private int readTimeout = -1;
+    private List<String> setStatusProviderNames = DEFAULT_SET_STATUS_PROVIDER_NAMES;
+    private List<String> activityProviderNames = DEFAULT_ACTIVITY_PROVIDER_NAMES;
     
     Config() {
     }
@@ -143,6 +155,20 @@ public class Config {
      */
     public int getReadTimeout() {
         return readTimeout;
+    }
+    
+    /**
+     * Returns the provider names which support the {@link EngageService#setStatus(String, String)} API call.
+     */
+    public List<String> getSetStatusProviderNames() {
+        return setStatusProviderNames;
+    }
+    
+    /**
+     * Returns the provider names which support the {@link EngageService#activity(String, com.googlecode.janrain4j.api.engage.request.Activity)} API call.
+     */
+    public List<String> getActivityProviderNames() {
+        return activityProviderNames;
     }
     
     /**
@@ -271,6 +297,30 @@ public class Config {
      */
     public Config readTimeout(int timeout) {
         this.readTimeout = timeout;
+        return this;
+    }
+    
+    /**
+     * Sets the provider names which support the {@link EngageService#setStatus(String, String)} API call.
+     * 
+     * @param providerNames The provider names.
+     * @return <code>this</code> (for chaining)
+     * @since 1.1
+     */
+    public Config setStatusProviderNames(List<String> providerNames) {
+        this.setStatusProviderNames = providerNames;
+        return this;
+    }
+    
+    /**
+     * Sets the provider names which support the {@link EngageService#activity(String, com.googlecode.janrain4j.api.engage.request.Activity)} API call.
+     * 
+     * @param providerNames The provider names.
+     * @return <code>this</code> (for chaining)
+     * @since 1.1
+     */
+    public Config activityProviderNames(List<String> providerNames) {
+        this.activityProviderNames = providerNames;
         return this;
     }
     
