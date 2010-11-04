@@ -16,6 +16,8 @@ package com.googlecode.janrain4j.springframework;
 
 import static com.googlecode.janrain4j.conf.Config.Builder.build;
 
+import java.util.List;
+
 import org.springframework.beans.factory.InitializingBean;
 
 import com.googlecode.janrain4j.conf.Config;
@@ -167,5 +169,25 @@ public class JanrainConfigurer implements InitializingBean {
      */
     public void setReadTimeout(int timeout) {
         config.readTimeout(timeout);
+    }
+    
+    /**
+     * Sets the provider names which support the <code>set_status</code> API call.
+     * 
+     * @param providerNames The provider names.
+     * @since 1.1
+     */
+    public void setSetStatusProviderNames(List<String> providerNames) {
+        config.setStatusProviderNames(providerNames);
+    }
+    
+    /**
+     * Sets the provider names which support the <code>activity</code> API call.
+     * 
+     * @param providerNames The provider names.
+     * @since 1.1
+     */
+    public void setActivityProviderNames(List<String> providerNames) {
+        config.activityProviderNames(providerNames);
     }
 }
