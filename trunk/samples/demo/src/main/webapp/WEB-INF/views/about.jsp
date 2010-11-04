@@ -9,7 +9,7 @@
             <div class="additional-tools divider clearfix">
             </div>
             <div class="inner">
-                <p>This demo is an example application using the <a href="http://janrain4j.googlecode.com" target="_blank">Janrain4j 1.1.0</a> Java library.</p>
+                <p>This demo is a sample application using the <a href="http://janrain4j.googlecode.com" target="_blank">Janrain4j 1.1.0</a> Java library.</p>
                 <p>The source code of the demo can be found at: <a href="http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/demo" target="_blank">http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/demo</a></p>
             </div>
         </div>

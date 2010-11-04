@@ -18,6 +18,8 @@
     <mvc:view-controller path="/" view-name="index" />
     <mvc:view-controller path="/about" view-name="about" />
     <mvc:view-controller path="/privacy" view-name="privacy" />
+    <mvc:view-controller path="/social_publishing" view-name="social_publishing" />
+    <mvc:view-controller path="/user_data" view-name="user_data" />
     
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
     

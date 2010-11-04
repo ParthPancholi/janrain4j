@@ -8,7 +8,7 @@
             Janrain4j provides a developer-friendly Java Engage Service for communicating with the Janrain API.
         </div>
         <div class="item">
-            Janrain4j provides a convenient JSP Tag Library for including the Sign-In and Social Publishing Widgets on your website.
+            Janrain4j provides a convenient JSP Tag Library for including the Sign-In widget on your website.
         </div>
         <div class="item">
             Janrain4j is licensed under the open source Apache 2.0 license.
@@ -24,7 +24,7 @@
         <div class="item">
             Janrain Engage provides javascript to add a user friendly sign-in box to your website. See an example below.
             <img src="/images/janrain-engage-signin.png" style="margin-top:5px;margin-bottom:5px;margin-left:-7px" />
-            Janrain Engage supports 16 social platforms, including Facebook, Twitter, MySpace, Yahoo!, Google, Windows Live, LinkedIn, Hyves and Wordpress.
+            Janrain Engage supports 16 social platforms, including Facebook, Twitter, MySpace, Yahoo!, Google, Windows Live, LinkedIn, Hyves, PayPal and Wordpress.
         </div>
         <div class="item">
             Janrain Engage gathers rich profile information from your users by importing a user's profile data from their preferred social platform.
@@ -38,7 +38,7 @@
         <div class="subtitle">Janrain Engage Demo</div>
         <div class="item first">
             <center>
-                <a href="http://www.youtube.com/v/Pm_A3T1MqVk" target="_blank"><img src="/images/janrain-engage-demo.png" /></a>
+                <a href="http://www.youtube.com/v/Pm_A3T1MqVk" target="_blank"><img src="/static/images/janrain-engage-demo.png" /></a>
             </center>
         </div>
     </div>
