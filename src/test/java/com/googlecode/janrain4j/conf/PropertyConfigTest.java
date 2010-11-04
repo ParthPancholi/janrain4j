@@ -20,6 +20,9 @@ import java.sql.Connection;
  */
 package com.googlecode.janrain4j.conf;
 
+import static com.googlecode.janrain4j.conf.Config.DEFAULT_ACTIVITY_PROVIDER_NAMES;
+import static com.googlecode.janrain4j.conf.Config.DEFAULT_SET_STATUS_PROVIDER_NAMES;
+import static com.googlecode.janrain4j.conf.PropertyConfig.ACTIVITY_PROVIDER_NAMES_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.API_KEY_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.APPLICATION_DOMAIN_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.APPLICATION_ID_KEY;
@@ -30,6 +33,7 @@ import static com.googlecode.janrain4j.conf.PropertyConfig.PROXY_PASSWORD_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.PROXY_PORT_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.PROXY_USERNAME_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.READ_TIMEOUT_KEY;
+import static com.googlecode.janrain4j.conf.PropertyConfig.SET_STATUS_PROVIDER_NAMES_KEY;
 import static com.googlecode.janrain4j.conf.PropertyConfig.TOKEN_URL_KEY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -38,6 +42,8 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
+
+import java.util.Arrays;
 
 import javax.servlet.ServletContext;
 
@@ -66,6 +72,8 @@ public class PropertyConfigTest {
     private String systemPropertyProxyPassword = "my-system-property-proxy-password";
     private int systemPropertyConnectTimeout = 30000;
     private int systemPropertyReadTimeout = 60000;
+    private String systemPropertySetStatusProviderNames = "my-system-property-set-status-provider-name1, my-system-property-set-status-provider-name2";
+    private String systemPropertyActivityProviderNames = "my-system-property-activity-provider-name1, my-system-property-activity-provider-name2";
     
     @Before
     public void setUp() {
@@ -80,6 +88,8 @@ public class PropertyConfigTest {
         System.clearProperty(PROXY_PASSWORD_KEY);
         System.clearProperty(CONNECT_TIMEOUT_KEY);
         System.clearProperty(READ_TIMEOUT_KEY);
+        System.clearProperty(SET_STATUS_PROVIDER_NAMES_KEY);
+        System.clearProperty(ACTIVITY_PROVIDER_NAMES_KEY);
     }
     
     @Test
@@ -97,6 +107,8 @@ public class PropertyConfigTest {
         assertEquals("my-config-proxy-password", config.getProxyPassword());
         assertEquals(30000, config.getConnectTimeout());
         assertEquals(60000, config.getReadTimeout());
+        assertEquals(Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2"), config.getSetStatusProviderNames());
+        assertEquals(Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2"), config.getActivityProviderNames());
     }
     
     @Test
@@ -112,6 +124,8 @@ public class PropertyConfigTest {
         System.setProperty(PROXY_PASSWORD_KEY, systemPropertyProxyPassword);
         System.setProperty(CONNECT_TIMEOUT_KEY, Integer.toString(systemPropertyConnectTimeout));
         System.setProperty(READ_TIMEOUT_KEY, Integer.toString(systemPropertyReadTimeout));
+        System.setProperty(SET_STATUS_PROVIDER_NAMES_KEY, systemPropertySetStatusProviderNames);
+        System.setProperty(ACTIVITY_PROVIDER_NAMES_KEY, systemPropertyActivityProviderNames);
         
         config = new PropertyConfig("no.properties");
         
@@ -126,6 +140,8 @@ public class PropertyConfigTest {
         assertEquals(systemPropertyProxyPassword, config.getProxyPassword());
         assertEquals(systemPropertyConnectTimeout, config.getConnectTimeout());
         assertEquals(systemPropertyReadTimeout, config.getReadTimeout());
+        assertEquals(Arrays.asList("my-system-property-set-status-provider-name1", "my-system-property-set-status-provider-name2"), config.getSetStatusProviderNames());
+        assertEquals(Arrays.asList("my-system-property-activity-provider-name1", "my-system-property-activity-provider-name2"), config.getActivityProviderNames());
     }
     
     @Test
@@ -141,6 +157,8 @@ public class PropertyConfigTest {
         System.setProperty(PROXY_PASSWORD_KEY, systemPropertyProxyPassword);
         System.setProperty(CONNECT_TIMEOUT_KEY, Integer.toString(systemPropertyConnectTimeout));
         System.setProperty(READ_TIMEOUT_KEY, Integer.toString(systemPropertyReadTimeout));
+        System.setProperty(SET_STATUS_PROVIDER_NAMES_KEY, systemPropertySetStatusProviderNames);
+        System.setProperty(ACTIVITY_PROVIDER_NAMES_KEY, systemPropertyActivityProviderNames);
         
         config = new PropertyConfig("janrain4j.properties");
         
@@ -155,6 +173,8 @@ public class PropertyConfigTest {
         assertEquals("my-config-proxy-password", config.getProxyPassword());
         assertEquals(30000, config.getConnectTimeout());
         assertEquals(60000, config.getReadTimeout());
+        assertEquals(Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2"), config.getSetStatusProviderNames());
+        assertEquals(Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2"), config.getActivityProviderNames());
     }
     
     @Test
@@ -172,6 +192,8 @@ public class PropertyConfigTest {
         assertNull(config.getProxyPassword());
         assertEquals(-1, config.getConnectTimeout());
         assertEquals(-1, config.getReadTimeout());
+        assertEquals(DEFAULT_SET_STATUS_PROVIDER_NAMES, config.getSetStatusProviderNames());
+        assertEquals(DEFAULT_ACTIVITY_PROVIDER_NAMES, config.getActivityProviderNames());
     }
     
     @Test
@@ -206,5 +228,7 @@ public class PropertyConfigTest {
         assertEquals("my-config-proxy-password", config.getProxyPassword());
         assertEquals(30000, config.getConnectTimeout());
         assertEquals(60000, config.getReadTimeout());
+        assertEquals(Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2"), config.getSetStatusProviderNames());
+        assertEquals(Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2"), config.getActivityProviderNames());
     }
 }

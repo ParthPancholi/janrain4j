@@ -17,7 +17,10 @@ package com.googlecode.janrain4j.conf;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 
@@ -45,6 +48,8 @@ class PropertyConfig extends Config {
     public static final String PROXY_PASSWORD_KEY = KEY_PREFIX + "proxy.password";
     public static final String CONNECT_TIMEOUT_KEY = KEY_PREFIX + "connect.timeout";
     public static final String READ_TIMEOUT_KEY = KEY_PREFIX + "read.timeout";
+    public static final String SET_STATUS_PROVIDER_NAMES_KEY = KEY_PREFIX + "set.status.provider.names";
+    public static final String ACTIVITY_PROVIDER_NAMES_KEY = KEY_PREFIX + "activity.provider.names";
     
     private Log log = LogFactory.getLog(this.getClass());
     
@@ -70,7 +75,6 @@ class PropertyConfig extends Config {
             Method isUrl = resourceUtils.getMethod("isUrl", String.class);
             
             if (!(Boolean) isUrl.invoke(null, resolvedLocation)) {
-                
                 Class<?> webUtils = Class.forName("org.springframework.web.util.WebUtils");
                 Method getRealPath = webUtils.getMethod("getRealPath", ServletContext.class, String.class);
                 resolvedLocation = (String) getRealPath.invoke(null, servletContenxt, resolvedLocation);
@@ -146,6 +150,24 @@ class PropertyConfig extends Config {
         
         if (properties.containsKey(READ_TIMEOUT_KEY)) {
             this.readTimeout(parseInt(properties.getProperty(READ_TIMEOUT_KEY)));
+        }
+        
+        if (properties.containsKey(SET_STATUS_PROVIDER_NAMES_KEY)) {
+            StringTokenizer st = new StringTokenizer(properties.getProperty(SET_STATUS_PROVIDER_NAMES_KEY), ",;|");
+            List<String> providerNames = new ArrayList<String>();
+            while (st.hasMoreTokens()) {
+                providerNames.add(st.nextToken().trim());
+            }
+            this.setStatusProviderNames(providerNames);
+        }
+        
+        if (properties.containsKey(ACTIVITY_PROVIDER_NAMES_KEY)) {
+            StringTokenizer st = new StringTokenizer(properties.getProperty(ACTIVITY_PROVIDER_NAMES_KEY), ",;|");
+            List<String> providerNames = new ArrayList<String>();
+            while (st.hasMoreTokens()) {
+                providerNames.add(st.nextToken().trim());
+            }
+            this.activityProviderNames(providerNames);
         }
     }
     
