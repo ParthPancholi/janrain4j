@@ -49,9 +49,11 @@ import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.TOKEN_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNLINK_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNMAP_METHOD;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -61,6 +63,7 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +112,8 @@ protected EngageServiceImpl service = null;
     private String activityString = "{ \"url\": \"http:\\/\\/my-url.com\\/\", \"action\": \"my-action\" }";
     private Activity activityObject = null;
     private List<String> providers = new ArrayList<String>();
+    private List<String> setStatusProviderNames = Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2");
+    private List<String> activityProviderNames = Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2");
     
     private String method = "some_method";
     private String url = null;
@@ -124,6 +129,8 @@ protected EngageServiceImpl service = null;
         // mock config
         config = mock(Config.class);
         when(config.getApiKey()).thenReturn(apiKey);
+        when(config.getSetStatusProviderNames()).thenReturn(setStatusProviderNames);
+        when(config.getActivityProviderNames()).thenReturn(activityProviderNames);
         
         // mock http client and response
         httpClient = mock(HttpClient.class);
@@ -346,6 +353,13 @@ protected EngageServiceImpl service = null;
         service.setStatus(identifier, status, location);
         
         verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testSupportsSetStatus() {
+        assertTrue(service.supportsSetStatus("my-set-status-provider-name1"));
+        assertTrue(service.supportsSetStatus("my-set-status-provider-name2"));
+        assertFalse(service.supportsSetStatus("not-supported-set-status-provider-name"));
     }
     
     @Test
@@ -662,6 +676,13 @@ protected EngageServiceImpl service = null;
         service.activity(identifier, activityString, location);
         
         verify(httpClient).post(url, params);
+    }
+    
+    @Test
+    public void testSupportsActivity() {
+        assertTrue(service.supportsActivity("my-activity-provider-name1"));
+        assertTrue(service.supportsActivity("my-activity-provider-name2"));
+        assertFalse(service.supportsActivity("not-supported-activity-provider-name"));
     }
     
     @Test
