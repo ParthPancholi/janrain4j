@@ -22,6 +22,9 @@ package com.googlecode.janrain4j.springframework;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,6 +46,8 @@ public class JanrainConfigurerTest {
     private String proxyPassword = "my-password";
     private int connectTimeout = 60000;
     private int readTimeout = 120000;
+    private List<String> setStatusProviderNames = Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2");
+    private List<String> activityProviderNames = Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2");
     
     @Before
     public void setUp() {
@@ -63,6 +68,8 @@ public class JanrainConfigurerTest {
         configurer.setProxyPassword(proxyPassword);
         configurer.setConnectTimeout(connectTimeout);
         configurer.setReadTimeout(readTimeout);
+        configurer.setSetStatusProviderNames(setStatusProviderNames);
+        configurer.setActivityProviderNames(activityProviderNames);
         configurer.afterPropertiesSet();
         
         Config config = ConfigHolder.getConfig();
@@ -77,5 +84,7 @@ public class JanrainConfigurerTest {
         assertEquals(proxyPassword, config.getProxyPassword());
         assertEquals(connectTimeout, config.getConnectTimeout());
         assertEquals(readTimeout, config.getReadTimeout());
+        assertEquals(setStatusProviderNames, config.getSetStatusProviderNames());
+        assertEquals(activityProviderNames, config.getActivityProviderNames());
     }
 }

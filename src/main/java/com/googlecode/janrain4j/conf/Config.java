@@ -158,14 +158,14 @@ public class Config {
     }
     
     /**
-     * Returns the provider names which support the {@link EngageService#setStatus(String, String)} API call.
+     * Returns the provider names which support the <code>set_status</code> API call.
      */
     public List<String> getSetStatusProviderNames() {
         return setStatusProviderNames;
     }
     
     /**
-     * Returns the provider names which support the {@link EngageService#activity(String, com.googlecode.janrain4j.api.engage.request.Activity)} API call.
+     * Returns the provider names which support the <code>activity</code> API call.
      */
     public List<String> getActivityProviderNames() {
         return activityProviderNames;
@@ -301,10 +301,11 @@ public class Config {
     }
     
     /**
-     * Sets the provider names which support the {@link EngageService#setStatus(String, String)} API call.
+     * Sets the provider names which support the <code>set_status</code> API call.
      * 
      * @param providerNames The provider names.
      * @return <code>this</code> (for chaining)
+     * @see {@link EngageService#supportsSetStatus(String)}
      * @since 1.1
      */
     public Config setStatusProviderNames(List<String> providerNames) {
@@ -313,10 +314,11 @@ public class Config {
     }
     
     /**
-     * Sets the provider names which support the {@link EngageService#activity(String, com.googlecode.janrain4j.api.engage.request.Activity)} API call.
+     * Sets the provider names which support the <code>activity</code> API call.
      * 
      * @param providerNames The provider names.
      * @return <code>this</code> (for chaining)
+     * @see {@link EngageService#supportsActivity(String)}
      * @since 1.1
      */
     public Config activityProviderNames(List<String> providerNames) {
