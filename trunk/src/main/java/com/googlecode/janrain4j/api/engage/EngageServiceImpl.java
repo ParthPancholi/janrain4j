@@ -137,7 +137,7 @@ class EngageServiceImpl implements EngageService {
     }
     
     public boolean supportsSetStatus(String providerName) {
-        return config.getSetStatusProviderNames().contains(providerName);
+        return getConfig().getSetStatusProviderNames().contains(providerName);
     }
     
     public void map(String identifier, String primaryKey) throws EngageFailureException, ErrorResponeException {
@@ -222,7 +222,7 @@ class EngageServiceImpl implements EngageService {
     }
     
     public boolean supportsActivity(String providerName) {
-        return config.getActivityProviderNames().contains(providerName);
+        return getConfig().getActivityProviderNames().contains(providerName);
     }
     
     public AnalyticsResponse analytics(Date start, Date end) throws EngageFailureException, ErrorResponeException {
