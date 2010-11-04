@@ -1,5 +1,7 @@
 package com.googlecode.janrain4j.samples.demo;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.utils.SystemProperty;
 import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.ErrorResponeException;
+import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONException;
@@ -28,6 +32,40 @@ public class AccountController {
     
     @Autowired private DatastoreService datastoreService;
     @Autowired private EngageService engageService;
+    
+    @RequestMapping(value = "/show")
+    public String show(HttpSession session, Model model) {
+        
+        // get signed in primary key
+        Long primaryKey = (Long) session.getAttribute("primaryKey");
+        
+        try {
+            // get mapped identifiers
+            MappingsResponse mappingsResponse = engageService.mappings(String.valueOf(primaryKey));
+            List<String> mappings = mappingsResponse.getMappings();
+            model.addAttribute("mappings", mappings);
+            
+            // determine token url
+            String tokenUrl = "http://janrain4j.appspot.com/account/map";
+            if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
+                // overwrite token url in development
+                tokenUrl = "http://localhost:8888/account/map";
+            }
+            model.addAttribute("tokenUrl", tokenUrl);
+        }
+        catch (EngageFailureException e) {
+            log.error("Unable to get mappings", e);
+            model.addAttribute("message", "An error occured while retrieving your mappings. Please try again.");
+            model.addAttribute("message.level", "error");
+        }
+        catch (ErrorResponeException e) {
+            log.error("Unable to get mappings", e);
+            model.addAttribute("message", "An error occured while retrieving your mappings. Please try again.");
+            model.addAttribute("message.level", "error");
+        }
+        
+        return "account";
+    }
     
     @RequestMapping(value = "/delete")
     public String delete(HttpSession session, Model model) {
@@ -45,9 +83,10 @@ public class AccountController {
                 log.info("Deleting account from datastore...");
                 datastoreService.delete(KeyFactory.createKey("Account", primaryKey));
                 
+                session.invalidate();
+                
                 // remove signed in account from session
-                session.removeAttribute("primaryKey");
-                session.removeAttribute("userData");
+                session.invalidate();
                 
                 model.addAttribute("message", "Your account is deleted. Register again by signing in anytime.");
                 
@@ -55,18 +94,17 @@ public class AccountController {
                 return "redirect:/";
             }
             catch (EngageFailureException e) {
-                log.error("Unable to unmap identifiers", e);
+                log.error("Unable to delete account", e);
                 model.addAttribute("message", "An error occured while deleting your account. Please try again.");
                 model.addAttribute("message.level", "error");
             }
             catch (ErrorResponeException e) {
-                log.error("Unable to unmap identifiers", e);
+                log.error("Unable to delete account", e);
                 model.addAttribute("message", "An error occured while deleting your account. Please try again.");
                 model.addAttribute("message.level", "error");
             }
         }
         
-        // TODO ?
         return "account";
     }
     
@@ -112,17 +150,17 @@ public class AccountController {
             }
         }
         catch (EngageFailureException e) {
-            log.error("Unable to get auth info", e);
+            log.error("Unable to map identifier", e);
             model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
             model.addAttribute("message.level", "error");
         }
         catch (ErrorResponeException e) {
-            log.error("Unable to get auth info", e);
+            log.error("Unable to map identifier", e);
             model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
             model.addAttribute("message.level", "error");
         }
         catch (JSONException e) {
-            log.error("Unable to get auth info", e);
+            log.error("Unable to map identifier", e);
             model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
             model.addAttribute("message.level", "error");
         }
@@ -168,8 +206,7 @@ public class AccountController {
             log.info("Signing out account with primary key: " + primaryKey);
             
             // remove signed in account from session
-            session.removeAttribute("primaryKey");
-            session.removeAttribute("userData");
+            session.invalidate();
             
             model.addAttribute("message", "You are signed out now. Sign in again anytime.");
         }
