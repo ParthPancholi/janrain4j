@@ -23,6 +23,7 @@ import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
 import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.conf.Config;
 
 
 /**
@@ -132,6 +133,7 @@ public interface EngageService {
      * 
      * @param providerName The provider name
      * @return True if supported.
+     * @see {@link Config#getSetStatusProviderNames()}
      * @since 1.1
      */
     public boolean supportsSetStatus(String providerName);
@@ -303,6 +305,7 @@ public interface EngageService {
      * 
      * @param providerName The provider name
      * @return True if supported.
+     * @see {@link Config#getActivityProviderNames()}
      * @since 1.1
      */
     public boolean supportsActivity(String providerName);
