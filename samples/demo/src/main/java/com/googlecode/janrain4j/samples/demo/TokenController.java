@@ -25,9 +25,9 @@ import com.googlecode.janrain4j.json.JSONException;
 
 @Controller
 @RequestMapping("/token")
-@SessionAttributes({"primaryKey", "userData"})
+@SessionAttributes({"primaryKey", "userData", "plainResponse", "setStatusSupported", "activitySupported"})
 public class TokenController {
-
+    
     private Log log = LogFactory.getLog(this.getClass());
     
     @Autowired private DatastoreService datastoreService;
@@ -39,13 +39,16 @@ public class TokenController {
             // get user data from janrain
             log.info("Calling auth_info...");
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
+            String plainResponse = userDataResponse.getResponseAsJSONObject().toString(2);
             
-            log.info("auth_info json response:\n" + userDataResponse.getResponseAsJSONObject().toString(2));
+            log.info("auth_info json response:\n" + plainResponse);
             
             Profile profile = userDataResponse.getProfile();
-            Name name = profile.getName();
             String identifier = profile.getIdentifier();
+            String providerName = profile.getProviderName();
+            Name name = profile.getName();
             
+            // set formatted name or identifier
             String formattedNameOrIdentifier = identifier;
             if (name != null && StringUtils.isNotBlank(name.getFormatted())) {
                 formattedNameOrIdentifier = name.getFormatted();
@@ -98,17 +101,26 @@ public class TokenController {
             
             model.addAttribute("primaryKey", primaryKey);
             model.addAttribute("userData", userDataResponse);
+            model.addAttribute("plainResponse", plainResponse);
+            model.addAttribute("setStatusSupported", engageService.supportsSetStatus(providerName));
+            model.addAttribute("activitySupported", engageService.supportsActivity(providerName));
             
             return "user_data";
         }
         catch (EngageFailureException e) {
-            // TODO 
+            log.error("Unable to get auth info", e);
+            model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            model.addAttribute("message.level", "error");
         }
         catch (ErrorResponeException e) {
-            // TODO 
+            log.error("Unable to get auth info", e);
+            model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            model.addAttribute("message.level", "error");
         }
         catch (JSONException e) {
-            // TODO 
+            log.error("Unable to get auth info", e);
+            model.addAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            model.addAttribute("message.level", "error");
         }
         
         return "index";

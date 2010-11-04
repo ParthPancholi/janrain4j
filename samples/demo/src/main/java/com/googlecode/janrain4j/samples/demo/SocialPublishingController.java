@@ -68,7 +68,7 @@ public class SocialPublishingController {
         return "social_publishing";
     }
     
-    @RequestMapping(value = "/activiry", method = RequestMethod.POST)
+    @RequestMapping(value = "/activity", method = RequestMethod.POST)
     public String activity(@RequestParam String userGeneratedContent, HttpSession session, Model model) {
         
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
