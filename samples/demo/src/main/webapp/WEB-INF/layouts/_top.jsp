@@ -10,17 +10,17 @@
             </ul>
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
-                    <li class="append"><a href="/account.jsp">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
-                    <li class="last"><a class="mini-button red" href="/sign_out">Sign Out</a></li>
+                    <li class="append"><a href="/account/show">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
+                    <li class="last"><a class="mini-button red" href="/account/sign_out">Sign Out</a></li>
                 </ul>
             </c:if>
         </div>
         <h1 class="title">Janrain4j Demo Application</h1>
         <ul id="main-nav-left" class="tabs nav">
             <li class="left ${(param.tab == 'sign_in' ? 'selected' : '')}"><a href="/">Sign In</a></li>
-            <li class="${(param.tab == 'user_data' ? 'selected' : '')}"><a href="/user_data.jsp">User Data</a></li>
-            <li class="${(param.tab == 'social_publishing' ? 'selected' : '')}"><a href="/social_publishing.jsp">Social Publishing</a></li>
-            <li class="right ${(param.tab == 'account' ? 'selected' : '')}"><a href="/account.jsp">Account</a></li>
+            <li class="${(param.tab == 'user_data' ? 'selected' : '')}"><a href="/user_data">User Data</a></li>
+            <li class="${(param.tab == 'social_publishing' ? 'selected' : '')}"><a href="/social_publishing">Social Publishing</a></li>
+            <li class="right ${(param.tab == 'account' ? 'selected' : '')}"><a href="/account/show">Account</a></li>
         </ul>
         <ul id="main-nav-right" class="tabs nav">
             <li class="left ${(param.tab == 'about' ? 'selected' : '')}"><a href="/about">About</a></li>

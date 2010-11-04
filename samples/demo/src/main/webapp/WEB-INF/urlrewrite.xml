@@ -3,11 +3,6 @@
 <urlrewrite default-match-type="wildcard">
 
     <rule>
-        <from>/</from>
-        <to>/WEB-INF/views/index.jsp</to>
-    </rule>
-    
-    <rule>
         <from>/static/**</from>
         <to last="true">/$1</to>
     </rule>
