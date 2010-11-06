@@ -3,6 +3,7 @@ package com.googlecode.janrain4j.samples.demo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -33,7 +34,7 @@ public class SocialPublishingController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(value = "/set_status", method = RequestMethod.POST)
-    public String setStatus(@RequestParam String message, HttpSession session, Model model) {
+    public String setStatus(HttpServletRequest request, @RequestParam String message, HttpSession session, Model model) {
         
         log.info("Parameter message = " + message);
         
@@ -46,30 +47,30 @@ public class SocialPublishingController {
                 // set status
                 log.info("Calling set_status for identifier [" + identifier + "]...");
                 engageService.setStatus(identifier, message);
-                model.addAttribute("message", "Your status is updated.");
+                FlashScope.setAttribute(request, "message", "Your status is updated.");
             }
             catch (EngageFailureException e) {
                 log.error("Unable to set status", e);
-                model.addAttribute("message", "An error occured while setting your status. Please try again.");
-                model.addAttribute("message.level", "error");
+                FlashScope.setAttribute(request, "message", "An error occured while setting your status. Please try again.");
+                FlashScope.setAttribute(request, "level", "error");
             }
             catch (ErrorResponeException e) {
                 log.error("Unable to set status", e);
-                model.addAttribute("message", "An error occured while setting your status. Please try again.");
-                model.addAttribute("message.level", "error");
+                FlashScope.setAttribute(request, "message", "An error occured while setting your status. Please try again.");
+                FlashScope.setAttribute(request, "level", "error");
             }
         }
         else {
             log.info("Skipping set_status as parameter message is empty");
-            model.addAttribute("message", "No status message was entered. Status is not updated.");
-            model.addAttribute("message.level", "error");
+            FlashScope.setAttribute(request, "message", "No status message was entered. Status is not updated.");
+            FlashScope.setAttribute(request, "level", "error");
         }
         
         return "social_publishing";
     }
     
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
-    public String activity(@RequestParam String userGeneratedContent, HttpSession session, Model model) {
+    public String activity(HttpServletRequest request, @RequestParam String userGeneratedContent, HttpSession session, Model model) {
         
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         
@@ -100,17 +101,17 @@ public class SocialPublishingController {
             // update activity
             log.info("Calling activity for identifier [" + identifier + "]...");
             engageService.activity(identifier, activity);
-            model.addAttribute("message", "Your activity is updated.");
+            FlashScope.setAttribute(request, "message", "Your activity is updated.");
         }
         catch (EngageFailureException e) {
             log.error("Unable to update activity", e);
-            model.addAttribute("message", "An error occured while updating your activity. Please try again.");
-            model.addAttribute("message.level", "error");
+            FlashScope.setAttribute(request, "message", "An error occured while updating your activity. Please try again.");
+            FlashScope.setAttribute(request, "level", "error");
         }
         catch (ErrorResponeException e) {
             log.error("Unable to update activity", e);
-            model.addAttribute("message", "An error occured while updating your activity. Please try again.");
-            model.addAttribute("message.level", "error");
+            FlashScope.setAttribute(request, "message", "An error occured while updating your activity. Please try again.");
+            FlashScope.setAttribute(request, "level", "error");
         }
         
         return "social_publishing";
