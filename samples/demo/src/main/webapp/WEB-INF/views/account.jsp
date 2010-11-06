@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
+<%@ page import="com.google.appengine.api.utils.SystemProperty" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="janrain" uri="http://janrain4j.googlecode.com/tags" %>
 <html tab="account">
@@ -9,7 +10,16 @@
                 <h2>Mappings</h2>
             </div>
             <div class="title-right-tools span-7 last">
-                <a class="item" href="/account/delete" onclick="return confirm('Are you sure?');">Delete Account</a>
+                <a class="item" href="<c:url value="/account/delete" />" onclick="return confirm('Are you sure?');">Delete Account</a>
+                <%  String tokenUrl = null;
+                    if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+                        tokenUrl = "http://janrain4j.appspot.com/account/map";
+                    }
+                    else {
+                        tokenUrl = "http://localhost:8080/account/map";
+                    }
+                    pageContext.setAttribute("tokenUrl", tokenUrl);
+                 %>
                 <janrain:signInLink styleClass="item" tokenUrl="${tokenUrl}">Add an Identifier</janrain:signInLink>
             </div>
         </div>

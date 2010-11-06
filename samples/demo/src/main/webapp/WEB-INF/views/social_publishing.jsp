@@ -13,7 +13,7 @@
             <div class="inner">
                 <c:choose>
                     <c:when test="${setStatusSupported}">
-                        <form action="/social_publishing/set_status" method="post" class="form">
+                        <form action="<c:url value="/social_publishing/set_status" />" method="post" class="form">
                             <div class="group clearfix">
                                 <label>Status Message</label>
                                 <textarea name="message" class="text" rows="5" cols="80"></textarea>
@@ -41,7 +41,7 @@
             <div class="inner">
                 <c:choose>
                     <c:when test="${activitySupported}">
-                        <form action="/social_publishing/activity" method="post" class="form">
+                        <form action="<c:url value="/social_publishing/activity" />" method="post" class="form">
                             <div class="group clearfix">
                                 <label>User Generated Content</label>
                                 <textarea name="userGeneratedContent" class="text" rows="5" cols="80">Janrain4j is awesome!</textarea>
@@ -53,7 +53,7 @@
                                 Posts an activity update to your activity stream promoting the Janrain4j library.<br />
                                 The update will contain text promoting the Janrain4j library including action links and media items.
                                 Example activity posted to Facebook:
-                                <img src="/resources/images/activity-example.png" style="border:1px solid #eee; margin:5px 0; padding:5px;" width="450" />
+                                <img src="<c:url value="/resources/images/activity-example.png" />" style="border:1px solid #eee; margin:5px 0; padding:5px;" width="450" />
                                 <span class="description" style="margin-left:0px; padding-top:5px;">Note that the actual update posted might vary between providers.</span>
                             </div>
                         </form>

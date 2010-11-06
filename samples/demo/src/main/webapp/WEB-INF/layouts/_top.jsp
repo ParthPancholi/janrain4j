@@ -11,7 +11,7 @@
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
                     <li class="append"><a href="<c:url value="/account/show" />">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
-                    <li class="last"><a class="mini-button red" href="<c:url value="/account/sign_out" />">Sign Out</a></li>
+                    <li class="last"><a class="mini-button red" href="<c:url value="/sign_out" />">Sign Out</a></li>
                 </ul>
             </c:if>
         </div>

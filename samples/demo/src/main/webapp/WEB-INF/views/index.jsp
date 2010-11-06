@@ -16,7 +16,7 @@
                         <janrain:signInEmbedded flags="hide_sign_in_with" />
                     </c:when>
                     <c:otherwise>
-                        You are already signed in. TODO <a href="/sign_out">Sign out</a> to sign in with a different account.
+                        You are already signed in. <a href="<c:url value="/sign_out" />">Sign out</a> to sign in with a different account.
                     </c:otherwise>
                 </c:choose>
             </div>
