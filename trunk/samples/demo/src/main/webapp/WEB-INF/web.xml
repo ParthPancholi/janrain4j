@@ -26,11 +26,6 @@
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter> -->
     
-    <filter>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-    </filter>
-    
     <filter-mapping>
         <filter-name>SiteMeshFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -41,11 +36,6 @@
         <filter-name>SpringSecurityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping> -->
-    
-    <filter-mapping>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
     
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -60,13 +50,13 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/mvc.xml</param-value>
+            <param-value>/WEB-INF/webmvc-config.xml</param-value>
         </init-param>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     
 </web-app>

@@ -10,20 +10,20 @@
             </ul>
             <c:if test="${not empty primaryKey}">
                 <ul class="top-nav" id="right-top-nav">
-                    <li class="append"><a href="/account/show">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
-                    <li class="last"><a class="mini-button red" href="/account/sign_out">Sign Out</a></li>
+                    <li class="append"><a href="<c:url value="/account/show" />">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
+                    <li class="last"><a class="mini-button red" href="<c:url value="/account/sign_out" />">Sign Out</a></li>
                 </ul>
             </c:if>
         </div>
         <h1 class="title">Janrain4j Demo Application</h1>
         <ul id="main-nav-left" class="tabs nav">
-            <li class="left ${(param.tab == 'sign_in' ? 'selected' : '')}"><a href="/">Sign In</a></li>
-            <li class="${(param.tab == 'user_data' ? 'selected' : '')}"><a href="/user_data">User Data</a></li>
-            <li class="${(param.tab == 'social_publishing' ? 'selected' : '')}"><a href="/social_publishing">Social Publishing</a></li>
-            <li class="right ${(param.tab == 'account' ? 'selected' : '')}"><a href="/account/show">Account</a></li>
+            <li class="left ${(param.tab == 'sign_in' ? 'selected' : '')}"><a href="<c:url value="/" />">Sign In</a></li>
+            <li class="${(param.tab == 'user_data' ? 'selected' : '')}"><a href="<c:url value="/user_data" />">User Data</a></li>
+            <li class="${(param.tab == 'social_publishing' ? 'selected' : '')}"><a href="<c:url value="/social_publishing" />">Social Publishing</a></li>
+            <li class="right ${(param.tab == 'account' ? 'selected' : '')}"><a href="<c:url value="/account/show" />">Account</a></li>
         </ul>
         <ul id="main-nav-right" class="tabs nav">
-            <li class="left ${(param.tab == 'about' ? 'selected' : '')}"><a href="/about">About</a></li>
+            <li class="left ${(param.tab == 'about' ? 'selected' : '')}"><a href="<c:url value="/about" />">About</a></li>
             <li class="right ${(param.tab == 'administrator' ? 'selected' : '')}"><a href="https://appengine.google.com/dashboard?&app_id=janrain4j">Administrator</a></li>
         </ul>
     </div>

@@ -1,3 +1,6 @@
+<%@ page isELIgnored="false" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="sidebar-wrapper span-7 last">
     <div class="sidebar-top title">About Janrain4j</div>
     <div class="sidebar">
@@ -23,7 +26,7 @@
         </div>
         <div class="item">
             Janrain Engage provides javascript to add a user friendly sign-in box to your website. See an example below.
-            <img src="/images/janrain-engage-signin.png" style="margin-top:5px;margin-bottom:5px;margin-left:-7px" />
+            <img src="<c:url value="/resources/images/janrain-engage-signin.png" />" style="margin-top:5px;margin-bottom:5px;margin-left:-7px" />
             Janrain Engage supports 16 social platforms, including Facebook, Twitter, MySpace, Yahoo!, Google, Windows Live, LinkedIn, Hyves, PayPal and Wordpress.
         </div>
         <div class="item">
@@ -38,7 +41,7 @@
         <div class="subtitle">Janrain Engage Demo</div>
         <div class="item first">
             <center>
-                <a href="http://www.youtube.com/v/Pm_A3T1MqVk" target="_blank"><img src="/static/images/janrain-engage-demo.png" /></a>
+                <a href="http://www.youtube.com/v/Pm_A3T1MqVk" target="_blank"><img src="<c:url value="/resources/images/janrain-engage-demo.png" />" /></a>
             </center>
         </div>
     </div>

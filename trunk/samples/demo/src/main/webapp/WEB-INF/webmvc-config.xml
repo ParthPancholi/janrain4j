@@ -15,6 +15,10 @@
     
     <mvc:annotation-driven />
     
+    <mvc:default-servlet-handler />
+    
+    <mvc:resources mapping="/resources/**" location="/" />
+    
     <mvc:view-controller path="/" view-name="index" />
     <mvc:view-controller path="/about" view-name="about" />
     <mvc:view-controller path="/privacy" view-name="privacy" />
