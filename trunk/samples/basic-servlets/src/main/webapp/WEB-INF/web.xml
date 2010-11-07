@@ -6,12 +6,12 @@
          version="2.5">
 
     <servlet>
-        <servlet-name>TokenServlet</servlet-name>
+        <servlet-name>tokenServlet</servlet-name>
         <servlet-class>com.googlecode.janrain4j.samples.basic.servlets.TokenServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>TokenServlet</servlet-name>
+        <servlet-name>tokenServlet</servlet-name>
         <url-pattern>/token</url-pattern>
     </servlet-mapping>
     
