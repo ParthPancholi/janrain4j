@@ -60,7 +60,7 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/delete")
-    public String delete(HttpServletRequest request, HttpSession session, Model model) {
+    public String delete(HttpServletRequest request, HttpSession session) {
         
         // get signed in primary key
         Long primaryKey = (Long) session.getAttribute("primaryKey");
@@ -98,11 +98,11 @@ public class AccountController {
             }
         }
         
-        return "account";
+        return "redirect:/account/show";
     }
     
     @RequestMapping(value = "/map", method = RequestMethod.POST)
-    public String mapIdentifier(HttpServletRequest request, @RequestParam String token, HttpSession session, Model model) {
+    public String mapIdentifier(HttpServletRequest request, HttpSession session, @RequestParam String token) {
         
         log.info("Parameter token = " + token);
         
@@ -162,7 +162,7 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/unmap")
-    public String unmapIdentifier(HttpServletRequest request, @RequestParam String identifier, HttpSession session, Model model) {
+    public String unmapIdentifier(HttpServletRequest request, HttpSession session, @RequestParam String identifier) {
         
         log.info("Parameter identifier = " + identifier);
         
