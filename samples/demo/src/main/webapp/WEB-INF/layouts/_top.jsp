@@ -15,7 +15,7 @@
                 </ul>
             </c:if>
         </div>
-        <h1 class="title">Janrain4j Demo Application</h1>
+        <h1 class="title"><strong>Janrain4j</strong> Demo Application</h1>
         <ul id="main-nav-left" class="tabs nav">
             <li class="left ${(param.tab == 'sign_in' ? 'selected' : '')}"><a href="<c:url value="/" />">Sign In</a></li>
             <li class="${(param.tab == 'user_data' ? 'selected' : '')}"><a href="<c:url value="/user_data" />">User Data</a></li>
