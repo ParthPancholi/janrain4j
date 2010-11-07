@@ -11,7 +11,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +33,7 @@ public class SocialPublishingController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(value = "/set_status", method = RequestMethod.POST)
-    public String setStatus(HttpServletRequest request, @RequestParam String message, HttpSession session, Model model) {
+    public String setStatus(HttpServletRequest request, HttpSession session, @RequestParam String message) {
         
         log.info("Parameter message = " + message);
         
@@ -70,7 +69,7 @@ public class SocialPublishingController {
     }
     
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
-    public String activity(HttpServletRequest request, @RequestParam String userGeneratedContent, HttpSession session, Model model) {
+    public String activity(HttpServletRequest request, HttpSession session, @RequestParam String userGeneratedContent) {
         
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         

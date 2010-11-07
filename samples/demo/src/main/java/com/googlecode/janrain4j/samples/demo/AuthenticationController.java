@@ -130,7 +130,7 @@ public class AuthenticationController {
     
     
     @RequestMapping(value = "/sign_out")
-    public String signOut(HttpServletRequest request, HttpSession session, Model model) {
+    public String signOut(HttpServletRequest request, HttpSession session) {
         
         // get signed in primary key
         Long primaryKey = (Long) session.getAttribute("primaryKey");
