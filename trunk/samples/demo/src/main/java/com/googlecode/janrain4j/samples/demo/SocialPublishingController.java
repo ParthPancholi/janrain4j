@@ -66,7 +66,7 @@ public class SocialPublishingController {
             FlashScope.setAttribute(request, "level", "error");
         }
         
-        return "social_publishing";
+        return "redirect:/social_publishing";
     }
     
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
@@ -114,6 +114,6 @@ public class SocialPublishingController {
             FlashScope.setAttribute(request, "level", "error");
         }
         
-        return "social_publishing";
+        return "redirect:/social_publishing";
     }
 }
