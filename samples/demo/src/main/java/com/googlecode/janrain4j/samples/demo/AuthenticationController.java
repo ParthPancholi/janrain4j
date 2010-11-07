@@ -8,11 +8,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
@@ -27,7 +25,6 @@ import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONException;
 
 @Controller
-@SessionAttributes({"primaryKey", "userData", "plainResponse", "setStatusSupported", "activitySupported"})
 public class AuthenticationController {
     
     private Log log = LogFactory.getLog(this.getClass());
@@ -36,7 +33,7 @@ public class AuthenticationController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-    public String signIn(HttpServletRequest request, @RequestParam String token, Model model) {
+    public String signIn(HttpServletRequest request, HttpSession session, @RequestParam String token) {
         try {
             // get user data from janrain
             log.info("Calling auth_info...");
@@ -101,11 +98,11 @@ public class AuthenticationController {
                 FlashScope.setAttribute(request, "message", "Thanks for registering " + formattedNameOrIdentifier + "!");
             }
             
-            model.addAttribute("primaryKey", primaryKey);
-            model.addAttribute("userData", userDataResponse);
-            model.addAttribute("plainResponse", plainResponse);
-            model.addAttribute("setStatusSupported", engageService.supportsSetStatus(providerName));
-            model.addAttribute("activitySupported", engageService.supportsActivity(providerName));
+            session.setAttribute("primaryKey", primaryKey);
+            session.setAttribute("userData", userDataResponse);
+            session.setAttribute("plainResponse", plainResponse);
+            session.setAttribute("setStatusSupported", engageService.supportsSetStatus(providerName));
+            session.setAttribute("activitySupported", engageService.supportsActivity(providerName));
             
             return "redirect:/user_data";
         }
