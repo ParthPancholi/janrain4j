@@ -20,6 +20,7 @@
     <mvc:resources mapping="/resources/**" location="/" />
     
     <mvc:view-controller path="/" view-name="index" />
+    <mvc:view-controller path="/user_data" view-name="user_data" />
     
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
     
