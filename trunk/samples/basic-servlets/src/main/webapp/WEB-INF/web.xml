@@ -10,9 +10,19 @@
         <servlet-class>com.googlecode.janrain4j.samples.basic.servlets.TokenServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>signOutServlet</servlet-name>
+        <servlet-class>com.googlecode.janrain4j.samples.basic.servlets.SignOutServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>tokenServlet</servlet-name>
         <url-pattern>/token</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>signOutServlet</servlet-name>
+        <url-pattern>/sign_out</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>
