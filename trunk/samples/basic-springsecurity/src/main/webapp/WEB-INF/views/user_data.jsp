@@ -20,6 +20,6 @@
                 <td><pre style="white-space:pre-wrap;">${plainResponse}</pre></td>
             </tr>
         </table>
-        <a href="<c:url value="/" />">Go Back</a>
+        <a href="<c:url value="/sign_out" />">Sign Out</a>
     </body>
 </html>

@@ -15,7 +15,7 @@
         </property>
     </bean>
     
-    <context:component-scan base-package="com.googlecode.janrain4j.samples.basic.springframework">
+    <context:component-scan base-package="com.googlecode.janrain4j.samples.basic.springsecurity">
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
     </context:component-scan>
     
