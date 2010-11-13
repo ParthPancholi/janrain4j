@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
@@ -25,9 +26,11 @@ public class TokenServlet extends HttpServlet {
         
         try {
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
-            req.setAttribute("userData", userDataResponse);
-            req.setAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
-            getServletContext().getRequestDispatcher("/user_data.jsp").forward(req, resp);
+            HttpSession session = req.getSession();
+            session.setAttribute("userData", userDataResponse);
+            session.setAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
+            // getServletContext().getRequestDispatcher("/user_data.jsp").forward(req, resp);
+            resp.sendRedirect("/user_data.jsp");
         }
         catch (EngageFailureException e) {
             req.setAttribute("error", e);
