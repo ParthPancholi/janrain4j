@@ -1,5 +1,7 @@
 package com.googlecode.janrain4j.samples.basic.springframework;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +16,17 @@ import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.json.JSONException;
 
 @Controller
-@RequestMapping("/token")
 public class TokenController {
 
     @Autowired private EngageService engageService;
     
-    @RequestMapping(method = RequestMethod.POST)
-    public String signIn(@RequestParam String token, Model model) {
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    public String signIn(@RequestParam String token, Model model, HttpSession session) {
         try {
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
-            model.addAttribute("userData", userDataResponse);
-            model.addAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
-            return "user_data";
+            session.setAttribute("userData", userDataResponse);
+            session.setAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
+            return "redirect:/user_data";
         }
         catch (EngageFailureException e) {
             model.addAttribute("error", e);
