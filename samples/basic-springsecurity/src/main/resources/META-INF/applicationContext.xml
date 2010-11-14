@@ -25,6 +25,6 @@
         p:applicationDomain="${janrain.applicationDomain}"
         p:tokenUrl="${janrain.tokenUrl}" />
         
-    <bean class="com.googlecode.janrain4j.springframework.EngageServiceFactoryBean" />
+    <bean id="engageService" class="com.googlecode.janrain4j.springframework.EngageServiceFactoryBean" />
     
 </beans>
