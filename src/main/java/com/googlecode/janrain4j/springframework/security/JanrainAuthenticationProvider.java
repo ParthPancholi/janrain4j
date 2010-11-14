@@ -14,6 +14,8 @@
  */
 package com.googlecode.janrain4j.springframework.security;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -27,8 +29,14 @@ import org.springframework.security.core.AuthenticationException;
  */
 public class JanrainAuthenticationProvider implements AuthenticationProvider, InitializingBean {
 
+    private Log log = LogFactory.getLog(this.getClass());
+    
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        // TODO
+        log.debug("[*** MARCEL ***] authenticate called..."); // TODO remove
+        if (supports(authentication.getClass())) {
+            JanrainAuthenticationToken token = (JanrainAuthenticationToken) authentication;
+            
+        }
         return null;
     }
 
