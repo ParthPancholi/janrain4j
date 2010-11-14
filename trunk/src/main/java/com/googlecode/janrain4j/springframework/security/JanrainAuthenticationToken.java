@@ -28,22 +28,22 @@ import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 @SuppressWarnings("serial")
 public class JanrainAuthenticationToken extends AbstractAuthenticationToken {
 
+    private Object principal = null;
     private UserDataResponse userData = null;
     
     public JanrainAuthenticationToken(UserDataResponse userData) {
         super(AuthorityUtils.NO_AUTHORITIES);
+        this.principal = userData.getProfile().getIdentifier();
         this.userData = userData;
-        setAuthenticated(true);
+        setAuthenticated(false);
     }
     
     public Object getCredentials() {
-        // TODO
-        return null;
+        return userData.getAccessCredentials();
     }
     
     public Object getPrincipal() {
-        // TODO
-        return null;
+        return principal;
     }
     
     public UserDataResponse getUserData() {
