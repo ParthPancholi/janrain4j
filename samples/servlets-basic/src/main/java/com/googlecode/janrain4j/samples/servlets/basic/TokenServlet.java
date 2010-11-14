@@ -1,4 +1,4 @@
-package com.googlecode.janrain4j.samples.basic.servlets;
+package com.googlecode.janrain4j.samples.servlets.basic;
 
 import java.io.IOException;
 
