@@ -1,4 +1,4 @@
-package com.googlecode.janrain4j.samples.basic.springframework;
+package com.googlecode.janrain4j.samples.springframework.basic;
 
 import javax.servlet.http.HttpSession;
 
