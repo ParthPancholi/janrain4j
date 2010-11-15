@@ -14,12 +14,13 @@
  */
 package com.googlecode.janrain4j.springframework.security;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 /**
  * TODO
@@ -27,24 +28,37 @@ import org.springframework.security.core.AuthenticationException;
  * @author Marcel Overdijk
  * @since 1.1
  */
-public class JanrainAuthenticationProvider implements AuthenticationProvider, InitializingBean {
+public class JanrainAuthenticationProvider implements AuthenticationProvider {
 
-    private Log log = LogFactory.getLog(this.getClass());
+    private AuthenticationUserDetailsService authenticationUserDetailsService;
     
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        log.debug("[*** MARCEL ***] authenticate called..."); // TODO remove
+        
         if (supports(authentication.getClass())) {
-            JanrainAuthenticationToken token = (JanrainAuthenticationToken) authentication;
             
+            JanrainAuthenticationToken janrainAuthenticationToken = (JanrainAuthenticationToken) authentication;
+            UserDataResponse userDataResponse = janrainAuthenticationToken.getUserDataResponse();
+            
+            UserDetails userDetails = null;
+            
+            if (authenticationUserDetailsService == null) {
+                userDetails = new JanrainUserDetails(userDataResponse);
+            }
+            else {
+                userDetails = authenticationUserDetailsService.loadUserDetails(janrainAuthenticationToken);
+            }
+            
+            return new JanrainAuthenticationToken(userDetails, userDetails.getAuthorities(), userDataResponse);
         }
+        
         return null;
     }
 
     public boolean supports(Class<? extends Object> authentication) {
         return JanrainAuthenticationToken.class.isAssignableFrom(authentication);
     }
-
-    public void afterPropertiesSet() throws Exception {
-        // TODO
+    
+    public void setAuthenticationUserDetailsService(AuthenticationUserDetailsService authenticationUserDetailsService) {
+        this.authenticationUserDetailsService = authenticationUserDetailsService;
     }
 }

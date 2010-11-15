@@ -14,11 +14,8 @@
  */
 package com.googlecode.janrain4j.springframework.security;
 
-import java.util.Collection;
-
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
@@ -29,31 +26,13 @@ import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
  * @since 1.1
  */
 @SuppressWarnings("serial")
-public class JanrainAuthenticationToken extends AbstractAuthenticationToken {
+public class JanrainUserDetails extends User {
 
-    private Object principal = null;
     private UserDataResponse userDataResponse = null;
     
-    public JanrainAuthenticationToken(UserDataResponse userDataResponse) {
-        super(AuthorityUtils.NO_AUTHORITIES);
-        this.principal = userDataResponse.getProfile().getIdentifier();
+    public JanrainUserDetails(UserDataResponse userDataResponse) {
+        super(userDataResponse.getProfile().getIdentifier(), "unused", true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
         this.userDataResponse = userDataResponse;
-        setAuthenticated(false);
-    }
-    
-    public JanrainAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities, UserDataResponse userDataResponse) {
-        super(authorities);
-        this.principal = principal;
-        this.userDataResponse = userDataResponse;
-        setAuthenticated(true);
-    }
-    
-    public Object getCredentials() {
-        return userDataResponse.getAccessCredentials();
-    }
-    
-    public Object getPrincipal() {
-        return principal;
     }
     
     public UserDataResponse getUserDataResponse() {

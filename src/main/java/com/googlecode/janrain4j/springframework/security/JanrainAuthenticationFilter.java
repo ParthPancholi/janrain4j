@@ -20,12 +20,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.util.Assert;
 
@@ -42,9 +39,6 @@ import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
  */
 public class JanrainAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    private Log log = LogFactory.getLog(this.getClass());
-
-    private AuthenticationUserDetailsService authenticationUserDetailsService = null;
     private EngageService engageService = null;
     private boolean extended = false;
     
@@ -55,47 +49,33 @@ public class JanrainAuthenticationFilter extends AbstractAuthenticationProcessin
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
-        if (authenticationDetailsSource == null) {
-            // TODO use default janrain authentication user detail service?
-        }
-        Assert.notNull(engageService, "engageService must be specified");
+        Assert.notNull(engageService, "engageService must be set");
     }
     
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         
-        Authentication authentication = null;
-        
         String token = request.getParameter("token");
         
         if (token != null && token.length() > 0) {
             
-            if (log.isDebugEnabled()) {
-                log.debug("Janrain Engage token: " + token);
-            }
-            
             try {
                 UserDataResponse userDataResponse = engageService.authInfo(token, extended);
+                
                 JanrainAuthenticationToken janrainAuthenticationToken = new JanrainAuthenticationToken(userDataResponse);
+                janrainAuthenticationToken.setDetails(authenticationDetailsSource.buildDetails(request));
                 
-                authentication = janrainAuthenticationToken;
-                authentication.setAuthenticated(true); // TODO for testing
-                
-                // authentication = this.getAuthenticationManager().authenticate(janrainAuthenticationToken);
+                return getAuthenticationManager().authenticate(janrainAuthenticationToken);
             }
             catch (EngageFailureException e) {
-                throw new AuthenticationServiceException("TODO"); // TODO
+                throw new AuthenticationServiceException("Unable to retrieve Janrain user information", e);
             }
             catch (ErrorResponeException e) {
-                throw new AuthenticationServiceException("TODO"); // TODO
+                throw new AuthenticationServiceException("Unable to retrieve Janrain user information", e);
             }
         }
         
-        return authentication;
-    }
-    
-    public void setAuthenticationUserDetailsService(AuthenticationUserDetailsService authenticationUserDetailsService) {
-        this.authenticationUserDetailsService = authenticationUserDetailsService;
+        return null;
     }
     
     public void setEngageService(EngageService engageService) {
