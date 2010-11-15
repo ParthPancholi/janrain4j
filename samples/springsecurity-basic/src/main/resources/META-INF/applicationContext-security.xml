@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
             http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-    <security:http entry-point-ref="janrainAuthenticationEntryPoint" use-expressions="true">
-        <security:intercept-url pattern="/user_data" access="isAuthenticated()" />
-        <security:intercept-url pattern="/resources/**" access="permitAll" />
-        <security:intercept-url pattern="/**" access="permitAll" />
-        <security:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
-        <security:logout logout-url="/sign_out" />
-    </security:http>
+    <sec:http entry-point-ref="janrainAuthenticationEntryPoint" use-expressions="true">
+        <sec:intercept-url pattern="/user_data" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/resources/**" access="permitAll" />
+        <sec:intercept-url pattern="/**" access="permitAll" />
+        <sec:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
+        <sec:logout logout-url="/sign_out" />
+    </sec:http>
     
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="janrainAuthenticationProvider" />
-    </security:authentication-manager>
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref="janrainAuthenticationProvider" />
+    </sec:authentication-manager>
     
     <bean id="janrainAuthenticationEntryPoint"
           class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"
