@@ -15,7 +15,9 @@
         <security:logout logout-url="/sign_out" />
     </security:http>
     
-    <security:authentication-manager alias="authenticationManager" />
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="janrainAuthenticationProvider" />
+    </security:authentication-manager>
     
     <bean id="janrainAuthenticationEntryPoint"
           class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"
@@ -25,14 +27,14 @@
           class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationFilter"
           p:authenticationManager-ref="authenticationManager"
           p:authenticationSuccessHandler-ref="janrainAuthenticationSuccessHandler"
-          p:authenticationUserDetailsService-ref="sampleUserDetailsService"
           p:engageService-ref="engageService"
           p:filterProcessesUrl="/token" />
+    
+    <bean id="janrainAuthenticationProvider"
+          class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider" />
     
     <bean id="janrainAuthenticationSuccessHandler"
           class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
           p:defaultTargetUrl="/user_data" />
-    
-    <bean id="sampleUserDetailsService" class="com.googlecode.janrain4j.samples.springsecurity.basic.SampleUserDetailsService" />
     
 </beans>
