@@ -24,7 +24,7 @@ import com.googlecode.janrain4j.api.engage.response.profile.Name;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONException;
 
-@Controller
+// @Controller
 public class AuthenticationController {
     
     private Log log = LogFactory.getLog(this.getClass());
@@ -120,29 +120,6 @@ public class AuthenticationController {
             log.error("Unable to get auth info", e);
             FlashScope.setAttribute(request, "message", "An error occured while retrieving your user profile. Please try again.");
             FlashScope.setAttribute(request, "level", "error");
-        }
-        
-        return "index";
-    }
-    
-    
-    @RequestMapping(value = "/sign_out")
-    public String signOut(HttpServletRequest request, HttpSession session) {
-        
-        // get signed in primary key
-        Long primaryKey = (Long) session.getAttribute("primaryKey");
-        
-        if (primaryKey != null) {
-            log.info("Signing out account with primary key: " + primaryKey);
-            
-            // remove signed in account from session
-            session.removeAttribute("primaryKey");
-            session.removeAttribute("userData");
-            session.removeAttribute("plainResponse");
-            session.removeAttribute("setStatusSupported");
-            session.removeAttribute("activitySupported");
-            
-            FlashScope.setAttribute(request, "message", "You are signed out now. Sign in again anytime.");
         }
         
         return "index";
