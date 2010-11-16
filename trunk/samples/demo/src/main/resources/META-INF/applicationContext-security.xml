@@ -32,10 +32,14 @@
           p:filterProcessesUrl="/token" />
     
     <bean id="janrainAuthenticationProvider"
-          class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider" />
+          class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider"
+          p:authenticationUserDetailsService-ref="demoUserDetailsService" />
     
     <bean id="janrainAuthenticationSuccessHandler"
           class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
           p:defaultTargetUrl="/user_data" />
+    
+    <bean id="demoUserDetailsService"
+          class="com.googlecode.janrain4j.samples.demo.DemoUserDetailsService" />
     
 </beans>
