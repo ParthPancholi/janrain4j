@@ -59,50 +59,8 @@ public class AccountController {
         return "account";
     }
     
-    @RequestMapping(value = "/delete")
-    public String delete(HttpServletRequest request, HttpSession session) {
-        
-        // get signed in primary key
-        Long primaryKey = (Long) session.getAttribute("primaryKey");
-        
-        if (primaryKey != null) {
-            try {
-                // unmap all identifiers from the primary key
-                log.info("Calling unmap for primary key [" + primaryKey + "]...");
-                engageService.unmap(String.valueOf(primaryKey));
-                
-                // delete account from datastore
-                log.info("Deleting account from datastore...");
-                datastoreService.delete(KeyFactory.createKey("Account", primaryKey));
-                
-                // remove signed in account from session
-                session.removeAttribute("primaryKey");
-                session.removeAttribute("userData");
-                session.removeAttribute("plainResponse");
-                session.removeAttribute("setStatusSupported");
-                session.removeAttribute("activitySupported");
-                
-                FlashScope.setAttribute(request, "message", "Your account is deleted. Register again by signing in anytime.");
-                
-                return "redirect:/";
-            }
-            catch (EngageFailureException e) {
-                log.error("Unable to delete account", e);
-                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
-            }
-            catch (ErrorResponeException e) {
-                log.error("Unable to delete account", e);
-                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
-            }
-        }
-        
-        return "redirect:/account/show";
-    }
-    
     @RequestMapping(value = "/map", method = RequestMethod.POST)
-    public String mapIdentifier(HttpServletRequest request, HttpSession session, @RequestParam String token) {
+    public String map(HttpServletRequest request, HttpSession session, @RequestParam String token) {
         
         log.info("Parameter token = " + token);
         
@@ -162,7 +120,7 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/unmap")
-    public String unmapIdentifier(HttpServletRequest request, HttpSession session, @RequestParam String identifier) {
+    public String unmap(HttpServletRequest request, HttpSession session, @RequestParam String identifier) {
         
         log.info("Parameter identifier = " + identifier);
         
@@ -184,6 +142,48 @@ public class AccountController {
             log.error("Unable to unmap identifier", e);
             FlashScope.setAttribute(request, "message", "An error occured while unmapping identifier. Please try again.");
             FlashScope.setAttribute(request, "level", "error");
+        }
+        
+        return "redirect:/account/show";
+    }
+    
+    @RequestMapping(value = "/delete")
+    public String delete(HttpServletRequest request, HttpSession session) {
+        
+        // get signed in primary key
+        Long primaryKey = (Long) session.getAttribute("primaryKey");
+        
+        if (primaryKey != null) {
+            try {
+                // unmap all identifiers from the primary key
+                log.info("Calling unmap for primary key [" + primaryKey + "]...");
+                engageService.unmap(String.valueOf(primaryKey));
+                
+                // delete account from datastore
+                log.info("Deleting account from datastore...");
+                datastoreService.delete(KeyFactory.createKey("Account", primaryKey));
+                
+                // remove signed in account from session
+                session.removeAttribute("primaryKey");
+                session.removeAttribute("userData");
+                session.removeAttribute("plainResponse");
+                session.removeAttribute("setStatusSupported");
+                session.removeAttribute("activitySupported");
+                
+                FlashScope.setAttribute(request, "message", "Your account is deleted. Register again by signing in anytime.");
+                
+                return "redirect:/";
+            }
+            catch (EngageFailureException e) {
+                log.error("Unable to delete account", e);
+                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
+                FlashScope.setAttribute(request, "level", "error");
+            }
+            catch (ErrorResponeException e) {
+                log.error("Unable to delete account", e);
+                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
+                FlashScope.setAttribute(request, "level", "error");
+            }
         }
         
         return "redirect:/account/show";
