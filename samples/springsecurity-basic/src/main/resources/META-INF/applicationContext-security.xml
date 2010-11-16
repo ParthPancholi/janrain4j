@@ -8,9 +8,9 @@
             http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
     <sec:http entry-point-ref="janrainAuthenticationEntryPoint" use-expressions="true">
+        <sec:intercept-url pattern="/favicon.ico" filters="none" />
+        <sec:intercept-url pattern="/resources/**" filters="none" />
         <sec:intercept-url pattern="/user_data" access="isAuthenticated()" />
-        <sec:intercept-url pattern="/resources/**" access="permitAll" />
-        <sec:intercept-url pattern="/**" access="permitAll" />
         <sec:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
         <sec:logout logout-url="/sign_out" />
     </sec:http>
