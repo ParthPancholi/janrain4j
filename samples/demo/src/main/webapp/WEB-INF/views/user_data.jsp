@@ -599,7 +599,7 @@
                                 <td>${userData.mergedPoco.status}</td>
                             </tr>
                             <tr>
-                                <td class="user-data"><label>Activities TODO</label></td>
+                                <td class="user-data"><label>Activities</label></td>
                                 <td class="user-data-small">
                                     <c:if test="${not empty userData.mergedPoco.activities}">
                                         <ul>
