@@ -3,8 +3,9 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <sec:authentication var="userData" property="principal.userDataResponse" />
-<c:set var="plainResponse" value='<%= ((UserDataResponse) pageContext.getAttribute("userData")).getResponseAsJSONObject().toString(2) %>' />
+<spring:eval var="plainResponse" expression="userData.responseAsJSONObject.toString(2)" />
 <html tab="user_data">
     <body>
         <div class="half-content-top title">
