@@ -289,9 +289,7 @@
                                     <c:if test="${not empty userData.mergedPoco.emails}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.emails}" var="email">
-                                                <li>
-                                                    ${email.value} (${email.type})
-                                                </li>
+                                                <li>${email.value} (${email.type})</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -303,9 +301,7 @@
                                     <c:if test="${not empty userData.mergedPoco.urls}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.urls}" var="url">
-                                                <li>
-                                                    ${url.value} (${url.type})
-                                                </li>
+                                                <li>${url.value} (${url.type})</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -317,9 +313,7 @@
                                     <c:if test="${not empty userData.mergedPoco.phoneNumbers}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.phoneNumbers}" var="phoneNumber">
-                                                <li>
-                                                    ${phoneNumber.value} (${phoneNumber.type})
-                                                </li>
+                                                <li>${phoneNumber.value} (${phoneNumber.type})</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -331,9 +325,7 @@
                                     <c:if test="${not empty userData.mergedPoco.ims}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.ims}" var="im">
-                                                <li>
-                                                    ${im.value} (${im.type})
-                                                </li>
+                                                <li>${im.value} (${im.type})</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -345,9 +337,7 @@
                                     <c:if test="${not empty userData.mergedPoco.photos}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.photos}" var="photo">
-                                                <li>
-                                                    ${photo.value} (${photo.type})
-                                                </li>
+                                                <li>${photo.value} (${photo.type})</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -359,9 +349,7 @@
                                     <c:if test="${not empty userData.mergedPoco.tags}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.tags}" var="tag">
-                                                <li>
-                                                    ${tag}
-                                                </li>
+                                                <li>${tag}</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -373,9 +361,7 @@
                                     <c:if test="${not empty userData.mergedPoco.relationships}">
                                         <ul>
                                             <c:forEach items="${userData.mergedPoco.relationships}" var="relationship">
-                                                <li>
-                                                    ${relationship.value}
-                                                </li>
+                                                <li>${relationship.value}</li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -486,10 +472,324 @@
                                     </c:if>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="user-data"><label>About Me</label></td>
+                                <td>${userData.mergedPoco.aboutMe}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Body Type</label></td>
+                                <td>
+                                    <c:if test="${not empty userData.mergedPoco.bodyType}">
+                                        <table>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Build</label></td>
+                                                <td>${userData.mergedPoco.bodyType.build}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Eye Color</label></td>
+                                                <td>${userData.mergedPoco.bodyType.eyeColor}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Hair Color</label></td>
+                                                <td>${userData.mergedPoco.bodyType.hairColor}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Height</label></td>
+                                                <td>${userData.mergedPoco.bodyType.height}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Weight</label></td>
+                                                <td>${userData.mergedPoco.bodyType.weight}</td>
+                                            </tr>
+                                        </table>
+                                    </c:if>                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Current Location</label></td>
+                                <td>
+                                    <c:if test="${not empty userData.mergedPoco.currentLocation}">
+                                        <table>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Formatted</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.formatted}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Street Address</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.streetAddress}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Locality</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.locality}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Region</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.region}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Postal Code</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.postalCode}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Country</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.country}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="user-data-secondary"><label>Type</label></td>
+                                                <td>${userData.mergedPoco.currentLocation.type}</td>
+                                            </tr>
+                                        </table>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Drinker</label></td>
+                                <td>${userData.mergedPoco.drinker}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Ethnicity</label></td>
+                                <td>${userData.mergedPoco.ethnicity}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Fashion</label></td>
+                                <td>${userData.mergedPoco.fashion}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Happiest When</label></td>
+                                <td>${userData.mergedPoco.happiestWhen}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Living Arrangement</label></td>
+                                <td>${userData.mergedPoco.livingArrangement}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Profile Song</label></td>
+                                <td>${userData.mergedPoco.profileSong}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Profile Url</label></td>
+                                <td>${userData.mergedPoco.profileUrl}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Profile Video</label></td>
+                                <td>${userData.mergedPoco.profileVideo}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Relationship Status</label></td>
+                                <td>${userData.mergedPoco.relationshipStatus}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Religion</label></td>
+                                <td>${userData.mergedPoco.religion}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Romance</label></td>
+                                <td>${userData.mergedPoco.romance}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Scared Of</label></td>
+                                <td>${userData.mergedPoco.scaredOf}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Sexual Orientation</label></td>
+                                <td>${userData.mergedPoco.sexualOrientation}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Smoker</label></td>
+                                <td>${userData.mergedPoco.smoker}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Status</label></td>
+                                <td>${userData.mergedPoco.status}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Activities TODO</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.activities}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.activities}" var="activity">
+                                                <li>${activity}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Books</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.books}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.books}" var="book">
+                                                <li>${book}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Cars</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.cars}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.cars}" var="car">
+                                                <li>${car}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Children</label></td>
+                                <td>${userData.mergedPoco.children}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Food</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.food}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.food}" var="food">
+                                                <li>${food}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Heroes</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.heroes}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.heroes}" var="hero">
+                                                <li>${hero}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Interests</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.interests}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.interests}" var="interest">
+                                                <li>${interest}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Job Interests</label></td>
+                                <td>${userData.mergedPoco.jobInterests}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Languages Spoken</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.languagesSpoken}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.languagesSpoken}" var="languageSpoken">
+                                                <li>${languageSpoken}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Movies</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.movies}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.movies}" var="movie">
+                                                <li>${movie}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Music</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.music}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.music}" var="music">
+                                                <li>${music}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Pets</label></td>
+                                <td>${userData.mergedPoco.pets}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Political Views</label></td>
+                                <td>${userData.mergedPoco.politicalViews}</td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Quotes</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.quotes}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.quotes}" var="quote">
+                                                <li>${quote}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Sports</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.sports}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.sports}" var="sport">
+                                                <li>${sport}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Turn Offs</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.turnOffs}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.turnOffs}" var="turnOff">
+                                                <li>${turnOff}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>Turn Ons</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.turnOns}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.turnOns}" var="turnOn">
+                                                <li>${turnOn}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-data"><label>TV Shows</label></td>
+                                <td class="user-data-small">
+                                    <c:if test="${not empty userData.mergedPoco.tvShows}">
+                                        <ul>
+                                            <c:forEach items="${userData.mergedPoco.tvShows}" var="tvShow">
+                                                <li>${tvShow}</li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </td>
+                            </tr>
                         </table>
                     </c:when>
                     <c:otherwise>
-                        No merged protable contact available via your provider.
+                        No merged portable contact available via your provider.
                     </c:otherwise>
                 </c:choose>
             </div>
