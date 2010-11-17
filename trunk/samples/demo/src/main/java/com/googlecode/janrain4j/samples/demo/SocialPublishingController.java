@@ -10,7 +10,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.request.ImageMediaItem;
 import com.googlecode.janrain4j.api.engage.request.MediaItem;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken;
 
 @Controller
 @RequestMapping("/social_publishing")
@@ -32,14 +35,24 @@ public class SocialPublishingController {
     
     @Autowired private EngageService engageService;
     
+    @RequestMapping
+    public String index(Model model) {
+        
+        String providerName = getProviderName();
+        
+        model.addAttribute("supportsSetStatus", engageService.supportsSetStatus(providerName));
+        model.addAttribute("supportsActivity", engageService.supportsActivity(providerName));
+        
+        return "social_publishing";
+    }
+    
     @RequestMapping(value = "/set_status", method = RequestMethod.POST)
     public String setStatus(HttpServletRequest request, HttpSession session, @RequestParam String message) {
         
         log.info("Parameter message = " + message);
         
         // get signed in identifier
-        UserDataResponse userDataResponse = (UserDataResponse) session.getAttribute("userData");
-        String identifier = userDataResponse.getProfile().getIdentifier();
+        String identifier = getIdentifier();
         
         if (StringUtils.isNotBlank(message)) {
             try {
@@ -74,8 +87,7 @@ public class SocialPublishingController {
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         
         // get signed in identifier
-        UserDataResponse userDataResponse = (UserDataResponse) session.getAttribute("userData");
-        String identifier = userDataResponse.getProfile().getIdentifier();
+        String identifier = getIdentifier();
         
         // activity
         Activity activity = new Activity("http://janrain4j.appspot.com/", "signed in to the Jarain4j Demo Application!");
@@ -114,5 +126,18 @@ public class SocialPublishingController {
         }
         
         return "redirect:/social_publishing";
+    }
+    
+    private UserDataResponse getUserDataResponse() {
+        JanrainAuthenticationToken token = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        return token.getUserDataResponse();
+    }
+    
+    private String getIdentifier() {
+        return getUserDataResponse().getProfile().getIdentifier();
+    }
+    
+    private String getProviderName() {
+        return getUserDataResponse().getProfile().getProviderName();
     }
 }
