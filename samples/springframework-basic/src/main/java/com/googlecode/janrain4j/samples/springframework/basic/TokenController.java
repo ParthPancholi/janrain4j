@@ -13,7 +13,6 @@ import com.googlecode.janrain4j.api.engage.EngageFailureException;
 import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
-import com.googlecode.janrain4j.json.JSONException;
 
 @Controller
 public class TokenController {
@@ -25,7 +24,6 @@ public class TokenController {
         try {
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
             session.setAttribute("userData", userDataResponse);
-            session.setAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
             return "redirect:/user_data";
         }
         catch (EngageFailureException e) {
@@ -33,10 +31,6 @@ public class TokenController {
             return "error";
         }
         catch (ErrorResponeException e) {
-            model.addAttribute("error", e);
-            return "error";
-        }
-        catch (JSONException e) {
             model.addAttribute("error", e);
             return "error";
         }
