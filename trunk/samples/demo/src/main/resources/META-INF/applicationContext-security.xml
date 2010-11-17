@@ -29,6 +29,7 @@
           p:authenticationManager-ref="authenticationManager"
           p:authenticationSuccessHandler-ref="janrainAuthenticationSuccessHandler"
           p:engageService-ref="engageService"
+          p:extended="true"
           p:filterProcessesUrl="/token" />
     
     <bean id="janrainAuthenticationProvider"
