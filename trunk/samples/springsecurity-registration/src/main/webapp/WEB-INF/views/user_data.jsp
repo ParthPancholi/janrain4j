@@ -1,8 +1,8 @@
-<%@ page import="com.googlecode.janrain4j.api.engage.response.UserDataResponse" %>
-<%@ page import="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<sec:authentication var="userData" property="principal.userDataResponse" />
+<spring:eval var="plainResponse" expression="userData.responseAsJSONObject.toString(2)" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
     <head>
@@ -20,9 +20,6 @@
                 <td><sec:authentication property="principal.userDataResponse.profile.providerName" /></td>
             </tr>
             <tr>
-                <%  JanrainAuthenticationToken authentication = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-                    String plainResponse = authentication.getUserDataResponse().getResponseAsJSONObject().toString(2);
-                    pageContext.setAttribute("plainResponse", plainResponse); %>
                 <td class="label"><label>Plain JSON Response</label></td>
                 <td><pre style="white-space:pre-wrap;">${plainResponse}</pre></td>
             </tr>
