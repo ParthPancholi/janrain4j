@@ -3,8 +3,6 @@ package com.googlecode.janrain4j.samples.demo;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +22,7 @@ import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.request.ImageMediaItem;
 import com.googlecode.janrain4j.api.engage.request.MediaItem;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken;
 
 @Controller
@@ -37,7 +36,7 @@ public class SocialPublishingController {
     @RequestMapping
     public String index(Model model) {
         
-        String providerName = getProviderName();
+        String providerName = getProfile().getProviderName();
         
         model.addAttribute("supportsSetStatus", engageService.supportsSetStatus(providerName));
         model.addAttribute("supportsActivity", engageService.supportsActivity(providerName));
@@ -46,47 +45,47 @@ public class SocialPublishingController {
     }
     
     @RequestMapping(value = "/set_status", method = RequestMethod.POST)
-    public String setStatus(@RequestParam String message, HttpServletRequest request) {
+    public String setStatus(@RequestParam String message) {
         
         log.info("Parameter message = " + message);
         
         // get signed in identifier
-        String identifier = getIdentifier();
+        String identifier = getProfile().getIdentifier();
         
         if (StringUtils.isNotBlank(message)) {
             try {
                 // set status
                 log.info("Calling set_status for identifier [" + identifier + "]...");
                 engageService.setStatus(identifier, message);
-                FlashScope.setAttribute(request, "message", "Your status is updated.");
+                FlashScope.setAttribute("message", "Your status is updated.");
             }
             catch (EngageFailureException e) {
                 log.error("Unable to set status", e);
-                FlashScope.setAttribute(request, "message", "An error occured while setting your status. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
+                FlashScope.setAttribute("message", "An error occured while setting your status. Please try again.");
+                FlashScope.setAttribute("level", "error");
             }
             catch (ErrorResponeException e) {
                 log.error("Unable to set status", e);
-                FlashScope.setAttribute(request, "message", "An error occured while setting your status. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
+                FlashScope.setAttribute("message", "An error occured while setting your status. Please try again.");
+                FlashScope.setAttribute("level", "error");
             }
         }
         else {
             log.info("Skipping set_status as parameter message is empty");
-            FlashScope.setAttribute(request, "message", "No status message was entered. Status is not updated.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "No status message was entered. Status is not updated.");
+            FlashScope.setAttribute("level", "error");
         }
         
         return "redirect:/social_publishing";
     }
     
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
-    public String activity(@RequestParam String userGeneratedContent, HttpServletRequest request) {
+    public String activity(@RequestParam String userGeneratedContent) {
         
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         
         // get signed in identifier
-        String identifier = getIdentifier();
+        String identifier = getProfile().getIdentifier();
         
         // activity
         Activity activity = new Activity("http://janrain4j.appspot.com/", "signed in to the Jarain4j Demo Application!");
@@ -111,32 +110,25 @@ public class SocialPublishingController {
             // update activity
             log.info("Calling activity for identifier [" + identifier + "]...");
             engageService.activity(identifier, activity);
-            FlashScope.setAttribute(request, "message", "Your activity is updated.");
+            FlashScope.setAttribute("message", "Your activity is updated.");
         }
         catch (EngageFailureException e) {
             log.error("Unable to update activity", e);
-            FlashScope.setAttribute(request, "message", "An error occured while updating your activity. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while updating your activity. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         catch (ErrorResponeException e) {
             log.error("Unable to update activity", e);
-            FlashScope.setAttribute(request, "message", "An error occured while updating your activity. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while updating your activity. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         
         return "redirect:/social_publishing";
     }
     
-    private UserDataResponse getUserDataResponse() {
+    private Profile getProfile() {
         JanrainAuthenticationToken token = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return token.getUserDataResponse();
-    }
-    
-    private String getIdentifier() {
-        return getUserDataResponse().getProfile().getIdentifier();
-    }
-    
-    private String getProviderName() {
-        return getUserDataResponse().getProfile().getProviderName();
+        UserDataResponse userDataResponse = token.getUserDataResponse();
+        return userDataResponse.getProfile();
     }
 }
