@@ -1,8 +1,9 @@
 <%@ page import="com.googlecode.janrain4j.api.engage.response.UserDataResponse" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <sec:authentication var="userData" property="principal.userDataResponse" />
-<c:set var="plainResponse" value='<%= ((UserDataResponse) pageContext.getAttribute("userData")).getResponseAsJSONObject().toString(2) %>' />
+<spring:eval var="plainResponse" expression="userData.responseAsJSONObject.toString(2)" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en-us">
     <head>
