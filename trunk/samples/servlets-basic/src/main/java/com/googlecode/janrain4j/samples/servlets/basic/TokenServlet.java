@@ -13,7 +13,6 @@ import com.googlecode.janrain4j.api.engage.EngageService;
 import com.googlecode.janrain4j.api.engage.EngageServiceFactory;
 import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
-import com.googlecode.janrain4j.json.JSONException;
 
 @SuppressWarnings("serial")
 public class TokenServlet extends HttpServlet {
@@ -28,8 +27,6 @@ public class TokenServlet extends HttpServlet {
             UserDataResponse userDataResponse = engageService.authInfo(token, true);
             HttpSession session = req.getSession();
             session.setAttribute("userData", userDataResponse);
-            session.setAttribute("plainResponse", userDataResponse.getResponseAsJSONObject().toString(2));
-            // getServletContext().getRequestDispatcher("/user_data.jsp").forward(req, resp);
             resp.sendRedirect("/user_data.jsp");
         }
         catch (EngageFailureException e) {
@@ -37,10 +34,6 @@ public class TokenServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
         catch (ErrorResponeException e) {
-            req.setAttribute("error", e);
-            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
-        }
-        catch (JSONException e) {
             req.setAttribute("error", e);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
