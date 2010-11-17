@@ -21,13 +21,13 @@
     </filter>
     
     <filter>
-        <filter-name>siteMeshFilter</filter-name>
-        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     
     <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <filter-name>siteMeshFilter</filter-name>
+        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
     </filter>
     
     <filter-mapping>
@@ -36,12 +36,12 @@
     </filter-mapping>
     
     <filter-mapping>
-        <filter-name>siteMeshFilter</filter-name>
+        <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-name>siteMeshFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
