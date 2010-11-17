@@ -30,7 +30,6 @@
         </ul>
     </div>
 </div>
-
 <c:if test="${not empty flashScope['message']}">
     <div id="flash-message" class="container secondary-navigation">
         <span class="item ${(not empty flashScope['level'] ? flashScope['level'] : 'info')}">${flashScope["message"]}</span>
