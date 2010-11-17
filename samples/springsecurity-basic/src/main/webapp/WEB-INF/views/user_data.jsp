@@ -1,4 +1,3 @@
-<%@ page import="com.googlecode.janrain4j.api.engage.response.UserDataResponse" %>
 <%@ page import="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
