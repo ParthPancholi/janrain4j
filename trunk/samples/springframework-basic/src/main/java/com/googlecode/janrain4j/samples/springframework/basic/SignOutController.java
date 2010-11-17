@@ -11,7 +11,6 @@ public class SignOutController {
     @RequestMapping("/sign_out")
     public String signOut(HttpSession session) {
         session.removeAttribute("userData");
-        session.removeAttribute("plainResponse");
         return "redirect:/";
     }
 }
