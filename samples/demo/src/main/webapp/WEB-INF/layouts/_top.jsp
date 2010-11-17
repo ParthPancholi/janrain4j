@@ -1,12 +1,6 @@
-<%@ page import="com.googlecode.janrain4j.api.engage.response.UserDataResponse" %>
-<%@ page import="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%  JanrainAuthenticationToken authentication = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-    UserDataResponse userDataResponse = authentication.getUserDataResponse();
-    pageContext.setAttribute("userData", userDataResponse); %>
 <div id="top-wrapper">
     <div id="top" class="container">
         <div id="top-nav-wrapper">
@@ -16,6 +10,7 @@
                 <li class="last"><a class="mini-button yellow" href="/about">About</a></li>
             </ul>
             <sec:authorize access="isAuthenticated()">
+                <sec:authentication var="userData" property="principal.userDataResponse" />
                 <ul class="top-nav" id="right-top-nav">
                     <li class="append"><a href="<c:url value="/account/show" />">${(not empty userData.profile.name.formatted ? userData.profile.name.formatted : userData.profile.identifier)}</a></li>
                     <li class="last"><a class="mini-button red" href="<c:url value="/sign_out" />">Sign Out</a></li>
