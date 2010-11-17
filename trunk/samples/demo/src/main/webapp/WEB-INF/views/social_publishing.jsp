@@ -12,7 +12,7 @@
             </div>
             <div class="inner">
                 <c:choose>
-                    <c:when test="${setStatusSupported}">
+                    <c:when test="${supportsSetStatus}">
                         <form action="<c:url value="/social_publishing/set_status" />" method="post" class="form">
                             <div class="group clearfix">
                                 <label>Status Message</label>
@@ -40,7 +40,7 @@
             </div>
             <div class="inner">
                 <c:choose>
-                    <c:when test="${activitySupported}">
+                    <c:when test="${supportsActivity}">
                         <form action="<c:url value="/social_publishing/activity" />" method="post" class="form">
                             <div class="group clearfix">
                                 <label>User Generated Content</label>
