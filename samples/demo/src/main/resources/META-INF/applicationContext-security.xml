@@ -12,6 +12,7 @@
         <sec:intercept-url pattern="/resources/**" filters="none" />
         <sec:intercept-url pattern="/account/**" access="isAuthenticated()" />
         <sec:intercept-url pattern="/social_publishing/**" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/user_data/**" access="isAuthenticated()" />
         <sec:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
         <sec:logout logout-url="/sign_out" />
     </sec:http>
