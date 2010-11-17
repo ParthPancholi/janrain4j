@@ -2,8 +2,6 @@ package com.googlecode.janrain4j.samples.demo;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class AccountController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(value = "/show")
-    public String show(Model model, HttpServletRequest request) {
+    public String show(Model model) {
         
         // get signed in primary key
         Long primaryKey = getPrimaryKey();
@@ -48,20 +46,20 @@ public class AccountController {
         }
         catch (EngageFailureException e) {
             log.error("Unable to get mappings", e);
-            FlashScope.setAttribute(request, "message", "An error occured while retrieving your mappings. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while retrieving your mappings. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         catch (ErrorResponeException e) {
             log.error("Unable to get mappings", e);
-            FlashScope.setAttribute(request, "message", "An error occured while retrieving your mappings. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while retrieving your mappings. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         
         return "account";
     }
     
     @RequestMapping(value = "/map", method = RequestMethod.POST)
-    public String map(@RequestParam String token, HttpServletRequest request) {
+    public String map(@RequestParam String token) {
         
         log.info("Parameter token = " + token);
         
@@ -81,47 +79,47 @@ public class AccountController {
             log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
             try {
                 engageService.map(identifier, String.valueOf(primaryKey), false);
-                FlashScope.setAttribute(request, "message", "The identifier " + identifier + " is now mapped to your account.");
+                FlashScope.setAttribute("message", "The identifier " + identifier + " is now mapped to your account.");
             }
             catch (EngageFailureException e) {
                 log.error("Unable to map identifier", e);
-                FlashScope.setAttribute(request, "message", "An error occured while adding the identifier to your account. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
+                FlashScope.setAttribute("message", "An error occured while adding the identifier to your account. Please try again.");
+                FlashScope.setAttribute("level", "error");
             }
             catch (ErrorResponeException e) {
                 if (e.getCode() == ErrorResponeException.MAPPING_EXISTS_ERROR) {
                     log.info("Identifier [" + identifier + "] is already mapped to another acoount");
-                    FlashScope.setAttribute(request, "message", "The identifier " + identifier + " is already mapped to another account.");
-                    FlashScope.setAttribute(request, "level", "error");
+                    FlashScope.setAttribute("message", "The identifier " + identifier + " is already mapped to another account.");
+                    FlashScope.setAttribute("level", "error");
                 }
                 else {
                     log.error("Unable to map identifier", e);
-                    FlashScope.setAttribute(request, "message", "An error occured while adding the identifier to your account. Please try again.");
-                    FlashScope.setAttribute(request, "level", "error");
+                    FlashScope.setAttribute("message", "An error occured while adding the identifier to your account. Please try again.");
+                    FlashScope.setAttribute("level", "error");
                 }
             }
         }
         catch (EngageFailureException e) {
             log.error("Unable to map identifier", e);
-            FlashScope.setAttribute(request, "message", "An error occured while retrieving your user profile. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         catch (ErrorResponeException e) {
             log.error("Unable to map identifier", e);
-            FlashScope.setAttribute(request, "message", "An error occured while retrieving your user profile. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         catch (JSONException e) {
             log.error("Unable to map identifier", e);
-            FlashScope.setAttribute(request, "message", "An error occured while retrieving your user profile. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while retrieving your user profile. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         
         return "redirect:/account/show";
     }
     
     @RequestMapping(value = "/unmap")
-    public String unmap(@RequestParam String identifier, HttpServletRequest request) {
+    public String unmap(@RequestParam String identifier) {
         
         log.info("Parameter identifier = " + identifier);
         
@@ -132,24 +130,24 @@ public class AccountController {
             // unmap identifier from primary key
             log.info("Calling unmap for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
             engageService.unmap(identifier, String.valueOf(primaryKey));
-            FlashScope.setAttribute(request, "message", "The identifier " + identifier + " is unmapped from your account.");
+            FlashScope.setAttribute("message", "The identifier " + identifier + " is unmapped from your account.");
         }
         catch (EngageFailureException e) {
             log.error("Unable to unmap identifier", e);
-            FlashScope.setAttribute(request, "message", "An error occured while unmapping identifier. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while unmapping identifier. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         catch (ErrorResponeException e) {
             log.error("Unable to unmap identifier", e);
-            FlashScope.setAttribute(request, "message", "An error occured while unmapping identifier. Please try again.");
-            FlashScope.setAttribute(request, "level", "error");
+            FlashScope.setAttribute("message", "An error occured while unmapping identifier. Please try again.");
+            FlashScope.setAttribute("level", "error");
         }
         
         return "redirect:/account/show";
     }
     
     @RequestMapping(value = "/delete")
-    public String delete(HttpServletRequest request) {
+    public String delete() {
         
         // get signed in primary key
         Long primaryKey = getPrimaryKey();
@@ -167,31 +165,28 @@ public class AccountController {
                 // remove signed in account from session
                 SecurityContextHolder.getContext().setAuthentication(null);
                 
-                FlashScope.setAttribute(request, "message", "Your account is deleted. Register again by signing in anytime.");
+                FlashScope.setAttribute("message", "Your account is deleted. Register again by signing in anytime.");
                 
                 return "redirect:/";
             }
             catch (EngageFailureException e) {
                 log.error("Unable to delete account", e);
-                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
+                FlashScope.setAttribute("message", "An error occured while deleting your account. Please try again.");
+                FlashScope.setAttribute("level", "error");
             }
             catch (ErrorResponeException e) {
                 log.error("Unable to delete account", e);
-                FlashScope.setAttribute(request, "message", "An error occured while deleting your account. Please try again.");
-                FlashScope.setAttribute(request, "level", "error");
+                FlashScope.setAttribute("message", "An error occured while deleting your account. Please try again.");
+                FlashScope.setAttribute("level", "error");
             }
         }
         
         return "redirect:/account/show";
     }
     
-    private DemoUserDetails getDemoUserDetails() {
-        JanrainAuthenticationToken token = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return (DemoUserDetails) token.getPrincipal();
-    }
-    
     private Long getPrimaryKey() {
-        return getDemoUserDetails().getPrimaryKey();
+        JanrainAuthenticationToken token = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        DemoUserDetails userDetails = (DemoUserDetails) token.getPrincipal();
+        return userDetails.getPrimaryKey();
     }
 }

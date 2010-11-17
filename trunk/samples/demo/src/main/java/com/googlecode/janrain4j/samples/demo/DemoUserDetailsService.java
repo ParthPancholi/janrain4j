@@ -1,7 +1,5 @@
 package com.googlecode.janrain4j.samples.demo;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,8 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
@@ -37,10 +33,6 @@ public class DemoUserDetailsService implements AuthenticationUserDetailsService 
         if (token instanceof JanrainAuthenticationToken) {
             
             JanrainAuthenticationToken janrainAuthenticationToken = (JanrainAuthenticationToken) token;
-            
-            // get http servlet request
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpServletRequest request = attr.getRequest();
             
             // get user data response
             UserDataResponse userDataResponse = janrainAuthenticationToken.getUserDataResponse();
@@ -69,7 +61,7 @@ public class DemoUserDetailsService implements AuthenticationUserDetailsService 
                 log.info("Primary key [" + primaryKey + "] in profile, retrieving account from datastore...");
                 try {
                     account = datastoreService.get(KeyFactory.createKey("Account", primaryKey));
-                    FlashScope.setAttribute(request, "message", "Welcome back " + formattedNameOrIdentifier + "!");
+                    FlashScope.setAttribute("message", "Welcome back " + formattedNameOrIdentifier + "!");
                 }
                 catch (EntityNotFoundException e) {
                     log.info("Account not found in datastore for primary key [" + primaryKey + "]");
@@ -96,7 +88,7 @@ public class DemoUserDetailsService implements AuthenticationUserDetailsService 
                     log.error("Unable to map identifier", ignore);
                 }
                 
-                FlashScope.setAttribute(request, "message", "Thanks for registering " + formattedNameOrIdentifier + "!");
+                FlashScope.setAttribute("message", "Thanks for registering " + formattedNameOrIdentifier + "!");
             }
             
             userDetails = new DemoUserDetails(primaryKey, userDataResponse);
