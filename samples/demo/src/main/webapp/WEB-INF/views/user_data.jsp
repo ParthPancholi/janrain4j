@@ -1,6 +1,14 @@
+<%@ page import="com.googlecode.janrain4j.api.engage.response.UserDataResponse" %>
+<%@ page import="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ page isELIgnored="false" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%  JanrainAuthenticationToken authentication = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+    UserDataResponse userDataResponse = authentication.getUserDataResponse();
+    String plainResponse = userDataResponse.getResponseAsJSONObject().toString(2);
+    pageContext.setAttribute("userData", userDataResponse);
+    pageContext.setAttribute("plainResponse", plainResponse); %>
 <html tab="user_data">
     <body>
         <div class="half-content-top title">
