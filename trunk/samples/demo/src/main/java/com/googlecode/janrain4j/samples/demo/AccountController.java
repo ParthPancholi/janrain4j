@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 import com.googlecode.janrain4j.json.JSONException;
+import com.googlecode.janrain4j.springframework.security.JanrainAuthenticationToken;
 
 @Controller
 @RequestMapping("/account")
@@ -34,10 +36,10 @@ public class AccountController {
     @Autowired private EngageService engageService;
     
     @RequestMapping(value = "/show")
-    public String show(HttpServletRequest request, HttpSession session, Model model) {
+    public String show(Model model, HttpServletRequest request) {
         
         // get signed in primary key
-        Long primaryKey = (Long) session.getAttribute("primaryKey");
+        Long primaryKey = getPrimaryKey();
         
         try {
             // get mapped identifiers
@@ -60,7 +62,7 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/map", method = RequestMethod.POST)
-    public String map(HttpServletRequest request, HttpSession session, @RequestParam String token) {
+    public String map(@RequestParam String token, HttpServletRequest request) {
         
         log.info("Parameter token = " + token);
         
@@ -74,7 +76,7 @@ public class AccountController {
             String identifier = profile.getIdentifier();
             
             // get signed in primary key
-            Long primaryKey = (Long) session.getAttribute("primaryKey");
+            Long primaryKey = getPrimaryKey();
             
             // map identifier to primary key
             log.info("Calling map for identifier [" + identifier + "], primary key [" + primaryKey + "]...");
@@ -120,12 +122,12 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/unmap")
-    public String unmap(HttpServletRequest request, HttpSession session, @RequestParam String identifier) {
+    public String unmap(@RequestParam String identifier, HttpServletRequest request) {
         
         log.info("Parameter identifier = " + identifier);
         
         // get signed in primary key
-        Long primaryKey = (Long) session.getAttribute("primaryKey");
+        Long primaryKey = getPrimaryKey();
         
         try {
             // unmap identifier from primary key
@@ -148,10 +150,10 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/delete")
-    public String delete(HttpServletRequest request, HttpSession session) {
+    public String delete(HttpServletRequest request) {
         
         // get signed in primary key
-        Long primaryKey = (Long) session.getAttribute("primaryKey");
+        Long primaryKey = getPrimaryKey();
         
         if (primaryKey != null) {
             try {
@@ -164,11 +166,7 @@ public class AccountController {
                 datastoreService.delete(KeyFactory.createKey("Account", primaryKey));
                 
                 // remove signed in account from session
-                session.removeAttribute("primaryKey");
-                session.removeAttribute("userData");
-                session.removeAttribute("plainResponse");
-                session.removeAttribute("setStatusSupported");
-                session.removeAttribute("activitySupported");
+                SecurityContextHolder.getContext().setAuthentication(null);
                 
                 FlashScope.setAttribute(request, "message", "Your account is deleted. Register again by signing in anytime.");
                 
@@ -187,5 +185,14 @@ public class AccountController {
         }
         
         return "redirect:/account/show";
+    }
+    
+    private DemoUserDetails getDemoUserDetails() {
+        JanrainAuthenticationToken token = (JanrainAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        return (DemoUserDetails) token.getPrincipal();
+    }
+    
+    private Long getPrimaryKey() {
+        return getDemoUserDetails().getPrimaryKey();
     }
 }
