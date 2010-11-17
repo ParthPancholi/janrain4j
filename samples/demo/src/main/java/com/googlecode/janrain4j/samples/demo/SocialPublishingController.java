@@ -47,7 +47,7 @@ public class SocialPublishingController {
     }
     
     @RequestMapping(value = "/set_status", method = RequestMethod.POST)
-    public String setStatus(HttpServletRequest request, HttpSession session, @RequestParam String message) {
+    public String setStatus(@RequestParam String message, HttpServletRequest request) {
         
         log.info("Parameter message = " + message);
         
@@ -82,7 +82,7 @@ public class SocialPublishingController {
     }
     
     @RequestMapping(value = "/activity", method = RequestMethod.POST)
-    public String activity(HttpServletRequest request, HttpSession session, @RequestParam String userGeneratedContent) {
+    public String activity(@RequestParam String userGeneratedContent, HttpServletRequest request) {
         
         log.info("Parameter userGeneratedContent = " + userGeneratedContent);
         
