@@ -17,8 +17,6 @@ package com.googlecode.janrain4j.conf;
 import java.util.Arrays;
 import java.util.List;
 
-import com.googlecode.janrain4j.api.engage.EngageService;
-
 /**
  * User-configurable properties. In most cases it is not needed to create a 
  * <code>Config</code> manually. To create a <code>Config</code> 
@@ -305,7 +303,6 @@ public class Config {
      * 
      * @param providerNames The provider names.
      * @return <code>this</code> (for chaining)
-     * @see {@link EngageService#supportsSetStatus(String)}
      * @since 1.1
      */
     public Config setStatusProviderNames(List<String> providerNames) {
@@ -318,7 +315,6 @@ public class Config {
      * 
      * @param providerNames The provider names.
      * @return <code>this</code> (for chaining)
-     * @see {@link EngageService#supportsActivity(String)}
      * @since 1.1
      */
     public Config activityProviderNames(List<String> providerNames) {
