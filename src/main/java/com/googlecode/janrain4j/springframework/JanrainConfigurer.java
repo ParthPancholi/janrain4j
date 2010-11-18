@@ -46,7 +46,9 @@ import com.googlecode.janrain4j.conf.ConfigHolder;
  *       p:proxyUsername="${janrain.proxyUsername}" 
  *       p:proxyPassword="${janrain.proxyPassword}" 
  *       p:connectTimeout="${janrain.connectTimeout}" 
- *       p:readTimeout="${janrain.readTimeout}" /&gt;
+ *       p:readTimeout="${janrain.readTimeout}" 
+ *       p:setStatusProviderNames-ref="setStatusProviderNames"
+ *       p:activityProviderNames-ref="activityProviderNames" /&gt;
  * </pre>
  * 
  * @author Marcel Overdijk
