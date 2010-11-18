@@ -37,8 +37,6 @@ import com.googlecode.janrain4j.json.JSONObject;
 @SuppressWarnings("serial")
 public class Contact implements Serializable {
 
-    // TODO indicate portable contact data / open social data
-    
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     
