@@ -23,7 +23,6 @@ import com.googlecode.janrain4j.api.engage.response.AnalyticsResponse;
 import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
-import com.googlecode.janrain4j.conf.Config;
 
 
 /**
