@@ -531,10 +531,6 @@
                                                 <td class="user-data-secondary"><label>Country</label></td>
                                                 <td>${userData.mergedPoco.currentLocation.country}</td>
                                             </tr>
-                                            <tr>
-                                                <td class="user-data-secondary"><label>Type</label></td>
-                                                <td>${userData.mergedPoco.currentLocation.type}</td>
-                                            </tr>
                                         </table>
                                     </c:if>
                                 </td>
