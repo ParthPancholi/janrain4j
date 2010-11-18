@@ -133,7 +133,6 @@ public interface EngageService {
      * 
      * @param providerName The provider name
      * @return True if supported.
-     * @see {@link Config#getSetStatusProviderNames()}
      * @since 1.1
      */
     public boolean supportsSetStatus(String providerName);
@@ -305,7 +304,6 @@ public interface EngageService {
      * 
      * @param providerName The provider name
      * @return True if supported.
-     * @see {@link Config#getActivityProviderNames()}
      * @since 1.1
      */
     public boolean supportsActivity(String providerName);
