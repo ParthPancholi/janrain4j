@@ -29,13 +29,13 @@ import com.googlecode.janrain4j.conf.ConfigHolder;
  * 
  * <p>Usage examples (using property placeholder values):
  * <pre>
- * &lt;bean class="com.googlecode.janrain4j.springframework.JanrainConfigurer"
+ * &lt;bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
  *       p:apiKey="${janrain.apiKey}" 
  *       p:applicationID="${janrain.applicationID}" 
  *       p:applicationDomain="${janrain.applicationDomain}" 
  *       p:tokenUrl="${janrain.tokenUrl}" /&gt;
  * 
- * &lt;bean class="com.googlecode.janrain4j.springframework.JanrainConfigurer"
+ * &lt;bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
  *       p:apiKey="${janrain.apiKey.}" 
  *       p:applicationID="${janrain.applicationID.}" 
  *       p:applicationDomain="${janrain.applicationDomain.}" 
@@ -54,11 +54,11 @@ import com.googlecode.janrain4j.conf.ConfigHolder;
  * @author Marcel Overdijk
  * @since 1.1
  */
-public class JanrainConfigurer implements InitializingBean {
+public class Janrain4jConfigurer implements InitializingBean {
 
     private Config config = null;
     
-    public JanrainConfigurer() {
+    public Janrain4jConfigurer() {
         config = build();
     }
     

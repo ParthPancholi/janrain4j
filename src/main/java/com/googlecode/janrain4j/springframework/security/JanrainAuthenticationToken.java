@@ -41,7 +41,7 @@ public class JanrainAuthenticationToken extends AbstractAuthenticationToken {
         setAuthenticated(false);
     }
     
-    public JanrainAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities, UserDataResponse userDataResponse) {
+    public JanrainAuthenticationToken(Object principal, Collection<GrantedAuthority> authorities, UserDataResponse userDataResponse) {
         super(authorities);
         this.principal = principal;
         this.userDataResponse = userDataResponse;
