@@ -19,7 +19,7 @@
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
     </context:component-scan>
     
-    <bean class="com.googlecode.janrain4j.springframework.JanrainConfigurer"
+    <bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
         p:apiKey="${janrain.apiKey}"
         p:applicationID="${janrain.applicationID}"
         p:applicationDomain="${janrain.applicationDomain}"
