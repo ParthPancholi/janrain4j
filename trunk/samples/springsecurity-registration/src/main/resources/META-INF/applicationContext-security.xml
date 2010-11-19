@@ -10,6 +10,7 @@
     <sec:http entry-point-ref="janrainAuthenticationEntryPoint" use-expressions="true">
         <sec:intercept-url pattern="/favicon.ico" filters="none" />
         <sec:intercept-url pattern="/resources/**" filters="none" />
+        <sec:intercept-url pattern="/register" access="isAuthenticated()" />
         <sec:intercept-url pattern="/user_data" access="isAuthenticated()" />
         <sec:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
         <sec:logout logout-url="/sign_out" />
@@ -26,15 +27,20 @@
     <bean id="janrainAuthenticationFilter"
           class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationFilter"
           p:authenticationManager-ref="authenticationManager"
-          p:authenticationSuccessHandler-ref="janrainAuthenticationSuccessHandler"
+          p:authenticationSuccessHandler-ref="sampleAuthenticationSuccessHandler"
           p:engageService-ref="engageService"
           p:filterProcessesUrl="/token" />
     
     <bean id="janrainAuthenticationProvider"
-          class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider" />
+          class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider"
+          p:authenticationUserDetailsService-ref="sampleUserDetailsService" />
     
-    <bean id="janrainAuthenticationSuccessHandler"
-          class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
-          p:defaultTargetUrl="/user_data" />
+    <bean id="sampleAuthenticationSuccessHandler"
+          class="com.googlecode.janrain4j.samples.springsecurity.registration.SampleAuthenticationSuccessHandler"
+          p:defaultTargetUrl="/user_data"
+          p:registrationUrl="/register" />
+    
+    <bean id="sampleUserDetailsService"
+          class="com.googlecode.janrain4j.samples.springsecurity.registration.SampleUserDetailsService" />
     
 </beans>
