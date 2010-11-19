@@ -14,6 +14,9 @@
  */
 package com.googlecode.janrain4j.springframework.security;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
@@ -31,7 +34,12 @@ public class JanrainUserDetails extends User {
     private UserDataResponse userDataResponse = null;
     
     public JanrainUserDetails(UserDataResponse userDataResponse) {
-        super(userDataResponse.getProfile().getIdentifier(), "unused", true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
+        this(userDataResponse, AuthorityUtils.NO_AUTHORITIES);
+        this.userDataResponse = userDataResponse;
+    }
+    
+    public JanrainUserDetails(UserDataResponse userDataResponse, Collection<GrantedAuthority> authorities) {
+        super(userDataResponse.getProfile().getIdentifier(), "unused", true, true, true, true, authorities);
         this.userDataResponse = userDataResponse;
     }
     
