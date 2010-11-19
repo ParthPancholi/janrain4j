@@ -45,21 +45,21 @@
         <dependency>
         	<groupId>org.springframework</groupId>
         	<artifactId>spring-beans</artifactId>
-        	<version>3.0.5.RELEASE</version>
+        	<version>3.0.0.RELEASE</version>
         	<scope>compile</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
         	<groupId>org.springframework.security</groupId>
         	<artifactId>spring-security-core</artifactId>
-        	<version>3.0.3.RELEASE</version>
+        	<version>3.0.0.RELEASE</version>
         	<scope>compile</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>3.0.3.RELEASE</version>
+            <version>3.0.0.RELEASE</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
