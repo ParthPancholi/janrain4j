@@ -25,9 +25,9 @@ import org.junit.Test;
 import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.conf.ConfigHolder;
 
-public class JanrainConfigurerTest {
+public class Janrain4jConfigurerTest {
 
-    private JanrainConfigurer configurer = null;
+    private Janrain4jConfigurer configurer = null;
     
     private String apiKey = "my-api-key";
     private String applicationID = "my-application-id";
@@ -45,7 +45,7 @@ public class JanrainConfigurerTest {
     
     @Before
     public void setUp() {
-        configurer = new JanrainConfigurer();
+        configurer = new Janrain4jConfigurer();
         ConfigHolder.setConfig(null);
     }
     
