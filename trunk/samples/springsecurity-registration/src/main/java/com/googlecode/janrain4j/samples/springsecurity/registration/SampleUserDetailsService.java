@@ -15,7 +15,7 @@ import com.googlecode.janrain4j.springframework.security.JanrainUserDetails;
 
 public class SampleUserDetailsService implements AuthenticationUserDetailsService {
 
-    private final Map<String, JanrainUserDetails> registeredUsers = new HashMap<String, JanrainUserDetails>();
+    private final Map<String, JanrainUserDetails> users = new HashMap<String, JanrainUserDetails>();
     
     public UserDetails loadUserDetails(Authentication token) throws UsernameNotFoundException {
         
@@ -30,11 +30,11 @@ public class SampleUserDetailsService implements AuthenticationUserDetailsServic
             Profile profile = userDataResponse.getProfile();
             String identifier = profile.getIdentifier();
             
-            userDetails = registeredUsers.get(identifier);
+            userDetails = users.get(identifier);
             
             if (userDetails == null) {
                 userDetails = new JanrainUserDetails(userDataResponse);
-                registeredUsers.put(identifier, userDetails);
+                users.put(identifier, userDetails);
             }
         }
         
