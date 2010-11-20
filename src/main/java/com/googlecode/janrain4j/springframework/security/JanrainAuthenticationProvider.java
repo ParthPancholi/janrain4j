@@ -23,7 +23,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 /**
- * TODO
+ * Finalizes the Janrain authentication by obtaining local authorities for the 
+ * authenticated user.vThe authorities are obtained by calling the configured 
+ * <code>AuthenticationUserDetailsService</code>.
  * 
  * @author Marcel Overdijk
  * @since 1.1
