@@ -78,10 +78,23 @@ public class JanrainAuthenticationFilter extends AbstractAuthenticationProcessin
         return null;
     }
     
+    /**
+     * Sets the <code>EngageService</code>.
+     * 
+     * @param engageService The <code>EngageService</code>.
+     */
     public void setEngageService(EngageService engageService) {
         this.engageService = engageService;
     }
     
+    /**
+     * Configures the <code>EngageService</code> to return the extended Simple 
+     * Registration and HCard data in addition to the normalized Portable Contacts 
+     * format.
+     * 
+     * @param extended 'true' or 'false'(default).
+     * @see EngageService#authInfo(String, boolean)
+     */
     public void setExtended(boolean extended) {
         this.extended = extended;
     }
