@@ -42,7 +42,7 @@ public interface EngageService {
      * Get information about the user currently signing in to your web application.
      * 
      * @param token The token parameter received at your "token_url".
-     * @return The user data Janrain Engage knows about the user logging into your website.
+     * @return The user data Janrain Engage knows about the user signing into your website.
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
@@ -55,7 +55,7 @@ public interface EngageService {
      * 
      * @param token The token parameter received at your "token_url".
      * @param extended 'true' or 'false'(default). Return the extended Simple Registration and HCard data in addition to the normalized Portable Contacts format.
-     * @return The user data with Janrain Engage knows about the user logging into your website.
+     * @return The user data with Janrain Engage knows about the user signing into your website.
      * @throws EngageFailureException If any unknown error occurs while communicating with the Janrain Engage API.
      * @throws ErrorResponeException If the Janrain Engage API returns an error response.
      * @see <a href="http://rpxnow.com/docs#api_auth_info">Janrain Engage API Documentation: auth_info</a>
