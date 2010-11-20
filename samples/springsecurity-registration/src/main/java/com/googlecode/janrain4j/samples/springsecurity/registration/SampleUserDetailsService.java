@@ -1,6 +1,8 @@
 package com.googlecode.janrain4j.samples.springsecurity.registration;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ public class SampleUserDetailsService implements AuthenticationUserDetailsServic
 
     private final Map<String, JanrainUserDetails> users = new HashMap<String, JanrainUserDetails>();
     
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public UserDetails loadUserDetails(Authentication token) throws UsernameNotFoundException {
         
         JanrainUserDetails userDetails = null;
@@ -33,7 +36,8 @@ public class SampleUserDetailsService implements AuthenticationUserDetailsServic
             userDetails = users.get(identifier);
             
             if (userDetails == null) {
-                userDetails = new SampleUserDetails(userDataResponse, true);
+                List authorities = Arrays.asList(Role.UNREGISTERED_USER);
+                userDetails = new JanrainUserDetails(userDataResponse, authorities);
                 users.put(identifier, userDetails);
             }
         }
