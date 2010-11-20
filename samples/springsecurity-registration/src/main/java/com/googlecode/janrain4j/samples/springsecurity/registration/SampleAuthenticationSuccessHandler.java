@@ -21,7 +21,7 @@ public class SampleAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String targetUrl = null;
-        if (authentication.getAuthorities().contains(Role.REGISTERED)) {
+        if (authentication.getAuthorities().contains(Role.REGISTERED_USER)) {
             targetUrl = defaultTargetUrl;
         }
         else {
