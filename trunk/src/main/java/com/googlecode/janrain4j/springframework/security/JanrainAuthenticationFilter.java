@@ -32,7 +32,7 @@ import com.googlecode.janrain4j.api.engage.ErrorResponeException;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 /**
- * TODO
+ * Filter which processes Janrain authentication requests.
  * 
  * @author Marcel Overdijk
  * @since 1.1
