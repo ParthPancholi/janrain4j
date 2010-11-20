@@ -15,12 +15,17 @@
 package com.googlecode.janrain4j.springframework.security;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.util.Assert;
 
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
+import com.googlecode.janrain4j.api.engage.response.accesscredentials.AccessCredentials;
+import com.googlecode.janrain4j.api.engage.response.poco.Contact;
+import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 /**
  * TODO
@@ -40,10 +45,31 @@ public class JanrainUserDetails extends User {
     
     public JanrainUserDetails(UserDataResponse userDataResponse, Collection<GrantedAuthority> authorities) {
         super(userDataResponse.getProfile().getIdentifier(), "unused", true, true, true, true, authorities);
+        Assert.notNull(userDataResponse, "userDataResponse cannot be null");
         this.userDataResponse = userDataResponse;
     }
     
     public UserDataResponse getUserDataResponse() {
         return userDataResponse;
+    }
+    
+    public Profile getProfile() {
+        return userDataResponse.getProfile();
+    }
+    
+    public AccessCredentials getAccessCredentials() {
+        return userDataResponse.getAccessCredentials();
+    }
+    
+    public Contact getMergedPoco() {
+        return userDataResponse.getMergedPoco();
+    }
+    
+    public List<String> getFriends() {
+        return userDataResponse.getFriends();
+    }
+    
+    public boolean isLimitedData() {
+        return userDataResponse.isLimitedData();
     }
 }
