@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
@@ -28,7 +29,9 @@ import com.googlecode.janrain4j.api.engage.response.poco.Contact;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 /**
- * TODO
+ * {@link UserDetails} implementation whose properties are based on the Janrain 
+ * {@link UserDataResponse} response. Developers may use this class directly or 
+ * subclass it.
  * 
  * @author Marcel Overdijk
  * @since 1.1
@@ -49,27 +52,52 @@ public class JanrainUserDetails extends User {
         this.userDataResponse = userDataResponse;
     }
     
+    /**
+     * Returns the user data Janrain Engage knows about the user signing into your website.
+     * 
+     * @return The user data with Janrain Engage knows about the user signing into your website.
+     */
     public UserDataResponse getUserDataResponse() {
         return userDataResponse;
     }
     
+    /**
+     * Returns a dictionary of fields forming the user's profile.
+     * 
+     * @return The user's profile.
+     */
     public Profile getProfile() {
         return userDataResponse.getProfile();
     }
     
+    /**
+     * Returns the user's authorization credentials if the user logged in with 
+     * a provider that allows account access after authentication.
+     * 
+     * @return The access credentials or <code>null</code> if not found in response.
+     */
     public AccessCredentials getAccessCredentials() {
         return userDataResponse.getAccessCredentials();
     }
     
+    /**
+     * Returns the merged <a href="http://portablecontacts.net/">Portable Contacts</a> 
+     * data if the extended request argument was 'true' and extended profile 
+     * data were available.
+     * 
+     * @return The merged Portable Contacts data or <code>null</code> if not found in response.
+     */
     public Contact getMergedPoco() {
         return userDataResponse.getMergedPoco();
     }
     
+    /**
+     * Returns the user's friends' identifiers if the extended request argument 
+     * was 'true' and friends data were available.
+     * 
+     * @return The user's friends' identifiers or <code>null</code> if not found in response.
+     */
     public List<String> getFriends() {
         return userDataResponse.getFriends();
-    }
-    
-    public boolean isLimitedData() {
-        return userDataResponse.isLimitedData();
     }
 }
