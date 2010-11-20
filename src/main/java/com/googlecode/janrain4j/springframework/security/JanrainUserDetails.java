@@ -20,7 +20,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
@@ -29,9 +28,9 @@ import com.googlecode.janrain4j.api.engage.response.poco.Contact;
 import com.googlecode.janrain4j.api.engage.response.profile.Profile;
 
 /**
- * {@link UserDetails} implementation whose properties are based on the Janrain 
- * {@link UserDataResponse} response. Developers may use this class directly or 
- * subclass it.
+ * <code>UserDetails</code> implementation whose properties are based on the 
+ * Janrain {@link UserDataResponse} response. Developers may use this class 
+ * directly or subclass it.
  * 
  * @author Marcel Overdijk
  * @since 1.1
