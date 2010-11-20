@@ -10,10 +10,10 @@
     <sec:http entry-point-ref="janrainAuthenticationEntryPoint" use-expressions="true">
         <sec:intercept-url pattern="/favicon.ico" filters="none" />
         <sec:intercept-url pattern="/resources/**" filters="none" />
-        <sec:intercept-url pattern="/register" access="isAuthenticated()" />
-        <sec:intercept-url pattern="/user_data" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/" filters="none" />
+        <sec:intercept-url pattern="/register" access="hasRole('UNREGISTERED_USER')" />
+        <sec:intercept-url pattern="/**" access="hasRole('REGISTERED_USER')" />
         <sec:custom-filter position="PRE_AUTH_FILTER" ref="janrainAuthenticationFilter" />
-        <sec:custom-filter before="PRE_AUTH_FILTER" ref="registeredFilter" />
         <sec:logout logout-url="/sign_out" />
     </sec:http>
     
@@ -35,10 +35,6 @@
     <bean id="janrainAuthenticationProvider"
           class="com.googlecode.janrain4j.springframework.security.JanrainAuthenticationProvider"
           p:authenticationUserDetailsService-ref="sampleUserDetailsService" />
-    
-    <bean id="registeredFilter"
-          class="com.googlecode.janrain4j.samples.springsecurity.registration.RegisteredFilter"
-          p:registrationUrl="/register" />
     
     <bean id="sampleAuthenticationSuccessHandler"
           class="com.googlecode.janrain4j.samples.springsecurity.registration.SampleAuthenticationSuccessHandler"
