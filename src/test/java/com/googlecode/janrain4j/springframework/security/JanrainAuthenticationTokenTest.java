@@ -49,7 +49,7 @@ public class JanrainAuthenticationTokenTest {
         JanrainUserDetails userDetails = new JanrainUserDetails(userDataResponse);
         token = new JanrainAuthenticationToken(userDetails, AuthorityUtils.NO_AUTHORITIES, userDataResponse);
         assertEquals(userDetails, token.getPrincipal());
-        assertEquals(AuthorityUtils.NO_AUTHORITIES, token.getAuthorities());
+        assertEquals(0, token.getAuthorities().size());
         assertEquals(userDataResponse, token.getUserDataResponse());
         assertTrue(token.isAuthenticated());
     }
