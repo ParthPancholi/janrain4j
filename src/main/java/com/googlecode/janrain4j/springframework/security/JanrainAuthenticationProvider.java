@@ -23,9 +23,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 
 /**
- * Finalizes the Janrain authentication by obtaining local authorities for the 
- * authenticated user.vThe authorities are obtained by calling the configured 
+ * Finalizes the Janrain authentication by loading the local user details. 
+ * The <code>UserDetails</code> are loaded by calling the configured 
  * <code>AuthenticationUserDetailsService</code>.
+ * <p>
+ * If no <code>AuthenticationUserDetailsService</code> is configured this 
+ * provider will return a new {@link JanrainUserDetails} instance containing 
+ * the {@link UserDataResponse}.
  * 
  * @author Marcel Overdijk
  * @since 1.1
@@ -60,6 +64,12 @@ public class JanrainAuthenticationProvider implements AuthenticationProvider {
         return JanrainAuthenticationToken.class.isAssignableFrom(authentication);
     }
     
+    /**
+     * Sets the <code>AuthenticationUserDetailsService</code> to load the local 
+     * user details.
+     * 
+     * @param authenticationUserDetailsService The <code>AuthenticationUserDetailsService</code>.
+     */
     public void setAuthenticationUserDetailsService(AuthenticationUserDetailsService authenticationUserDetailsService) {
         this.authenticationUserDetailsService = authenticationUserDetailsService;
     }
