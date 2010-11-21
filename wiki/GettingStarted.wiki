@@ -109,4 +109,4 @@ The above code shows how easily you can retrieve the user data from the signed-i
 
 See the [http://janrain4j.googlecode.com/svn/docs/1.1.x/apidocs/com/googlecode/janrain4j/api/engage/EngageService.html EngageService] apidocs for a complete overview of all the Engage API methods and the returned data.
 
-Also have a look at the [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/springsecurity-basic  samples].
+Also have a look at the [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples samples].
