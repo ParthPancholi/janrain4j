@@ -61,4 +61,4 @@ Config config = build()
 ConfigHolder.setConfig(config);
 }}}
 
-See the [http://janrain4j.googlecode.com/svn/docs/1.0.x/apidocs/com/googlecode/janrain4j/conf/Config.html Config] apidocs for more information.
+See the [http://janrain4j.googlecode.com/svn/docs/1.1.x/apidocs/com/googlecode/janrain4j/conf/Config.html Config] apidocs for more information.
