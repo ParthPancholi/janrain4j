@@ -41,9 +41,7 @@ By default Janrain4j will look for a `janrain4j.properties` file inside the root
 </listener>
 }}}
 
-This makes it easy to switch between properties files for e.g. Development and Production environments.
-
-If you are using the Spring framework you should also have a look at the [Spring] integration section, as you can also use Spring property placeholders inside the config location parameter value.
+If you are using the Spring framework you should also have a look at the [SpringFramework] integration section.
 
 =Programmatic=
 
