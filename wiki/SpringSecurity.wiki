@@ -1,1 +1,2 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,spring,springframework,springsecurity
+Have a look at the Spring Security Basic [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/springsecurity-basic  sample].
