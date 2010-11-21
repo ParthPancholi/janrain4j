@@ -1,1 +1,2 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,samples
+Have a look at the [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples  samples].
