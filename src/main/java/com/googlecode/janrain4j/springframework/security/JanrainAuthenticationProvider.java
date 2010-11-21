@@ -54,7 +54,7 @@ public class JanrainAuthenticationProvider implements AuthenticationProvider {
                 userDetails = authenticationUserDetailsService.loadUserDetails(janrainAuthenticationToken);
             }
             
-            return new JanrainAuthenticationToken(userDetails, userDetails.getAuthorities(), userDataResponse);
+            return new JanrainAuthenticationToken(userDetails, userDetails == null ? null : userDetails.getAuthorities(), userDataResponse);
         }
         
         return null;
