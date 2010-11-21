@@ -1,1 +1,20 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,spring,springframework
+Janrain4j integrates very well with the Spring framework. Just add the bean definitions below to your `applicationContext.xml`:
+
+{{{
+<bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
+        p:apiKey="${janrain.apiKey}"
+        p:applicationID="${janrain.applicationID}"
+        p:applicationDomain="${janrain.applicationDomain}"
+        p:tokenUrl="${janrain.tokenUrl}" />
+ 
+<bean class="com.googlecode.janrain4j.springframework.EngageServiceFactoryBean" />
+}}}
+
+And then autowire the !EngageService in e.g. a Spring Controller class like:
+
+{{{
+@Autowired private EngageService engageService;
+}}}
+
+See the [http://janrain4j.googlecode.com/svn/docs/1.1.x/apidocs/com/googlecode/janrain4j/springframework/Janrain4jConfigurer.html Janrain4jConfigurer] apidocs for full configuration options.
