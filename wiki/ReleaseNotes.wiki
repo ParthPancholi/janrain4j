@@ -1,8 +1,9 @@
 #labels Featured,janrain,engage,rpx,janrain4j,java,releasenotes
 =1.1.0=
-UNDER DEVELOPMENT
+2010-11-21
   * Improved Spring and Spring Security support (Issue #2)
   * Added !OpenSocial fields to Contact (Issue #4)
+  * Added EngageService.supportsSetStatus and EngageService.supportsActivity methods
 
 =1.0.2=
 2010-10-20
