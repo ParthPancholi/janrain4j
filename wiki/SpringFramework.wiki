@@ -17,6 +17,6 @@ And then autowire the !EngageService in e.g. a Spring Controller class like:
 @Autowired private EngageService engageService;
 }}}
 
-Above Spring configuration example uses a Spring !PropertyPlaceholder to retrieve the Janrain4j configuration options. No `janrain4j.properties` file is needed anymore. See the [http://janrain4j.googlecode.com/svn/docs/1.1.x/apidocs/com/googlecode/janrain4j/springframework/Janrain4jConfigurer.html Janrain4jConfigurer] apidocs for full configuration options.
+Above Spring configuration example uses a Spring !PropertyPlaceholder to retrieve the Janrain4j configuration options. No `janrain4j.properties` file is needed anymore. See the [http://janrain4j.googlecode.com/svn/docs/current/apidocs/com/googlecode/janrain4j/springframework/Janrain4jConfigurer.html Janrain4jConfigurer] apidocs for full configuration options.
 
 Also have a look at the Spring Framework Basic [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/springframework-basic  sample].
