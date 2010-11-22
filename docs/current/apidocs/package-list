@@ -1,0 +1,10 @@
+com.googlecode.janrain4j.api.engage
+com.googlecode.janrain4j.api.engage.request
+com.googlecode.janrain4j.api.engage.response
+com.googlecode.janrain4j.api.engage.response.accesscredentials
+com.googlecode.janrain4j.api.engage.response.poco
+com.googlecode.janrain4j.api.engage.response.profile
+com.googlecode.janrain4j.conf
+com.googlecode.janrain4j.json
+com.googlecode.janrain4j.springframework
+com.googlecode.janrain4j.springframework.security
