@@ -107,6 +107,6 @@ public class TokenServlet extends HttpServlet {
 
 The above code shows how easily you can retrieve the user data from the signed-in user using the `authInfo` method. The example code only retrieves the identifier, but there so much more info available. It's up to you to decide what information is needed and perhaps to store it your local database. You can also map the retrieved identifier to a local primary key or send a status update to the social network of the signed-in user. 
 
-See the [http://janrain4j.googlecode.com/svn/docs/1.1.x/apidocs/com/googlecode/janrain4j/api/engage/EngageService.html EngageService] apidocs for a complete overview of all the Engage API methods and the returned data.
+See the [http://janrain4j.googlecode.com/svn/docs/current/apidocs/com/googlecode/janrain4j/api/engage/EngageService.html EngageService] apidocs for a complete overview of all the Engage API methods and the returned data.
 
 Also have a look at the [http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples samples].
