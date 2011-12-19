@@ -37,6 +37,7 @@ import java.util.List;
  * 
  * // overview of all configurable properties
  * Config config = build()
+ *         .partnerApiKey(partnerApiKey)
  *         .apiKey(apiKey)
  *         .applicationID(applicationID)
  *         .applicationDomain(applicationDomain)
@@ -60,7 +61,8 @@ public class Config {
 
     public static List<String> DEFAULT_SET_STATUS_PROVIDER_NAMES = Arrays.asList("Facebook", "LinkedIn", "Twitter", "MySpace", "Google", "Yahoo!");
     public static List<String> DEFAULT_ACTIVITY_PROVIDER_NAMES = Arrays.asList("Facebook", "LinkedIn", "Twitter", "MySpace", "Yahoo!");
-    
+
+    private String partnerApiKey = null;
     private String apiKey = null;
     private String applicationID = null;
     private String applicationDomain = null;
@@ -77,14 +79,21 @@ public class Config {
     
     Config() {
     }
-    
+
+    /**
+     * Returns the Janrain Partner API key.
+     */
+    public String getPartnerApiKey() {
+        return partnerApiKey;
+    }
+
     /**
      * Returns the Janrain API key.
      */
     public String getApiKey() {
         return apiKey;
     }
-    
+
     /**
      * Returns the Janrain application ID.
      */
@@ -168,10 +177,21 @@ public class Config {
     public List<String> getActivityProviderNames() {
         return activityProviderNames;
     }
-    
+
+    /**
+     * Sets the Janrain Partner API key.
+     *
+     * @param partnerApiKey Your Janrain Partner API key.
+     * @return <code>this</code> (for chaining)
+     */
+    public Config partnerApiKey(String partnerApiKey) {
+        this.partnerApiKey = partnerApiKey;
+        return this;
+    }
+
     /**
      * Sets the Janrain API key.
-     * 
+     *
      * @param apiKey Your Janrain API key.
      * @return <code>this</code> (for chaining)
      */
@@ -179,7 +199,7 @@ public class Config {
         this.apiKey = apiKey;
         return this;
     }
-    
+
     /**
      * Sets the Janrain application ID.
      * 

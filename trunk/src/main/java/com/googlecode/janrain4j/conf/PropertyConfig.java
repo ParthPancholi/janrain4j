@@ -38,6 +38,7 @@ class PropertyConfig extends Config {
     public static final String KEY_PREFIX = "janrain4j.";
     
     public static final String API_KEY_KEY = KEY_PREFIX + "api.key";
+    public static final String API_PARTNER_KEY_KEY = KEY_PREFIX + "api.partner.key";
     public static final String APPLICATION_ID_KEY = KEY_PREFIX + "application.id";
     public static final String APPLICATION_DOMAIN_KEY = KEY_PREFIX + "application.domain";
     public static final String TOKEN_URL_KEY = KEY_PREFIX + "token.url";
@@ -107,11 +108,15 @@ class PropertyConfig extends Config {
         catch (IOException e) {
             log.error("Unable to load janrain4j properties file", e);
         }
-        
+
+        if (properties.containsKey(API_PARTNER_KEY_KEY)) {
+            this.apiKey(properties.getProperty(API_PARTNER_KEY_KEY));
+        }
+
         if (properties.containsKey(API_KEY_KEY)) {
             this.apiKey(properties.getProperty(API_KEY_KEY));
         }
-        
+
         if (properties.containsKey(APPLICATION_ID_KEY)) {
             this.applicationID(properties.getProperty(APPLICATION_ID_KEY));
         }

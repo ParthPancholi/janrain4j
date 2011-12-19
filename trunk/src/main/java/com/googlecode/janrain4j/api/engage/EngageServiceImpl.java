@@ -17,12 +17,8 @@ package com.googlecode.janrain4j.api.engage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.googlecode.janrain4j.api.engage.request.Activity;
 import com.googlecode.janrain4j.api.engage.response.AllMappingsResponse;
@@ -31,18 +27,13 @@ import com.googlecode.janrain4j.api.engage.response.ContactsResponse;
 import com.googlecode.janrain4j.api.engage.response.MappingsResponse;
 import com.googlecode.janrain4j.api.engage.response.UserDataResponse;
 import com.googlecode.janrain4j.conf.Config;
-import com.googlecode.janrain4j.conf.ConfigHolder;
-import com.googlecode.janrain4j.http.HttpClientFactory;
-import com.googlecode.janrain4j.http.HttpFailureException;
-import com.googlecode.janrain4j.http.HttpResponse;
 import com.googlecode.janrain4j.json.JSONException;
-import com.googlecode.janrain4j.json.JSONObject;
 
 /**
  * @author Marcel Overdijk
  * @since 1.0
  */
-class EngageServiceImpl implements EngageService {
+class EngageServiceImpl extends AbstractService implements EngageService {
     
     public static final String API_URL = "https://rpxnow.com/api/v2/";
     
@@ -60,10 +51,8 @@ class EngageServiceImpl implements EngageService {
     
     public static final String ACTIVITY_PARAM = "activity";
     public static final String ALL_IDENTIFIERS_PARAM = "all_identifiers";
-    public static final String API_KEY_PARAM = "apiKey";
     public static final String END_PARAM = "end";
     public static final String EXTENDED_PARAM = "extended";
-    public static final String FORMAT_PARAM = "format";
     public static final String IDENTIFIER_PARAM = "identifier";
     public static final String LOCATION_PARAM = "location";
     public static final String OVERWRITE_PARAM = "overwrite";
@@ -74,23 +63,13 @@ class EngageServiceImpl implements EngageService {
     public static final String TOKEN_PARAM = "token";
     public static final String UNLINK_PARAM = "unlink";
     
-    public static final String JSON = "json";
-    
-    private Log log = LogFactory.getLog(this.getClass());
-    
-    private Config config = null;
-    
     EngageServiceImpl() {
     }
     
     EngageServiceImpl(Config config) {
-        this.config = config;
+        super(config);
     }
-    
-    Config getConfig() {
-        return config == null ? ConfigHolder.getConfig() : config;
-    }
-    
+
     public UserDataResponse authInfo(String token) throws EngageFailureException, ErrorResponeException {
         return authInfo(token, false);
     }
@@ -246,65 +225,14 @@ class EngageServiceImpl implements EngageService {
         params.put(PROVIDERS_PARAM, sb.toString());
         apiCall(SET_AUTH_PROVIDERS_METHOD, params);
     }
-    
-    String apiCall(String method, Map<String, String> partialParams) throws EngageFailureException, ErrorResponeException {
-        
-        Map<String, String> params = new HashMap<String, String>();
-        
-        if (partialParams != null) {
-            params.putAll(partialParams);
-        }
 
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, getConfig().getApiKey());
-        
-        String url = API_URL + method;
-        
-        if (log.isInfoEnabled()) {
-            StringBuffer sb = new StringBuffer();
-            sb.append("Janrain Engage request: ").append(method).append("\n");
-            sb.append("url: ").append(url).append("\n");
-            sb.append("parameters: [\n");
-            for (Iterator<String> iterator = params.keySet().iterator(); iterator.hasNext();) {
-                String key = iterator.next();
-                String value = params.get(key);
-                sb.append("  ").append(key).append(": ").append(value).append("\n");
-            }
-            sb.append("]");
-            log.debug(sb.toString());
-        }
-        
-        String jsonResponse = null;
-        
-        try {
-            HttpResponse response = HttpClientFactory.getHttpClient(getConfig()).post(url, params);
-            jsonResponse = response.getContent();
-            JSONObject rsp = new JSONObject(jsonResponse);
-            
-            if (log.isDebugEnabled()) {
-                log.debug("Janrain Engage response:\n" + jsonResponse);
-            }
-            
-            String stat = rsp.getString("stat");
-            if (!stat.equals("ok")) {
-                if (stat.equals("fail")) {
-                    JSONObject err = rsp.getJSONObject("err");
-                    int code = err.getInt("code");
-                    String msg = err.getString("msg");
-                    throw new ErrorResponeException(code, msg, jsonResponse);
-                }
-                else {
-                    throw new EngageFailureException("Unexpected status in response: " + stat, jsonResponse);
-                }
-            }
-            
-            return jsonResponse;
-        }
-        catch (HttpFailureException e) {
-            throw new EngageFailureException("Unexpected HTTP error", jsonResponse, e);
-        }
-        catch (JSONException e) {
-            throw new EngageFailureException("Unexpected JSON error", jsonResponse, e);
-        }
+    @Override
+    protected String apiCall(String method, Map<String, String> partialParams) throws EngageFailureException, ErrorResponeException {
+        partialParams.put(API_KEY_PARAM, getConfig().getApiKey());
+        return super.apiCall(method, partialParams);
+    }
+
+    protected String getBaseUrl() {
+        return API_URL;
     }
 }

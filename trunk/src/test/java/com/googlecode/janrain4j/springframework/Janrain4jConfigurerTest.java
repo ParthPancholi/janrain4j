@@ -30,6 +30,7 @@ public class Janrain4jConfigurerTest {
     private Janrain4jConfigurer configurer = null;
     
     private String apiKey = "my-api-key";
+    private String partnerApiKey = "my-partner-api-key";
     private String applicationID = "my-application-id";
     private String applicationDomain = "my-application-domain";
     private String tokenUrl = "http://my-token-url.com";
@@ -52,6 +53,7 @@ public class Janrain4jConfigurerTest {
     @Test
     public void testJanrainConfigurer() throws Exception {
         configurer.setApiKey(apiKey);
+        configurer.setPartnerApiKey(partnerApiKey);
         configurer.setApplicationID(applicationID);
         configurer.setApplicationDomain(applicationDomain);
         configurer.setTokenUrl(tokenUrl);
@@ -68,6 +70,7 @@ public class Janrain4jConfigurerTest {
         
         Config config = ConfigHolder.getConfig();
         assertEquals(apiKey, config.getApiKey());
+        assertEquals(partnerApiKey, config.getPartnerApiKey());
         assertEquals(applicationID, config.getApplicationID());
         assertEquals(applicationDomain, config.getApplicationDomain());
         assertEquals(tokenUrl, config.getTokenUrl());
