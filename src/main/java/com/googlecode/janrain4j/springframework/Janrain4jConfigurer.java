@@ -30,14 +30,16 @@ import com.googlecode.janrain4j.conf.ConfigHolder;
  * <p>Usage examples (using property placeholder values):
  * <pre>
  * &lt;bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
+ *       p:partnerApiKey="${janrain.partnerApiKey.}"
  *       p:apiKey="${janrain.apiKey}" 
  *       p:applicationID="${janrain.applicationID}" 
  *       p:applicationDomain="${janrain.applicationDomain}" 
  *       p:tokenUrl="${janrain.tokenUrl}" /&gt;
  * 
  * &lt;bean class="com.googlecode.janrain4j.springframework.Janrain4jConfigurer"
- *       p:apiKey="${janrain.apiKey.}" 
- *       p:applicationID="${janrain.applicationID.}" 
+ *       p:partnerApiKey="${janrain.partnerApiKey.}"
+ *       p:apiKey="${janrain.apiKey.}"
+ *       p:applicationID="${janrain.applicationID.}"
  *       p:applicationDomain="${janrain.applicationDomain.}" 
  *       p:tokenUrl="${janrain.tokenUrl.}" 
  *       p:languagePreference="${janrain.languagePreference}" 
@@ -65,16 +67,25 @@ public class Janrain4jConfigurer implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         ConfigHolder.setConfig(config);
     }
-    
+
+    /**
+     * Sets the Janrain Partner API key.
+     *
+     * @param partnerApiKey Your Janrain Partner API key.
+     */
+    public void setPartnerApiKey(String partnerApiKey) {
+        config.partnerApiKey(partnerApiKey);
+    }
+
     /**
      * Sets the Janrain API key.
-     * 
+     *
      * @param apiKey Your Janrain API key.
      */
     public void setApiKey(String apiKey) {
         config.apiKey(apiKey);
     }
-    
+
     /**
      * Sets the Janrain application ID.
      * 

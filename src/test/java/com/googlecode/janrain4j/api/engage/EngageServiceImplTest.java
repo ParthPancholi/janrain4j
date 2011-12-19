@@ -42,9 +42,7 @@ import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.STATUS_PARAM
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.TOKEN_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNLINK_PARAM;
 import static com.googlecode.janrain4j.api.engage.EngageServiceImpl.UNMAP_METHOD;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -79,9 +77,7 @@ import com.googlecode.janrain4j.conf.Config;
 import com.googlecode.janrain4j.conf.ConfigHolder;
 import com.googlecode.janrain4j.http.HttpClient;
 import com.googlecode.janrain4j.http.HttpClientFactory;
-import com.googlecode.janrain4j.http.HttpFailureException;
 import com.googlecode.janrain4j.http.HttpResponse;
-import com.googlecode.janrain4j.json.JSONObject;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EngageServiceImpl.class, HttpClientFactory.class})
@@ -109,15 +105,10 @@ protected EngageServiceImpl service = null;
     private List<String> setStatusProviderNames = Arrays.asList("my-set-status-provider-name1", "my-set-status-provider-name2");
     private List<String> activityProviderNames = Arrays.asList("my-activity-provider-name1", "my-activity-provider-name2");
     
-    private String method = "some_method";
     private String url = null;
     
     private String successResponse = "{ \"stat\": \"ok\" }";
-    
-    private int errorCode = 99;
-    private String errorMessage = "Some error message";
-    private String errorResponse = "{ \"err\": { \"msg\": \"" + errorMessage + "\", \"code\": " + errorCode + " }, \"stat\": \"fail\" }";
-    
+
     @Before
     public void setUp() throws Exception {
         // mock config
@@ -763,99 +754,6 @@ protected EngageServiceImpl service = null;
         
         // call service
         service.setAuthProviders(providers);
-        
-        verify(httpClient).post(url, params);
-    }
-    
-    @Test
-    public void testApiCallWithSuccessResponse() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
-        
-        // api url
-        url = API_URL + method;
-        
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(successResponse);
-        
-        // call service
-        String jsonResponse = service.apiCall(method, params);
-        
-        JSONObject rsp = new JSONObject(jsonResponse);
-        assertNotNull(rsp);
-        assertEquals("ok", rsp.getString("stat"));
-        
-        verify(httpClient).post(url, params);
-    }
-    
-    @Test(expected = ErrorResponeException.class)
-    public void testApiCallWithErrorResponse() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
-        
-        // api url
-        url = API_URL + method;
-        
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn(errorResponse);
-        
-        // call service
-        service.apiCall(method, params);
-        
-        verify(httpClient).post(url, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testApiCallWithUnexpectedResponseStatus() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
-        
-        // api url
-        url = API_URL + method;
-        
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn("{ \"stat\": \"unexpected\" }");
-        
-        // call service
-        service.apiCall(method, params);
-        
-        verify(httpClient).post(url, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testApiCallWithInvalidJson() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
-        
-        // api url
-        url = API_URL + method;
-        
-        when(httpClient.post(url, params)).thenReturn(httpResponse);
-        when(httpResponse.getContent()).thenReturn("<xml></xml>");
-        
-        // call service
-        service.apiCall(method, params);
-        
-        verify(httpClient).post(url, params);
-    }
-    
-    @Test(expected = EngageFailureException.class)
-    public void testApiCallWithHttpFailure() throws Exception {
-        // expected params in api call
-        params.put(FORMAT_PARAM, JSON);
-        params.put(API_KEY_PARAM, apiKey);
-        
-        // api url
-        url = API_URL + method;
-        
-        when(httpClient.post(url, params)).thenThrow(new HttpFailureException("Some error"));
-        
-        // call service
-        service.apiCall(method, params);
         
         verify(httpClient).post(url, params);
     }
