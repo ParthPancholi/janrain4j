@@ -1,0 +1,1 @@
+Check out the [Grails plugin portal](http://www.grails.org/plugin/janrain) for more information about the Grails Janrain plugin.

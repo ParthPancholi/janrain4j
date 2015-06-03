@@ -1,0 +1,1 @@
+Have a look at the Spring Security Basic [sample](http://code.google.com/p/janrain4j/source/browse/#svn/trunk/samples/springsecurity-basic).
